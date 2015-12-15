@@ -87,7 +87,10 @@
  
  <section><title>Database Service</title>  
       
-      <dl>  
+      <dl>  <dlentry>
+        <dt>For HPE Helion Development Platform 2.0, the Marketplace Service has been deprecated.</dt>
+        <dd>The Vertica instance that was offered in the Marketplace has been replaced by the Vertica Technical Preview in the Database Service.</dd>
+      </dlentry>
         <dlentry>  
           <dt>No option to reset password on Vertica Preview instance on Horizon</dt>  
           <dd>Vertica clusters can be accessed via credentials obtained by enabling root, either Horizon or the Trove CLI. Single node   
@@ -216,6 +219,10 @@ $ openstack endpoint create database public 'http://<i>&lt;public-VIP-IP-address
               service</xref> must be set up on a node with a public network interface if you wish to
             enable port forwarding for user applications. The security group or firewall settings
             for this node should make the configured port range accessible publicly.</dd>
+        </dlentry>
+        <dlentry>
+          <dt>Lack of Service Brokers for new Trove services</dt>
+          <dd>Connect Trove database instances using User Defined Services.</dd>
         </dlentry>
       </dl>
       </section>
