@@ -33,10 +33,9 @@
 <section id="create"> <title>Creating a RabbitMQ Cluster</title>
   <p>The following guide will demonstrate how to deploy a multi-node RabbitMQ cluster using the Messaging Broker Service.</p>
 <ol>
-<li>Log into Horizon and open the <b>Messaging</b> panel under your project. Click on the
-            <b>RabbitMQ</b> tab.</li>
-<li>Click the <b>Create Cluster</b> button.<!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ1.png" placement="break"/>
-</li>
+<li>Log into Horizon and open the <b>Messaging</b> panel under your project. </li>
+        <li>Click the <b>RabbitMQ</b> tab.</li>
+
 <li>In the Create RabbitMQ dialog, specify the following information:<ul>
             <li>
               <b>Cluster Name</b> - A name for the cluster that will be created.</li>
@@ -59,10 +58,11 @@
               <b>SSL Credentials</b> - The certificate to use when interacting with RabbitMQ in the
               cluster.</li>
             <li>
-              <b>Password for user</b> - The password for the user that is currently logged in.</li>
+              <b>Password for user</b> - The password for the user that is currently logged in.</li><li>Click <b>Create</b>.<image href="../../../media/usingRMQ1.png" placement="break" scale="75"
+              /></li>
           </ul></li>
 <li>Click the <b>Launch</b> button.</li>
-<li>Open the <b>RabbitMQ</b> tab under the <b>Messaging (Beta)</b> panel and identify the
+<li>Open the <b>RabbitMQ</b> tab under the <b>Messaging</b> panel and identify the
             <b>RabbitMQ</b> cluster from the list that was created in the previous step. Wait for
           the cluster to go to the <b>Complete</b>
             state<!--A BR tag was used here in the original source.--><image
@@ -74,7 +74,7 @@
 <section id="delete"> <title>Deleting a RabbitMQ Cluster</title>
 <p>The following guide will demonstrate how to delete an existing RabbitMQ cluster.</p>
 <ol>
-<li>Log in to Horizon and open the <b>Messaging (Beta)</b> panel under your project. Click on the <b>RabbitMQ</b> tab.</li>
+<li>Log in to Horizon and open the <b>Messaging</b> panel under your project. Click on the <b>RabbitMQ</b> tab.</li>
 <li>Identify the <b>RabbitMQ</b> cluster to delete from the list.</li>
 <li>Click the <b>More</b> button and then the <b>Delete Cluster</b> button.</li>
 </ol>
@@ -82,12 +82,16 @@
 <section id="manage"> <title>Managing a RabbitMQ Cluster</title>
 <p>RabbitMQ clusters have a built-in dashboard for managing the cluster; this allows you to view the current state and health of the cluster. The following steps will demonstrate how to manage an existing cluster.</p>
 <ol>
-<li>Log in to Horizon and open the <b>Messaging (Beta)</b> panel under you project. Click on the <b>RabbitMQ</b> tab.</li>
+<li>Log in to Horizon and open the <b>Messaging</b> panel under you project. Click on the <b>RabbitMQ</b> tab.</li>
 <li>Identify the RabbitMQ cluster that you will manage from the clusters listed in the <b>Clusters</b> table.</li>
   <li>Click on <b>Manage Cluster</b> next to your cluster.<!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ3.png" placement="break"/>
 </li>
-  <li>A new browser window will open with the log-in screen for the RabbitMQ cluster. Enter the same username and password you used to log in to HPE Helion <tm tmtype="reg">OpenStack</tm> when creating the RabbitMQ cluster and select <b>Login</b>.<!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ4.png" placement="break"/>
-</li>
+  <li>A new browser window will open with the log-in screen for the RabbitMQ cluster. Enter the same
+          username and password you used to log in to HPE Helion <tm tmtype="reg">OpenStack</tm>
+          when creating the RabbitMQ cluster and select
+            <b>Login</b>.<!--A BR tag was used here in the original source.--><image
+            href="../../../media/usingRMQ4.png" placement="break" scale="75"/>
+        </li>
   <li>The management console for RabbitMQ will open. In the management console you can perform tasks such as monitor the queues and message rates, check resource usage on the instances, manage user accounts, and many others.  <!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ5.png" placement="break"/>
 </li>
 </ol>
