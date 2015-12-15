@@ -7,9 +7,9 @@
     <p>The ALS command-line interface client (<codeph>cf-mgmt.exe</codeph>) provides an option for
       executing commands that construct, manage, update, or delete ALS clusters. Use the command
       line when the Horizon management console is unavailable or when direct access is preferred.
-        <note>When creating clusters that support Keystone v3, you will need to <xref
-          href="cfmgmt_configure_keystonev3.dita#topic_j5v_bsb_rt">modify the configuration
-          file</xref> first.</note></p>
+        <note> The system where <codeph>cf-mgmt</codeph> is installed requires 1) access to the
+        OpenStack public endpoint and 2) access to port 80 on the tenant network where the target
+        ALS cluster is created.</note></p>
     <ul>
       <li>
         <xref type="section" href="#topic13234/global">Global Options</xref>
@@ -349,7 +349,10 @@
       <title>Create a Cluster</title>
       <p>This command creates a cluster. (<i>create-cluster</i>).</p>
       <codeblock>cf-mgmt [global options] <b>create-cluster</b> [command options] [arguments...] </codeblock>
-      <p>For help with this command within the command-line interface, enter</p>
+      <p><note>When creating clusters that support Keystone v3, you will need to <xref
+            href="cfmgmt_configure_keystonev3.dita#topic_j5v_bsb_rt">modify the configuration
+            file</xref> first.</note>For help with this command within the command-line interface,
+        enter</p>
       <codeblock>cf-mgmt help create-cluster</codeblock>
       <table>
         <tgroup cols="3">
