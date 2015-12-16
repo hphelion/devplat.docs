@@ -163,6 +163,7 @@
         locktitle="yes"/>
       <topicref href="2.0/windows/windows_custom_buildpacks.dita" navtitle="Custom Buildpacks"
         locktitle="yes" toc="no"/>
+      <topicref href="2.0/windows/windows_sql_troubleshooting.dita" toc="no"/>
     </topicref>
     <topicref href="2.0/devplatform.appdev.dita" locktitle="yes"
       navtitle="Resources for Application Developers " otherprops="resource">
@@ -301,6 +302,8 @@
       <topicref href="2.0/database/devplatform.database-create-loadbalancer.dita"/>
       <topicref href="2.0/database/devplatform.database-ALS.dita" locktitle="yes"
         navtitle="Connecting the Database Service with the Application Lifecycle Service"/>
+      <topicref href="2.0/database/devplatform.database-increase-quota.dita"
+        navtitle="Increasing Trove Internal Quotas" locktitle="yes"/>
       <topicref href="2.0/installation/install_dbaas_configureAvailabilityZones.dita" toc="no"/>
       <topicref href="2.0/installation/install_dbaas_checkQuotas.dita" toc="no"/>
     </topicref>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_t3w_fnh_ts">
-  <title>HPE Helion 2.0 Development Platform: Install the Messaging Service</title>
+  <title>HPE Helion 2.0 Development Platform: Install the Messaging Broker Service</title>
   <body>
     <p>This section provides details on installing the Messaging service for the Development
       Platform.</p>
@@ -10,8 +10,8 @@
       <p>
         <ul>
           <li>The HDP Installer 2.0, also known as HDPI, must already <xref href="devplatform_install_platform.dita#topic_gly_xmh_ts">be installed</xref>.</li>
-          <li>A properly configured <xref href="install_cloudsyaml.dita#topic_wzw_r4w_rt">clouds.yaml</xref> file.</li>
-          <li>HPE Helion OpenStack 2.0 installation must be completed. </li>
+          <li>Populate the <xref href="cloud/cloud_messaging.dita">Messaging section</xref> of the
+              <codeph>clouds.yaml </codeph>file.</li>
           <li>You must know the NTP server and DNS server IP addresses.</li>
         </ul>
       </p>
@@ -45,8 +45,8 @@ openstack --os-cloud mycloud hdpi messaging install <i>&lt;filename></i></codebl
 | als                        | wscatalog.2800 | 2.0.0.548 | available  |
 | database                   | wscatalog.2762 | 2.0.0.32  | available  |
 | database                   | wscatalog.2803 | 2.0.0.37  | available  |
-| messaging                  | wscatalog.2761 | 1.0.0     | available  |<b>
-| messaging                  | wscatalog.2796 | 1.0.0.165 | available  |</b>
+| messaging                  | wscatalog.2761 | 1.0.0     | available  |<ph outputclass="codehighlight">
+| messaging                  | wscatalog.2796 | 1.0.0.165 | available  |</ph>
 +----------------------------+----------------+-----------+------------+</pre></li>
                 <li>Find the<b> ID number</b> of the most recent version of the service (the highest
                   ID number for that service).</li>
@@ -142,7 +142,8 @@ stack@messaging-deployer:~/helion/my_cloud/definition/data$ nano network_groups.
                     <codeph>tls-components:</codeph> list.</li>
             <li>Un-comment the <codeph>tls-components:</codeph> list.</li>
             <li>provide the TLS certificate file name in
-                  the <codeph>cert-file</codeph>: field. This name will have to match the name of the cert-file placed in <codeph>~/helion/my_cloud/config/tls/certs/</codeph> (e.g. <b>msgaas-cert</b>).</li></ol></li>
+                  the <codeph>cert-file</codeph>: field. This name will have to match the name of the cert-file placed in <codeph>~/helion/my_cloud/config/tls/certs/</codeph> (e.g. <b>msgaas-cert</b>).
+              <note>The certificate file must contain both the certificate and the private key data.</note></li></ol></li>
           <li> Using Git, persist these changes. This information is required for the Pre-Install playbook,
               which is executed later in this installation
               process.<codeblock>stack@messaging-deployer:/helion/my_cloud/definition/data/pass-through$ cd ~/helion
@@ -161,7 +162,7 @@ stack@messaging-deployer:~/helion$ git commit -a -m "Configured Deployment Model
                 update the value of the <b>external_net_name</b> variable in
                   <codeph>~/helion/hos/ansible/roles/openstack-operations/defaults/main.yml</codeph>
                 to the correct
-                value.</note><codeblock>stack@messaging-deployer:~/helion$ source ~/user.src
+                value.</note><codeblock>stack@messaging-deployer:~/helion$ source ~/user.osrc
 stack@messaging-deployer:~/helion$ cd hos/ansible/
 stack@messaging-deployer:~/helion/hos/ansible$ ansible-playbook -i hosts/localhost hlm-pre-install.yml </codeblock><p>The
                 output should look similar to the
@@ -178,7 +179,7 @@ openstack-operations | preinstall | Create Virtual IPs necessary for load-balanc
 openstack-operations | preinstall | Set Nova Quotas --------------------- 1.77s
 -------------------------------------------------------------------------------
 Total: ----------------------------------------------------------------- 27.45s
-localhost                  : ok=20   changed=14  <b> unreachable=0 </b>  <b> failed=0 </b></codeblock></li>
+localhost                  : ok=20   changed=14   <ph outputclass="codehighlight">unreachable=0    failed=0</ph> </codeblock></li>
             <li>Configure the Input Model for TLS Support in Cue API (Optional).<note>If using
                 name-based TLS, skip this step, otherwise the deployment model <xref href="#topic_t3w_fnh_ts/TLS">customization</xref> performed previously must have included the TLS
                 configuration step.</note><ol>
@@ -193,7 +194,8 @@ stack@messaging-deployer:~/helion/hos/ansible$ git commit -a -m "Configured Depl
             <li>Run the Config Processor Playbook
                   <codeblock>stack@messaging-deployer:~/helion/hos/ansible$ ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock><p><note>If
                   you have performed a full installation previously, you <b>must</b> remove the Cue
-                  user and service from Keystone <b>before</b> running this playbook again. <ul id="ul_rsf_tfs_wt">
+                  user and service from Keystone <b>before</b> running this playbook again. <ul
+                    id="ul_rsf_tfs_wt">
                     <li> SSH into the HPE Helion OpenStack lifecycle manager (deployer node), source
                       the keystone.osrc file, and then execute these
                       commands:<codeblock>openstack service delete cue
@@ -212,7 +214,7 @@ config-processor | configure | Copy ansible hosts file for cloud deployment (ver
 config-processor | add-localhost | Add localhost group ------------------ 0.17s
 -------------------------------------------------------------------------------
 Total: ------------------------------------------------------------------ 7.99s
-localhost                  : ok=21   changed=14   <b>unreachable=0  </b>  <b>failed=0  </b>      </codeblock></li>
+localhost                  : ok=21   changed=14   <ph outputclass="codehighlight">unreachable=0    failed=0 </ph>       </codeblock></li>
             <li>Run the Ready Deployment
                 Playbook<codeblock>stack@messaging-deployer:~/helion/hos/ansible$ ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock><p>Successful
                 output should look similar to the following. <note>Ignore the TASK/msg message at
@@ -231,7 +233,7 @@ config-processor | configure | Copy ansible hosts file for cloud deployment (ver
 config-processor | configure | Copy hosts.hf for osconfig playbooks ----- 0.22s
 -------------------------------------------------------------------------------
 Total: ------------------------------------------------------------------ 5.96s
-localhost                  : ok=20   changed=11   <b>unreachable=0 </b>   <b>failed=0   </b>
+localhost                  : ok=20   changed=11   <ph outputclass="codehighlight">unreachable=0    failed=0</ph>
 
 TASK: [git-operations | ready-deployment-tree-help | Tell the user what to expect] ***
 ok: [localhost] => {
@@ -258,7 +260,7 @@ openstack-operations | create_port | Create instance ports ------------- 13.97s
 openstack-operations | create_security_groups | Create other security groups rules (e.g. 112 protcol) --- 9.33s
 -------------------------------------------------------------------------------
 Total: ---------------------------------------------------------------- 471.97s
-localhost                  : ok=35   changed=19   <b>unreachable=0</b>    <b>failed=0</b></codeblock></li>
+localhost                  : ok=35   changed=19   <ph outputclass="codehighlight">unreachable=0    failed=0</ph></codeblock></li>
             <li>Run the Site Playbook <note type="caution">Unlike all the previous ansible plays,
                 the inventory file supplied to this play is <codeph>hosts/verb_hosts</codeph> and
                 not <codeph>hosts/localhost</codeph></note><note>This step takes approximately 10 to
@@ -279,11 +281,48 @@ logging-producer | configure | Include default log files for centralized logging
 Install keepalived package ---------------------------------------------- 9.21s
 -------------------------------------------------------------------------------
 Total: ---------------------------------------------------------------- 611.95s
-msgaas-msgaas-ccp-c1-m1-mgmt : ok=377  changed=190  unreachable=0    failed=0   
-msgaas-msgaas-ccp-c1-m2-mgmt : ok=381  changed=194  unreachable=0    failed=0   
-msgaas-msgaas-ccp-c1-m3-mgmt : ok=382  changed=196  unreachable=0    failed=0   
-localhost                  : ok=34   changed=15   unreachable=0    failed=0   </codeblock></li>
+msgaas-msgaas-ccp-c1-m1-mgmt : ok=377  changed=190  <ph outputclass="codehighlight">unreachable=0    failed=0 </ph>  
+msgaas-msgaas-ccp-c1-m2-mgmt : ok=381  changed=194  <ph outputclass="codehighlight">unreachable=0    failed=0</ph>   
+msgaas-msgaas-ccp-c1-m3-mgmt : ok=382  changed=196  <ph outputclass="codehighlight">unreachable=0    failed=0</ph>   
+localhost                  : ok=34   changed=15   <ph outputclass="codehighlight">unreachable=0    failed=0</ph>   </codeblock></li>
           </ol></li></ol></section>
+    <section>
+      <title>Finding the IP address for nodes in a name-based installation</title>
+      <p>If you used name-based TLS in step 5.f.1, you can find the IP address of the service
+        endpoint by doing one of the following:</p>
+      <ol>
+        <li>Connect to the application lifecycle (deployer) node</li>
+        <li>Execute the following command to get the service endpoint address from the Hosts file:
+          <codeblock>cat /etc/hosts</codeblock>
+          This will produce output similar to the following:
+          <codeblock>
+    # Cloud: entry-scale-kvm-ceph
+            
+    # Localhost Information
+    127.0.0.1      localhost
+            
+    #
+    # Network Group: EXTERNAL-API
+    #
+    # Network: EXTERNAL-API-NET
+    <codeph outputclass="codehighlight">10.241.151.2     helion-cp1-c1-m1-extapi</codeph>
+    10.241.151.3     helion-cp1-c1-m2-extapi
+    10.241.151.4     helion-cp1-c1-m3-extapi
+          </codeblock></li>
+        <li>Execute the following command to get the service endpoint address from Neutron:
+        <codeblock>source service.osrc
+neutron floatingip-list</codeblock>
+          This will produce output similar to the following:
+          <codeblock>+--------------------------------------+------------------+---------------------+---------+
+| id                                   | fixed_ip_address | floating_ip_address | port_id |
++--------------------------------------+------------------+---------------------+---------+
+| 6c7dc113-e6ce-4b31-bc20-c71eae8f21f4 |                  | <codeph outputclass="codehighlight">10.241.150.3</codeph>        |         |
+| 70babfb9-ff57-4cfb-ac19-e263105e41ce |                  | 10.241.150.5        |         |
+| 88ac0e65-e96b-4e53-9e16-8cbbba31efbe |                  | 10.241.150.4        |         |
++--------------------------------------+------------------+---------------------+---------+
+          </codeblock></li>
+      </ol>
+    </section>
     <section><title>Verifying the Installation</title><ol>
         <li>Set endpoint type to internal (Cannot access public endpoint from messaging deployer)
           API.<codeblock>export OS_ENDPOINT_TYPE=internalURL

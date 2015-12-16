@@ -8,9 +8,8 @@
       <ul id="ul_p2s_flz_wt">
         <li>The HDP Installer 2.0, also known as HDPI, must already <xref
             href="devplatform_install_platform.dita#topic_gly_xmh_ts">be installed</xref>.</li>
-        <li>A properly configured <xref href="install_cloudsyaml.dita#topic_wzw_r4w_rt"
-            >clouds.yaml</xref> file. Note that there is no specific sub-section in the clouds.yaml
-          file for the Application Lifecycle Service.</li>
+        <li>There is no additional section in the <codeph>clouds.yaml</codeph> file for the
+                    Application Lifecycle Service.</li>
       </ul>
     </section>
       <section>
@@ -71,8 +70,14 @@ Staging Application Lifecycle Service in Glance/Swift
 Application Lifecycle Service is staged 
 UI installed for application lifecycle service 
 Create service endpoint for service application lifecycle service 
-Completed installing application </codeblock>
-                                </li></ol></li></ol></li></ol></section>
+Completed installing application </codeblock></li></ol></li></ol></li></ol></section><section><title>Next Steps</title><p>If you have completed installation, here are the next steps in working with the Application Lifecycle Service:</p>
+                                    <ul>
+                                        <li><xref href="../devplatform.deploy-ALS.dita">Create a cluster using Horizon.</xref></li>
+                                        <li><xref href="../helion/CLI/cf_mgmt_createcluster.dita">Create a cluster from the command line.</xref></li>
+                                        <li><xref href="../helion/admin/console/console_intro.dita">Log in to the ALS Management console.</xref></li>
+                                        <li><xref href="../helion/user/deploy/deploy_index.dita">Deploy an application.</xref></li>
+                                    </ul>
+                                </section>
         
   </body>
 </topic>
