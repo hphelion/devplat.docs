@@ -6,9 +6,17 @@
   <body>
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the VMs that run
       the control plane will also stop the services that make up the HPE Helion Development
-      Platform. Follow these procedures to bring each service back online.</p>
+      Platform. Additional procedures, if any, required to bring each service back online are
+      provided here.</p>
     <section>
       <title>Application Lifecycle Service</title>
+     <p>After rebooting the compute nodes, if any ALS clusters do not restart, perform the following
+        steps.</p>
+  <ol><li> Start core node.</li>
+        <li> Start secondary controller nodes.</li>
+        <li> Start secondary routers.</li>
+        <li> Start service broker nodes.</li>
+        <li> Start DEAs.</li></ol>
     </section>
     <section>
       <title>Database Service</title>
