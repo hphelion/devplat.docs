@@ -278,6 +278,18 @@
         <topicref href="2.0/workbook/messaging/messaging.php.dita" locktitle="yes"
           navtitle="PHP RabbitMQ Messaging Sample"/>
       </topicref>
+      <topicref href="2.0/helion/user/helion_user_index.dita" locktitle="yes"
+        navtitle="ALS User Guide" otherprops="als-user-guide">
+        <topicref href="2.0/helion/user/quick-start/quickstart_index.dita"
+          navtitle="ALS Quick Start" locktitle="yes"/>
+        <topicref href="2.0/helion/user/reference/api.dita" locktitle="yes"
+          navtitle="Application Lifecycle Service API"/>
+        <topicref href="2.0/helion/user/reference/glossary.dita" locktitle="yes" navtitle="Glossary"/>
+        <topicref href="2.0/helion/user/reference/reference_troubleshoot.dita" locktitle="yes"
+          navtitle="Troubleshooting "/>
+        <topicref href="2.0/helion/user/deploy/app-logs.dita" locktitle="yes"
+          navtitle="Application Logs "/>
+      </topicref>
     </topicref>
     <topicref href="2.0/database/database_service_reference.dita" otherprops="db-ref">
       <topicref href="2.0/database/devplatform.database-instance.dita" locktitle="yes"
@@ -379,19 +391,6 @@
             <topicref href="2.0/helion/admin/reference/reference_troubleshoot.dita" locktitle="yes"
               navtitle="Troubleshooting"/>
           </topicref>
-        </topicref>
-        <topicref href="2.0/helion/user/helion_user_index.dita" locktitle="yes"
-          navtitle="ALS User Guide" otherprops="als-user-guide">
-          <topicref href="2.0/helion/user/quick-start/quickstart_index.dita"
-            navtitle="ALS Quick Start" locktitle="yes"/>
-          <topicref href="2.0/helion/user/reference/api.dita" locktitle="yes"
-            navtitle="Application Lifecycle Service API"/>
-          <topicref href="2.0/helion/user/reference/glossary.dita" locktitle="yes"
-            navtitle="Glossary"/>
-          <topicref href="2.0/helion/user/reference/reference_troubleshoot.dita" locktitle="yes"
-            navtitle="Troubleshooting "/>
-          <topicref href="2.0/helion/user/deploy/app-logs.dita" locktitle="yes"
-            navtitle="Application Logs "/>
         </topicref>
       </topicref>
       <topicref href="2.0/other_services.dita" otherprops="other">
