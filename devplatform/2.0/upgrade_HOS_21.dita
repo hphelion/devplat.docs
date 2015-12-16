@@ -7,23 +7,73 @@
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the VMs that run
       the control plane will also stop the services that make up the HPE Helion Development
       Platform. Follow these procedures to bring each service back online.</p>
-    
-    <section><title>Application Lifecycle Service</title></section>
-    <section><title>Database Service</title></section>
-    <section><title>DNS Service</title><ol><li>SSH into the HPE Helion OpenStack lifecycle manager. <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
-     <li>Navigate to the <codeph>anisble</codeph> directory.
+    <section>
+      <title>Application Lifecycle Service</title>
+    </section>
+    <section>
+      <title>Database Service</title>
+    </section>
+    <section>
+      <title>DNS Service</title>
+      <ol>
+        <li>SSH into the HPE Helion OpenStack lifecycle manager.
+          <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
+        <li>Navigate to the <codeph>anisble</codeph> directory.
           <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-      <li>Run the following playbooks in this order.
+        <li>Run the following playbooks in this order.
           <codeblock>ansible-playbook -i hosts/verb_hosts designate-stop.yml
 ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
 ansible-playbook -i hosts/verb_hosts rabbitmq-start.yml
 ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
-ansible-playbook -i hosts/verb_hosts designate-start.yml</codeblock></li></ol></section>
+ansible-playbook -i hosts/verb_hosts designate-start.yml</codeblock></li>
+      </ol>
+    </section>
     <p>The first <codeph>designate-stop</codeph> playbook stops a designate component which
       automatically restarts before the databases become available again. Once the other playbooks
       have been run, that component is safely restarted. </p>
-    <section><title>Database Service</title></section>
-    <section><title>Messaging Service</title></section>
-    <section><title>HPE Helion Code Engine</title></section>
+    <section>
+      <title>Messaging Service</title>
+    </section>
+    <p> Bring up the messaging control plane.</p>
+    <ol>
+      <li>SSH into the HPE Helion OpenStack lifecycle manager.
+        <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
+      <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
+        This was <xref href="installation/devplatform_install_messaging.dita">created during
+          installation</xref> of the Messaging
+        service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
+      <li>Navigate to the <codeph>anisble</codeph> directory.
+        <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
+      <li>Run the following playbooks in this order.
+        <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
+ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
+ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
+    </ol>
+    <p>Bring up tenant RabbitMQ Clusters.</p>
+    <section>
+      <note>If you did not previously deploy any RabbitMQ clusters, this step does not apply to your
+        environment.</note>
+      <ol>
+        <li>SSH into the HPE Helion OpenStack lifecycle manager.
+          <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
+        <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
+          This was <xref href="installation/devplatform_install_messaging.dita">created during
+            installation</xref> of the Messaging
+          service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
+        <li>Navigate to the <codeph>anisble</codeph> directory.
+          <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
+        <li>Run the script.<ol id="ol_npz_5zs_35">
+            <li>Copy <xref href="installation/cue_rabbit_fix_script.dita">this codeblock</xref> into
+              a plaintext file and save it as <codeph>cue-rabbit-fix.sh</codeph></li>
+            <li>Copy the script file into this directory on the messaging
+              deployer.<codeblock> /home/stack/scratch/ansible/next/hos/ansible</codeblock></li>
+            <li>Make the script executable.  <codeblock>chmod +x cue-rabbit-fix.sh</codeblock></li>
+            <li>Execute the script to bring all your RabbitMQ clusters
+              online.<codeblock>./cue-rabbit-fix.sh</codeblock></li>
+          </ol></li></ol>
+    </section>
+    <section>
+      <title>HPE Helion Code Engine</title>
+    </section>
   </body>
 </topic>
