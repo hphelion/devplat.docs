@@ -21,21 +21,7 @@
     <section>
       <title>Database Service</title>
     </section>
-    <section>
-      <title>DNS Service</title>
-      <ol>
-        <li>SSH into the HPE Helion OpenStack lifecycle manager.
-          <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
-        <li>Navigate to the <codeph>anisble</codeph> directory.
-          <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-        <li>Run the following playbooks in this order.
-          <codeblock>ansible-playbook -i hosts/verb_hosts designate-stop.yml
-ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
-ansible-playbook -i hosts/verb_hosts rabbitmq-start.yml
-ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
-ansible-playbook -i hosts/verb_hosts designate-start.yml</codeblock></li>
-      </ol>
-    </section>
+    
     <p>The first <codeph>designate-stop</codeph> playbook stops a designate component which
       automatically restarts before the databases become available again. Once the other playbooks
       have been run, that component is safely restarted. </p>
