@@ -175,7 +175,7 @@ GetResponse responseMsg = channel.basicGet("hello", autoAck);
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
 &lt;/project&gt;</codeblock>
-<p>The <i>manifest.yml</i> file is the configuration information used by ALS to set up the environment. The <b>services</b> element informs ALS on how to bind the messaging service to the application.</p>
+<p>The <i>manifest.yml</i> file is the configuration information used by ALS to set up the environment. The <b>services</b> element informs ALS on how to bind the Messaging Broker Service to the application.</p>
 <codeblock>---
 applications: 
 - name: rabbitmq-java

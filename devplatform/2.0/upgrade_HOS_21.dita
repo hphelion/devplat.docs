@@ -26,7 +26,7 @@
       automatically restarts before the databases become available again. Once the other playbooks
       have been run, that component is safely restarted. </p>
     <section>
-      <title>Messaging Service</title>
+      <title>Messaging Broker Service</title>
     </section>
     <p> Bring up the messaging control plane.</p>
     <ol>

@@ -31,8 +31,8 @@
           support for clustered MySQL, MongoDB, and Redis. </li>
         <li>The Database Service also includes a technical preview of Vertica in our Database as a
           Service offering.</li>
-        <li>The Messaging Service supports RabbitMQ cluster provisioning.</li>
-        <li>Monitoring alerts available through Monasca for the Messaging Service and the Database
+        <li>The Messaging Broker Service supports RabbitMQ cluster provisioning.</li>
+        <li>Monitoring alerts available through Monasca for the Messaging Broker Service and the Database
           Service.</li>
         <li>Improved documentation with targeted search and new user feedback link.</li>
       </ul>
@@ -190,7 +190,7 @@ $ openstack endpoint create database public 'http://<i>&lt;public-VIP-IP-address
         <dlentry>
           <dt>Alarms appear in "No Service Defined" Panel</dt>
           <dd>If the Message Broker sends alarms for MySQL or Zookeeper, they appear in the "No
-            Service Defined" panel, not the Messaging as a Service panel. This is a known
+            Service Defined" panel, not the Messaging Broker Service panel. This is a known
             issue.</dd>
         </dlentry>
         <dlentry>

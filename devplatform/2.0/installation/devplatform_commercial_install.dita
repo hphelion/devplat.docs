@@ -21,7 +21,7 @@
   <li>
     <xref href="#id_xn3_1xw_ft" format="dita">Install the Database Service</xref> </li>
         <li>
-          <xref href="#id_hm5_bxw_ft" format="dita">Install the Messaging Service</xref>
+          <xref href="#id_hm5_bxw_ft" format="dita">Install the Messaging Broker Service</xref>
         </li>
   <li><xref href="#engine" format="dita">Install the Helion Code Engine</xref></li>
 
