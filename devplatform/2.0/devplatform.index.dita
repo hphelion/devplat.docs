@@ -51,10 +51,10 @@
         wizard-based UI directly from Horizon.</p>
       <ul id="ul_srf_bbs_wt">
         <li>The Messaging Broker Service integrates with Keystone to remove the need to create and manage separate credentials. </li>
-        <li>The Messaging Service allows developers to focus on building their apps without worrying
+        <li>TheMessaging Broker Service allows developers to focus on building their apps without worrying
           about installing, configuring, or troubleshooting.</li>
       </ul>
-      <p>The Messaging Service is optionally installed as part of the Helion Development Platform.
+      <p>TheMessaging Broker Service is optionally installed as part of the Helion Development Platform.
         If not installed as part of the platform, you can <xref
           href="installation/devplatform_install_messaging.dita">install</xref> it and then <xref
           href="messaging/devplatform.using-the-messaging-service.dita">configure</xref> it for

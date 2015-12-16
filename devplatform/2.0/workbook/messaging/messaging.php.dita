@@ -23,7 +23,7 @@
 </li>
 <li>Access to the <xref href="../../helion/CLI/ALS_Client_Downloads.dita" >Helion command-line client (CLI)</xref>.</li>
 <li>Access to the web-based <xref href="../../helion/user/console/console_index.dita" >ALS Management Console</xref>.</li>
-<li>The Messaging service is not enabled by default. Check and <xref href="../../installation/devplatform_install_messaging.dita">make sure it is enabled</xref>.</li>
+<li>TheMessaging Broker Service is not enabled by default. Check and <xref href="../../installation/devplatform_install_messaging.dita">make sure it is enabled</xref>.</li>
 <li>Register for access to the <xref href="https://helion.hpwsportal.com/catalog.html#/Home/Show" type="section" scope="external" format="html" >HPE Helion Development Platform</xref> (HDN).</li>
 </ul>
 <!--## One-Button Deployment to HPE Helion
@@ -47,7 +47,7 @@ instructions further down. But before you push the button, ensure that you have 
 <li>Click <b>Save</b>.</li>
 </ol>
 <p>
-  <b>NOTE:</b> If an application needs increased message throughput and/or increased availability beyond the single-instance, unmanaged RabbitMQ service provided by ALS, please follow these instructions to <xref href="../../messaging/devplatform.using-the-messaging-service.dita" >create and manage a RabbitMQ cluster</xref> in the Messaging Service, and link that instance to your <xref href="../../messaging/devplatform.using-messaging-service-with-ALS.dita" >ALS cluster</xref>.</p>
+  <b>NOTE:</b> If an application needs increased message throughput and/or increased availability beyond the single-instance, unmanaged RabbitMQ service provided by ALS, please follow these instructions to <xref href="../../messaging/devplatform.using-the-messaging-service.dita" >create and manage a RabbitMQ cluster</xref> in theMessaging Broker Service, and link that instance to your <xref href="../../messaging/devplatform.using-messaging-service-with-ALS.dita" >ALS cluster</xref>.</p>
 </section>
 <section id="download-the-application-files"> <title>Download the Application Files</title>
 <p>

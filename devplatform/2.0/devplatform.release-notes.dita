@@ -41,11 +41,11 @@
       <p>MSGaaS now based on OpenStack Cue, and has the following enhancements: <ul
           id="ul_vtk_yzc_b5">
           <li>Managed message-brokers, specifically RabbitMQ.</li>
-          <li>The Messaging Service is exposed to the user via the Trove Python CLI, REST APIs, and
+          <li>TheMessaging Broker Service is exposed to the user via the Trove Python CLI, REST APIs, and
             the Horizon web interface.</li>
           <li>Active monitoring of RabbitMQ Clusters: the health of Cue managed clusters reported
             via the Cue API.</li>
-          <li>The Messaging Service Installation now leverages Helion Lifecycle Manager.</li>
+          <li>TheMessaging Broker Service Installation now leverages Helion Lifecycle Manager.</li>
           <li>Monasca Integration to alarm based on health of Cue Control Plane nodes</li>
           <li>Ops Console visibility into health of Cue Control Plane nodes</li>
         </ul></p>
@@ -165,7 +165,7 @@ $ openstack endpoint create database public 'http://<i>&lt;public-VIP-IP-address
         <dlentry>
           <dt>Alarms appear in "No Service Defined" Panel</dt>
           <dd>If the Message Broker sends alarms for MySQL or Zookeeper, they appear in the "No
-            Service Defined" panel, not the Messaging as a Service panel. This is a known
+            Service Defined" panel, not the Messaging Broker Service panel. This is a known
             issue.</dd>
         </dlentry>
         <dlentry>

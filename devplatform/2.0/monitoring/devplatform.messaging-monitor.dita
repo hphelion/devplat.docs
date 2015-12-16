@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_messaging_manage_horizon">
-  <title>Monitoring the messaging service from the Operations Console</title>
+  <title>Monitoring theMessaging Broker Service from the Operations Console</title>
   <body>
     <p>This topic describes monitoring information available through the Operations Console. </p>
     <p>The monitoring console can generate the following alarms:
@@ -54,7 +54,7 @@
         </tgroup>
       </table></p>
     <note> When looking at the Ops Console, alarms for MySQL and Zookeeper appear in the <b>No
-        Service Defined </b>panel, not the<b> Messaging as a Service</b> panel. This is a known
+        Service Defined </b>panel, not the<b> Messaging Broker Service</b> panel. This is a known
       issue.</note>
   </body>
 </topic>

@@ -25,7 +25,7 @@
 <li>Click <b>Save</b>.</li>
 </ol>
 <p>
-<b>Note</b>: If an application needs increased message throughput and/or increased availability beyond the single-instance, unmanaged RabbitMQ service provided by ALS, please follow <xref href="../../messaging/devplatform.using-the-messaging-service.dita" >these instructions</xref> to create and manage a RabbitMQ cluster in the Messaging Service and link that instance to your ALS cluster.</p>
+<b>Note</b>: If an application needs increased message throughput and/or increased availability beyond the single-instance, unmanaged RabbitMQ service provided by ALS, please follow <xref href="../../messaging/devplatform.using-the-messaging-service.dita" >these instructions</xref> to create and manage a RabbitMQ cluster in theMessaging Broker Service and link that instance to your ALS cluster.</p>
 </section>
 <section id="download-the-application-files"> <title>Download the Application Files</title>
 <p>

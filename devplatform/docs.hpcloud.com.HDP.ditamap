@@ -3,6 +3,7 @@
  
 <map xml:lang="en" linking="none" locktitle="no">
 <title>HPE Helion Development Platform</title>
+
   <topicref href="2.0/devplatform.index.dita" navtitle="HPE Helion Development Platform 2.0" locktitle="yes" otherprops="">
 
     <topicref href="2.0/devplatform.release-notes.dita" locktitle="yes" navtitle="Release Notes"/>
@@ -406,6 +407,7 @@
           navtitle="User-Provided Services"/>
       </topicref>
     </topicref>
+
   </topicref>
  </map>
 

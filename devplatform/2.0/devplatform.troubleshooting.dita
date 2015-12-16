@@ -51,7 +51,7 @@
     <dt>When trying to communicate with Cue (API), <codeph>ERROR: openstack Unauthorized (HTTP 401)</codeph> is received.</dt>
     <dd>It is most likely that the Cue Keystone user has a different
       password than what was configured in cue.conf. This is usually caused by not deleting
-      the Cue user and service from Keystone prior to re-deploying the Messaging Service.
+      the Cue user and service from Keystone prior to re-deploying theMessaging Broker Service.
       Synchronize the values by doing the following:<ol id="ol_t5m_2hs_wt">
         <li> SSH into one of the Cue controller nodes.</li>
         <li>Find the <codeph>/etc/cue/cue.conf</codeph> file</li>

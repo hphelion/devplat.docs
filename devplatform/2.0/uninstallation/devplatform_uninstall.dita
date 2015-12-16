@@ -20,14 +20,14 @@
 </prolog>
 <body>
 <!--DOCS1299 and HPES197-->
-<p>HPE Helion Development Platform contains the Application Lifecycle Service, Database, Marketplace, and Messaging services.</p>
+<p>HPE Helion Development Platform contains the Application Lifecycle Service, Database, Marketplace, andMessaging Broker Services.</p>
 <p>Each of these services can be uninstalled using the appropriate process.</p>
   <note type="restriction">These services cannot be uninstalled from the Horizon console.</note>
 <ul>
   <li><xref href="#id_ixh_hrx_ft" format="dita">Uninstall the HPE Helion Development Platform</xref></li>
   <li><xref href="#id_pjb_4zw_ft" format="dita">Uninstall the Application Lifecycle Service</xref></li>
   <li><xref href="#id_aqx_4zw_ft" format="dita">Uninstall the Database Service</xref></li>
-  <li><xref href="#id_szv_vzw_ft" format="dita">Uninstall the Messaging Service</xref></li>
+  <li><xref href="#id_szv_vzw_ft" format="dita">Uninstall theMessaging Broker Service</xref></li>
   <li><xref href="#id_vyh_wzw_ft" format="dita">Uninstall the Marketplace Service</xref></li>
   <li><xref href="#id_nkw_wzw_ft" format="dita">Uninstall the Vertica Application</xref></li>
 </ul>
@@ -45,7 +45,7 @@
     <title>Uninstall the Database Service</title>
   </topic>
   <topic id="id_szv_vzw_ft" conref="devplatform_uninstall_messaging.dita#concept_iqy_2gj_rs">
-    <title>Uninstall the Messaging Service</title>
+    <title>Uninstall theMessaging Broker Service</title>
   </topic>
   <topic id="id_vyh_wzw_ft" conref="devplatform_uninstall_marketplace.dita#concept_yqc_xfj_rs">
     <title>Uninstall the Marketplace Service</title>

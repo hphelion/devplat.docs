@@ -6,10 +6,6 @@
             <serialized version="16.1" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
-                        <String>keys.context</String>
-                        <String>${pdu}/docs.hpcloud.com.HOS.ditamap</String>
-                    </entry>
-                    <entry>
                         <String>validation.scenarios</String>
                         <validationScenario-array/>
                     </entry>
@@ -18,18 +14,8 @@
         </options>
     </meta>
     <projectTree name="Master-Project.xpr">
-        <folder path="automation/"/>
-        <folder path="CarrierGrade/"/>
-        <folder path="CloudGraphics/"/>
-        <folder path="commercial/"/>
-        <folder path="community/"/>
         <folder path="devplatform/"/>
-        <folder path="euca/"/>
-        <folder path="file/"/>
         <folder path="media/"/>
-        <folder path="pdf_sources/"/>
-        <folder path="publiccloud/"/>
-        <folder path="unusedgraphics/"/>
-        <folder path="cloudsystem/"/>
-    </projectTree>
+    <folder path="publiccloud/"/>
+  </projectTree>
 </project>
