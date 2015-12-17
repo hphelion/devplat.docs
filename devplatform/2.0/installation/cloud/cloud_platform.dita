@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="cloudPlatform">
-  <title>Platform Configuration</title>
+  <title>HPE Helion 2.0 Development Platform: Platform Configuration</title>
   <body><section>A complete <codeph>clouds.yaml </codeph>file is <xref href="fullFile.dita"
         >available here</xref> for reference.</section>
-    <section>
-      <p>Populating this section of the <codeph>clouds.yaml </codeph>file is required for the HDPI
-        and the Application Lifecycle Service. Installing the other services requires additional
-        sections as documented in the installation procedure for that service. All fields are
-        required unless otherwise indicated.<note type="important">This section begins at the left
-          margin. All other sections begin indented two spaces; look at the <xref
-            href="fullFile.dita">complete file</xref> to see how all the sections fit
-          together.</note></p>
-      
-      <codeblock id="cloudplatform">clouds:
+    <section>In your environment, the clouds.yaml file should be located at
+        <codeph>~/.config/openstack/clouds.yaml</codeph>. If this file does not exist yet, <xref
+        href="../install_cloudsyaml.dita">create it</xref>.<p>Populating this section of the
+          <codeph>clouds.yaml </codeph>file is required for the HDPI and the Application Lifecycle
+        Service. Installing the other services requires additional sections as documented in the
+        installation procedure for that service. All fields are required unless otherwise
+        indicated.</p><p>
+        <note type="important">This section begins at the left margin. All other sections begin
+          indented two spaces; look at the <xref href="fullFile.dita">complete file</xref> to see
+          how all the sections fit together.</note>
+      </p><codeblock id="cloudplatform">clouds:
   mycloud:
     codn_username: 
     codn_password: 
@@ -23,16 +24,25 @@
       auth_url: https://##.##.###.#:#####/v3 (or v2, depending on the version of Keystone authentication in use)
       project_name: &lt;admin project name&gt;
       username: &lt;admin user name&gt;
-      password: &lt;admin password&gt;</codeblock>
-      
-      <dl>
+      password: &lt;admin password&gt;</codeblock><dl>
         <dlentry>
-          <dt>codn_username</dt> <dd>The username for the HDN (Helion Download Network)
-          account. (The name of the download network used to be CODN.)</dd></dlentry>
-        <dlentry><dt>codn_password</dt><dd> The password for the HDN (Helion Download Network)
-          account. (The name of the download network used to be CODN.)</dd></dlentry>
-        <dlentry><dt>region_name</dt><dd>Default value is <codeph>region1 </codeph></dd></dlentry>
-        <dlentry><dt>cacert</dt><dd>The location where the SSL certificates can be accessed.</dd></dlentry>
+          <dt>codn_username</dt>
+          <dd>The username for the HDN (Helion Download Network) account. (The name of the download
+            network used to be CODN.)</dd>
+        </dlentry>
+        <dlentry>
+          <dt>codn_password</dt>
+          <dd> The password for the HDN (Helion Download Network) account. (The name of the download
+            network used to be CODN.)</dd>
+        </dlentry>
+        <dlentry>
+          <dt>region_name</dt>
+          <dd>Default value is <codeph>region1 </codeph></dd>
+        </dlentry>
+        <dlentry>
+          <dt>cacert</dt>
+          <dd>The location where the SSL certificates can be accessed.</dd>
+        </dlentry>
         <dlentry>
           <dt>auth_url</dt>
           <dd>
@@ -51,7 +61,7 @@
           <dt>project_name</dt>
           <dd>
             <p>This is the value of the <codeph>OS_PROJECT_NAME</codeph> variable from
-              <codeph>~/service.osrc</codeph></p>
+                <codeph>~/service.osrc</codeph></p>
             <p>Example:<pre>user@host:~$ grep OS_PROJECT_NAME ~/service.osrc</pre><pre>export OS_PROJECT_NAME=admin</pre></p>
           </dd>
         </dlentry>
@@ -76,7 +86,7 @@
                 <codeph>~/service.osrc</codeph></p>
             <p>Example:<pre>user@host:~$ grep OS_PASSWORD ~/service.osrc</pre><pre>export OS_PASSWORD=verystrongpassword</pre></p>
           </dd>
-        </dlentry></dl>
-    </section>
+        </dlentry>
+      </dl></section>
   </body>
 </topic>

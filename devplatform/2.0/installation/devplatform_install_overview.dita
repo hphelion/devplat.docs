@@ -15,18 +15,18 @@
         installing any services.</p>
       <p>During installation, the HDPI refers to a configuration file named
           <codeph>clouds.yaml</codeph> for the parameters it needs. There is only one
-          <codeph>clouds.yaml</codeph> file. Each service has its own section within that file
-        containing parameters specific to that service. The information must be in the
-          <codeph>clouds.yaml</codeph> file before you install the service. However, since each
-        service can be installed separately, you can populate the whole file at once, or only one
-        section at a time, as you prefer.</p>
+          <codeph>clouds.yaml</codeph> file, which you will create at
+          <codeph>~/.config/openstack/clouds.yaml</codeph>.  Each section within that file contains
+        parameters required to install a service. Since each service can be installed separately,
+        you can populate the whole file at once, or only one section at a time, as you prefer, as
+        long as the information is present before you attempt installation.</p>
       <p>During installation, the required files will be downloaded from the Helion Download Network
-        (HDN). Depending on network traffic, this may take up to 90 minutes. This download may also
-        be problematic if your HPE Helion OpenStack lifecycle manager (previously known as the
-        deployer node), is behind significant layers of security. To avoid possible delay,
-        interruption, or just for convenience, you can download the files to portable storage media
-        before beginning the installation process. If the installer finds the files already in the
-        appropriate location, it will not download them again.</p>
+        (HDN). Depending on network traffic, this may take up to 90 minutes for a single package.
+        Direct download may not be possible if your HPE Helion OpenStack lifecycle manager
+        (previously known as the deployer node), is behind significant layers of security. To avoid
+        possible delay, interruption, or just for convenience, you can download the files to
+        portable storage media before beginning the installation process. If the installer finds the
+        files already in the appropriate location, it will not download them again.</p>
     </section>
     <section>
       <title>General Installation Procedure</title>

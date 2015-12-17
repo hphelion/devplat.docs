@@ -5,7 +5,10 @@
   <body>
     <section><p>If you are installing Helion Code Engine, add and populate the <codeph>helionce</codeph> section
         of the <codeph>clouds.yml</codeph> file as described below. All fields are required unless
-        otherwise indicated.</p>
+        otherwise indicated. </p>
+      <p>In your environment, the clouds.yaml file should be located at
+          <codeph>~/.config/openstack/clouds.yaml</codeph>. If this file does not exist yet, <xref
+          href="../install_cloudsyaml.dita">create it</xref>.</p>
       <p>
         <note type="important">This section begins indented two spaces; look at the <xref
             href="fullFile.dita">complete file</xref> to see how all the sections fit
