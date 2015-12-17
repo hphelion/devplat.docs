@@ -11,6 +11,8 @@
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
     <topicref href="2.0/installation/installation.dita" navtitle="Installation" otherprops="install">
+      <topicref href="2.0/installation/devplatform_install_overview.dita"
+        navtitle="Installation Overview: Before You Begin" locktitle="yes"/>
       <topicref href="2.0/installation/install_offline.dita"
         navtitle="Downloading for Offline Installation" locktitle="yes"/>
       <topicref href="2.0/installation/devplatform_install_prereq.dita"
@@ -27,11 +29,11 @@
         navtitle="Install the HPE Helion Code Engine" locktitle="yes"/>
       <topicref href="2.0/installation/devplatform_install_messaging.dita"
         navtitle="Install the Messaging Service" locktitle="yes"/>
-      <topicref href="2.0/installation/cloud/fullFile.dita" toc="no"/>
       <topicref href="2.0/installation/cloud/cloud_codeengine.dita" toc="no"/>
       <topicref href="2.0/installation/cloud/cloud_database.dita" toc="no"/>
       <topicref href="2.0/installation/cloud/cloud_messaging.dita" toc="no"/>
       <topicref href="2.0/installation/cloud/cloud_platform.dita" toc="no"/>
+      <topicref href="2.0/installation/cloud/fullFile.dita" toc="no"/>
       <topicref href="2.0/installation/install_listOptions.dita" toc="no"/>
       <topicref href="2.0/installation/install_dbaasNoTLS.dita" toc="no"/>
       <topicref href="2.0/installation/devplatform_commercial_install.dita" toc="no"/>

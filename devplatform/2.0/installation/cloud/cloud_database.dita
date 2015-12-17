@@ -8,6 +8,9 @@
       <p>If you are installing the Database service, add and populate the <codeph>database</codeph>
                 section of the <codeph>clouds.yml</codeph> file as described below. All fields are
                 required unless otherwise indicated.</p>
+            <p>In your environment, the clouds.yaml file should be located at
+                    <codeph>~/.config/openstack/clouds.yaml</codeph>. If this file does not exist
+                yet, <xref href="../install_cloudsyaml.dita">create it</xref>.</p>
             <p>
                 <note type="important">This section begins indented two spaces; look at the <xref
                         href="fullFile.dita">complete file</xref> to see how all the sections fit
@@ -52,16 +55,20 @@
         <dlentry><dt>ntp_server</dt><dd> IP address of NTP server. In typical installations, this is the IP address of the first
                         Management Controller.</dd></dlentry>
         <dlentry><dt>keypair</dt><dd> Specify the name of a keypair to use when creating the Database Service. This keypair will be
-            used for debugging purposes when logging into instances of the Database Service.
-              <note>This key must already exist in Nova prior to installation.</note></dd></dlentry>
+                        used for debugging purposes when logging into instances of the Database
+                        Service. You can use the <codeph>nova keypair-list</codeph> command to
+                        retrieve a list of existing keypairs.<note>This key must already exist in
+                            Nova prior to installation.</note></dd></dlentry>
         <dlentry><dt>enable_ha</dt><dd> Options are True or False. If True, the database will be
           created with high-availability configurations. Ensure you have enough quota to do
           so.</dd></dlentry>
-        <dlentry><dt>flavor</dt><dd>The default is m1.medium. This flavor size is used to create instances of the Database
-              Service.<note>The minimum size is m1.medium. </note></dd></dlentry>
-        <dlentry><dt>database_flavor</dt><dd>The default is m1.medium. This flavor size is used to create instances of the Database Service's
-            MySQL Database backend.<note>The minimum size is m1.medium. Larger flavors can be used
-              for large or complex installations.</note></dd></dlentry>
+        <dlentry><dt>flavor</dt><dd>The default is m1.medium. This flavor size is used when creating instances of the Database
+                        Service. You can use the <codeph>nova flavor-list</codeph> command to
+                        retrieve a list of flavor options.<note>The minimum size is m1.medium.
+                        </note></dd></dlentry>
+        <dlentry><dt>database_flavor</dt><dd>The default is m1.medium. This flavor size is used when creating instances of the Database
+                        Service's MySQL Database backend.<note>The minimum size is m1.medium. Larger
+                            flavors can be used for large or complex installations.</note></dd></dlentry>
         <dlentry><dt>messaging_flavor: </dt><dd>The default is m1.medium. This flavor size is used to create instances of the Database Services
             Messaging backend.<note>The minimum size is m1.medium. </note></dd></dlentry>
         <dlentry><dt>database_volume_size</dt><dd>The default value is "10"; this is measured in GB (gigabytes). This is the volume size that will
@@ -84,11 +91,29 @@
         <dlentry><dt>project_id</dt><dd> Project id of the project where the service will be installed.  </dd></dlentry>
       <dlentry>
           <dt>control_plane_database_volume_type</dt>
-          <dd>This value sets the Cinder volume type. The default value is LVM; if you are using LVM, do not include this parameter. If you are using Ceph for Cinder volumes, set this value to <codeph>ceph</codeph></dd>
+          <dd>This value sets the Cinder volume type. <ul id="ul_yg2_tkg_j5">
+                            <li>The default value is LVM; if you are using LVM, remove this
+                                parameter from the file entirely.</li>
+                            <li>If you are using Ceph for Cinder volumes, set this value to
+                                    <codeph>ceph</codeph></li>
+                            <li>If you are using VSA, enter the volume type you specified when you
+                                created the volume. If you do not remember, use the command
+                                    <codeph>cinder type-list</codeph> to retrieve a list of all
+                                volume types.</li>
+                        </ul></dd>
       </dlentry>
           <dlentry>
               <dt>guest_instance_volume_type</dt>
-              <dd>This value sets the Cinder volume type. The default value is LVM; if you are using LVM, do not include this parameter. If you are using Ceph for Cinder volumes, set this value to <codeph>ceph</codeph></dd>
+              <dd>This value sets the Cinder volume type.  <ul id="ul_yg2_tkg_j6">
+                  <li>The default value is LVM; if you are using LVM, remove this parameter from the
+                                file entirely.</li>
+                  <li>If you are using Ceph for Cinder volumes, set this value to
+                      <codeph>ceph</codeph></li>
+                  <li>If you are using VSA, enter the volume type you specified when you
+                      created the volume. If you do not remember, use the command
+                      <codeph>cinder type-list</codeph> to retrieve a list of all
+                      volume types.</li>
+              </ul></dd>
           </dlentry>
           <dlentry>
               <dt>disable_rollback: true</dt>
