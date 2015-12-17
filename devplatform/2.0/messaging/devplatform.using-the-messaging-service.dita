@@ -38,7 +38,7 @@
               <sli>Best practice is to allocate external resources for each cluster separately;
                 create one messaging cluster per ALS cluster. </sli>
               <sli>To set up load balancing and access the management console, continue to <xref
-                  type="section" href="#using_messaging/manage">Managing a Cluster</xref>after
+                  type="section" href="#using_messaging/manage">Managing a Cluster</xref> after
                 creating a cluster. </sli></sl></note><ul>
             <li>
               <b>Cluster Name</b> - A name for the cluster that will be created.</li>
