@@ -12,7 +12,7 @@
         href="http://cue.readthedocs.org/en/latest/rest.html" format="html" scope="external">Cue
         Rest API Documentation</xref>.</p>
   <p>For information on managing the Messaging Broker Service via the Python client, see <xref
-        href="https://github.com/openstack/python-cueclient" format="html" scope="external"
+    href="https://github.com/openstack/python-cueclient/blob/master/doc/source/man/cue.rst" format="html" scope="external"
         >openstack/python-cueclient on GitHub</xref>.</p>
 <p>The following topics explain how to create and manage an instance:</p>
 <ul>
@@ -25,11 +25,6 @@
 <xref type="section" href="#using_messaging/manage">Managing a cluster</xref>
 </li>
 </ul>
-<section id="prerequisites"> <title>Prerequisites</title>
-<ol>
-<li>Install the <xref href="../installation/devplatform_install_platform.dita" >HPE Helion Development Platform</xref>and configure the services.</li>
-</ol>
-</section>
 <section id="create"> <title>Creating a RabbitMQ Cluster</title>
   <p>The following guide will demonstrate how to deploy a multi-node RabbitMQ cluster using the Messaging Broker Service.</p>
 <ol>
@@ -88,22 +83,24 @@
 </li>
   <li>A new browser window will open with the log-in screen for the RabbitMQ cluster. Enter the same
           username and password you used to log in to HPE Helion <tm tmtype="reg">OpenStack</tm>
-          when creating the RabbitMQ cluster and select
-            <b>Login</b>.<!--A BR tag was used here in the original source.--><image
+          when creating the RabbitMQ cluster and select <b>Login</b>.<image
             href="../../../media/usingRMQ4.png" placement="break" scale="75"/>
         </li>
-  <li>The management console for RabbitMQ will open. In the management console you can perform tasks such as monitor the queues and message rates, check resource usage on the instances, manage user accounts, and many others.  <!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ5.png" placement="break"/>
-</li>
+  <li> If desired, create a <xref href="cue_ops_loadBalancer.dita">load balancer</xref>. Clustering
+          and load balancing connect multiple nodes to form one single logical broker.</li>
 </ol>
 </section>
 <section id="more-information"> <title>More Information</title>
 <ul>
 <li>
-<p>For more information on using RabbitMQ and managing the RabbitMQ cluster, visit the <xref href="https://www.rabbitmq.com/documentation.html" scope="external" format="html" >RabbitMQ documentation site</xref>.</p>
-</li>
+          <p>For more information on using RabbitMQ and managing the RabbitMQ cluster, browse the
+              <xref href="https://www.rabbitmq.com/documentation.html" scope="external"
+              format="html">RabbitMQ documentation site</xref>.</p>
+        </li>
 <li>
-  <p>For more information using HPE Helion OpenStack visit the <xref
-    href="http://docs.hpcloud.com/#helion/index.html" format="html">documentation</xref>.</p>
+  <p>For more information using HPE Helion OpenStack, browse the <xref
+              href="http://docs.hpcloud.com/#helion/index.html" format="html"
+            >documentation</xref>.</p>
 </li>
 </ul>
 </section>
