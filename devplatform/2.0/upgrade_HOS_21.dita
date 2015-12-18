@@ -34,12 +34,12 @@
     <p> Bring up the messaging control plane.</p>
     <ol>
       <li>SSH into the HPE Helion OpenStack lifecycle manager.
-        <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
+        <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
       <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
         This was <xref href="installation/devplatform_install_messaging.dita">created during
           installation</xref> of the Messaging
         service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-      <li>Navigate to the <codeph>anisble</codeph> directory.
+      <li>Navigate to the <codeph>ansible</codeph> scratch directory.
         <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
       <li>Run the following playbooks in this order.
         <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
@@ -52,14 +52,14 @@ ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
         environment.</note>
       <ol>
         <li>SSH into the HPE Helion OpenStack lifecycle manager.
-          <codeblock>ssh stack@&lt;dnsaas-deployer-ip></codeblock></li>
+          <codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
         <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
           This was <xref href="installation/devplatform_install_messaging.dita">created during
             installation</xref> of the Messaging
           service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-        <li>Navigate to the <codeph>anisble</codeph> directory.
+        <li>Navigate to the <codeph>ansible</codeph> scratch directory.
           <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-        <li>Run the script.<ol id="ol_npz_5zs_35">
+        <li>Run the RabbitMQ cluster recovery script.<ol id="ol_npz_5zs_35">
             <li>Copy <xref href="installation/cue_rabbit_fix_script.dita">this codeblock</xref> into
               a plaintext file and save it as <codeph>cue-rabbit-fix.sh</codeph></li>
             <li>Copy the script file into this directory on the messaging
