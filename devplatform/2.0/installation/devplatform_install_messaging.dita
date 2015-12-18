@@ -3,7 +3,7 @@
 <topic id="topic_t3w_fnh_ts">
   <title>HPE Helion 2.0 Development Platform: Install the Messaging Broker Service</title>
   <body>
-    <p>This section provides details on installing theMessaging Broker Service for the Development
+    <p>This section provides details on installing the Messaging Broker Service for the Development
       Platform.</p>
     <section>
       <title>Prerequisites</title>
@@ -22,7 +22,7 @@
           has been installed.)</li>
         <li>Source the Virtual
           Environment.<codeblock>stack@hlm:~$ source /opt/stack/venv/dev_platform_installer-devplat_installer-1.0.0/bin/activate </codeblock></li>
-        <li>Install theMessaging Broker Service installation files. <ol>
+        <li>Install the Messaging Broker Service installation files. <ol>
             <li>If you <xref href="install_offline.dita#topic_w25_hqp_xt">pre-downloaded</xref> the
               installation file, run the following command to install
               it:<codeblock>cd <i>&lt;directory where the pre-downloaded file is></i>
@@ -323,9 +323,10 @@ neutron floatingip-list</codeblock>
           </codeblock></li>
       </ol>
     </section>
-    <section><title>Verifying the Installation</title><ol>
-        <li>Set endpoint type to internal (Cannot access public endpoint from messaging deployer)
-          API.<codeblock>export OS_ENDPOINT_TYPE=internalURL
+    <section ><title>Verifying the Installation</title><ol id="verifyInstall">
+        <li>Set endpoint type to <codeph>internal</codeph>.  (The public endpoint cannot be reached
+          from the messaging deployer)
+          <codeblock>export OS_ENDPOINT_TYPE=internalURL
 export OS_INTERFACE=internal</codeblock></li>
         <li>List all clusters. <note>Since you have not yet created any clusters, this list of
             clusters will be empty, but it should execute without returning any error messages.

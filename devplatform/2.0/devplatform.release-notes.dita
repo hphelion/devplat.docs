@@ -4,6 +4,7 @@
 <topic xml:lang="en-us" id="topic2502">
   <title>HPE Helion 2.0 Development Platform: Release Notes </title>
   <body>
+    <note>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</note>
     <p>The following release notes are for the HPE Helion Development Platform 2.0 released in
       November, 2015. We hope you enjoy the release!</p>
     <section>
@@ -14,7 +15,6 @@
         <li>Database Service version 2.0.0.38 </li>
         <li>Messaging Broker Service version 1.0.0.165 </li>
         <li>Helion Code Engine version 1.0.0.42 </li>
-        <li>DNS as a Service version 2.0.0.190</li>
       </ul>
     </section>
     <section>
@@ -31,13 +31,12 @@
           support for clustered MySQL, MongoDB, and Redis. </li>
         <li>The Database Service also includes a technical preview of Vertica.</li>
         <li>The Messaging Broker Service supports RabbitMQ cluster provisioning.</li>
-        <li>Monitoring alerts available through Monasca for the Messaging Broker service and the
-          Database Service.</li>
+        <li>Monitoring alerts available through Monasca for the Messaging Broker Service and the Database
+          Service.</li>
         <li>Improved documentation with targeted search and new user feedback link.</li>
       </ul>
     </section>
     <section>
-
       <title>General</title>
       <dl><dlentry>
         <dt>For HPE Helion Development Platform 2.0, the Marketplace Service has been deprecated.</dt>
@@ -46,7 +45,6 @@
       </dl>
     </section>
 <section><title>Application Lifecycle Service</title>     <dl>
-
         <dlentry>
           <dt>Multiple Syntax Errors in Python pip Install Output</dt>
           <dd>Installing a Python package also installs any required dependencies. This may generate
@@ -119,7 +117,7 @@
       for this node should make the configured port range accessible publicly.</dd>
   </dlentry>
       </dl></section>
-
+ 
  <section><title>Database Service</title>  
       
       <dl>  
@@ -144,7 +142,7 @@
             <codeblock>.devplatform)stack@redwood:~$ openstack --os-cloud mycloud hdpi database install --path cow2_2.0.0.31.csu  
 dbaas-qcow2_2.0.0.31.csu is already downloaded  
 dbaas-qcow2_2.0.0.31.csu is already (installed)  
-Disabling SSL Features for databaseservice  
+Disabling SSL Features for databaseervice  
 Launching stack...  
 Stack trove creating  
 Stack trove in status ROLLBACK_COMPLETE  

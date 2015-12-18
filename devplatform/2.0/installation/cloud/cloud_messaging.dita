@@ -102,8 +102,8 @@
           <dd>The keystone API version to use. The default value is 2.</dd>
         </dlentry>
         <dlentry>
-          <dt>region_name (optional)</dt>
-          <dd>The region name to use. The default value is region1</dd>
+          <dt>region_name</dt>
+          <dd>The region name to use. The default value is <codeph>region1</codeph></dd>
         </dlentry>
         <dlentry>
           <dt>insecure (optional)</dt>
