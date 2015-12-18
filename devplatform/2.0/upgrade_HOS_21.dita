@@ -4,7 +4,10 @@
   <title>HPE Helion 2.0 Development Platform: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
     Version 2.1</title>
   <body>
-    <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the VMs that run
+    <p>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</p>
+    
+ <!-- commenting out the actual procedures until the path is official  
+      <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the VMs that run
       the control plane will also stop the services that make up the HPE Helion Development
       Platform. Additional procedures, if any, required to bring each service back online are
       provided here.</p>
@@ -68,6 +71,7 @@ ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
     </section>
     <section>
       <title>HPE Helion Code Engine</title>
-    </section>
+    </section> 
+-->
   </body>
 </topic>
