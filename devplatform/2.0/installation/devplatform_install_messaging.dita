@@ -323,9 +323,10 @@ neutron floatingip-list</codeblock>
           </codeblock></li>
       </ol>
     </section>
-    <section><title>Verifying the Installation</title><ol>
-        <li>Set endpoint type to internal (Cannot access public endpoint from messaging deployer)
-          API.<codeblock>export OS_ENDPOINT_TYPE=internalURL
+    <section ><title>Verifying the Installation</title><ol id="verifyInstall">
+        <li>Set endpoint type to <codeph>internal</codeph>.  (The public endpoint cannot be reached
+          from the messaging deployer)
+          <codeblock>export OS_ENDPOINT_TYPE=internalURL
 export OS_INTERFACE=internal</codeblock></li>
         <li>List all clusters. <note>Since you have not yet created any clusters, this list of
             clusters will be empty, but it should execute without returning any error messages.

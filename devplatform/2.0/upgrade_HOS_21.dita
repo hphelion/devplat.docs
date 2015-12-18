@@ -5,8 +5,7 @@
     Version 2.1</title>
   <body>
     <p>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</p>
-    
- <!-- commenting out the actual procedures until the path is official  
+<!--
       <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the VMs that run
       the control plane will also stop the services that make up the HPE Helion Development
       Platform. Additional procedures, if any, required to bring each service back online are
@@ -67,8 +66,13 @@ ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
             <li>Make the script executable.  <codeblock>chmod +x cue-rabbit-fix.sh</codeblock></li>
             <li>Execute the script to bring all your RabbitMQ clusters
               online.<codeblock>./cue-rabbit-fix.sh</codeblock></li>
-          </ol></li></ol>
-    </section>
+          </ol></li>
+  
+   <li>Verify Installation   <ol conref="installation/devplatform_install_messaging.dita#topic_t3w_fnh_ts/verifyInstall"
+        id="ol_m31_tk3_j5"><li></li></ol></li>
+   </ol>
+        
+ </section>
     <section>
       <title>HPE Helion Code Engine</title>
     </section> 
