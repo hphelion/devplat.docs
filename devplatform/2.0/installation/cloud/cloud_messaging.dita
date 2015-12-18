@@ -3,7 +3,7 @@
 <topic id="cloudMessaging">
   <title>HPE Helion 2.0 Development Platform: Messaging Broker Service Configuration</title>
   <body>
-    <section><p>If you are installing the Message Broker service, add and populate the <codeph>messaging</codeph>
+    <section><p>If you are installing the Messaging Broker service, add and populate the <codeph>messaging</codeph>
         and <codeph>msgaas</codeph> sections of the <codeph>clouds.yml</codeph> file as described
         below. All fields are required unless otherwise indicated.</p>
       <p>In your environment, the clouds.yaml file should be located at

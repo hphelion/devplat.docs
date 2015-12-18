@@ -219,11 +219,11 @@ $ openstack endpoint create database public 'http://<i>&lt;public-VIP-IP-address
           <dd>Connect Trove database instances using User Defined Services.</dd>
         </dlentry>
       </dl></section>
-    <section><title>Message Broker Service</title>
+    <section><title>Messaging Broker Service</title>
 <dl>    
       <dlentry>
         <dt>Alarms appear in "No Service Defined" Panel</dt>
-        <dd>If the Message Broker sends alarms for MySQL or Zookeeper, they appear in the "No
+        <dd>If the Messaging Broker sends alarms for MySQL or Zookeeper, they appear in the "No
           Service Defined" panel, not the Messaging Broker Service panel. This is a known
           issue.</dd>
       </dlentry></dl>
