@@ -10,7 +10,6 @@
       <title>In This Release:</title>
       <p>HPE Helion Development Platform is comprised of the following services:</p>
       <ul>
-        <li>Development Platform Installer version 2.0.0.2</li>
         <li>Application Lifecycle Service version 2.0.0.548 </li>
         <li>Database Service version 2.0.0.38 </li>
         <li>Messaging Broker Service version 1.0.0.165 </li>
@@ -29,13 +28,20 @@
           workflow to help modernize the development experience.</li>
         <li>Further integrating IaaS + PaaS, the Helion Development Platform Database Service offers
           support for clustered MySQL, MongoDB, and Redis. </li>
-        <li>The Database Service also includes a technical preview of Vertica in our Database as a
-          Service offering.</li>
+        <li>The Database Service also includes a technical preview of Vertica.</li>
         <li>The Messaging Broker Service supports RabbitMQ cluster provisioning.</li>
         <li>Monitoring alerts available through Monasca for the Messaging Broker Service and the Database
           Service.</li>
         <li>Improved documentation with targeted search and new user feedback link.</li>
       </ul>
+    </section>
+    <section>
+      <title>General</title>
+      <dl><dlentry>
+        <dt>For HPE Helion Development Platform 2.0, the Marketplace Service has been deprecated.</dt>
+        <dd>The Vertica instance that was offered in the Marketplace has been replaced by the Vertica Technical Preview in the Database Service.</dd>
+      </dlentry>        
+      </dl>
     </section>
 <section><title>Application Lifecycle Service</title>     <dl>
         <dlentry>
@@ -82,15 +88,38 @@
                 tool as follows:
                 <codeblock>cf-mgmt cc --external​-network-n​ame &lt;mynetworkName></codeblock><codeblock>cf-mgmt cc --external​-network-id &lt;mynetworkID></codeblock></li>
             </ol></dd>
+        </dlentry><dlentry>
+          <dt>Creating an ALS cluster results in error: 413 Request Entity Too Large</dt>
+          <dd>When using the <codeph>cf-mgmt</codeph> tool, cluster creation fails because the
+            payload sent to OpenStack to boot a new instance was too large. This is caused by
+            including certificates in the payload. To fix this, skip SSL validation or use Horizon
+            to create the cluster instead.<ol>
+              <li>Launch the <codeph>cf-mgmt</codeph> tool.</li>
+              <li>Add the <codeph>--skip-ssl-validation</codeph> parameter prior to the cluster
+                creation command.
+                <codeblock>cf-mgmt --skip-ssl-validation create-cluster <i>[command options]</i> <i>[arguments...]</i></codeblock></li>
+            </ol></dd>
         </dlentry>
+  <dlentry>
+    <dt>UTM or Gateway Firewalls</dt>
+    <dd>UTM (Unified Threat Management) or Gateway firewalls may interfere with upgrades,
+      patches, or normal application staging if they are configured to inspect all HTTP(S)
+      traffic between ALS nodes and upstream package repositories. <xref
+        href="helion/admin/cluster/cluster_index.dita#admin_cluster_index/utm">See the full
+        documentation</xref> for a detailed explanation and suggested solutions.</dd>
+  </dlentry>
+  <dlentry>
+    <dt>Harbor (Port Service) Node Configuration </dt>
+    <dd>The optional <xref href="helion/admin/cluster/harbor.dita">Harbor TCP/UDP port
+      service</xref> must be set up on a node with a public network interface if you wish to
+      enable port forwarding for user applications. The security group or firewall settings
+      for this node should make the configured port range accessible publicly.</dd>
+  </dlentry>
       </dl></section>
  
  <section><title>Database Service</title>  
       
-      <dl>  <dlentry>
-        <dt>For HPE Helion Development Platform 2.0, the Marketplace Service has been deprecated.</dt>
-        <dd>The Vertica instance that was offered in the Marketplace has been replaced by the Vertica Technical Preview in the Database Service.</dd>
-      </dlentry>
+      <dl>  
         <dlentry>  
           <dt>No option to reset password on Vertica Preview instance on Horizon</dt>  
           <dd>Vertica clusters can be accessed via credentials obtained by enabling root, either Horizon or the Trove CLI. Single node   
@@ -105,31 +134,35 @@
             QUERY_EVENTS and QUERY_REQUESTS tables, as described in<xref  
               href="database/devplatform.database-vertica.dita"> Managing a Vertica Cluster from the Management Console</xref>.</dd>  
         </dlentry>  
-        <dlentry><dt>"Stack trove in status ROLLBACK_COMPLETE" message when DBaaS on fails</dt>  
-          <dd>The installation process may display a <codeph>ROLLBACK_COMPLETE</codeph>  when installation fails. This may look like the following:  <codeblock>.devplatform)stack@redwood:~$ openstack --os-cloud mycloud hdpi database install --path cow2_2.0.0.31.csu  
-            dbaas-qcow2_2.0.0.31.csu is already downloaded  
-            dbaas-qcow2_2.0.0.31.csu is already (installed)  
-            Disabling SSL Features for databaseervice  
-            aunching stack...  
-            tack trove creating  
-            tack trove in status ROLLBACK_COMPLETE  
-            UI installed for database  
-            Create service endpoint for service database  
-            Completed installing database  
-            .devplatform)stack@redwood:~$</codeblock></dd></dlentry>  
+        <dlentry><dt>"Stack trove in status ROLLBACK_COMPLETE" message when Database as a Server installation
+            fails</dt>  
+          <dd>The installation process may display a <codeph>ROLLBACK_COMPLETE</codeph> when
+            installation fails. This may look like the following:
+            <codeblock>.devplatform)stack@redwood:~$ openstack --os-cloud mycloud hdpi database install --path cow2_2.0.0.31.csu  
+dbaas-qcow2_2.0.0.31.csu is already downloaded  
+dbaas-qcow2_2.0.0.31.csu is already (installed)  
+Disabling SSL Features for databaseervice  
+Launching stack...  
+Stack trove creating  
+Stack trove in status ROLLBACK_COMPLETE  
+UI installed for database  
+Create service endpoint for service database  
+Completed installing database  
+.devplatform)stack@redwood:~$</codeblock></dd></dlentry>  
         <dlentry><dt>“mysql cluster 5.5” listed as option in Launch Instance dialog</dt>  
-          <dd>When <b>Launch Instance</b> is selected in the <b>Project->Database->Instances</b> panel in Horizon, a <b>Datastore</b> option of <b>mysql-cluster</b> version <b>5.5</b> is displayed. Selecting this option  
-            creates a standard <b>mysql</b> cluster.</dd></dlentry>  
+          <dd>When <b>Launch Instance</b> is selected in the <b>Project -> Database -> Instances</b>
+            panel in Horizon, a <b>Datastore</b> option of <b>mysql-cluster</b> version <b>5.5</b>
+            is displayed. Selecting this option creates a standard <b>mysql</b> cluster.</dd></dlentry>  
         <dlentry><dt>Workaround for installations with TLS (Transport Layer Security) disabled</dt>
           <dd><p>When TLS is disabled, there is no file to specify for the <i>ephemeral_ca_cert</i> file. Instead, an empty file needs to be specified, and the endpoint URLs must be changed from https to http:</p>
             <ol>
               <li><codeph>touch /tmp/empty-file</codeph></li>
               <li>in <codeph>~/.config/openstack/clouds.yaml</codeph> database section, specify:
                 <codeblock>database:
-  ephemeral_ca_cert: /tmp/empty-file
-                </codeblock></li>
+  ephemeral_ca_cert: /tmp/empty-file                </codeblock></li>
             </ol>
-            <p>Next, after installing Database Service on the Lifecycle Manager (deployer) node, do the following:</p>
+            <p>Next, after installing the Database Service on the Lifecycle Manager (deployer) node,
+              do the following:</p>
             <ol>
               <li>List database endpoints:
                 <codeblock>stack@ma-ccp-c0-m1-mgmt:~$ openstack endpoint list | grep database
@@ -178,53 +211,23 @@ Oslo.config-1.3.0</codeblock></li>
 $ openstack endpoint create database admin 'http://<i>&lt;public-VIP-IP-address></i>:8779/v1.0/$(tenant_id)s'
 $ openstack endpoint create database internal 'http://<i>&lt;public-VIP-IP-address></i>:8779/v1.0/$(tenant_id)s'
 $ openstack endpoint create database public 'http://<i>&lt;public-VIP-IP-address></i>:8779/v1.0/$(tenant_id)s'</codeblock></dd>
-        </dlentry>
-      </dl></section>  
-      <section>
-      <title>Known Issues</title>
-      <dl>
-        <dlentry>
+        </dlentry><dlentry>
           <dt>Redis Errors Appear in Horizon UI</dt>
           <dd>In the Horizon UI, the Users and Databases tabs display errors for Redis instances. This is due to a bug in Horizon UI, and can be ignored. Functionality of Redis instances is not impacted by this UI problem.</dd>
-        </dlentry>
-        <dlentry>
-          <dt>Alarms appear in "No Service Defined" Panel</dt>
-          <dd>If the Message Broker sends alarms for MySQL or Zookeeper, they appear in the "No
-            Service Defined" panel, not the Messaging Broker Service panel. This is a known
-            issue.</dd>
-        </dlentry>
-        <dlentry>
-          <dt>Creating an ALS cluster results in error: 413 Request Entity Too Large</dt>
-          <dd>When using the <codeph>cf-mgmt</codeph> tool, cluster creation fails because the
-            payload sent to OpenStack to boot a new instance was too large. This is caused by
-            including certificates in the payload. To fix this, skip SSL validation or use Horizon
-            to create the cluster instead.<ol>
-              <li>Launch the <codeph>cf-mgmt</codeph> tool.</li>
-              <li>Add the <codeph>--skip-ssl-validation</codeph> parameter prior to the cluster
-                creation command.
-                <codeblock>cf-mgmt --skip-ssl-validation create-cluster <i>[command options]</i> <i>[arguments...]</i></codeblock></li>
-            </ol></dd>
-        </dlentry>
-        <dlentry>
-          <dt>UTM or Gateway Firewalls</dt>
-          <dd>UTM (Unified Threat Management) or Gateway firewalls may interfere with upgrades,
-            patches, or normal application staging if they are configured to inspect all HTTP(S)
-            traffic between ALS nodes and upstream package repositories. <xref
-              href="helion/admin/cluster/cluster_index.dita#admin_cluster_index/utm">See the full
-              documentation</xref> for a detailed explanation and suggested solutions.</dd>
-        </dlentry>
-        <dlentry>
-          <dt>Harbor (Port Service) Node Configuration </dt>
-          <dd>The optional <xref href="helion/admin/cluster/harbor.dita">Harbor TCP/UDP port
-              service</xref> must be set up on a node with a public network interface if you wish to
-            enable port forwarding for user applications. The security group or firewall settings
-            for this node should make the configured port range accessible publicly.</dd>
-        </dlentry>
-        <dlentry>
+        </dlentry>        <dlentry>
           <dt>Lack of Service Brokers for new Trove services</dt>
           <dd>Connect Trove database instances using User Defined Services.</dd>
         </dlentry>
-      </dl>
-      </section>
+      </dl></section>
+    <section><title>Message Broker Service</title>
+<dl>    
+      <dlentry>
+        <dt>Alarms appear in "No Service Defined" Panel</dt>
+        <dd>If the Message Broker sends alarms for MySQL or Zookeeper, they appear in the "No
+          Service Defined" panel, not the Messaging Broker Service panel. This is a known
+          issue.</dd>
+      </dlentry></dl>
+        </section>
+
   </body>
 </topic>
