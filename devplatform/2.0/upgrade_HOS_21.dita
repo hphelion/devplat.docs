@@ -68,9 +68,18 @@ ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
               online.<codeblock>./cue-rabbit-fix.sh</codeblock></li>
           </ol></li>
   
-   <li>Verify Installation   <ol conref="installation/devplatform_install_messaging.dita#topic_t3w_fnh_ts/verifyInstall"
-        id="ol_m31_tk3_j5"><li></li></ol></li>
-   </ol>
+   <li>Verify Installation
+     <ol>
+        <li>Set endpoint type to <codeph>internal</codeph>.  (The public endpoint cannot be reached
+          from the messaging deployer)
+          <codeblock>export OS_ENDPOINT_TYPE=internalURL
+export OS_INTERFACE=internal</codeblock></li>
+        <li>List all clusters. <note>Since you have not yet created any clusters, this list of
+                clusters will be empty, but it should execute without returning any error messages.
+              </note><codeblock>stack@messaging-deployer:~/scratch/ansible/next/hos/ansible$ /opt/stack/service/cueclient/venv/bin/openstack message-broker cluster list</codeblock>
+            </li>
+      <li>If you have configured TLS, make sure that the Cue public endpoint begins with https and
+      not just http:<codeblock>openstack catalog list</codeblock></li></ol></li></ol>
         
  </section>
     <section>
