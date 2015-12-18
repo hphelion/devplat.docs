@@ -51,7 +51,7 @@ ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
         environment.</note>
       <ol>
         <li>SSH into the HPE Helion OpenStack lifecycle manager.
-          <codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
+          <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
         <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
           This was <xref href="installation/devplatform_install_messaging.dita">created during
             installation</xref> of the Messaging
