@@ -4,6 +4,7 @@
 <topic xml:lang="en-us" id="topic2502">
   <title>HPE Helion 2.0 Development Platform: Release Notes </title>
   <body>
+    <note>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</note>
     <p>The following release notes are for the HPE Helion Development Platform 2.0 released in
       November, 2015. We hope you enjoy the release!</p>
     <section>
