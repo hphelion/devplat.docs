@@ -244,42 +244,6 @@
       </ul><p>You can check the currently configured port range for each service with <codeph>kato
           config</codeph> commands like <codeph>kato config get redis_node
       port_range</codeph>).</p></section>
-          <section id="ports-hosts-allowed"><title>Container Allowed Hosts and Ports</title> For
-      security reasons, Docker application containers restrict access to hosts on the eth0 subnet.
-      By default, only ports and hosts for built-in services and components (e.g. service instances
-      bound to an application) are explicitly allowed. The following settings are available to allow
-      or restrict access from the application containers: <dl>
-        <dlentry>
-          <dt>fence docker/allowed_host_ports</dt>
-          <dd>If applications need access to custom services on a specific port, but the IP address
-            changes or is not known ahead of time, add the port to this list. For
-            example:<codeblock>kato config push fence docker/allowed_host_ports 25</codeblock></dd>
-        </dlentry>
-        <dlentry>
-          <dt>fence docker/allowed_subnet_ips</dt>
-          <dd>If the specific IP address for the service is static and known, add the IP address
-            with or without the port specification:
-            <codeblock>kato config push fence docker/allowed_subnet_ips 10.0.0.54
-            kato config push fence docker/allowed_subnet_ips 10.0.0.55:9001</codeblock></dd>
-        </dlentry>
-        <dlentry>
-          <dt>fence docker/block_network_ips</dt>
-          <dd>To explicitly block access to a specific IP address (internal or external):
-            <codeblock>kato config push fence docker/block_network_ips 8.8.8.8</codeblock></dd>
-        </dlentry>
-      </dl>Restart the DEA role to apply these changes for new application containers. If
-      applications which require access to these IP addresses have already been deployed, they will
-      need to be restarted. <p>Two additional settings are exposed in <codeph>kato config</codeph>
-        but should not generally be modified:</p><dl>
-        <dlentry>
-          <dt>fence docker/exposed_container_ports</dt>
-          <dd> Container ports to be accessed over the subnet (internal services)</dd>
-        </dlentry>
-        <dlentry>
-          <dt>fence docker/network_interface</dt>
-          <dd>The Docker bridge interface.<b> Do not modify.</b></dd>
-        </dlentry>
-      </dl>
-    </section>     
+    <section conref="configuration.dita#topic31232/container_allowed"/>     
             </body>
 </topic>

@@ -75,7 +75,8 @@ option is useful in this scenario).</p>
               Configuration</xref>
           </li>
           <li><xref type="section" href="#topic31232/service_nodes">Service Nodes</xref></li>
-          <li>Container-Allowed Hosts and Ports</li>
+          <li><xref href="#topic31232/container_allowed" format="dita">Container-Allowed Hosts and
+              Ports</xref></li>
           <li>
             <xref type="section" href="#topic31232/vm-filesystem-setup">VM Filesystem Setup</xref>
           </li>
@@ -149,17 +150,15 @@ such services are not available, the Application Lifecycle Service can be config
 <li>At the same time, the other nodes in the cluster will also need to reach the core node, so whatever address is configured on its network interface will have to be known to the network, the primary node, and all the other nodes. This can be the same as the primary address assigned to the core, or a secondary address used purely within the cluster.</li>
 <li>The <b>router</b> nodes, if separate from the primary, will each require IP addresses of their own, reachable from any load balancer and through any firewall that you put in front of them.</li>
 </ul>
-<p>Where you configure these hostnames and IP addresses will depend on how
-you operate your data center network. You will want to confer with your
-network administrator about this, starting with the MAC address
-configured for each VM in the hypervisor. If your site supports a
-significant number of VMs, DHCP may be set up to map MAC addresses to IP
-addresses in a particular way. For example, a certain range of MAC
-addresses may be used for servers in the DMZ, and another range for
-internal servers. If you follow this convention, your Application Lifecycle Service server
-will obtain an appropriate IP address automatically. DNS at your site
-may establish a similar convention, which you will want to follow when
-making any name or address changes within the cluster.</p>
+<p>Where you configure these hostnames acnd IP addresses will depend on how you operate your data
+        center network. You will want to confer with your network administrator about this, starting
+        with the MAC address configured for each VM in the hypervisor. If your site supports a
+        significant number of VMs, DHCP may be set up to map MAC addresses to IP addresses in a
+        particular way. For example, a certain range of MAC addresses may be used for servers in the
+        DMZ, and another range for internal servers. If you follow this convention, your Application
+        Lifecycle Service server will obtain an appropriate IP address automatically. DNS at your
+        site may establish a similar convention, which you will want to follow when making any name
+        or address changes within the cluster.</p>
 <p>Having determined the hostnames of cluster nodes to be managed by <xref type="section"
           href="#topic31232/server-config-dns">
           <i>DNS</i>
@@ -568,29 +567,68 @@ nodes (via SSHFS).</li>
       </simpletable><note>You can check the port range currently configured for each service with
           <codeph>kato config</codeph> (for exanple: <codeph>kato config get redis_node
           port_range</codeph>).</note></section>
-<section id="container_allowed"><title>Container Allowed Hosts and Ports</title>
-  <p>For security reasons, Docker application containers restrict access to hosts on the eth0 subnet (i.e. the hosts making up the cluster). By default, only ports and hosts for built-in services and components, such as service instances bound to an application, are explicitly allowed.</p><p>The following settings are available to allow or restrict access from the application containers:</p> 
-   
-   <ul>
-<li><codeph>fence docker/allowed_subnet_ips</codeph>: To allow containers to access specific IP
-          addresses, IP ranges (CIDR), and ports:
-          <codeblock>kato config push fence docker/allowed_subnet_ips 10.0.0.54
-    kato config push fence docker/allowed_subnet_ips 10.0.1.0/24
-    kato config push fence docker/allowed_subnet_ips 10.0.0.55:9001
-    kato config push fence docker/allowed_subnet_ips 10.0.5.0/24:27017</codeblock>
-          If no port is specified, any port will be allowed on the specified IP or range.</li>
-    
-<li><codeph>fence docker/block_network_ips</codeph>: To explicitly block access to a specific IP
-          address (internal or external):
-          <codeblock>kato config push fence docker/block_network_ips 8.8.8.8</codeblock></li></ul>
-    
-<p>Restart the DEA role to apply these changes for new application containers. If applications which require access to these IP addresses have already been deployed they will need to be restarted.</p>
-  <p>Two additional settings are exposed in kato config but should not generally be modified:</p> 
-  <ul><li><codeph>fence docker/exposed_container_ports</codeph>: Container ports to be accessed over the
-          subnet (internal services)</li>
-    <li><codeph>fence docker/network_interface</codeph>: The Docker bridge interface. Do not
-          modify.</li></ul>
-  </section>
+    <section id="container_allowed">
+      <title>Container Allowed Hosts and Ports</title>
+      <p>For security reasons, Docker application containers restrict access to hosts on the
+          <codeph>eth0</codeph> subnet. By default, only ports and hosts for built-in services and
+        components (for example, service instances bound to an application) are explicitly
+        allowed.</p>
+      <p>The following commands display the current configuration:</p>
+      <ul id="ul_y3v_jy3_k5">
+        <li><codeph><codeph>fencedocker/allowed_subnet_ips</codeph></codeph>: Display a list of all
+          allowed IP addresses, for
+          example:<codeblock>$ kato config get fence docker/allowed_subnet_ips
+- 192.51.100.0
+- 192.51.100.1
+- 192.51.100.2</codeblock></li>
+        <li><codeph><codeph>fencedocker/allowed_host_ports</codeph></codeph>: Display a list of all
+          allowed ports, for
+          example:<codeblock>$ kato config get fence docker/allowed_host_ports
+- 80
+- 443
+- 8123
+- 3306
+- 6379</codeblock></li>
+      </ul>
+      <p>The following commands modify the current configuration:</p>
+      <ul id="ul_s1h_fz3_k5">
+        <li><codeph><codeph>fencedocker/allowed_subnet_ips
+              <varname>&lt;ip-address:port></varname></codeph></codeph>: Delete an IP address from
+          the <codeph>allowed_subnet_ips</codeph> list, for
+            example:<codeblock>$ kato config pop fence docker/allowed_subnet_ips 192.0.2.24:6379</codeblock><note>You
+            can open a port for an individual IP address or an IP CIDR block. Port settings apply
+            only to the specified individual IP address.</note></li>
+        <li><codeph><codeph>fencedocker/allowed_host_ports
+            <varname>&lt;port></varname></codeph></codeph>: Delete a port from the
+            <codeph>allowed_host_ports</codeph> list, for
+          example:<codeblock>$ kato config pop fence docker/allowed_host_ports 6379</codeblock></li>
+      </ul>
+      <p>The following settings allow or restrict access from application containers:</p>
+      <ul id="ul_flb_vz3_k5">
+        <li><codeph><codeph>fencedocker/allowed_host_ports</codeph></codeph>: If applications need
+          access to custom services on a specific port, but the IP address changes or is not known
+          ahead of time, add the port to this list, for
+          example:<codeblock>$ kato config push fence docker/allowed_host_ports 25</codeblock></li>
+        <li><codeph><codeph>fencedocker/allowed_subnet_ips</codeph></codeph>: If the specific IP
+          address for a service is static and known, add the IP address with or without the port
+          specification, for
+          example:<codeblock>$ kato config push fence docker/allowed_subnet_ips 198.51.100.0
+$ kato config push fence docker/allowed_subnet_ips 198.51.100.1:9001</codeblock></li>
+        <li><codeph><codeph>fencedocker/block_network_ips</codeph></codeph>: To explicitly block
+          access to a specific IP address (internal or
+          external):<codeblock>$ kato config push fence docker/block_network_ips 203.0.113.0</codeblock></li>
+      </ul>
+      <p>To apply these changes to new application containers, restart the DEA role. To allow
+        applications to regain access to these IP addresses, restart the applications that have
+        already been deployed.</p>
+      <note type="warning">Two additional settings are exposed in <codeph>kato config</codeph> but
+        in most cases should not be modified:<ul id="ul_v1k_b1j_k5">
+          <li><codeph><codeph>fencedocker/exposed_container_ports</codeph></codeph>: Container ports
+            to be accessed over the subnet (internal services).</li>
+          <li><codeph><codeph>fencedocker/network_interface</codeph></codeph>: The docker bridge
+            interface.</li>
+        </ul></note>
+    </section>
 <section id="vm-filesystem-setup"> <title>VM Filesystem Setup</title>
 <p>The Application Lifecycle Service VM is distributed with a simple default partitioning scheme
 (i.e. everything but "/boot" mounted on "/").</p>
