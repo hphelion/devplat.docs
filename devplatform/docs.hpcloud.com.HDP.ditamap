@@ -10,7 +10,6 @@
     <topicref href="2.0/devplatform.thirdparty.licensing.dita"
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
-    <topicref href="2.0/upgrade_HOS_21.dita"/>
     <topicref href="2.0/installation/installation.dita" navtitle="Installation" otherprops="install">
       <topicref href="2.0/installation/devplatform_install_overview.dita"
         navtitle="Installation Overview: Before You Begin" locktitle="yes"/>
