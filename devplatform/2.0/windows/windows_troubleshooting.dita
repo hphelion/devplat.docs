@@ -31,6 +31,7 @@
       <li><xref href="#windows_troubleshooting/kato_upstream_proxies">Upstream proxies are not set in DEAs added after cluster creation</xref></li>
       <li><xref href="#windows_troubleshooting/kato_patch">Kato tries to install patches on Windows nodes</xref></li>
       <li><xref href="#windows_troubleshooting/instances">Windows instances created from the Images page in Horizon do not work</xref></li>
+      <li><xref href="#windows_troubleshooting/broker">Error: Unable to attach broker to cluster: Received a status code 504 Gateway Time-o</xref></li>
     </ul>
     <section id="kato_upstream_proxies"><title>Upstream proxies are not set in DEAs added after cluster creation</title>
     <p>When DEAs are added to clusters after they have been created, upstream proxies are not automatically configured. To configure upstream proxies for these nodes, do the following:</p>
@@ -57,5 +58,43 @@ service polipo restart
  ssh: connect to host 10.0.0.40 port 22: Connection timed out</codeblock></section>
     <section id="instances"><title>Windows instances created from the Images page in Horizon do not work</title>
     <p>This behavior is by design. Windows instances must be created with the <b>cf-mgmt</b> tool or through Horizon.</p></section>
+    <section id="broker"><title>Error: Unable to attach broker to cluster: Received a status code
+        504 Gateway Time-out</title> This procedure should be applied when the following error is
+      received when installing a Microsoft SQL 2012/2014 service. <codeblock> [general] Unable to attach broker to cluster: Received a status code 504 Gateway Time-out {
+          "code": 10001,
+          "description": "The request to the service broker timed out: http://192.168.15.123:3000/v2/catalog",
+          "error_code": "CF-ServiceBrokerApiTimeout",
+          "http": {
+            "uri": "http://192.168.15.123:3000/v2/catalog",
+            "method": "GET"
+          }
+        }</codeblock>
+      <p>This procedure will also repair Microsoft SQL nodes which are in a degraded status.</p>
+      <ol>
+        <li> SSH to the core node.</li>
+        <li>Copy and paste the following code and save it to a file named
+            <codeph>remove_etc_env.sh</codeph><codeblock>appliedProxyPatchMessage="#System Proxies are disabled to ensure the controller can communicate with internal service brokers"
+            nodes=(`kato node list | grep -v -E "mssql|windea" | cut -d' ' -f 1`)
+            for node in "${nodes[@]}"
+            do :
+            ssh stackato@$node /bin/bash &lt;&lt; EOF
+            if ! grep -q "${appliedProxyPatchMessage}" /etc/environment; then
+            sudo sed -e '/_proxy/I s/^#*/#/' -i /etc/environment &amp;&amp;
+            sudo sed -i "/#HTTP_PROXY/i ${appliedProxyPatchMessage}" /etc/environment
+            fi
+            EOF
+            
+            if [[ $? != 0 ]] ; then
+            echo "unable to remove existing proxy settings. exiting"
+            exit 1
+            fi
+            done</codeblock></li>
+        <li>Execute <codeblock>bash remove_etc_env.sh </codeblock></li>
+        <li>If prompted to allow SSH to a new machine, select "Y".</li>
+        <li>Reboot the core node. <codeblock>sudo reboot</codeblock></li>
+        <li>After the core node comes back up, the issue should be resolved. You can now
+          successfully add the service or the degraded state should be fixed.</li>
+      </ol>
+    </section>
   </body>
 </topic>
