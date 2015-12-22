@@ -74,7 +74,7 @@
 </li>
 <li>The latest stable Virtio driver: <xref href="https://fedorapeople.org/groups/virt/virtio-win/deprecated-isos/stable/virtio-win-0.1-81.iso" scope="external" format="html" >Download</xref>
 </li>
-<li>Download and extract the Glazier tool: <xref href="http://clients.als.hpcloud.com/glazier-1.2.0-posix_x86_64.zip" scope="external" format="html" >Download</xref>. For more information about Glazier, see the <xref href="../windows/windows_glazier_reference_guide.dita" >Glazier Reference Guide</xref>.</li>
+  <li>Download and extract the Glazier tool: <xref href="http://clients.als.hpcloud.com/glazier-1.3.0-posix_x86_64.zip" scope="external" format="html" >Download</xref>. For more information about Glazier, see the <xref href="../windows/windows_glazier_reference_guide.dita" >Glazier Reference Guide</xref>.</li>
 </ul>
 </section>
 <section id="setup-information-needed"> <title>Setup Information Needed</title>
