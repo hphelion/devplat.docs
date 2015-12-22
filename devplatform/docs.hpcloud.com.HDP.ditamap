@@ -166,7 +166,6 @@
         locktitle="yes"/>
       <topicref href="2.0/windows/windows_custom_buildpacks.dita" navtitle="Custom Buildpacks"
         locktitle="yes" toc="no"/>
-      <topicref href="2.0/windows/windows_sql_troubleshooting.dita" toc="no"/>
     </topicref>
     <topicref href="2.0/devplatform.appdev.dita" locktitle="yes"
       navtitle="Resources for Application Developers " otherprops="resource">
