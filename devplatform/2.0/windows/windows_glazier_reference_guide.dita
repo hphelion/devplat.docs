@@ -59,7 +59,7 @@
 </li>
 <li>A retail or volume licensed, English Windows 2012R2 image. Images for a development or test environment can be downloaded from MSDN; for a production environment, you must obtain an image through your OEM channel.</li>
 <li>
-<xref href="https://fedorapeople.org/groups/virt/virtio-win/deprecated-isos/stable/virtio-win-0.1-81.iso" scope="external" format="html" >Windows VirtIO Image 0.1-81</xref>
+    <xref href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.96/virtio-win-0.1.96.iso" scope="external" format="html" >Windows VirtIO Image 0.1-81</xref>
 </li>
 </ul>
 </section>
