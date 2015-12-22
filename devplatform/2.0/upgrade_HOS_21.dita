@@ -43,6 +43,7 @@
       <li>Run the following playbooks in this order.
         <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
 ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
+ansible-playbook -i hosts/verb_hosts cue-stop.yml
 ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
     </ol>
     <p>Bring up tenant RabbitMQ Clusters.</p>
