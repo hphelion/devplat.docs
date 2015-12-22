@@ -31,7 +31,7 @@
       <li><xref href="#windows_troubleshooting/kato_upstream_proxies">Upstream proxies are not set in DEAs added after cluster creation</xref></li>
       <li><xref href="#windows_troubleshooting/kato_patch">Kato tries to install patches on Windows nodes</xref></li>
       <li><xref href="#windows_troubleshooting/instances">Windows instances created from the Images page in Horizon do not work</xref></li>
-      <li><xref href="#windows_troubleshooting/broker">Error: Unable to attach broker to cluster: Received a status code 504 Gateway Time-o</xref></li>
+      <li><xref href="#windows_troubleshooting/broker">Error: Unable to attach broker to cluster: Received a status code 504 Gateway Time-out</xref></li>
     </ul>
     <section id="kato_upstream_proxies"><title>Upstream proxies are not set in DEAs added after cluster creation</title>
     <p>When DEAs are added to clusters after they have been created, upstream proxies are not automatically configured. To configure upstream proxies for these nodes, do the following:</p>
