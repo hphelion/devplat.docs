@@ -573,6 +573,10 @@ nodes (via SSHFS).</li>
           <codeph>eth0</codeph> subnet. By default, only ports and hosts for built-in services and
         components (for example, service instances bound to an application) are explicitly
         allowed.</p>
+      <p>To configure an ALS cluster for host and port access, you must determine the IP address of
+        each DEA node using the <codeph>kato node list</codeph> command and then
+          <codeph>ssh</codeph> to each DEA node, for
+        example:<codeblock>$ ssh -i myClusterPublicKey stackato@198.51.100.0</codeblock></p>
       <p>The following commands display the current configuration:</p>
       <ul id="ul_y3v_jy3_k5">
         <li><codeph><codeph>fencedocker/allowed_subnet_ips</codeph></codeph>: Display a list of all
