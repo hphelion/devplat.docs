@@ -6,9 +6,11 @@
   <body>
     <!--<p>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</p>-->
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the virtual
-      machines which run the control plane will also stop the services that make up the HPE Helion
-      Development Platform. Additional procedures, if any, required to bring each service back
-      online are provided here.</p>
+      machines which run the control plane will also affect the services that make up the HPE Helion
+      Development Platform. </p>
+    <p>Perform these additional steps to safely shut down these specific services prior to upgrading
+      and then to restart them after the upgrade is complete.</p>
+   <p> <ph outputclass="product-title">Prior to Upgrade</ph></p>
     <section>
       <title>Application Lifecycle Service</title>
       <p>After rebooting the compute nodes, if any ALS clusters do not restart, perform the
