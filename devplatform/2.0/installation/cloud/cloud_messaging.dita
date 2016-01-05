@@ -43,7 +43,7 @@
           <dt>deployer_cloud</dt>
           <dd>The cloud identified in the clouds.yaml where the deployer will be created. Note that
             while the deployer creation must be performed by an admin, the deployer itself may be
-            owned by someone else. Value must be "msgaas"</dd>
+            owned by someone else. Value must be <codeph>msgaas</codeph></dd>
         </dlentry>
         <dlentry>
           <dt>deployer_ntp_servers</dt>
@@ -63,17 +63,19 @@
         </dlentry>
         <dlentry>
           <dt>deployer_flavor (optional)</dt>
-          <dd>The flavor ID to use for the deployer instance. Default value: 4 (which is Large).
-            Recommended flavor: 3 (Medium)</dd>
+          <dd>The flavor ID to use for the deployer instance. <note type="important">The default
+              value is 4 (Large) but you <b>must</b> change this value to 3 (Medium) or installation
+              cannot complete successfully. This is a known issue.</note></dd>
         </dlentry>
         <dlentry>
           <dt>deployer_name (optional)</dt>
           <dd>The name of the deployer instance. Default value:
-              <i>service</i>_deployer_<i>version</i></dd>
+              <i>NameOfService</i>_deployer_<i>VersionNumber</i></dd>
         </dlentry>
         <dlentry>
           <dt>deployer_security_group (optional)</dt>
-          <dd>The name of the security group for the deployer. Default value: default</dd>
+          <dd>The name of the security group for the deployer. Default value:
+              <codeph>default</codeph></dd>
         </dlentry>
         <dlentry>
           <dt>deployer_image (optional)</dt>
@@ -82,9 +84,9 @@
         </dlentry>
         <dlentry>
           <dt>deployer_ext_net_id (optional)</dt>
-          <dd>The external network name. Default value: ext-net <note>This must be specified in the
-              configuration file, but the value is not currently read- only the default is
-              used.</note></dd>
+          <dd>The external network name. Default value: <codeph>ext-net </codeph><note>While this
+              must be specified in the configuration file (it cannot be left blank) the value is not
+              currently read. Only the default value is used.</note></dd>
         </dlentry>
         <dlentry>
           <dt>deployer_cname (optional)</dt>

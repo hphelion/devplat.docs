@@ -227,7 +227,15 @@ $ openstack endpoint create database public 'http://<i>&lt;public-VIP-IP-address
         <dd>If the Messaging Broker sends alarms for MySQL or Zookeeper, they appear in the "No
           Service Defined" panel, not the Messaging Broker Service panel. This is a known
           issue.</dd>
-      </dlentry></dl>
+      </dlentry>
+<dlentry>
+  <dt><codeph>deployer_flavor</codeph> Value Must Be Changed to 3 (Medium)</dt>
+  <dd>This setting is found in the <xref href="installation/cloud/cloud_messaging.dita">Messaging
+              Broker Service</xref> section of the <codeph>clouds.yaml</codeph> file. The value for
+            the flavor ID to use for the deployer instance defaults to 4 (Large) but you <b>must</b>
+            change this value to 3 (Medium) or installation cannot complete successfully. The value
+            must be 3; no other value is valid. This is a known issue.</dd>
+</dlentry></dl>
         </section>
 
   </body>
