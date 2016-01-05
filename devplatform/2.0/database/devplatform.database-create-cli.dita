@@ -14,7 +14,7 @@
           <sli><codeph>[--databases &lt;databases&gt; [&lt;databases&gt; ...]]</codeph>: The names of one or more databases to be created on the new instance.</sli>
           <sli><codeph>[--users &lt;users&gt; [&lt;users&gt; ...]] [--backup &lt;backup&gt;]</codeph>: Users to be created on the instance.</sli>
           <sli><codeph>[--availability_zone &lt;availability_zone&gt;]</codeph>: The OpenStack availability zone in which to create the new instance</sli>
-          <sli><codeph>[--datastore &lt;datastore&gt;]</codeph>: The architecture to use for the new datastore (MySql, Redis, etc.). The default is MySql. To list valid values, enter <codeph>trove datastore-list</codeph></sli>
+          <sli><codeph>[--datastore &lt;datastore&gt;]</codeph>: The architecture to use for the new datastore (MySQL, Redis, etc.). The default is MySQL. To list valid values, enter <codeph>trove datastore-list</codeph></sli>
           <sli><codeph>[--datastore_version &lt;datastore_version&gt;]</codeph>: The database version. To list valid values, enter <codeph>trove datastore-version-list &lt;datastore&gt;</codeph></sli>
           <sli><codeph>[--nic &lt;net-id=net-uuid,v4-fixed-ip=ip-addr,port-id=port-uuid&gt;]</codeph>: The OpenStack network on which to create the new instance. This is required, and should be the same network that any application that accesses the
             database is on.</sli>
@@ -22,11 +22,11 @@
           <sli><codeph>[--replica_of &lt;source_instance&gt;] [--replica_count &lt;count&gt;]</codeph></sli>
         </sl>
         <note>Database instances require a minimum volume size of 5, with a recommended size of 10.</note>
-        <note>Database instances require a minimum flavor of 2 for MySql, 3 for MongoDB and Redis, 
+        <note>Database instances require a minimum flavor of 2 for MySQL, 3 for MongoDB and Redis, 
           and 4 for Vertica Preview.</note>
         <ul>
-          <li><b>Example 1:</b> Create a single MySql instance
-            <p>The following command creates a single (non-clustered) MySql instance called <b>MyInstance</b> with flavor <b>m1.medium</b>, allocating 10 GB of space (the MySql datastore is the default):</p>
+          <li><b>Example 1:</b> Create a single MySQL instance
+            <p>The following command creates a single (non-clustered) MySQL instance called <b>MyInstance</b> with flavor <b>m1.medium</b>, allocating 10 GB of space (the MySQL datastore is the default):</p>
             <codeblock>trove create MyInstance 3 --size 10 --nic net-id=&lt;net-uuid&gt;</codeblock>
           </li>
           <li><b>Example 2: </b> Create a MongoDB instance
@@ -41,9 +41,9 @@
               with flavor <b>m1.medium</b>, allocating 1 GB of space.</p>
             <codeblock>trove create MyRedisInstance 3 --datastore redis --size 10 --nic net-id=&lt;net-uuid&gt;</codeblock>
           </li>
-          <li><b>Example 4:</b>  Create a replicated MySql instance
-            <p>The following command creates a MySql instance as a <xref type="external" href="https://dev.mysql.com/doc/refman/5.0/en/replication.html" format="html">replica</xref> of another MySql database (Replication is only supported
-              for MySql databases).</p>
+          <li><b>Example 4:</b>  Create a replicated MySQL instance
+            <p>The following command creates a MySQL instance as a <xref type="external" href="https://dev.mysql.com/doc/refman/5.0/en/replication.html" format="html">replica</xref> of another MySQL database (Replication is only supported
+              for MySQL databases).</p>
             <codeblock>trove create MyReplicatedInstance 4 --replica_of 18afdf3c-3f38-4bda-b40a-13b675c7f857 --nic net-id=&lt;net-uuid&gt;</codeblock>
           </li>
           <li><b>Example 5:</b> Create a Vertica Preview instance
