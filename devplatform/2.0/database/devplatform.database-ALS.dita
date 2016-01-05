@@ -38,15 +38,13 @@
           the ALS cluster.</li>
         <li><codeph>ssh</codeph> into each ALS instance that contains the MySQL service and set the
           endpoint details, for
-          example:<codeblock>kato config set mysql_node mysql/host 198.51.100.0
-kato config set mysql_node mysql/port 3306
-kato config set mysql_node mysql/user root
-kato config set mysql_node mysql/pass myPassword</codeblock></li>
+          example:<codeblock>$ kato config set mysql_node mysql/host 198.51.100.0</codeblock><codeblock>$ kato config set mysql_node mysql/port 3306</codeblock><codeblock>$ kato config set mysql_node mysql/user root</codeblock><codeblock>$ kato config set mysql_node mysql/pass myPassword</codeblock></li>
         <li>Increase the timeout settings to allow the <xref
             href="http://code.macournoyer.com/thin/" scope="external" format="html">Thin</xref>
-          MySQL gateway to connect reliably to the database
-          instance:<codeblock>kato config set mysql_node connection_wait_timeout 100
-kato config set mysql_node keep_alive_interval 60</codeblock></li>
+          MySQL gateway to connect reliably to the database instance, for
+          example:<codeblock>$ kato config set mysql_node connection_wait_timeout 100</codeblock><codeblock>$ kato config set mysql_node keep_alive_interval 60</codeblock></li>
+        <li>Ensure that the MySQL configuration takes effect by running the following command:
+          <codeblock>$ kato restart mysql</codeblock></li>
       </ol>
       <note>Application deployment does not change between the managed and unmanaged versions of the
         MySQL service. A developer can connect to and interact with the MySQL database in exactly
