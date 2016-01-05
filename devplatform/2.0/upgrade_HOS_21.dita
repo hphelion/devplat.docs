@@ -39,7 +39,7 @@
             directory.<codeblock>tar -xzf DevelopmentPlatformUpgrade-2.1.tar.gz </codeblock></li>
         <li>Source a virtual environment containing the OpenStack clients. We recommend using the
             built-in virtual environment on the HPE Helion OpenStack lifecycle
-            manager.<codeblock> source /opt/stack/venv/openstackclient-&lt;timestamp>/bin/activate </codeblock></li>
+            manager.<codeblock>source /opt/stack/venv/openstackclient-&lt;timestamp>/bin/activate </codeblock></li>
         <li>Execute the following command to source credentials with access to the service.
           <codeblock>source service.osrc</codeblock> 6. Disable access to the Trove API. This will
           stop all
@@ -57,9 +57,13 @@
         <li>Restart all control plane
           instances.<codeblock>./control_plane_upgrade/scripts/start_control_plane_instances.bash </codeblock></li>
         <li>Safely start the Trove
-          services.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml </codeblock></li>
-        <li>Start all databases
-          instances.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
+              services.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock><note>If
+              any of the services do not restart [FAILED = 1], add floating IPs to all the instances
+              in the Database control plane and run this playbook again. These instances are created
+              during installation and can be accessed through the Horizon dashboard or Nova
+              client.</note></li>
+        <li>Start all database
+            instances.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
         <li>Verify that all guest instances were restarted successfully.
           <codeblock>cat ~/guest-instance-status.log </codeblock></li>
         <li>Restart the Database API service. After this step the database service will be fully
