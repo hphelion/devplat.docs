@@ -18,25 +18,25 @@
     </section>
     
     <section>
-      <title>Database Service</title><p>After the HPE Helion OpenStack upgrade is completed, perform these steps to restart the database
-        services and instances.</p>
+      <title>Database Service</title>
+      <p>The database instances and clusters must be restarted safely after upgrading HPE Helion
+        OpenStack.</p>
       
       <p><ol id="ol_n1n_v4h_45">
         <li>Restart all control plane
           instances.<codeblock>./control_plane_upgrade/scripts/start_control_plane_instances.bash </codeblock></li>
         <li>Safely start the Trove
-          services.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock><note>If
-            any of the services do not restart [FAILED = 1], add floating IPs to all the instances
-            in the Database control plane and run this playbook again. These instances are created
-            during installation and can be accessed through the Horizon dashboard or Nova
-            client.</note></li>
-        <li>Start all database
-          instances.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
-        <li>Verify that all guest instances were restarted successfully.
+              services.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock><note
+              type="tip">If any of the services do not restart [FAILED = 1], add floating IPs to all
+              the instances in the Database control plane and run this playbook again. These
+              instances are created during installation and can be accessed through the Horizon
+              dashboard or Nova client.</note></li>
+        <li>Start all database instances and clusters. This script may take some time to fully
+            execute.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
+        <li id="restarted">Verify that all guest instances were restarted successfully.
           <codeblock>cat ~/guest-instance-status.log </codeblock></li>
         <li>Restart the Database API service. After this step the database service will be fully
-          functional
-          <codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/start-api.yml</codeblock></li>
+            functional.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/start-api.yml</codeblock></li>
       </ol></p></section>
     
     
