@@ -25,7 +25,10 @@
             directory.<codeblock>tar -xzf DevelopmentPlatformUpgrade-2.1.tar.gz </codeblock></li>
           <li>Source a virtual environment containing the OpenStack clients. We recommend using the
             built-in virtual environment on the HPE Helion OpenStack lifecycle
-            manager.<codeblock>source /opt/stack/venv/openstackclient-&lt;timestamp>/bin/activate </codeblock></li>
+              manager.<codeblock>source /opt/stack/venv/openstackclient-&lt;timestamp>/bin/activate </codeblock><note
+              type="tip">To find the timestamp value, enter <codeph>ls /opt/stack/venv</codeph> and
+              look for the folder named <codeph>openstackclient-...</codeph>. This is the value you
+              should use.</note></li>
           <li>Execute the following command to source credentials with access to the service.
             <codeblock>source service.osrc</codeblock></li>
           <li>Disable access to the Trove API. This will stop all
@@ -47,10 +50,10 @@
         </ol></p></section>
     
     <section>
-      <title>HPE Helion Code Engine</title>
+      <title>HPE Helion Code Engine</title><p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
     </section>
     <section>
-      <title>Messaging Service</title>
+      <title>Messaging Service</title><p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
     </section>
   </body>
 </topic>
