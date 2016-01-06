@@ -4,150 +4,20 @@
   <title>HPE Helion 2.0 Development Platform: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
     Version 2.1</title>
   <body>
-    <!--<p>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</p>-->
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the virtual
       machines which run the control plane will also affect the services that make up the HPE Helion
       Development Platform. </p>
     <p>Perform these additional steps to safely shut down these specific services prior to upgrading
       and then to restart them after the upgrade is complete.</p>
-   <p outputclass="subhead">Before Upgrading</p>
-    
-    <section>
-      <title>Application Lifecycle Service</title>
-    </section>
-
-
-    <section><title>Database Service</title><p>The database services and instances must be manually stopped before upgrading HPE Helion
-          OpenStack.<ol id="ol_u4h_54h_45">
-          <li>Download the following file that contains the upgrade scripts.<note type="tip">The
-              easiest option is to download directly to the physical machine hosting the HPE Helion
-              OpenStack lifecycle manager. If you can not download directly to that location,
-              download the files to portable storage media and then copy the files onto the
-              lifecycle manager. When downloading or copying, make sure there is enough space; the
-              file sizes can be significant. </note></li>
-          <li>SSH to the HPE Helion OpenStack lifecycle manager (previously known as the deployer
-            node). </li>
-          <li>Decompress the <codeph>DevelopmentPlatformUpgrade-2.1.tar.gz</codeph> file to a local
-            temp
-            directory.<codeblock>tar -xzf DevelopmentPlatformUpgrade-2.1.tar.gz </codeblock></li>
-          <li>Source a virtual environment containing the OpenStack clients. We recommend using the
-            built-in virtual environment on the HPE Helion OpenStack lifecycle
-            manager.<codeblock>source /opt/stack/venv/openstackclient-&lt;timestamp>/bin/activate </codeblock></li>
-          <li>Execute the following command to source credentials with access to the service.
-            <codeblock>source service.osrc</codeblock> 6. Disable access to the Trove API. This will
-            stop all
-              activity.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/stop-api.yml </codeblock><note
-              type="tip">The SSH private key file is the one that was specified during creation of
-              the database service. This same key will be used for all commands in this
-              guide.</note> 7. Safely stop all guest
-            databases.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/stop-guests.yml </codeblock></li>
-          <li>Safely stop the Trove services
-            .<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_stop.yml </codeblock></li>
-          <li>Safely stop all control plane
-            instances.<codeblock> ./control_plane_upgrade/scripts/stop_control_plane_instances.bash</codeblock></li>
-        </ol></p></section>
-    
-    <section>
-      <title>Messaging Service</title>
-    </section>
-    
-    
-    <p outputclass="subhead">After Upgrading</p>
-    
-    <section>
-      <title>Application Lifecycle Service</title>
-      <p>After rebooting the compute nodes, if any ALS clusters do not restart, perform the
-        following steps.</p>
-      <ol id="ol_eph_xxg_45">
-        <li> Start core node.</li>
-        <li> Start secondary controller nodes.</li>
-        <li> Start secondary routers.</li>
-        <li> Start service broker nodes.</li>
-        <li> Start DEAs.</li>
-      </ol>
-    </section>
-    
-    <section>
-      <title>Database Service</title><p>The database services and instances must be restarted after upgrading.</p>
-      
-  <p><ol id="ol_n1n_v4h_45">
-        <li>Restart all control plane
-          instances.<codeblock>./control_plane_upgrade/scripts/start_control_plane_instances.bash </codeblock></li>
-        <li>Safely start the Trove
-          services.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock><note>If
-            any of the services do not restart [FAILED = 1], add floating IPs to all the instances
-            in the Database control plane and run this playbook again. These instances are created
-            during installation and can be accessed through the Horizon dashboard or Nova
-            client.</note></li>
-        <li>Start all database
-          instances.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
-        <li>Verify that all guest instances were restarted successfully.
-          <codeblock>cat ~/guest-instance-status.log </codeblock></li>
-        <li>Restart the Database API service. After this step the database service will be fully
-          functional
-          <codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/start-api.yml</codeblock></li>
-      </ol></p></section>
-    
-    
-    <section>
-      <title>HPE Helion Code Engine</title>
-    </section>
-    
-
-    
-    <section><title>Messaging Broker Service</title>
-    <p> Bring up the messaging control plane.</p>
-    <ol id="ol_srh_xxg_45">
-      <li>SSH into the HPE Helion OpenStack lifecycle manager.
-        <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
-      <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
-        This was <xref href="installation/devplatform_install_messaging.dita">created during
-          installation</xref> of the Messaging
-        service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-      <li>Navigate to the <codeph>ansible</codeph> scratch directory.
-        <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-      <li>Run the following playbooks in this order.
-        <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
-ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
-ansible-playbook -i hosts/verb_hosts cue-stop.yml
-ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
-    </ol>
-    <p>Bring up tenant RabbitMQ Clusters.</p>
    
-      <note>If you did not previously deploy any RabbitMQ clusters, this step does not apply to your
-        environment.</note>
-      <ol id="ol_r5h_xxg_45">
-        <li>SSH into the HPE Helion OpenStack lifecycle manager.
-          <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
-        <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
-          This was <xref href="installation/devplatform_install_messaging.dita">created during
-            installation</xref> of the Messaging
-          service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-        <li>Navigate to the <codeph>ansible</codeph> scratch directory.
-          <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-        <li>Run the RabbitMQ cluster recovery script.<ol id="ol_npz_5zs_35">
-            <li>Copy <xref href="installation/cue_rabbit_fix_script.dita">this codeblock</xref> into
-              a plaintext file and save it as <codeph>cue-rabbit-fix.sh</codeph></li>
-            <li>Copy the script file into this directory on the messaging
-              deployer.<codeblock> /home/stack/scratch/ansible/next/hos/ansible</codeblock></li>
-            <li>Make the script executable. <codeblock>chmod +x cue-rabbit-fix.sh</codeblock></li>
-            <li>Execute the script to bring all your RabbitMQ clusters
-              online.<codeblock>./cue-rabbit-fix.sh</codeblock></li>
-          </ol></li>
-        <li>Verify Installation <ol id="ol_axh_xxg_45">
-            <li>Set endpoint type to <codeph>internal</codeph>. (The public endpoint cannot be
-              reached from the messaging deployer)
-              <codeblock>export OS_ENDPOINT_TYPE=internalURL
-export OS_INTERFACE=internal</codeblock></li>
-            <li>List all clusters. <note>Since you have not yet created any clusters, this list of
-                clusters will be empty, but it should execute without returning any error messages.
-              </note><codeblock>stack@messaging-deployer:~/scratch/ansible/next/hos/ansible$ /opt/stack/service/cueclient/venv/bin/openstack message-broker cluster list</codeblock></li>
-            <li>If you have configured TLS, make sure that the Cue public endpoint begins with https
-              and not just http:<codeblock>openstack catalog list</codeblock></li>
-          </ol></li>
-      </ol>
-    </section>
-      
+    
 
+    
   </body>
+  <topic id="id_e4r_r5p_45" conref="before_upgrade_HOS_21.dita#topic_qp3_g5p_45">
+    <title/>
+  </topic>
+  <topic id="id_kmk_s5p_45" conref="after_upgrade_HOS_21.dita#topic_rgp_g5p_45">
+    <title/>
+  </topic>
 </topic>

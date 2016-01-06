@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_qp3_g5p_45">
+  <title>Before Upgrading</title>
+  <body>
+    
+    <section>
+      <title>Application Lifecycle Service</title>
+      <p><i>{pending input on <xref href="https://jira.hpcloud.net/browse/DOCS-2423" format="html"
+        scope="external">docs-2423</xref>}</i></p>
+    </section>
+    
+    
+    <section><title>Database Service</title><p>The database services and instances must be manually stopped before upgrading HPE Helion
+      OpenStack.<ol id="ol_u4h_54h_45">
+        <li>Download the following file that contains the upgrade scripts.<note type="tip">The
+          easiest option is to download directly to the physical machine hosting the HPE Helion
+          OpenStack lifecycle manager. If you can not download directly to that location,
+          download the files to portable storage media and then copy the files onto the
+          lifecycle manager. When downloading or copying, make sure there is enough space; the
+          file sizes can be significant. </note></li>
+        <li>SSH to the HPE Helion OpenStack lifecycle manager (previously known as the deployer
+          node). </li>
+        <li>Decompress the <codeph>DevelopmentPlatformUpgrade-2.1.tar.gz</codeph> file to a local
+          temp
+          directory.<codeblock>tar -xzf DevelopmentPlatformUpgrade-2.1.tar.gz </codeblock></li>
+        <li>Source a virtual environment containing the OpenStack clients. We recommend using the
+          built-in virtual environment on the HPE Helion OpenStack lifecycle
+          manager.<codeblock>source /opt/stack/venv/openstackclient-&lt;timestamp>/bin/activate </codeblock></li>
+        <li>Execute the following command to source credentials with access to the service.
+          <codeblock>source service.osrc</codeblock> 6. Disable access to the Trove API. This will
+          stop all
+          activity.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/stop-api.yml </codeblock><note
+            type="tip">The SSH private key file is the one that was specified during creation of
+            the database service. This same key will be used for all commands in this
+            guide.</note> 7. Safely stop all guest
+          databases.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/stop-guests.yml </codeblock></li>
+        <li>Safely stop the Trove services
+          .<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_stop.yml </codeblock></li>
+        <li>Safely stop all control plane
+          instances.<codeblock> ./control_plane_upgrade/scripts/stop_control_plane_instances.bash</codeblock></li>
+      </ol></p></section>
+    
+    <section>
+      <title>HPE Helion Code Engine</title>
+    </section>
+    <section>
+      <title>Messaging Service</title>
+    </section>
+  </body>
+</topic>
