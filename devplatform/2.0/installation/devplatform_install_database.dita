@@ -3,7 +3,7 @@
 <topic id="topic_vsf_hnh_ts">
   <title>HPE Helion 2.0 Development Platform: Install the Database Service</title>
   <body>
-<section id="install-database">
+    <section id="install-database">
       <title>Prerequisites</title>
       <ul>
         <li>The HDP Installer 2.0, also known as HDPI, must already <xref
@@ -17,23 +17,21 @@
           availability.</li>
       </ul>
     </section>
-
-<section id="dbaas_installation">
+    <section id="dbaas_installation">
       <title>Install the Database Service </title>
       <ol id="ol_xct_5dz_nt">
         <li>SSH into the HP Helion OpenStack lifecycle manager.</li>
         <li>Source the Virtual
           Environment.<codeblock>source /opt/stack/venv/&lt;dpi-venv&gt;/bin/activate</codeblock></li>
-        <li>Install the database service.
-       <ol> <li>If you <xref href="install_offline.dita#topic_w25_hqp_xt">pre-downloaded</xref> the
-              installation
-                files:
-         <codeblock>cd <i>&lt;directory where the pre-downloaded file is></i>
+        <li>Install the database service. <ol>
+            <li>If you <xref href="install_offline.dita#topic_w25_hqp_xt">pre-downloaded</xref> the
+              installation files:
+                <codeblock>cd <i>&lt;directory where the pre-downloaded file is></i>
 openstack --os-cloud mycloud hdpi database install <i>&lt;filename></i></codeblock><note>Make
                 sure you run the installer from the <b>same</b> directory where the installation
                 files are saved. If the installer cannot find a file with the name you provided in
                 the local directory, it will attempt to download the files again. </note></li>
-        <li>If you did not pre-download the file: <ol id="ol_fcs_t5r_yt">
+            <li>If you did not pre-download the file: <ol id="ol_fcs_t5r_yt">
                 <li>Find the most recent version of the file. Note that this command provides only a
                   quick list of recent files; there are <xref
                     href="install_listOptions.dita#listContent">more complete listing options</xref>
@@ -66,10 +64,13 @@ Database is already configured
 Launching stack...
 Stack trove creating
 Completed installing database
-$</codeblock></li></ol></li></ol></section>
-
-<section id="configure_haproxy"><sectiondiv><p><b>Configure HAProxy</b></p>The following steps will configure HAProxy to receive and
-        forward HTTP requests to the VM that hosts the REST API endpoint for the Database Service.<ol>
+$</codeblock></li>
+          </ol></li>
+      </ol>
+    </section>
+    <section id="configure_haproxy"><sectiondiv><p><b>Configure HAProxy</b></p>The following steps
+        will configure HAProxy to receive and forward HTTP requests to the VM that hosts the REST
+        API endpoint for the Database Service.<ol>
           <li> Identify all the API server IPs on the SVC network. <p>
               <codeblock>openstack server list | awk '/trove[0-9]*_api/{ print $4,"\t", substr($8,5) }' --os-cloud mycloud</codeblock>
             </p></li>
@@ -105,11 +106,36 @@ ansible-playbook -i hosts/localhost ready-deployment.yml</codeblock></li>
                 configuration.<codeblock>cd ~/scratch/ansible/next/hos/ansible
 ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
             </ol></li>
-          <li>On each controller node, edit the IP table filtering rules to permit access by the
-            Trove service on port 8779.
-            <codeblock>sudo iptables -I INPUT -p tcp --dport 8779 -j ACCEPT</codeblock></li>
+          <li>Perform IPTABLE setup <b>on each controller node</b>.<ol id="ol_bly_1gw_45">
+              <li>Open the ~/helion/my_cloud/definition/data/firewall_rules.yml file for
+                editing.</li>
+              <li>Add this code block to allow access to the DBaaS port (8779) through the firewall.
+                <codeblock>  - name: DBAAS 
+        network-groups:
+        - EXTERNAL-API 
+        - MANAGEMENT 
+        rules: 
+        - type: allow
+          remote-ip-prefix: 0.0.0.0/0 
+          port-range-min: 8779 
+          port-range-max: 8779 
+          protocol: tcp</codeblock></li>
+              <li>Commit these changes to your local Git repo for
+                persistence.<codeblock>cd ~/helion/hos/ansible 
+git add -A 
+git commit -m "firewall for dbaas added" </codeblock></li>
+              <li>Run the configuration processor.
+                <codeblock>cd ~/helion/hos/ansible 
+ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
+              <li>Create the deployment directory structure.
+                <codeblock>cd ~/helion/hos/ansible 
+ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock></li>
+              <li>Change to the deployment directory
+                <codeblock>cd ~/scratch/ansible/next/hos/ansible </codeblock></li>
+              <li>Run the <codeph>osconfig-iptables-deploy.yml</codeph> playbook to update your
+                iptable
+                rules.<codeblock>ansible-playbook -i hosts/verb_hosts osconfig-iptables-deploy.yml</codeblock></li>
+            </ol></li>
         </ol></sectiondiv></section>
-
- 
   </body>
 </topic>
