@@ -48,6 +48,10 @@
         locktitle="yes" toc="no"/>
       <topicref href="2.0/installation/cloud/fullFile.dita" navtitle="no_fullYamlSample"
         locktitle="yes" toc="no"/>
+      <topicref href="2.0/before_upgrade_HOS_21.dita" toc="no" navtitle="no_beforeupgrade"
+        locktitle="yes"/>
+      <topicref href="2.0/after_upgrade_HOS_21.dita" toc="no" navtitle="no_afterupgrade"
+        locktitle="yes"/>
       <topicref href="2.0/installation/cloud/cloud_codeengine.dita" toc="no"/>
       <topicref href="2.0/installation/cloud/cloud_database.dita" toc="no"/>
       <topicref href="2.0/installation/cloud/cloud_messaging.dita" toc="no"/>
