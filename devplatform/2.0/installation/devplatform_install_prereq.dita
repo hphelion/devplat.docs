@@ -10,6 +10,8 @@
       <ul id="ul_plz_psf_xt">
         <li> Ensure that the HPE Helion <tm tmtype="reg">OpenStack</tm> environment you are using meets
           the following requirements: <ul>
+            <li>The HPE Helion 2.0 Development Platform requires HPE Helion OpenStack version 2.0
+              with a KVM hypervisor.</li>
             <li>The Cinder block storage backend must be configured to use <xref
                 href="http://docs.hpcloud.com/#helion/installation/configure_vsa.html" format="html"
                 scope="external">VSA</xref>, <xref
