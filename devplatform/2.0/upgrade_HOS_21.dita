@@ -16,6 +16,10 @@
   </body>
   <topic id="id_e4r_r5p_45" conref="before_upgrade_HOS_21.dita#topic_qp3_g5p_45">
     <title/>
+  </topic><topic id="updateToHos">
+    <title>Upgrade HPE Helion OpenStack to version 2.1</title><body><p>For complete instructions on how to upgrade HPE Helion OpenStack, see the <xref
+          href="http://docs.hpcloud.com/#helion/installation/upgrade.html" format="html"
+          scope="external">Upgrade Documentation</xref>. </p></body>
   </topic>
   <topic id="id_kmk_s5p_45" conref="after_upgrade_HOS_21.dita#topic_rgp_g5p_45">
     <title/>
