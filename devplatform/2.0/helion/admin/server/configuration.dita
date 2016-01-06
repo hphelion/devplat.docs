@@ -579,13 +579,13 @@ nodes (via SSHFS).</li>
         example:<codeblock>$ ssh -i myClusterPublicKey stackato@198.51.100.0</codeblock></p>
       <p>The following commands display the current configuration:</p>
       <ul id="ul_y3v_jy3_k5">
-        <li><codeph><codeph>fencedocker/allowed_subnet_ips</codeph></codeph>: Display a list of all
+        <li><codeph><codeph>fence docker/allowed_subnet_ips</codeph></codeph>: Display a list of all
           allowed IP addresses, for
           example:<codeblock>$ kato config get fence docker/allowed_subnet_ips
 - 192.51.100.0
 - 192.51.100.1
 - 192.51.100.2</codeblock></li>
-        <li><codeph><codeph>fencedocker/allowed_host_ports</codeph></codeph>: Display a list of all
+        <li><codeph><codeph>fence docker/allowed_host_ports</codeph></codeph>: Display a list of all
           allowed ports, for
           example:<codeblock>$ kato config get fence docker/allowed_host_ports
 - 80
@@ -596,31 +596,33 @@ nodes (via SSHFS).</li>
       </ul>
       <p>The following commands modify the current configuration:</p>
       <ul id="ul_s1h_fz3_k5">
-        <li><codeph><codeph>fencedocker/allowed_subnet_ips
+        <li><codeph><codeph>fence docker/allowed_subnet_ips
               <varname>&lt;ip-address:port></varname></codeph></codeph>: Delete an IP address from
           the <codeph>allowed_subnet_ips</codeph> list, for
             example:<codeblock>$ kato config pop fence docker/allowed_subnet_ips 192.0.2.24:6379</codeblock><note>You
             can open a port for an individual IP address or an IP CIDR block. Port settings apply
             only to the specified individual IP address.</note></li>
-        <li><codeph><codeph>fencedocker/allowed_host_ports
+        <li><codeph><codeph>fence docker/allowed_host_ports
             <varname>&lt;port></varname></codeph></codeph>: Delete a port from the
             <codeph>allowed_host_ports</codeph> list, for
           example:<codeblock>$ kato config pop fence docker/allowed_host_ports 6379</codeblock></li>
       </ul>
       <p>The following settings allow or restrict access from application containers:</p>
       <ul id="ul_flb_vz3_k5">
-        <li><codeph><codeph>fencedocker/allowed_host_ports</codeph></codeph>: If applications need
+        <li><codeph><codeph>fence docker/allowed_host_ports</codeph></codeph>: If applications need
           access to custom services on a specific port, but the IP address changes or is not known
           ahead of time, add the port to this list, for
+          example:<codeblock>$ kato config push fence docker/allowed_host_ports 25</codeblock></li>
+        <li><codeph><codeph>fence docker/allowed_subnet_ips</codeph></codeph>: If the specific IP
             example:<codeblock>$ kato config push fence docker/allowed_host_ports 25</codeblock><note
             type="warning">Because this action opens the port to <b>all</b> IP addresses, do not
             perform it on production systems.</note></li>
-        <li><codeph><codeph>fencedocker/allowed_subnet_ips</codeph></codeph>: If the specific IP
+        <li><codeph><codeph>fence docker/allowed_subnet_ips</codeph></codeph>: If the specific IP
           address for a service is static and known, add the IP address with or without the port
           specification, for
           example:<codeblock>$ kato config push fence docker/allowed_subnet_ips 198.51.100.0
 $ kato config push fence docker/allowed_subnet_ips 198.51.100.1:9001</codeblock></li>
-        <li><codeph><codeph>fencedocker/block_network_ips</codeph></codeph>: To explicitly block
+        <li><codeph><codeph>fence docker/block_network_ips</codeph></codeph>: To explicitly block
           access to a specific IP address (internal or
           external):<codeblock>$ kato config push fence docker/block_network_ips 203.0.113.0</codeblock></li>
       </ul>
@@ -629,9 +631,9 @@ $ kato config push fence docker/allowed_subnet_ips 198.51.100.1:9001</codeblock>
         already been deployed.</p>
       <note type="warning">Two additional settings are exposed in <codeph>kato config</codeph> but
         in most cases should not be modified:<ul id="ul_v1k_b1j_k5">
-          <li><codeph><codeph>fencedocker/exposed_container_ports</codeph></codeph>: Container ports
-            to be accessed over the subnet (internal services).</li>
-          <li><codeph><codeph>fencedocker/network_interface</codeph></codeph>: The docker bridge
+          <li><codeph><codeph>fence docker/exposed_container_ports</codeph></codeph>: Container
+            ports to be accessed over the subnet (internal services).</li>
+          <li><codeph><codeph>fence docker/network_interface</codeph></codeph>: The docker bridge
             interface.</li>
         </ul></note>
     </section>
