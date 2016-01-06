@@ -612,12 +612,21 @@ nodes (via SSHFS).</li>
         <li><codeph><codeph>fence docker/allowed_host_ports</codeph></codeph>: If applications need
           access to custom services on a specific port, but the IP address changes or is not known
           ahead of time, add the port to this list, for
+<<<<<<< HEAD
+<<<<<<< Updated upstream
           example:<codeblock>$ kato config push fence docker/allowed_host_ports 25</codeblock></li>
-        <li><codeph><codeph>fence docker/allowed_subnet_ips</codeph></codeph>: If the specific IP
+=======
+            example:<codeblock>$ kato config push fence docker/allowed_host_ports 25</codeblock><note
+            type="warning">Because this action opens the port to <b>all</b> IP addresses, do not
+            perform it on production systems.</note></li>
+>>>>>>> DOCS-2411-update-als-ip-and-port-config-instructions
+        <li><codeph><codeph>fencedocker/allowed_subnet_ips</codeph></codeph>: If the specific IP
+=======
             example:<codeblock>$ kato config push fence docker/allowed_host_ports 25</codeblock><note
             type="warning">Because this action opens the port to <b>all</b> IP addresses, do not
             perform it on production systems.</note></li>
         <li><codeph><codeph>fence docker/allowed_subnet_ips</codeph></codeph>: If the specific IP
+>>>>>>> Stashed changes
           address for a service is static and known, add the IP address with or without the port
           specification, for
           example:<codeblock>$ kato config push fence docker/allowed_subnet_ips 198.51.100.0
