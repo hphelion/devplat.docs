@@ -31,9 +31,9 @@
               the instances in the Database control plane and run this playbook again. These
               instances are created during installation and can be accessed through the Horizon
               dashboard or Nova client.</note></li>
-        <li>Start all database instances and clusters. This script may take some time to fully
+        <li id="restarted">Start all database instances and clusters. This script may take some time to fully
             execute.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
-        <li id="restarted">Verify that all guest instances were restarted successfully.
+        <li>Verify that all guest instances were restarted successfully.
           <codeblock>cat ~/guest-instance-status.log </codeblock></li>
         <li>Restart the Database API service. After this step the database service will be fully
             functional.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/start-api.yml</codeblock></li>
