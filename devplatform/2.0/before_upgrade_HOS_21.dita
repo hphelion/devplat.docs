@@ -6,8 +6,7 @@
     
     <section>
       <title>Application Lifecycle Service</title>
-      <p><i>{pending input on <xref href="https://jira.hpcloud.net/browse/DOCS-2423" format="html"
-        scope="external">docs-2423</xref>}</i></p>
+      <p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
     </section>
     
     
