@@ -4,88 +4,24 @@
   <title>HPE Helion 2.0 Development Platform: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
     Version 2.1</title>
   <body>
-    <p>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</p>
-<!--
-      <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the VMs that run
-      the control plane will also stop the services that make up the HPE Helion Development
-      Platform. Additional procedures, if any, required to bring each service back online are
-      provided here.</p>
-    <section>
-      <title>Application Lifecycle Service</title>
-     <p>After rebooting the compute nodes, if any ALS clusters do not restart, perform the following
-        steps.</p>
-  <ol><li> Start core node.</li>
-        <li> Start secondary controller nodes.</li>
-        <li> Start secondary routers.</li>
-        <li> Start service broker nodes.</li>
-        <li> Start DEAs.</li></ol>
-    </section>
-    <section>
-      <title>Database Service</title>
-    </section>
+    <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the virtual
+      machines which run the control plane will also affect the services that make up the HPE Helion
+      Development Platform. </p>
+    <p>Perform these additional steps to safely shut down these specific services prior to upgrading
+      and then to restart them after the upgrade is complete.</p>
+   
     
-    <p>The first <codeph>designate-stop</codeph> playbook stops a designate component which
-      automatically restarts before the databases become available again. Once the other playbooks
-      have been run, that component is safely restarted. </p>
-    <section>
-      <title>Messaging Broker Service</title>
-    </section>
-    <p> Bring up the messaging control plane.</p>
-    <ol>
-      <li>SSH into the HPE Helion OpenStack lifecycle manager.
-        <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
-      <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
-        This was <xref href="installation/devplatform_install_messaging.dita">created during
-          installation</xref> of the Messaging
-        service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-      <li>Navigate to the <codeph>ansible</codeph> scratch directory.
-        <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-      <li>Run the following playbooks in this order.
-        <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
-ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
-ansible-playbook -i hosts/verb_hosts cue-stop.yml
-ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
-    </ol>
-    <p>Bring up tenant RabbitMQ Clusters.</p>
-    <section>
-      <note>If you did not previously deploy any RabbitMQ clusters, this step does not apply to your
-        environment.</note>
-      <ol>
-        <li>SSH into the HPE Helion OpenStack lifecycle manager.
-          <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
-        <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
-          This was <xref href="installation/devplatform_install_messaging.dita">created during
-            installation</xref> of the Messaging
-          service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-        <li>Navigate to the <codeph>ansible</codeph> scratch directory.
-          <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
-        <li>Run the RabbitMQ cluster recovery script.<ol id="ol_npz_5zs_35">
-            <li>Copy <xref href="installation/cue_rabbit_fix_script.dita">this codeblock</xref> into
-              a plaintext file and save it as <codeph>cue-rabbit-fix.sh</codeph></li>
-            <li>Copy the script file into this directory on the messaging
-              deployer.<codeblock> /home/stack/scratch/ansible/next/hos/ansible</codeblock></li>
-            <li>Make the script executable.  <codeblock>chmod +x cue-rabbit-fix.sh</codeblock></li>
-            <li>Execute the script to bring all your RabbitMQ clusters
-              online.<codeblock>./cue-rabbit-fix.sh</codeblock></li>
-          </ol></li>
-  
-   <li>Verify Installation
-     <ol>
-        <li>Set endpoint type to <codeph>internal</codeph>.  (The public endpoint cannot be reached
-          from the messaging deployer)
-          <codeblock>export OS_ENDPOINT_TYPE=internalURL
-export OS_INTERFACE=internal</codeblock></li>
-        <li>List all clusters. <note>Since you have not yet created any clusters, this list of
-                clusters will be empty, but it should execute without returning any error messages.
-              </note><codeblock>stack@messaging-deployer:~/scratch/ansible/next/hos/ansible$ /opt/stack/service/cueclient/venv/bin/openstack message-broker cluster list</codeblock>
-            </li>
-      <li>If you have configured TLS, make sure that the Cue public endpoint begins with https and
-      not just http:<codeblock>openstack catalog list</codeblock></li></ol></li></ol>
-        
- </section>
-    <section>
-      <title>HPE Helion Code Engine</title>
-    </section> 
--->
+
+    
   </body>
+  <topic id="id_e4r_r5p_45" conref="before_upgrade_HOS_21.dita#topic_qp3_g5p_45">
+    <title/>
+  </topic><topic id="updateToHos">
+    <title>Upgrade HPE Helion OpenStack to version 2.1</title><body><p>For complete instructions on how to upgrade HPE Helion OpenStack, see the <xref
+          href="http://docs.hpcloud.com/#helion/installation/upgrade.html" format="html"
+          scope="external">Upgrade Documentation</xref>. </p></body>
+  </topic>
+  <topic id="id_kmk_s5p_45" conref="after_upgrade_HOS_21.dita#topic_rgp_g5p_45">
+    <title/>
+  </topic>
 </topic>
