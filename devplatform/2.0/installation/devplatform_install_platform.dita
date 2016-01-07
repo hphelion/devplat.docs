@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_gly_xmh_ts">
-  <title>HPE Helion 2.0 Development Platform: Set up the Service Installer</title>
+  <title>HPE Helion 2.0 Development Platform: Install the Development Platform Service
+    Installer</title>
   <body>
     <section><p>The installation procedure has changed significantly since the last release. The HDP Installer
         2.0, also known as HDPI, is a plugin for the python-openstackclient (OSC). It is able to
