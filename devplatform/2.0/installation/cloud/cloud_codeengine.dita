@@ -13,12 +13,12 @@
         <note type="important">This section begins indented two spaces; look at the <xref
             href="fullFile.dita">complete file</xref> to see how all the sections fit
           together.</note>
-      </p><codeblock id="cloudengine">  helionce:
-    deployer_key: helionce-shared
-    deployer_flavor: 3
-    deployer_ntp_servers: ntpservers
-    deployer_dns_servers: dnsservers
-    deployer_cloud: 'mycloud'</codeblock></section>
+      </p><codeblock id="cloudengine">    helionce:
+      deployer_key: helionce-shared
+      deployer_flavor: 3
+      deployer_ntp_servers: ntpservers
+      deployer_dns_servers: dnsservers
+      deployer_cloud: 'mycloud'</codeblock></section>
     
     <section><title>Leave these Parameters Unchanged </title>
   
