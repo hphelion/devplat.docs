@@ -202,8 +202,10 @@
         navtitle="Memcached Service"/>
       <topicref href="2.0/helion/user/services/port-service.dita" locktitle="yes"
         navtitle="Port Service (Harbor)"/>
-      <topicref href="2.0/helion/user/services/user-provided.dita" locktitle="yes"
-        navtitle="User-Provided Services"/>
+      <topichead navtitle="User Provided Services">
+        <topicref href="2.0/helion/user/services/user-provided.dita" locktitle="yes"
+          navtitle="no_User-Provided Services" toc="no"/>
+      </topichead>
     </topichead>
   </topichead>
   <topichead navtitle="Resources for Application Developers">
