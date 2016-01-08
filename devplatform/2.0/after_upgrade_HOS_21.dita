@@ -21,7 +21,7 @@
       <title>Database Service</title>
       <p>The database instances and clusters must be restarted safely after upgrading HPE Helion
         OpenStack.</p>
-      
+      <note>It is recommended to delete nova instances that are named hot_pools; do not delete instances that include any additional naming to hot_pools</note>
       <p><ol id="ol_n1n_v4h_45">
         <li>Restart all control plane
           instances.<codeblock>./control_plane_upgrade/scripts/start_control_plane_instances.bash </codeblock></li>
