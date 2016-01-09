@@ -93,42 +93,57 @@
               <li> Use mongo client to connect to the MongoDB database.<ul id="ol_uly_bml_p5">
                   <li>For single instance:
                     <codeblock>mongo -u root -p &lt;root-password_from_root_enable_command&gt; --host &lt;IP address of MongoDB instance&gt; admin</codeblock>Example:<codeblock> mongo -u root -p nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv --host 15.124.133.182 admin</codeblock></li>
-                  <li>
-                    For cluster: Due to known <xref href="#h.c1ykizsf34rv">authentication bug</xref>, by default, authentication is not enabled, therefore username and password are not needed and should not be used for connection (unless authentication is enabled manually after cluster creation).
-                  </li>
+                  <li> For cluster: Due to known authentication bug, by default, authentication is
+                    not enabled, therefore username and password are not needed and should not be
+                    used for connection (unless authentication is enabled manually after cluster
+                    creation).<codeblock> mongo --host &lt;IP address of MongoDB query router&gt; admin</codeblock>Example:
+                    <codeblock>mongo --host 15.124.133.100 admin</codeblock>If the conneciton is
+                    successful, the output will appear similar to the following:
+                    <codeblock>MongoDB shell version: 3.0.7 
+connecting to: 15.124.133.182:27017/admin
+&gt;</codeblock></li>
                 </ul></li>
-            </ol>
-          </p><p> </p><p>$ mongo --host &lt;IP address of MongoDB query router&gt; admin</p><p
-            > </p><p>Example:</p><p> </p><p>$ mongo --host 15.124.133.100 admin</p><p> </p><p
-            > </p><p>You will see output similar to following upon successful
-            connection:</p><p> </p><p>MongoDB shell version: 3.0.7</p><p>connecting to:
-            15.124.133.182:27017/admin</p><p>&gt; </p><p> </p><p>Run “show dbs” command in mongo
-            shell to validate you have basic access:</p><p> </p><p>&gt; show dbs</p><p>admin
-            0.078GB</p><p>local 0.078GB</p><p> </p><p>Run “db.createUser” command in mongo shell, to
-            add a user for client access to the selected MongoDB database, similar to following
-            example.</p><p> </p><p>Set context to the database:</p><p> </p><p>&gt; use
-            test_db</p><p> </p><p>Create user:</p><p> </p><p>&gt; db.createUser(</p><p> {</p><p>
-            user: "demo",</p><p> pwd: "demo",</p><p> roles: [</p><p> { role: "readWrite", db:
-            "test_db"}</p><p> ]</p><p> }</p><p> )</p><p> </p><p>Successfully added user:
-            {</p><p>"user" : "demo",</p><p>"roles" : [</p><p>{</p><p>"role" :
-            "readWrite",</p><p>"db" : "test_db"</p><p>}</p><p>]</p><p>}</p><p> </p><p>Add additional
-            users as needed.</p><p> </p><p>Verify that the users you have added are in the database,
-            by running “show users” in mongo shell:</p><p> </p><p>&gt; show
-            users</p><p>{</p><p>"_id" : "test_db.demo",</p><p>"user" : "demo",</p><p>"db" :
-            "test_db",</p><p>"roles" : [</p><p>{</p><p>"role" : "readWrite",</p><p>"db" :
-            "test_db"</p><p>}</p><p>]</p><p>}</p><p>&gt; </p><p> </p><p> </p></li></ol>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </section>
-  </body>
-</topic>
+              <li> Run <codeph>show dbs </codeph>command in mongo shell to validate you have basic
+                access: <codeblock>show dbs
+admin 0.078GB 
+local 0.078GB</codeblock></li>
+              <li>Run “db.createUser” command in mongo shell, to add a user for client access to the
+                selected MongoDB database, similar to following example. <ol>
+                  <li>Set context to the database:<codeblock>use test_db</codeblock></li>
+                  <li>Create
+                    user:<codeblock>&gt; db.createUser(
+      {
+       user: "demo",
+       pwd: "demo",
+       roles: [
+          { role: "readWrite", db: "test_db"}
+       ]
+     }
+)</codeblock></li>
+                  <li>If successful, assign roles to the new
+                    user.<codeblock>{
+"user" : "demo",
+"roles" : [
+{
+"role" : "readWrite",
+"db" : "test_db"
+}
+]
+}</codeblock></li>
+                  <li>Add additional users as needed.</li>
+                  <li>Verify that the users you have added are in the database, by running “show
+                    users” in mongo
+                    shell:<codeblock>show users
+{
+"_id" : "test_db.demo",
+"user" : "demo",
+"db" : "test_db",
+"roles" : [
+{
+"role" : "readWrite",
+"db" : "test_db"
+}
+]
+}</codeblock></li>
+                </ol></li></ol></p></li></ol></section></body></topic>
+    
