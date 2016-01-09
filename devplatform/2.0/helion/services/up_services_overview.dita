@@ -4,6 +4,54 @@
   <title>HPE Helion 2.0 Development Platform: User-provided Service Integration for ALS Clusters and
     Applications</title>
   <body>
-    <p></p>
+<section>   <p>This document describes the steps required to connect the managed HDP application services
+        instances/clusters to an HDP ALS cluster, and to applications in that ALS cluster. </p>
+      <p>The following application services come built-in with HDP: <ul id="ul_oxm_c3l_p5">
+          <li>
+            <lines>Database Service (Trove): Mysql, Redis, MongoDB</lines>
+          </li>
+          <li>
+            <lines>Vertica Preview single instances and clusters</lines>
+          </li>
+          <li>
+            <lines>Message Broker: RabbitMQ clusters </lines>
+          </li>
+        </ul>With the exception of MySQL instances and clusters, these application services can be
+        bound to an ALS cluster via the standard Cloud Foundry <xref
+          href="https://docs.hpcloud.com/#devplatform/2.0/helion/user/services/user-provided.html%20http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
+          format="html" scope="external">User Provided Service</xref> mechanism. MySQL instances and
+        clusters can be bound to ALS clusters via the <xref
+          href="https://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-ALS.html"
+          format="html" scope="external">Service Gateway</xref> mechanism. These steps are divided
+        between the database administrator and the developer. </p></section>
+    <section>
+      <title>Pre-requisites</title>
+      <p>
+        <ul id="ul_t5j_l3l_p5">
+          <li>You have access to Helion OpenStack deployer node or a jump box that is on the same
+            network as Trove control plane (i.e., trove management network). </li>
+          <li>You can run “trove” client commands such as “trove list”. . You can install trove
+            client by running <codeph>sudo apt-get install python-troveclient</codeph> on the
+            machine you will run “trove” commands. More information on how to obtain and use trove
+            CLI can be found here:
+            https://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-instance.html#DatabaseService__more</li>
+          <li>You have access to an HDP ALS cluster, and can can run “helion” CLI to manage the
+            cluster and push applications. More information on ALS clusters and their usage can be
+            found here: https://docs.hpcloud.com/#devplatform/2.0/helion/user/helion_user_index.html
+            https://docs.hpcloud.com/#devplatform/2.0/helion/user/client/client_index.html </li>
+          <li><b>Connectivity from ALS cluster to user-provided services: It is required that ALS
+              cluster(s) and user-provided service instance(s) and cluster(s) be on the same
+              network.</b> On the ALS cluster that you will deploy applications, to be able to
+            access user-provided service instances, you need to configure to allow network traffic
+            to IP’s and ports for these service instances/clusters. For each service instance or
+            cluster you create, you also need to <xref
+              href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
+              format="html" scope="external">configure ALS cluster to allow access to it</xref>.
+            Here it is assumed that you have already configured your ALS cluster for access to each
+            service instance or cluster.</li>
+        </ul>
+      </p>
+      <!--TODO: Reference to Network Reference Arch doc.-->
+    </section>
   </body>
 </topic>
