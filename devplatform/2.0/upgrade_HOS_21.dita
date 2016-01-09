@@ -24,8 +24,7 @@
     
     <section><title>Database Service</title><p>The database instances and clusters must be gracefully stopped manually prior to upgrading HPE
       Helion OpenStack.<ol id="ol_u4h_54h_45">
-        <li>Download the <xref
-          href="http://docs-staging.hpcloud.com/devplat.docs-bundle-2015-may/media/DevelopmentPlatformUpgrade-2.1.tar.gz"
+        <li>Download the <xref href="http://docs-staging.hpcloud.com/devplat.docs-bundle-2015-may/media/DevelopmentPlatformUpgrade-2.1.tar.gz"
           format="gz" scope="external">upgrade scripts</xref> (14.9 kb).<note type="tip">The
             easiest option is to download directly to the physical machine hosting the HPE Helion
             OpenStack lifecycle manager. If you can not download directly to that location,
@@ -50,11 +49,11 @@
             guide.</note>
         </li>
         <li>Safely stop all guest databases and
-          clusters.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/stop-guests.yml </codeblock><note
-            type="important">Once the guest database instances and clusters are stopped, they will
-            become inaccessible to applications that use them until they are <xref
-              href="after_upgrade_HOS_21.dita#topic_rgp_g5p_45/target">restarted</xref>. Plan this
-            outage window ahead of time and notify your users in advance.</note></li>
+                clusters.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/stop-guests.yml </codeblock><note
+                type="important">Once the guest database instances and clusters are stopped, they
+                will become inaccessible to applications that use them until they are <xref
+                  href="#afterupdating/restart" format="dita">restarted</xref>. Plan this outage
+                window ahead of time and notify your users in advance.</note></li>
         <li>Safely stop the Trove services
           .<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_stop.yml </codeblock></li>
         <li>Safely stop all control plane
@@ -107,7 +106,7 @@
               the instances in the Database control plane and run this playbook again. These
               instances are created during installation and can be accessed through the Horizon
               dashboard or Nova client.</note></li>
-          <li id="target">Start all database instances and clusters. This script may take some time to fully
+          <li id="restart">Start all database instances and clusters. This script may take some time to fully
             execute.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/start-guests.yml </codeblock></li>
           <li>Verify that all guest instances were restarted successfully.
             <codeblock>cat ~/guest-instance-status.log </codeblock></li>
