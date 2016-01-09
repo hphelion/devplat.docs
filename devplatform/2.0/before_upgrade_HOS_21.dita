@@ -47,8 +47,7 @@
           <li>Safely stop all guest databases and
               clusters.<codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/stop-guests.yml </codeblock><note
               type="important">Once the guest database instances and clusters are stopped, they will
-              become inaccessible to applications that use them until they are <xref
-                href="after_upgrade_HOS_21.dita#topic_rgp_g5p_45/restarted">restarted</xref>. Plan
+                become inaccessible to applications that use them until they are <ph outputclass="pageAnchor1" id="restart">restarted</ph>. Plan
               this outage window ahead of time and notify your users in advance.</note></li>
           <li>Safely stop the Trove services
             .<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_stop.yml </codeblock></li>
