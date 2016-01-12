@@ -79,12 +79,16 @@
   </section>
   <section id="Deployment">
     <title>Deployment</title>
-    <p>The Database Service uses HPE Helion Orchestration (OpenStack Heat) in the OverCloud to orchestrate its deployment. The default configuration sets up the service in a high-availability (HA) model across three AZs. If only a 
-      single AZ exists the service control plane will not be deployed in a HA configuration. The HPE Helion OpenStack post install steps for setting up host aggregates to create AZs are documented and should be carried out before 
-      deploying the HPE Helion Platform services.</p>
+    <p>The Database Service uses HPE Helion Orchestration (OpenStack Heat) to orchestrate its
+        deployment. The default configuration sets up the service in a high-availability (HA) model
+        across three AZs. If only a single AZ exists the service control plane will not be deployed
+        in a HA configuration. The HPE Helion OpenStack post install steps for setting up host
+        aggregates to create AZs are documented and should be carried out before deploying the HPE
+        Helion Platform services.</p>
     <p>By default, the control plane instances of the Database Service will use 15 medium flavor VMs for a 3 AZ deployment as illustrated in Figure 5. The size of the control plane and of the selected VM flavor are not configurable 
       in this release.</p>
-    <p>Once the Database Service is running, the individual VMs in the control plane forward their logs to the Centralized Logging Service in the UnderCloud via the service network.</p>
+    <p>Once the Database Service is running, the individual VMs in the control plane forward their
+        logs to the Centralized Logging Service via the service network.</p>
     <p>When a user requests a database via the Database Service API, CLI, or horizon console, they provide the amount of OpenStack Block storage required for the database and VM instance flavor to be used.</p>
     <p>When using a MySQL database, users can easily create MySQL slave databases of an existing MySQL database by selecting the ‘Use replica’ option when creating a new database.  The Database Service will configure this new database 
       to start receiving replication data from the MySQL master specified.</p>
