@@ -114,11 +114,19 @@
             functional.<codeblock>ansible-playbook --private-key &lt;path to SSH private key> -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/start-api.yml</codeblock></li>
         </ol></p></section>
       
-      
       <section>
         <title>HPE Helion Code Engine</title>
-      </section>
-      
+        <p>All nodes are rebooted during the upgrade. The platform services need to be restarted in a specific order.</p>
+<ol><li>SSH into the  <codeph>helionce_deployer</codeph>
+            instance<codeblock>ssh -i helionce-shared stack@&lt;<i>IP address of the helionce_deployer instance</i>></codeblock></li>
+          <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph>
+            folder.</li> 
+  <li>Run: <codeblock>ansible-playbook -i hosts/verb_hosts site.yml</codeblock></li></ol><note>To find the <codeph>helionce_deployer</codeph> IP address: <p>From the HP Helion OpenStack
+            lifecycle manager, list all available machines. Find the instance named
+              <codeph>helionce_deployer</codeph> in the list and make a note of its IP address.
+            <codeblock>source helionce.osrc
+openstack server list</codeblock></p></note>
+      </section> 
       
       
       <section><title>Messaging Service</title>
