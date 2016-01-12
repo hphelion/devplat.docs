@@ -144,6 +144,43 @@ local 0.078GB</codeblock></li>
 "db" : "test_db"
 }
 ]
-}</codeblock></li>
-                </ol></li></ol></p></li></ol></section></body></topic>
+}</codeblock></li></ol></li>
+              </ol></p></li><li>Configure your ALS cluster for access to each MongoDB instance or cluster you have already
+          created, by <xref
+            href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
+            format="html" scope="external">configuring ALS cluster hosts and ports access</xref>.
+            <ul id="ol_wrx_dbg_q5">
+            <li>For <b>single</b> instance MongoDB, you need to open ALS access for the IP address
+              of the MongoDB instance and port 27017.</li>
+            <li>For <b>clustered</b> MongoDB, you need to open ALS access to the floating IP address
+              of the MongoDB query router
+              <!--<xref href="#h.rzi0pxsjejh9">open ALS access to the floating IP address of the MongoDB query router</xref>-->VM
+              in the “admin” tenant and port 27017.</li>
+          </ul><note>To configure the ALS cluster for access, you first need to ssh to each DEA node
+            by using:
+            <codeblock>ssh -i &lt;your cluster public key&gt;  stackato@&lt;IP address of your ALS cluster DEA node&gt;</codeblock>Example:<codeblock>ssh -i MyALSCluster_public_key stackato@10.241.22.89</codeblock></note></li>
+        <li>Provide the MongoDB connection parameters to application developers <p>For the specific
+            MongoDB database that will be used by an application, provide the following to the
+            developers:</p><ul id="ul_zdk_pbg_q5">
+            <li>For MongoDB single instance: IP address of the MongoDB database instance</li>
+            <li>For MongoDB cluster: Floating IP address(es) of MongoDB query-router VM(s).<ul
+                id="ul_ogk_pbg_q5">
+                <li>By default one query-router VM is created for each MongoDB cluster, and it can
+                  be used for connections.</li>
+                <li>If additional query-routers have been added after cluster was created, provide
+                  floating IP addresses for all query-router VM’s.</li>
+              </ul></li>
+            <li>MongoDB database name(s)</li>
+            <li>Username/password for each MongoDB database</li>
+            <li>MongoDB port number 27017</li>
+          </ul></li></ol></section>
+  <section>
+      <title>Related Links</title>
+      <ul id="ul_p4z_ncg_q5">
+        <li>
+          <xref href="up_services_dev_mongo.dita#upservicesdevmongo">MongoDB Integration for
+            Developers</xref>
+        </li>
+      </ul>
+    </section></body></topic>
     

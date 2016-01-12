@@ -3,6 +3,53 @@
 <topic id="upservicesdevmongo">
   <title>HPE Helion 2.0 Development Platform: MongoDB Integration for Developers</title>
   <body>
-    <p></p>
+    <section><title>Pre-requisites</title>
+      You already have an ALS cluster, have access to it to deploy applications, and allowed access to the MongoDB instance (or, for MongoDB cluster,  MongoDB query router floating IP) and MongoDB port 27017 using process here.
+    </section>
+    
+    <section><title>Procedure</title>
+    
+    <ol>
+      <li>STEP 1: Create user-provided service in ALS cluster, provide connection credentials
+        
+        
+<ol><li> Login to ALS cluster
+              <codeblock>    helion target &lt;ALS cluster end point>
+          helion login</codeblock>
+              Example:
+              <codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target:       https://api.15.124.133.173.xip.io
+Organization: &lt;none>
+Space:        &lt;none>
+              
+$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+   Space:        default</codeblock></li></ol>
+              
+        
+        
+      </li>
+      
+      
+      
+      
+      
+      
+      
+    </ol>
+    
+    
+    
+    
+    
+    </section>
   </body>
 </topic>
