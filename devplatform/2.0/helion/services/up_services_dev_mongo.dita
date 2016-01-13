@@ -3,14 +3,13 @@
 <topic id="upservicesdevmongo">
   <title>HPE Helion 2.0 Development Platform: MongoDB Integration for Developers</title>
   <body>
-    <section><title>Pre-requisites</title>
-      You already have an ALS cluster, have access to it to deploy applications, and allowed access to the MongoDB instance (or, for MongoDB cluster,  MongoDB query router floating IP) and MongoDB port 27017 using process here.
-    </section>
-    
-    <section><title>Procedure</title>
-    
-    <ol>
-      <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
+    <section><title>Pre-requisites</title> You have clready created an ALS cluster, have access to
+      it to deploy applications, and have allowed access to the MongoDB instance (or, for MongoDB
+      cluster, MongoDB query router floating IP) and MongoDB port 27017 using the process here. </section>
+    <section>
+      <title>Procedure</title>
+      <ol>
+        <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
             <li> Log in to the ALS cluster
               <codeblock>helion target &lt;ALS cluster end point>
 helion login</codeblock> Example:
@@ -37,7 +36,8 @@ Space:        default</codeblock></li>
 | Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
 +--------+------+-------------+---------+------+--------+----------+---------+--------+------+
 +--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-=========== Provisioned Services ============</codeblock></p></li><li>Create a new service for binding MongoDB from applications in the ALS
+=========== Provisioned Services ============</codeblock></p></li>
+            <li>Create a new service for binding MongoDB from applications in the ALS
                 cluster.<codeblock>helion create-service user-provided <i>&lt;name of your MongoDB service&gt;</i></codeblock><ol
                 id="ol_xbq_c25_q5">
                 <li>When prompted, enter the field names to be used for MongoDB connection
@@ -47,7 +47,9 @@ Space:        default</codeblock></li>
                     <li>For a MongoDB cluster, provide field names such as: queryrouter, port,
                       username, password, db. If you have multiple query routers, provide each
                       router name: queryrouter1, queryrouter2, port, username, password, db</li>
-                    </ul></li><li>When prompted, enter values for these connection credential fields.<ul id="ul_o2v_325_q5">
+                  </ul></li>
+                <li>When prompted, enter values for these connection credential fields.<ul
+                    id="ul_o2v_325_q5">
                     <li>Example: Single Instance MongoDB
                       <codeblock>$ helion create-service user-provided my-mongo-db-service
 Which credentials to use for connections [hostname, port, password]: hostname,port,username,password,db
@@ -83,8 +85,9 @@ username: demo
 password: demo
 db: test_db
   Creating new service … OK</codeblock></li>
-                    
-                  </ul></li><li>Validate that the new service is available.<codeblock>$ helion services</codeblock><p>Example:
+                  </ul></li>
+                <li>Validate that the new service is
+                    available.<codeblock>$ helion services</codeblock><p>Example:
                     <codeblock>$ helion services
 ============== Service Plans ================
 +--------+------+-------------+---------+------+--------+----------+---------+--------+------+
@@ -149,19 +152,190 @@ db: test_db
 | Applications     |                  |
 +------------------+------------------+</codeblock></li>
                   </ul></li>
-                </ol></li>
               </ol></li>
-         
-      
-     
-    </ol>
-      <p>Now that you have validated the service has been created and populated with the correct
-        credentials, you can deploy your application and bind to the service using the manifest
-        file.</p>
-    
-    
-    
-    
+          </ol><p>Now that you have validated the service has been created and populated with the
+            correct credentials, you can deploy your application and bind to the service using the
+            manifest file.</p></li>
+        <li> Bind to a MongoDB user-provided service from an app during deployment. <ol>
+            <li>Add the name of user-provided MongoDB service to the <codeph>services:</codeph>
+              block of the application's manifest file. <p>Sample manifest file including a
+                reference to a user-provided MongoDB service named
+                  <codeph>my-mongo-db-service</codeph>
+                <codeblock>applications:
+  .:
+    name: my-app
+    mem: 128M
+    <ph outputclass="codehighlight">services:
+      my-mongo-db-service:</ph>
+    helion:
+      env:
+      ENV_VAR: ${name}</codeblock></p></li>
+          </ol></li>
+        <li>Create and connect the VCAP_SERVICES environment variables. <p>When an application is
+            deployed in an ALS cluster, the service connection credentials are populated with the
+            values that were defined in the user-provided service. These credentials become
+            available in the VCAP_SERVICES environment variables, which can be consumed by your
+            application. Best practice is not to hardcode connection credentials in your application
+            code; you should parse and use the VCAP_SERVICES environment variables instead. More
+            information on how to use VCAP_SERVICES can be found <xref
+              href="../user/services/data-services.dita#user_data_services/vcap-services"
+              >here</xref>.</p><ul id="ul_jq4_hhv_q5">
+            <li>
+              <p>Sample code snippet on how to parse VCAP_SERVICES variables and how to interact
+                with a single instance MongoDB database in a Python
+                application.<codeblock>def mongoDBConnection(self,credentials):  
+
+#For single instance MongoDB, use hostname variable 
+        hostname = credentials['hostname']
+        port = credentials['port']
+        username = credentials['username']
+        password = credentials['password']
+        db = credentials['db']
+
+# For connecting to a single instance MongoDB:                                    
+        mongoDB_URI = "mongodb://%s:%s@%s:%d/%s"%(username,password,hostname,int(port),db)
+
+        try: 
+            mongoClient = MongoClient(mongoDB_URI) 
+            dbInstance = mongoClient.get_default_database()
+        except Exception as e:
+            return(e)
+            
+        try: #Create a collection in database
+            collection = dbInstance['mytestcollection']
+        except  Exception as e:
+            return(e)
+        
+        try: #Insert a document into collection
+            collection.insert({ 'foo':'bar' })
+        except Exception as e:
+            return(e)
+
+        try: # find a document in collection
+            collection.find()
+        except Exception as e:
+            return(e)
+        
+        try: # remove a collection from database
+            dbInstance.drop_collection(“mytestcollection")
+        except Exception as e:
+            return(e)              </codeblock></p>
+            </li>
+            <li>
+              <p>Sample code for connection to a clustered MongoDB database with query router(s).
+                This example shows connecting to both a single query router and two query routers.
+                <codeblock>def mongoDBConnection(self,credentials): 
+# for clustered MongoDB with one query router, use query-router variable
+        query-router= credentials['query-router']
+
+# for clustered MongoDB with two query routers, use query-router1 and query-router2 variables (and add and use more variables, one for each additional query router)
+        query-router1= credentials['query-router1']
+        query-router2= credentials['query-router2']
+
+# port, username, password, and db variables apply to all query routers
+        port = int(credentials['port'])
+
+# Skip username/password unless authentication was manually enabled for the MongoDB cluster
+        username = credentials['username']
+        password = credentials['password']
+        db = credentials['db']
+
+# URI for using one query router. Use this URI value for connecting to one query router                                    
+        mongoDB_URI = "mongodb://%s:%s@%s:%d/%s"%(username,password,query-router,port,db)
+
+# URI for using 2 query routers. Use this URI value for connecting to two query routers                                    
+        mongoDB_URI = "mongodb://%s:%s@%s:%d,%s:%d/%s"%(username,password,query-router1,port,query-router2,port,db)
+
+        try: 
+            mongoClient = MongoClient(mongoDB_URI) 
+            dbInstance = mongoClient.get_default_database()
+        except Exception as e:
+            return(e)</codeblock></p>
+            </li>
+          </ul></li>
+        <li> Deploy your application using the Helion CLI.
+          <codeblock>helion push -n</codeblock></li>
+        <li> After the application has successfully deployed successfully, verify that the service
+          is bound to your application. <codeblock>helion service &lt;your MongoDB service&gt;</codeblock><ul>
+            <li>
+              <p>Example: Single instance MongoDB</p>
+              <codeblock>$ helion service my-mongo-db-service </codeblock>
+              <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | test_db          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 27017            |
+|  - username  | demo             |
+| Applications |                  |
+| - my-app     |                  |
+|  - db        | test_db          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 27017            |
+|  - username  | demo             |
++--------------+------------------+</codeblock>
+            </li>
+            <li>
+              <p>Example: Clustered MongoDB with <b>one</b> query router</p>
+              <codeblock>$ helion service my-mongo-db-service</codeblock>
+              <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | test_db          |
+|  - query-router | 15.124.133.150   |
+|  - password     | demo             |
+|  - port         | 27017            |
+|  - username     | demo             |
+| Applications    |                  |
+| - my-app        |                  |
+|  - db           | test_db          |
+|  - query-router | 15.124.133.150   |
+|  - password     | demo             |
+|  - port         | 27017            |
+|  - username     | demo             |
++-----------------+------------------+</codeblock>
+            </li>
+            <li>
+              <p>Example: Clustered MongoDB with <b>two</b> query routers</p>
+              <codeblock>$ helion service my-mongo-db-service</codeblock>
+              <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++------------------+------------------+
+| What             | Value            |
++------------------+------------------+
+| State            | no data          |
+| Type             | user-provided    |
+| Space            | default::default |
+| Credentials      |                  |
+|  - db            | test_db          |
+|  - query-router1 | 15.124.133.100   |
+|  - query-router2 | 15.124.133.101   |
+|  - password      | demo             |
+|  - port          | 27017            |
+|  - username      | demo             |
+| Applications     |                  |
+| - my-app         |                  |
+|  - db            | test_db          |
+|  - query-router1 | 15.124.133.100   |
+|  - query-router2 | 15.124.133.101   |
+|  - password      | demo             |
+|  - port          | 27017            |
+|  - username      | demo             |
++------------------+------------------+</codeblock>
+            </li>
+          </ul></li>
+      </ol>
     </section>
   </body>
 </topic>

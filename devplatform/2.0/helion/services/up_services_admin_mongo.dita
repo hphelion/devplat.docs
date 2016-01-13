@@ -107,8 +107,8 @@ connecting to: 15.124.133.182:27017/admin
                 access: <codeblock>show dbs
 admin 0.078GB 
 local 0.078GB</codeblock></li>
-              <li>Run “db.createUser” command in mongo shell, to add a user for client access to the
-                selected MongoDB database, similar to following example. <ol>
+              <li>Run <codeph>db.createUser</codeph> command in mongo shell, to add a user for
+                client access to the selected MongoDB database, similar to following example. <ol>
                   <li>Set context to the database:<codeblock>use test_db</codeblock></li>
                   <li>Create
                     user:<codeblock>&gt; db.createUser(
@@ -144,7 +144,8 @@ local 0.078GB</codeblock></li>
 "db" : "test_db"
 }
 ]
-}</codeblock></li></ol></li>
+}</codeblock></li>
+                </ol></li>
               </ol></p></li><li>Configure your ALS cluster for access to each MongoDB instance or cluster you have already
           created, by <xref
             href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
