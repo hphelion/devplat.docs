@@ -10,20 +10,15 @@
     <section><title>Procedure</title>
     
     <ol>
-      <li>STEP 1: Create user-provided service in ALS cluster, provide connection credentials
-        
-        
-<ol><li> Login to ALS cluster
-              <codeblock>    helion target &lt;ALS cluster end point>
-          helion login</codeblock>
-              Example:
+      <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
+            <li> Log in to the ALS cluster
+              <codeblock>helion target &lt;ALS cluster end point>
+helion login</codeblock> Example:
               <codeblock>$ helion target api.15.124.133.173.xip.io
 Successfully targeted to [https://api.15.124.133.173.xip.io]
 Target:       https://api.15.124.133.173.xip.io
 Organization: &lt;none>
-Space:        &lt;none>
-              
-$ helion login
+Space:        &lt;none></codeblock><codeblock>$ helion login
 Attempting login to [https://api.15.124.133.173.xip.io]
 Username: myuser@mycompany.com
 Password:
@@ -32,20 +27,137 @@ demo@hpe.com Choosing the one available organization: "default"
 Choosing the one available space: "default"
 Target:       https://api.15.124.133.173.xip.io
 Organization: default
-   Space:        default</codeblock></li></ol>
-              
-        
-        
-      </li>
+Space:        default</codeblock></li>
+            <li>Get a list of all services in the ALS
+                cluster.<p><codeblock>helion services</codeblock> On a new ALS cluster with no
+                services created, you should see output similar to the
+                following:<codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></p></li><li>Create a new service for binding MongoDB from applications in the ALS
+                cluster.<codeblock>helion create-service user-provided <i>&lt;name of your MongoDB service&gt;</i></codeblock><ol
+                id="ol_xbq_c25_q5">
+                <li>When prompted, enter the field names to be used for MongoDB connection
+                    credentials.<ul id="ul_tkq_wd5_q5">
+                    <li>For a single instance MongoDB, provide field names such as: hostname, port,
+                      username, password, db.</li>
+                    <li>For a MongoDB cluster, provide field names such as: queryrouter, port,
+                      username, password, db. If you have multiple query routers, provide each
+                      router name: queryrouter1, queryrouter2, port, username, password, db</li>
+                    </ul></li><li>When prompted, enter values for these connection credential fields.<ul id="ul_o2v_325_q5">
+                    <li>Example: Single Instance MongoDB
+                      <codeblock>$ helion create-service user-provided my-mongo-db-service
+Which credentials to use for connections [hostname, port, password]: hostname,port,username,password,db
+hostname: 15.124.133.182
+port: 27017
+username: demo
+password: demo
+db: test_db
+Creating new service … OK</codeblock></li>
+                    <li>Example: Clustered MongoDB with one query-router. You need to specify the
+                      floating IP address of the query router and the single port number 27017 for
+                      MongoDB.
+                      <codeblock>$ helion create-service user-provided my-mongo-db-service
+SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+Which credentials to use for connections [hostname, port, password]: query-router,port,username,password,db
+query-router: 15.124.133.192
+port: 27017
+username: demo
+password: demo
+db: test_db
+Creating new service … OK</codeblock></li>
+                    <li>Example: Clustered MongoDB with multiple query-routers (for example, 2 query
+                      routers). You need to specify the floating IP address per query router and the
+                      single port number 27017 for
+                      MongoDB.<codeblock>$ helion create-service user-provided my-mongo-db-service
+SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+Which credentials to use for connections [hostname, port, password]: query-router1,query-router2,port,username,password,db
+
+query-router1: 15.124.133.191
+query-router2: 15.124.133.192
+port: 27017
+username: demo
+password: demo
+db: test_db
+  Creating new service … OK</codeblock></li>
+                    
+                  </ul></li><li>Validate that the new service is available.<codeblock>$ helion services</codeblock><p>Example:
+                    <codeblock>$ helion services
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-mongo-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></p></li>
+                <li>Verify that the credentials are correct for the service you just created. <codeblock>$ helion service &lt;name of your MongoDB service&gt;</codeblock><ul>
+                    <li>Example: A single-instance MongoDB:
+                      <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | test_db          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 27017            |
+|  - username  | demo             |
+| Applications |                  |
++--------------+------------------+</codeblock></li>
+                    <li>Example: A clustered MongoDB with one query router:
+                      <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | test_db          |
+|  - query-router | 15.124.133.190   |
+|  - password     | demo             |
+|  - port         | 27017            |
+|  - username     | demo             |
+| Applications    |                  |
++-----------------+------------------+</codeblock></li>
+                    <li>Example: A clustered MongoDB with multiple query-routers. In this example,
+                      there are 2 query routers.
+                      <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++------------------+------------------+
+| What             | Value            |
++------------------+------------------+
+| State            | no data          |
+| Type             | user-provided    |
+| Space            | default::default |
+| Credentials      |                  |
+|  - db            | test_db          |
+|  - query-router1 | 15.124.133.190   |
+|  - query-router2 | 15.124.133.191   |
+|  - password      | demo             |
+|  - port          | 27017            |
+|  - username      | demo             |
+| Applications     |                  |
++------------------+------------------+</codeblock></li>
+                  </ul></li>
+                </ol></li>
+              </ol></li>
+         
       
-      
-      
-      
-      
-      
-      
+     
     </ol>
-    
+      <p>Now that you have validated the service has been created and populated with the correct
+        credentials, you can deploy your application and bind to the service using the manifest
+        file.</p>
     
     
     
