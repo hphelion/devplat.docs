@@ -3,7 +3,13 @@
 <title>HPE Helion 2.0 Development Platform: Using the Messaging Broker Service</title>
 <body>
 
-  <p>The Messaging Broker Service is a key aspect of applications architected for the cloud as it helps to create scalable and distributed applications. This is achieved by enabling your software applications and services to communicate with each other as sub-components of a larger-scale application while allowing you to incorporate data from users, devices, and data streams.</p>
+  <p>The Messaging Broker Service is a key aspect of applications architected for the cloud as it
+      helps to create scalable and distributed applications. This is achieved by enabling your
+      software applications and services to communicate with each other as sub-components of a
+      larger-scale application while allowing you to incorporate data from users, devices, and data
+      streams. <note type="attention">The Messaging Broker Service transmits message as plain text;
+        it does not encrypt messages. If your enterprise depends on messages being encrypted,
+        messages must be encrypted before being added to the queue.</note></p>
   <p>The Messaging Broker Service provisions RabbitMQ clusters that can be used for robust messaging in
       applications. For more information about RabbitMQ, see <xref
         href="https://www.rabbitmq.com/admin-guide.html" format="html" scope="external">RabbitMQ
@@ -12,7 +18,7 @@
         href="http://cue.readthedocs.org/en/latest/rest.html" format="html" scope="external">Cue
         Rest API Documentation</xref>.</p>
   <p>For information on managing the Messaging Broker Service via the Python client, see <xref
-        href="https://github.com/openstack/python-cueclient" format="html" scope="external"
+    href="https://github.com/openstack/python-cueclient/blob/master/doc/source/man/cue.rst" format="html" scope="external"
         >openstack/python-cueclient on GitHub</xref>.</p>
 <p>The following topics explain how to create and manage an instance:</p>
 <ul>
@@ -25,85 +31,97 @@
 <xref type="section" href="#using_messaging/manage">Managing a cluster</xref>
 </li>
 </ul>
-<section id="prerequisites"> <title>Prerequisites</title>
-<ol>
-<li>Install the <xref href="../installation/devplatform_install_platform.dita" >HPE Helion Development Platform</xref>and configure the services.</li>
-</ol>
-</section>
 <section id="create"> <title>Creating a RabbitMQ Cluster</title>
   <p>The following guide will demonstrate how to deploy a multi-node RabbitMQ cluster using the Messaging Broker Service.</p>
 <ol>
-<li>Log into Horizon and open the <b>Messaging</b> panel under your project. </li>
-        <li>Click the <b>RabbitMQ</b> tab.</li>
-
-<li>In the Create RabbitMQ dialog, specify the following information:<ul>
+        <li>Log into Horizon. </li>
+        <li>Under <b>Project</b>, click the <b>Message Broker</b> tab, click <b>Clusters</b>, and
+          then click <b>Create Cluster</b>.<image placement="break"
+            href="../../../media/cue_cluster_create.png" id="image_dmf_5j1_j5"/></li>
+        <li>In the <b>Create Cluster</b> form, specify the following details and then click
+            <b>Create</b>. <note><sl><sli>If this cluster will be used with the Application Lifecycle Service (ALS), it is easiest to
+                create the cluster on the same network that the ALS cluster is created on. </sli>
+              <sli>Best practice is to allocate external resources for each cluster separately;
+                create one messaging cluster per ALS cluster. </sli>
+              <sli>To set up load balancing and access the management console, continue to <xref
+                  type="section" href="#using_messaging/manage">Managing a Cluster</xref> after
+                creating a cluster. </sli></sl></note><ul>
             <li>
               <b>Cluster Name</b> - A name for the cluster that will be created.</li>
+            <li><b>Flavor</b>- The flavor to use when creating instances in the cluster.</li>
             <li>
-              <b>Number of Cluster Instances</b> - the number of instances of RabbitMQ to have in
-              the cluster. This can be 1, 3 or 5.</li>
-            <li>
-              <b>Flavor of Cluster Instances</b> - The flavor size to use when creating the RabbitMQ
-              instances in the cluster.</li>
+              <b>Size</b> - the number of instances to have in the cluster. This can be 1, 3 or
+              5.</li>
             <li>
               <b>Network</b> - The network to join the cluster to. This should be the network that
               your application will use to connect to the cluster.</li>
+            <li><b>Username</b> - The user name and password you provide will be used to log into
+              the management console.<note> The management console is not exposed by default; you
+                will need to expose it as detailed in <xref type="section"
+                  href="#using_messaging/manage">Managing a Cluster</xref>.</note></li>
             <li>
-              <b>SSH Key Pair</b> - A key pair to use when connecting to the cluster. You can choose
-              to create one if one does not already exist.</li>
-            <li>
-              <b>Floating IP Pool</b> - A pool to choose a floating IP from to assign to the
-              cluster.</li>
-            <li>
-              <b>SSL Credentials</b> - The certificate to use when interacting with RabbitMQ in the
-              cluster.</li>
-            <li>
-              <b>Password for user</b> - The password for the user that is currently logged in.</li><li>Click <b>Create</b>.<image href="../../../media/usingRMQ1.png" placement="break" scale="75"
-              /></li>
+              <b>Password </b> - The password to use for logging into the management console. Repeat
+              to <b>Confirm Password</b>. <image placement="break"
+                href="../../../media/cue_cluster_define.png" id="image_kbf_fm1_j5" scale="75"/></li>
           </ul></li>
-<li>Click the <b>Launch</b> button.</li>
-<li>Open the <b>RabbitMQ</b> tab under the <b>Messaging</b> panel and identify the
-            <b>RabbitMQ</b> cluster from the list that was created in the previous step. Wait for
-          the cluster to go to the <b>Complete</b>
-            state<!--A BR tag was used here in the original source.--><image
-            href="../../../media/usingRMQ2.png" placement="break" id="image_tgt_mwy_yt"/>
-        </li>
-<li>Your cluster is now ready to use.</li>
-</ol>
+        <li>After the cluster is built, it will appear in the table of clusters. (Full IP addresses
+          have been obscured.)<image placement="break" href="../../../media/cue_cluster_built.png"
+            id="image_xnh_f41_j5"/></li>
+      </ol>
 </section>
-<section id="delete"> <title>Deleting a RabbitMQ Cluster</title>
-<p>The following guide will demonstrate how to delete an existing RabbitMQ cluster.</p>
+<section id="delete"> <title>Deleting a Cluster</title>
 <ol>
-<li>Log in to Horizon and open the <b>Messaging</b> panel under your project. Click on the <b>RabbitMQ</b> tab.</li>
-<li>Identify the <b>RabbitMQ</b> cluster to delete from the list.</li>
-<li>Click the <b>More</b> button and then the <b>Delete Cluster</b> button.</li>
-</ol>
+        <li>Log into Horizon. </li>
+        <li>Under <b>Project</b>, click the <b>Message Broker</b> tab, and then click
+            <b>Clusters</b>.<ul id="ul_uhj_441_j5">
+            <li>To delete one cluster, click <b>Terminate Cluster </b>in the same row.</li>
+          </ul><ul id="ul_ml5_441_j5">
+            <li>To delete multiple clusters, check the checkboxes next to the unwanted clusters and
+              then click <b>Terminate Clusters</b>.</li>
+          </ul></li>
+      </ol>
 </section>
-<section id="manage"> <title>Managing a RabbitMQ Cluster</title>
-<p>RabbitMQ clusters have a built-in dashboard for managing the cluster; this allows you to view the current state and health of the cluster. The following steps will demonstrate how to manage an existing cluster.</p>
-<ol>
-<li>Log in to Horizon and open the <b>Messaging</b> panel under you project. Click on the <b>RabbitMQ</b> tab.</li>
-<li>Identify the RabbitMQ cluster that you will manage from the clusters listed in the <b>Clusters</b> table.</li>
-  <li>Click on <b>Manage Cluster</b> next to your cluster.<!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ3.png" placement="break"/>
-</li>
-  <li>A new browser window will open with the log-in screen for the RabbitMQ cluster. Enter the same
-          username and password you used to log in to HPE Helion <tm tmtype="reg">OpenStack</tm>
-          when creating the RabbitMQ cluster and select
-            <b>Login</b>.<!--A BR tag was used here in the original source.--><image
-            href="../../../media/usingRMQ4.png" placement="break" scale="75"/>
-        </li>
-  <li>The management console for RabbitMQ will open. In the management console you can perform tasks such as monitor the queues and message rates, check resource usage on the instances, manage user accounts, and many others.  <!--A BR tag was used here in the original source.--><image href="../../../media/usingRMQ5.png" placement="break"/>
-</li>
-</ol>
+<section id="manage"> <title>Managing a  Cluster</title>
+<p>RabbitMQ clusters have a built-in dashboard for viewing and managing the current state and health
+        of the cluster. There are three methods available for managing RabbitMQ clusters:</p>
+<ul>
+  <li>To access the management console from the same network (i.e., creating a VM on the same network), do the following:
+    <ol>
+      <li>Open the following URL in a browser: <codeph>http://&lt;ip of
+                rabbitmqnode&gt;:15672</codeph></li>  
+    </ol>
+  </li>
+  <li>To access the management console from a different network, follow these steps:
+    <ol>
+      <li> To expose the management console, <xref href="cue_ops_loadBalancer.dita">set up a load
+            balancer</xref>. Each node in a cluster and even certain RabbitMQ clients can consume
+          separate endpoints. To simplify management tasks, clustering and load balancing connect
+          multiple nodes to form one single logical broker. </li>
+      <li>Once completed, the management console can be accessed at
+            <codeph>http://&lt;floating-ip&gt;:15672</codeph> using the <b>Username</b> and
+            <b>Password</b> specified during cluster creation.</li>
+    </ol>
+  </li>
+  <li>To create a SSH tunnel from another VM, follow these steps:
+    <ol>
+      <li>Create a VM on the same network as the RabbitMQ cluster</li>
+      <li>Create a SSH tunnel with this command: <codeph>ssh –L 15672:&lt;ip of rabbitmqnode&gt;:15672 user@&lt;ip of created VM&gt;</codeph></li>
+      <li>Open the following URL in a browser: <codeph>http://localhost:15672</codeph></li>
+    </ol>
+  </li>
+</ul>
 </section>
 <section id="more-information"> <title>More Information</title>
 <ul>
 <li>
-<p>For more information on using RabbitMQ and managing the RabbitMQ cluster, visit the <xref href="https://www.rabbitmq.com/documentation.html" scope="external" format="html" >RabbitMQ documentation site</xref>.</p>
-</li>
+          <p>For more information on using RabbitMQ and managing the RabbitMQ cluster, browse the
+              <xref href="https://www.rabbitmq.com/documentation.html" scope="external"
+              format="html">RabbitMQ documentation site</xref>.</p>
+        </li>
 <li>
-  <p>For more information using HPE Helion OpenStack visit the <xref
-    href="http://docs.hpcloud.com/#helion/index.html" format="html">documentation</xref>.</p>
+  <p>For more information on using HPE Helion OpenStack, browse the <xref
+              href="http://docs.hpcloud.com/#helion/index.html" format="html"
+            >documentation</xref>.</p>
 </li>
 </ul>
 </section>
