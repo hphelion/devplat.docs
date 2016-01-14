@@ -37,7 +37,7 @@
         <li>Log into Horizon. </li>
         <li>Under <b>Project</b>, click the <b>Message Broker</b> tab, click <b>Clusters</b>, and
           then click <b>Create Cluster</b>.<image placement="break"
-            href="../../../media/cue_cluster_create.png" id="image_dmf_5j1_j5"/></li>
+            href="../../../media/devplat.docs/cue_cluster_create.png" id="image_dmf_5j1_j5"/></li>
         <li>In the <b>Create Cluster</b> form, specify the following details and then click
             <b>Create</b>. <note><sl><sli>If this cluster will be used with the Application Lifecycle Service (ALS), it is easiest to
                 create the cluster on the same network that the ALS cluster is created on. </sli>
@@ -62,10 +62,10 @@
             <li>
               <b>Password </b> - The password to use for logging into the management console. Repeat
               to <b>Confirm Password</b>. <image placement="break"
-                href="../../../media/cue_cluster_define.png" id="image_kbf_fm1_j5" scale="75"/></li>
+                href="../../../media/devplat.docs/cue_cluster_define.png" id="image_kbf_fm1_j5" scale="75"/></li>
           </ul></li>
         <li>After the cluster is built, it will appear in the table of clusters. (Full IP addresses
-          have been obscured.)<image placement="break" href="../../../media/cue_cluster_built.png"
+          have been obscured.)<image placement="break" href="../../../media/devplat.docs/cue_cluster_built.png"
             id="image_xnh_f41_j5"/></li>
       </ol>
 </section>
