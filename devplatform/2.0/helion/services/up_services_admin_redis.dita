@@ -3,6 +3,83 @@
 <topic id="upservicesadminredis">
   <title>HPE Helion 2.0 Development Platform: Redis Integration for Administrators</title>
   <body>
-    <p></p>
+   <section><title>Pre-requisites</title>
+     <sl>
+        <sli>A basic understanding of Redis.</sli>
+        <sli>You can run the <codeph>redis-cli</codeph> client shell command to connect and manage
+          your Redis database. </sli>
+        <sli>You can download the <codeph>redis-cli</codeph> client here, and install on the machine
+          you will run client commands to manage the Redis database. </sli>
+        <sli>This machine should have access to the Redis database IP address.</sli>
+        <sli>Verify that you can run <codeph>redis-cli</codeph> shell commands.</sli>
+      </sl>
+      </section>
+    <section>
+      <title>Limitation</title>
+      <p>For Redis clusters or single instances, there is no username/password authentication, and no specific database needs to be specified to connect.</p> <p>The redis-cli shell has a  <codeph>-c</codeph> option to indicate the connection is to be made to a redis cluster; however, it does not provide a way to specify multiple IP addresses for that cluster. Even though the floating IPs are created and accessible from redis-cli to connect to (one of them), redis redirects to “internal private IP addresses that are configured during redis cluster creation”, and this redirect fails (if the node IPs are not
+        reachable from client environment).</p>
+      
+      <p>Example of this limitation:</p><codeblock>## Redis cluster floating IP addresses (10.x.x.x), and redis cluster internal IP addresses in Trove network (172.x.x.x):
+10.241.22.69, 172.18.0.149
+10.241.22.63, 172.18.0.150
+10.241.22.78, 172.18.0.150
+
+<!-- [TODO: VERIFY if following is valid for using tenant network addresses (such as 192.x.x.x]-->
+$ redis-cli -h 10.241.22.69
+10.241.22.69:6379> set mykey myvalue
+(error) MOVED 14687 172.18.0.150:6379
+10.241.22.69:6379> exit
+
+<!--[TODO: VERIFY if following is valid for using tenant network addresses (such as 192.x.x.x] -->
+$ redis-cli -h 10.241.22.69 -c
+10.241.22.69:6379> set mykey myvalue
+-> Redirected to slot [14687] located at 172.18.0.150:6379
+Could not connect to Redis at 172.18.0.150:6379: Operation timed out
+Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
+        </section>
+    
+    <section><title>Known Bugs</title>
+    <p>None.</p></section>
+    
+    <section><title>Administrator Procedure</title>
+    
+    <ol>
+      <li>Create a Redis single instance or cluster using HDP Database Service. For production deployments, clusters are recommended for high availability.
+ <p>     <sl>
+   <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create single instance on Horizon</xref></sli>
+   <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create cluster on Horizon</xref></sli>
+   <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create single instance using CLI</xref></sli>
+   <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create cluster using CLI</xref></sli>
+      </sl></p>
+      </li>
+      <li>Configure ALS cluster for connectivity to Redis.</li>
+      <li>Provide the Redis connection parameters to application developers.</li>
+      
+      
+      
+    </ol>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </section>
   </body>
 </topic>
