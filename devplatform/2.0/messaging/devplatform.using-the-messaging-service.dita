@@ -83,16 +83,33 @@
 </section>
 <section id="manage"> <title>Managing a  Cluster</title>
 <p>RabbitMQ clusters have a built-in dashboard for viewing and managing the current state and health
-        of the cluster. This management console, however, is not exposed by default.</p>
-<ol>
-  <li> To expose the management console, <xref href="cue_ops_loadBalancer.dita">set up a load
+        of the cluster. There are three methods available for managing RabbitMQ clusters:</p>
+<ul>
+  <li>To access the management console from the same network (i.e., creating a VM on the same network), do the following:
+    <ol>
+      <li>Open the following URL in a browser: <codeph>http://&lt;ip of
+                rabbitmqnode&gt;:15672</codeph></li>  
+    </ol>
+  </li>
+  <li>To access the management console from a different network, follow these steps:
+    <ol>
+      <li> To expose the management console, <xref href="cue_ops_loadBalancer.dita">set up a load
             balancer</xref>. Each node in a cluster and even certain RabbitMQ clients can consume
           separate endpoints. To simplify management tasks, clustering and load balancing connect
           multiple nodes to form one single logical broker. </li>
-        <li>Once completed, the management console can be accessed at
+      <li>Once completed, the management console can be accessed at
             <codeph>http://&lt;floating-ip&gt;:15672</codeph> using the <b>Username</b> and
             <b>Password</b> specified during cluster creation.</li>
-</ol>
+    </ol>
+  </li>
+  <li>To create a SSH tunnel from another VM, follow these steps:
+    <ol>
+      <li>Create a VM on the same network as the RabbitMQ cluster</li>
+      <li>Create a SSH tunnel with this command: <codeph>ssh –L 15672:&lt;ip of rabbitmqnode&gt;:15672 user@&lt;ip of created VM&gt;</codeph></li>
+      <li>Open the following URL in a browser: <codeph>http://localhost:15672</codeph></li>
+    </ol>
+  </li>
+</ul>
 </section>
 <section id="more-information"> <title>More Information</title>
 <ul>
