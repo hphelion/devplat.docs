@@ -129,11 +129,12 @@
             <codeblock>trove root-enable &lt;instance&gt; </codeblock></dd>  
         </dlentry>  
         <dlentry><dt>Searching for log entries returns API KEY ERROR: Missing</dt>  
-          <dd>The current Vertica Management Console release has a known issue where ng to search  
-            for Vertica log entries may result in an API key being requested. As a workaround, it is  
-            suggested to access Vertica event data directly through the database's ACTIVE_EVENTS,  
-            QUERY_EVENTS and QUERY_REQUESTS tables, as described in<xref  
-              href="database/devplatform.database-vertica.dita"> Managing a Vertica Cluster from the Management Console</xref>.</dd>  
+          <dd>The current Vertica Management Console release has a known issue where searching for
+            Vertica log entries may result in an API key being requested. As a workaround, it is
+            suggested to access Vertica event data directly through the database's ACTIVE_EVENTS,
+            QUERY_EVENTS and QUERY_REQUESTS tables, as described in<xref
+              href="database/devplatform.database-vertica.dita"> Managing a Vertica Cluster from the
+              Management Console</xref>.</dd>  
         </dlentry>  
         <dlentry><dt>"Stack trove in status ROLLBACK_COMPLETE" message when Database as a Server installation
             fails</dt>  
