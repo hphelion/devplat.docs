@@ -99,37 +99,326 @@
     <title>Deployment</title>
     <p>The Database Service uses HPE Helion Orchestration (OpenStack Heat) to orchestrate its
         deployment. </p>
-    <p>As a best practice, HP recommends creating three availability zones. The Helion OpenStack post install steps for setting up host aggregates to create AZs are documented</p>
+    
+    <p>As a best practice, HP recommends creating three availability zones. The Helion OpenStack
+        post install steps for setting up host aggregates to create AZs are <xref
+          href="../installation/devplatform_install_database.dita#topic_vsf_hnh_ts/install-database"
+          >documented</xref> and should be carried out before deploying the HP Helion Platform services.
+    </p>
     
     <p>
+      During Database Service installation, ensure the “Enable HA” option is selected to have the database control plane distributed across all three availability zones for high availability (HA). 
+      This will make the database service resilient to failures in any one AZ. If only a single AZ exists, “Enable HA” option can still be selected, however all fifteen service control plane VMs will be deployed in the same AZ .
       
-      The default configuration sets up the service in a high-availability (HA) model
-        across three AZs. If only a single AZ exists the service control plane will not be deployed
-        in a HA configuration. The HPE Helion OpenStack post install steps for setting up host
-        aggregates to create AZs are documented and should be carried out before deploying the HPE
-        Helion Platform services.</p>
-    <p>By default, the control plane instances of the Database Service will use 15 medium flavor VMs for a 3 AZ deployment as illustrated in Figure 5. The size of the control plane and of the selected VM flavor are not configurable 
-      in this release.</p>
-    <p>Once the Database Service is running, the individual VMs in the control plane forward their
-        logs to the Centralized Logging Service via the service network.</p>
+    </p>
+    <p>By default, for a deployment on 3 AZs, the control plane instances of the Database Service will use fifteen medium-flavor VMs as illustrated above. The size of the control plane and of the selected VM flavor are not 
+      configurable in this release.
+    </p>
+    
+    <p>Once the Database Service is running, the individual VMs in the control plane forward their logs to the Helion Centralized Logging Service via the service network.
+    </p>
+    
+    
+    <!--
     <p>When a user requests a database via the Database Service API, CLI, or horizon console, they provide the amount of OpenStack Block storage required for the database and VM instance flavor to be used.</p>
     <p>When using a MySQL database, users can easily create MySQL slave databases of an existing MySQL database by selecting the ‘Use replica’ option when creating a new database.  The Database Service will configure this new database 
       to start receiving replication data from the MySQL master specified.</p>
     <p>Once a new database becomes active users connect to it via the MySQL command line client, MySQL tools, or MySQL libraries used by applications.  Users can also assign a floating IP address to the database and update the security 
-      group to allow for connection from outside the external-network.</p>
+      group to allow for connection from outside the external-network.</p>-->
+    
+    
   </section>
-  <section id="Data_Durability">
-    <title>Data Durability</title>
-    <p>The Database service ensures database content is protected through its integration with the HPE Helion OpenStack Block Storage. HPE Helion Openstack offers two cinder block storage plugins choices that provide Highly Available 
-      RAID protected Storage volumes for use by the user databases</p>
+  <section>
+    <title>Networks</title>
+    <p>The following networks are created when the Database Service is installed: </p>
     <ul>
-      <li>HPE 3PAR storage arrays</li>
-      <li>StoreVirtual VSA software running on ProLiant servers that creates a virtual array using the ProLiant server internal disks.</li>
+      <li><b>DBaaS MgmtNetwork</b>: Used for control plane nodes to communicate with one another.</li>
+      <li><b>Guest Network</b>: Used for Trove Agents to communicate back to the RabbitMQ cluster on the control plane.</li>
     </ul>
-    <p>For more information on HPE Helion OpenStack Cinder block storage and on capacity estimation
-        guidelines, see <xref
-          href="http://docs.hpcloud.com/#commercial/GA1/1.1commercial.-vsa-overview.html"
-          format="html" scope="external">Cinder Block Storage Using HPE StoreVirtual VSA</xref>.</p>
   </section>
+  <section>
+    <title>Routers</title>
+    <p>The following routers are created when the Database Service is installed:</p>
+    <ul>
+      <li>A router joining the DBaaS guest network to Ext Network, enabling databases to back themselves up using the Swift API.</li>
+      <li>A router joining the DBaaS management network to Ext Network, enabling the control plane to access OpenStack APIs.</li>
+    </ul>
+  </section>
+  <section>Security Requirements
+    <p>The following port restrictions between networks are required for the DBaaS Service to function correctly. These are implemented by Security Groups.</p>
+    <table>
+      <tgroup cols="4">
+        <colspec colname="source" />
+        <colspec colname="destination" />
+        <colspec colname="ports" />
+        <colspec colname="description" />
+        <thead>
+          <row>
+            <entry colname="source">Source</entry>
+            <entry colname="destination">Destination</entry>
+            <entry colname="ports">Ports (TCP)</entry>
+            <entry colname="description">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>DBaaS Management Network</entry>
+            <entry>External Network</entry>
+            <entry><lines>8000 (heat)
+8774 (nova)
+9696 (neutron)
+9292 (glance)
+8776 (cinder)
+8004 (heat)
+8080 (swift)
+5000 (keystone)</lines></entry>
+            <entry>Access to OpenStack APIs</entry>
+          </row>
+          <row>
+            <entry>External Network</entry>
+            <entry>HOS Management Network</entry>
+            <entry><lines>8000 (heat)
+8774 (nova)
+9696 (neutron)
+9292 (glance)
+8776 (cinder)
+8004 (heat)
+8080 (swift)
+5000 (keystone)</lines></entry>
+            <entry>Access to OpenStack APIs</entry>
+          </row>
+          <row>
+            <entry>External Network</entry>
+            <entry>HOS Management Network</entry>
+            <entry>8779</entry>
+            <entry>Access to  HAProxy that provides Trove API </entry>
+          </row>
+          <row>
+            <entry>HOS Management Network</entry>
+            <entry>Service Network</entry>
+            <entry>8779</entry>
+            <entry>Access from HAProxy to Trove API</entry>
+          </row>
+          <row>
+            <entry>Guest Network</entry>
+            <entry>External Network</entry>
+            <entry>8080 (swift)</entry>
+            <entry>Guest database access to Swift API</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
+  <section>
+    <title>Security Groups</title>
+    <p>The Security groups listed below enforce the security requirements defined above. They are created during the installation process.  There are no egress restrictions.</p>
+    <table>
+      <tgroup cols="6">
+        <colspec colname="group" />
+        <colspec colname="ethertype" />
+        <colspec colname="ipprotocol" />
+        <colspec colname="portrange" />
+        <colspec colname="remoteipprefix" />
+        <colspec colname="remotesecuritygroup" />
+        <thead>
+          <row>
+            <entry colname="group">Group</entry>
+            <entry colname="ethertype">Ether Type</entry>
+            <entry colname="ipprotocol">IP Protocol</entry>
+            <entry colname="portrange">Port Range</entry>
+            <entry colname="remoteipprefix">Remote IP Prefix</entry>
+            <entry colname="remotesecuritygroup">Remote Security Group</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry morerows="1">trove-trove_api</entry>
+            <entry morerows="1">IPv4</entry>
+            <entry>TCP</entry>
+            <entry>22</entry>
+            <entry>0.0.0.0/0</entry>
+            <entry morerows="1">-</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>8779</entry>
+            <entry>0.0.0.0/0</entry>
+          </row>
+          <row>
+            <entry morerows="2">trove-trove_check_mk</entry>
+            <entry morerows="2">IPv4</entry>
+            <entry>TCP</entry>
+            <entry>22</entry>
+            <entry>0.0.0.0/0</entry>
+            <entry morerows="2">-</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>8779</entry>
+            <entry>0.0.0.0/0</entry>
+          </row>
+          <row>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+          </row>
+          <row>
+            <entry>trove-trove_conductor</entry>
+            <entry>IPv4</entry>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_api</entry>
+          </row>
+          <row>
+            <entry morerows="8">trove-database</entry>
+            <entry morerows="8">IPv4</entry>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_tm</entry>
+          </row>
+          <row>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_api</entry>
+          </row>
+          <row>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_conductor</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>3306</entry>
+            <entry>-</entry>
+            <entry>trove-trove_tm</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>3306</entry>
+            <entry>-</entry>
+            <entry>trove-trove_api</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>3306</entry>
+            <entry>-</entry>
+            <entry>trove-trove_conductor</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>3306</entry>
+            <entry>-</entry>
+            <entry>trove-database</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>4444</entry>
+            <entry>-</entry>
+            <entry>trove-database</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>4567-4568</entry>
+            <entry>-</entry>
+            <entry>trove-database</entry>
+          </row>
+          <row>
+            <entry morerows="12">trove-trove_rmq</entry>
+            <entry morerows="12">IPv4</entry>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_conductor</entry>
+          </row>
+          <row>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_tm</entry>
+          </row>
+          <row>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_api</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>4369</entry>
+            <entry>-</entry>
+            <entry>trove-trove_rmq</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>5535</entry>
+            <entry>-</entry>
+            <entry>trove-trove_rmq</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>5672</entry>
+            <entry>-</entry>
+            <entry>trove-trove_conductor</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>5672</entry>
+            <entry>-</entry>
+            <entry>trove-trove_tm</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>5672</entry>
+            <entry>trove mgmt network</entry>
+            <entry>-</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>5672</entry>
+            <entry>trove guest network</entry>
+            <entry>-</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>5672</entry>
+            <entry>0.0.0.0/0</entry>
+            <entry>trove-trove_api</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>15672</entry>
+            <entry>0.0.0.0/0</entry>
+            <entry>-</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>25672</entry>
+            <entry>0.0.0.0/0</entry>
+            <entry>-</entry>
+          </row>
+          <row>
+            <entry>TCP</entry>
+            <entry>61000</entry>
+            <entry>-</entry>
+            <entry>trove-trove_rmq</entry>
+          </row>
+          <row>
+            <entry>trove-trove_tm</entry>
+            <entry>IPv4</entry>
+            <entry>ICMP</entry>
+            <entry>Any</entry>
+            <entry>-</entry>
+            <entry>trove-trove_api</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    
+  </section>
+  
 </body>
 </topic>
