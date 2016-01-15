@@ -4,35 +4,53 @@
 <title>Database Service Architecture</title>
 <body>
   <section id="introduction">
-    <p>The database service provides lifecycle services for MySQL, Vertica Preview, Redis, or MongoDB database instances.
-      Lifecycle services include provisioning, configuration, patching, backups, restores, and
-      monitoring that can be administered from either a CLI interface, RESTful APIs or the Horizon
-      dashboard.</p>
-    <p>The Database Service is an implementation of <xref href="https://wiki.openstack.org/wiki/Trove" format="html"
-      scope="external">OpenStack Trove</xref>, the integrated database as a service project within the OpenStack Project. The Database Service provides lifecycle management of database instances 
-      via a control plane and automates common administration tasks including replication full and incremental backups, restore, database and user management, and scaling. Users can consume the service 
-      via the REST API, CLI, or HPE Helion OpenStack console.</p>
-    <p>The Database service provides a simple and easy way to access and utilize features in a
-        database without the overhead of administration. It consists of several components including
-        an API server, message bus, task manager, conductor and guest agent. If HPE Helion OpenStack
-        is configured as a Multi-AZ (Availaility Zone), the Database Service will install across all
-        zones using intelligent orchestration and data-level clustering. This results in the
-        deployed service being resilient to single AZ failures as illustrated in the <xref
-          href="#DatabaseArchitecture/architecture_graphic" format="dita">Database Service
-          Architecture diagram</xref> below.</p>
-    <p>The Database Service is deployed as an In-Cloud service and is composed of the following components:</p>
+    <p>The database service provides lifecycle services for both single instance and clustered
+        databases for Percona MySQL, MongoDB, Redis, and Vertica. Lifecycle services include
+        provisioning, configuration, patching, instance backups, and restores that can be
+        administered from either a command-line interface, RESTful APIs, or the Horizon
+        dashboard.</p>
     <ul>
-      <li><b>Control plane</b>: a set of services deployed on 15 VMs (Virtual Machines) that are managing and running the Database Service. These services are the API, message bus, task manager, conductor, and database. </li>
-      <li><b>Customer Database Service instances</b>: These host the guest agent and the database engine (MySQL, Redis, or MongoDB) itself.  In the diagram below, there is one user with a single database on the left.  
-        On the right is an example of a MySQL master/slave configuration. Each database server consists of a VM and OpenStack Block Storage for the database files.  Users only have access to the database via the database's protocol.</li>
+      <li>An implementation of <xref href="https://wiki.openstack.org/wiki/Trove" format="html"
+        scope="external">OpenStack Trove</xref>, the <xref href="devplatform.database-instance.dita#DatabaseService">Database
+          Service</xref> provides scalable and reliable database provisioning functionality for both relational and non-relational databases.
+        Supported datastores and their versions are: 
+      
+      <ul>
+        <li>Percona MySql 5.5</li>
+        <li>MongoDB 3.0</li>
+        <li>Redis 3.0</li>
+        <li>Vertica Preview (Vertica Community Edition 7.1.2)</li>
+      </ul>
+      </li>
+      <li>The Database Service provides lifecycle management of database instances and clusters via a control plane, and automates common administration 
+        tasks, including the following:
+        <ul>
+          <li>Replication</li>
+          <li>Full and incremental backups</li>
+          <li>Restore</li>
+          <li>Database and user management</li>
+          <li>Scaling</li></ul>
+      </li>
+      <li>Users can consume the service via the REST API, CLI, or HPE Helion OpenStack console.</li>
     </ul>
   </section>
   <section id="architecture_graphic">
+    <title>Deployed View</title>
     <image placement="break" href="../../../media/dbaas_architecture.png" />
+    <p>The Database Service is deployed as an In-Cloud service and is composed of the following components:</p>
+    <ul>
+      <li>A control plane, which is a set of services deployed on fifteen virtual machines (VMs) that manage and run the Database Service in a three availability zone (AZ) configuration. 
+        These services are the API server, message bus (RabbitMQ), task manager, conductor, and Trove control plane database (Percona MySQL cluster).</li>
+      <li>Customer Database Service instances and clusters which host the guest agent and datastore binary itself (for MySQL, MongoDB, Redis, and Vertica-Preview).  The figure above shows how 
+        Database as a Service can manage multiple clusters belonging to multiple users.  Each database server consists of a VM and OpenStack Block Storage for the database files.  Users only 
+        have access to the database via the datastore protocol. </li>
+    </ul>
+    <p>If HPE Helion OpenStack is configured to use multiple AZs, the Database Service will install across all zones using intelligent orchestration and data-level clustering. 
+    </p>
   </section>
   <section id="components">
     <title>Components</title>    
-    <p>The Database Service is composed of the following components:</p>
+    <p>A description of each component in the Database Service is provided below.</p>
     <table>
       <tgroup cols="2">
         <colspec colname="component" />
@@ -46,13 +64,13 @@
         <tbody>
           <row>
             <entry>API</entry>
-            <entry>A REST API that provides access to common provisioning and administration tasks such as creating a database instance, resizing, adding users, managing backups, changing the instance configuration and creating replicas.  
-              The API communicates with the Task Manager and the Guest Agent. It accepts requests, converts them into messages, validates the request and then forwards them to the Task Manager or Guest Agent. The API provides a single 
+            <entry>A REST API that provides access to common provisioning and administration tasks such as creating a database instance, resizing, adding users, managing backups, changing the instance configuration, and creating replicas.  
+              The API communicates with the Task Manager and the Guest Agent. It accepts requests, converts them into messages, validates the request, and then forwards them to the Task Manager or Guest Agent. The API provides a single 
               way for users and developers to interact with individual database management systems in a consistent manner without having to be experts in a particular database technology.</entry>
           </row>
           <row>
             <entry>Message Bus</entry>
-            <entry>Manages interaction between API endpoints, the Task Manager and the Guest Agent. The Message Bus is implemented using RabbitMQ.</entry>
+            <entry>Manages interaction between API endpoints, the Task Manager and the Guest Agent. The Message Bus is implemented using RabbitMQ version 3.4.1.</entry>
           </row>
           <row>
             <entry>Task Manager</entry>
@@ -61,8 +79,8 @@
           </row>
           <row>
             <entry>Guest Agent</entry>
-            <entry>Responsible for managing and performing operations on the database instance. It is a service that runs within the guest instance.  The Guest Agent brings the database online and also sends heartbeat messages to the API 
-              via the Conductor. There is a Guest Agent for each datastore (database technology) implementation that is able to perform specific operations for that datastore.</entry>
+            <entry>Responsible for managing and performing operations on the database instance. It is a service that runs within the guest instance, or each clustered database node.  The Guest Agent brings the database online and also 
+              sends heartbeat messages to the API via the Conductor. There is a Guest Agent for each datastore (database technology) implementation that is able to perform specific operations for that datastore.</entry>
           </row>
           <row>
             <entry>Conductor</entry>
@@ -70,7 +88,7 @@
           </row>
           <row>
             <entry>Database</entry>
-            <entry>Provides persistent storage for maintaining the state of the service.</entry>
+            <entry>Provides persistent storage for maintaining the state of the service. It uses the Percona multi-master MySQL 5.5 distribution.</entry>
           </row>
         </tbody>
       </tgroup>
@@ -80,7 +98,12 @@
   <section id="Deployment">
     <title>Deployment</title>
     <p>The Database Service uses HPE Helion Orchestration (OpenStack Heat) to orchestrate its
-        deployment. The default configuration sets up the service in a high-availability (HA) model
+        deployment. </p>
+    <p>As a best practice, HP recommends creating three availability zones. The Helion OpenStack post install steps for setting up host aggregates to create AZs are documented</p>
+    
+    <p>
+      
+      The default configuration sets up the service in a high-availability (HA) model
         across three AZs. If only a single AZ exists the service control plane will not be deployed
         in a HA configuration. The HPE Helion OpenStack post install steps for setting up host
         aggregates to create AZs are documented and should be carried out before deploying the HPE
