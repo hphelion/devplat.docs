@@ -68,13 +68,12 @@
                   href="#using_messaging/manage">Managing a Cluster</xref>.</note></li>
             <li>
               <b>Password </b> - The password to use for logging into the management console. Repeat
-              to <b>Confirm Password</b>. <image placement="break"
-                href="../../../media/devplat.docs/cue_cluster_define.png" id="image_kbf_fm1_j5"
-                scale="75"/></li>
+              to <b>Confirm Password</b>. <p><image
+                  href="../../../media/devplat.docs/cue_cluster_define.png"/></p></li>
           </ul></li>
         <li>After the cluster is built, it will appear in the table of clusters. (Full IP addresses
-          have been obscured.)<image placement="break"
-            href="../../../media/devplat.docs/cue_cluster_built.png" id="image_xnh_f41_j5"/></li>
+          have been obscured.) <p><image href="../../../media/devplat.docs/cue_cluster_built.png"
+            /></p></li>
       </ol>
     </section>
     <section id="delete">
