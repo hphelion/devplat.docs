@@ -1,0 +1,1 @@
+This branch exists only because Git says we have to have a branch assigned as a "default", so we created a blank one. Do not use this branch for any reason. It is not part of the workflow.
