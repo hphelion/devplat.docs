@@ -8,9 +8,6 @@
       <p>The project tenant must have sufficient quota available and unused resources for the service to
         use. To check existing quota availability, log in to Horizon as the <b>admin</b> user and
         open the <b>Overview</b> panel under the <b>Compute</b> tab. </p>
-      <p>Alternately, you can check the quotas at the command line using <codeph><xref
-            href="http://docs.openstack.org/user-guide-admin/cli_set_compute_quotas.html"
-            format="html" scope="external">nova quota-show</xref></codeph>.</p>
       <p>If you are not configuring the Database Service to be highly available you must have the following quota available:</p>
       <table>
         <tgroup cols="2">

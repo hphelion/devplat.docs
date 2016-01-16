@@ -5,8 +5,8 @@
     <title>Installation</title>
     <body>
       <p>In this section, you will learn how to perform a full installation of HPE Helion
-        Development Platform or installation of individual services. You will also learn how to
-        upgrade ALS and ALS clusters, and how to troubleshoot your installation.</p>
+        Development Platform, installation of individual services, and upgrades. This section also
+        includes configuration file reference and installation troubleshooting.</p>
     </body>
   </topic>
 </dita>

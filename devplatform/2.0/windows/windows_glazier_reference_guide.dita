@@ -72,6 +72,7 @@
 <li>OS_REGION_NAME</li>
 <li>OS_TENANT_ID</li>
 <li>OS_AUTH_URL</li>
+<li>OS_CACERT</li>
 </ul>
 <p>It is recommended to set these environment variables using the OpenStack RC file from the target environment. This can be obtained in Horizon, under Project-&gt;Compute-&gt;Access &amp; Security-&gt;API Access-&gt;<b>Download OpenStack RC File</b>.</p>
 </section>
@@ -145,7 +146,10 @@
 
 --glazier-vm-https-proxy
     - (optional) Sets the https proxy in the created virtual machine
-
+    
+--ca-cert
+    - (optional) Path to the certificate for the target HPE Helion OpenStack environment. The location of this certificate can be found in the cacert field in the clouds.yaml configuration file.
+    
 --help                      
     - shows this message</codeblock>
 </section>

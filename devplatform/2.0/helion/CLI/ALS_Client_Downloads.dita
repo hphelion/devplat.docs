@@ -33,12 +33,9 @@
 <li>
   <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.0-osx-x86_64.zip" scope="external" format="html">Mac OS X</xref> </li>
 </ul>
-<p>For more information, see the full ALS Cluster Management Tool <xref
-          href="ALS_Client_Reference.dita">command reference</xref>. <note>When choosing where to
-          install <systemoutput>cf-mgmt</systemoutput>, note that it requires a system with access
-          to the OpenStack public endpoint and access to port 80 on the tenant network where the
-          target ALS clusters have been created.</note></p>
-
+<p>For more information, see the full ALS Cluster Management Tool <xref href="ALS_Client_Reference.dita" >command reference</xref>.</p>
+      <note>When choosing where to install <codeph>cf-mgmt</codeph>, note that it requires a system with access to the OpenStack
+        public endpoint and access to port 80 on the tenant network where the target ALS clusters have been created.</note>
 <p>Click to download a sample configuration file for use with the <i>cf-mgmt</i> tool.</p>
 <ul>
 <li>

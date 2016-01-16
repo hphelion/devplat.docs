@@ -117,9 +117,9 @@ stack@messaging-deployer:~/helion$ cp ~/platform-pass-through.yml my_cloud/defin
               installation
               process.<codeblock>stack@messaging-deployer:~/helion$ git add -A
 stack@messaging-deployer:~/helion$ git commit -a -m "Add MSGaaS Default Model"</codeblock></li>
-            <li id="customize">Change to the default values in order to customize the deployment
-              model. <note type="important">Do not skip this step or the installation playbooks may
-                not execute as expected in your
+            <li id="customize">Change the default values in order to customize the deployment model.
+                <note type="important">Do not skip this step or the installation playbooks may not
+                execute as expected in your
               environment.</note><codeblock># Open the cloudConfig.yml file and provide appropriate NTP/DNS server IP addresses
 # If you are not sure, use the IP addresses of the HP Helion OpenStack control plane nodes
 # The NTP and DNS servers must be reachable from your HP Helion OpenStack SVC network
@@ -128,22 +128,26 @@ stack@messaging-deployer:~/helion$ cd my_cloud/definition/
 stack@messaging-deployer:~/helion/my_cloud/definition$ ls
 cloudConfig.yml  data
 stack@messaging-deployer:~/helion/my_cloud/definition$ nano cloudConfig.yml    # this is the file where the changes need to be made</codeblock></li>
-            <li id="TLS">This step is required for configuring TLS in Cue API endpoint.  <note>For production environments, TLS (Cue API public endpoint URL with SSL
-                support (https)) is recommended. If not using TLS, for example, in a non-production
-                proof-of-concept environment, skip this
-              step.</note></li>
-            <li>Navigate to and open the <codeph>network_groups.yml</codeph> file for
-                editing.<codeblock>stack@messaging-deployer:~/helion/my_cloud/definition$ cd data
-stack@messaging-deployer:~/helion/my_cloud/definition/data$ nano network_groups.yml </codeblock><ol>
-          <li>If an IP-based TLS certificate is used, comment out the
-                    <codeph>external-name:</codeph> field. For name-based TLS, provide the FQDN name in
-                  the  <codeph>external-name:</codeph> field and copy the signed certificate to the <codeph>~/helion/my_cloud/config/tls/certs/</codeph> directory. </li>
-            <li>Comment out the <codeph>components:</codeph> list and uncomment the
-                    <codeph>tls-components:</codeph> list.</li>
-            <li>Un-comment the <codeph>tls-components:</codeph> list.</li>
-            <li>provide the TLS certificate file name in
-                  the <codeph>cert-file</codeph>: field. This name will have to match the name of the cert-file placed in <codeph>~/helion/my_cloud/config/tls/certs/</codeph> (e.g. <b>msgaas-cert</b>).
-              <note>The certificate file must contain both the certificate and the private key data.</note></li></ol></li>
+            <li id="TLS">Configure TLS <note>For production environments, TLS (Cue API public
+                endpoint URL with SSL support (https)) is recommended. If not using TLS, for
+                example, in a non-production proof-of-concept environment, skip this step.<ol
+                  id="ol_r4d_pn3_45">
+                  <li>Navigate to and open the <codeph>network_groups.yml</codeph> file for
+                    editing.<codeblock>stack@messaging-deployer:~/helion/my_cloud/definition$ cd data
+stack@messaging-deployer:~/helion/my_cloud/definition/data$ nano network_groups.yml </codeblock></li>
+                  <li>If an <b>IP</b>-based TLS certificate is used, comment out the
+                      <codeph>external-name:</codeph> field. </li>
+                  <li>For <b>name</b>-based TLS, provide the FQDN name in the
+                      <codeph>external-name:</codeph> field and copy the signed certificate to the
+                      <codeph>~/helion/my_cloud/config/tls/certs/</codeph> directory. </li>
+                  <li>Comment out the <codeph>components:</codeph> list.</li>
+                  <li>Un-comment the <codeph>tls-components:</codeph> list.</li>
+                  <li> Provide the TLS certificate file name in the <codeph>cert-file</codeph>:
+                    field. This value has to match the name of the cert-file located in
+                      <codeph>~/helion/my_cloud/config/tls/certs/</codeph> (for example:
+                      <b>msgaas-cert</b>). <note>The certificate file must contain both the
+                      certificate and the private key data.</note></li>
+                </ol></note></li>
           <li> Using Git, persist these changes. This information is required for the Pre-Install playbook,
               which is executed later in this installation
               process.<codeblock>stack@messaging-deployer:/helion/my_cloud/definition/data/pass-through$ cd ~/helion
@@ -158,8 +162,9 @@ stack@messaging-deployer:~/helion$ git commit -a -m "Configured Deployment Model
             debug option (-vvv) or verbose debug option (-vvvv) to any ansible playbook call.
             (ansible-playbook)</note><ol>
             <li> Run the Pre-Install Playbook <note>For the SVC network, the only valid name is
-                "SVC".</note><note> If the External Network is not named <codeph>ext-net</codeph>,
-                update the value of the <b>external_net_name</b> variable in
+                  <codeph>SVC</codeph>.</note><note> If the External Network is not named
+                  <codeph>ext-net</codeph>, update the value of the <b>external_net_name</b>
+                variable in
                   <codeph>~/helion/hos/ansible/roles/openstack-operations/defaults/main.yml</codeph>
                 to the correct
                 value.</note><codeblock>stack@messaging-deployer:~/helion$ source ~/user.osrc
@@ -181,12 +186,15 @@ openstack-operations | preinstall | Set Nova Quotas --------------------- 1.77s
 Total: ----------------------------------------------------------------- 27.45s
 localhost                  : ok=20   changed=14   <ph outputclass="codehighlight">unreachable=0    failed=0</ph> </codeblock></li>
             <li>Configure the Input Model for TLS Support in Cue API (Optional).<note>If using
-                name-based TLS, skip this step, otherwise the deployment model <xref href="#topic_t3w_fnh_ts/TLS">customization</xref> performed previously must have included the TLS
-                configuration step.</note><ol>
-                <li>Navigate to and open the <codeph>network_groups.yml</codeph> file, capture the ip address shown in
-                    the <codeph>external-ip:</codeph> field.  Now create and sign an IP-based TLS certificate based on this IP address.</li>
+                name-based TLS, skip this step. If using IP-based TLS, the deployment model <xref
+                  href="#topic_t3w_fnh_ts/TLS">customization</xref> performed previously must have
+                included TLS configuration.</note><ol>
+                <li>Navigate to and open the <codeph>network_groups.yml</codeph> file. </li>
+                <li>Capture the IP address value shown in the <codeph>external-ip:</codeph> field. </li>
+                <li>Create and sign an IP-based TLS certificate based on this IP address.</li>
                 <li>Copy your signed certificate into
-                    <codeph>~/helion/my_cloud/config/tls/certs/</codeph>.  Ensure the certificate name matches the name you provided in <codeph>cert-file:</codeph> field. </li>
+                    <codeph>~/helion/my_cloud/config/tls/certs/</codeph>. Ensure the certificate
+                  name matches the name you provided in <codeph>cert-file:</codeph> field. </li>
                 <li>Using Git, commit the changes.
                   <codeblock>stack@messaging-deployer:~/helion/hos/ansible$ git add -A
 stack@messaging-deployer:~/helion/hos/ansible$ git commit -a -m "Configured Deployment Model"</codeblock></li>
@@ -293,10 +301,8 @@ localhost                  : ok=34   changed=15   <ph outputclass="codehighlight
       <ol>
         <li>Connect to the application lifecycle (deployer) node</li>
         <li>Execute the following command to get the service endpoint address from the Hosts file:
-          <codeblock>cat /etc/hosts</codeblock>
-          This will produce output similar to the following:
-          <codeblock>
-    # Cloud: entry-scale-kvm-ceph
+          <codeblock>cat /etc/hosts</codeblock> This will produce output similar to the following:
+          <codeblock>    # Cloud: entry-scale-kvm-ceph
             
     # Localhost Information
     127.0.0.1      localhost
@@ -307,8 +313,7 @@ localhost                  : ok=34   changed=15   <ph outputclass="codehighlight
     # Network: EXTERNAL-API-NET
     <codeph outputclass="codehighlight">10.241.151.2     helion-cp1-c1-m1-extapi</codeph>
     10.241.151.3     helion-cp1-c1-m2-extapi
-    10.241.151.4     helion-cp1-c1-m3-extapi
-          </codeblock></li>
+    10.241.151.4     helion-cp1-c1-m3-extapi          </codeblock></li>
         <li>Execute the following command to get the service endpoint address from Neutron:
         <codeblock>source service.osrc
 neutron floatingip-list</codeblock>

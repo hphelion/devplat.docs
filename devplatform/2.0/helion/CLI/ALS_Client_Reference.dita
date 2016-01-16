@@ -6,13 +6,10 @@
 <body>
     <p>The ALS command-line interface client (<codeph>cf-mgmt.exe</codeph>) provides an option for
       executing commands that construct, manage, update, or delete ALS clusters. Use the command
-      line when the Horizon management console is unavailable or when direct access is preferred.</p>
-    <p>
-      <note>The system where <systemoutput>cf-mgmt</systemoutput> is installed requires 1) access to
-        the OpenStack public endpoint and 2) access to port 80 on the tenant network where the
-        target ALS clusters have been created.</note>
-    </p>
-    <p>Click to download a sample configuration file for use with the <i>cf-mgmt</i> tool.</p>
+      line when the Horizon management console is unavailable or when direct access is preferred.
+        <note> The system where <codeph>cf-mgmt</codeph> is installed requires 1) access to the
+        OpenStack public endpoint and 2) access to port 80 on the tenant network where the target
+        ALS cluster is created.</note></p>
     <ul>
       <li>
         <xref type="section" href="#topic13234/global">Global Options</xref>

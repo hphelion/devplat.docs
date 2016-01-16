@@ -10,7 +10,7 @@
           <codeph>~/.config/openstack/clouds.yaml</codeph>. If this file does not exist yet, <xref
           href="../install_cloudsyaml.dita">create it</xref>.</p>
       <p>
-        <note type="important">This section begins indented two spaces; look at the <xref
+        <note type="important">This section begins indented four spaces; look at the <xref
             href="fullFile.dita">complete file</xref> to see how all the sections fit
           together.</note>
       </p><codeblock id="cloudengine">    helionce:

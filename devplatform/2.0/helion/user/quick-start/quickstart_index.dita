@@ -104,7 +104,7 @@ language or framework used, but the basic command is:</p>
 working directory and push it to Application Lifecycle Service for further staging and configuration, prompting for additional configuration information as necessary.</p>
 </section>
 <section id="sample-applications"> <title>Sample Applications</title>
-<p>Small <xref href="../../../devplatform.appdev.dita" >sample applications</xref> in various  programming languages are available. These applications demonstrate the basics of ALS deployment (hello world), connect to a database, and exercise theMessaging Broker Service.</p>
+<p>Small <xref href="../../../devplatform.appdev.dita" >sample applications</xref> in various  programming languages are available. These applications demonstrate the basics of ALS deployment (hello world), connect to a database, and exercise the Messaging Broker Service.</p>
 <p>Additional more advanced sample applications are available from <xref href="https://github.com/Stackato-Apps" scope="external" format="html" >Application Lifecycle Service-Apps</xref> on Github, each with a
 README.md file showing how to deploy it on Application Lifecycle Service.</p>
 <p>Many of these have a <xref href="../deploy/manifestyml.dita" >

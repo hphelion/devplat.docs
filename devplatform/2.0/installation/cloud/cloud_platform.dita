@@ -12,7 +12,7 @@
         installation procedure for that service. All fields are required unless otherwise
         indicated.</p><p>
         <note type="important">This section begins at the left margin. All other sections begin
-          indented two spaces; look at the <xref href="fullFile.dita">complete file</xref> to see
+          indented four spaces; look at the <xref href="fullFile.dita">complete file</xref> to see
           how all the sections fit together.</note>
       </p><codeblock id="cloudplatform">clouds:
   mycloud:
