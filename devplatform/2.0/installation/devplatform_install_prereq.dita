@@ -3,6 +3,9 @@
 <topic id="topic_x54_njh_ts">
   <title>HPE Helion 2.0 Development Platform: Installation Prerequisites</title>
   <body>
+    <note type="attention">Hyperlinks intermittently do not work in the Google Chrome browser. <xref
+      href="../../2.0/installation/devplatform_install_prereq.html" scope="external" format="html"
+      >Click here</xref> for a frameless version of this page where the links should work.</note>
     <section id="prerequisites">
       <title>General Prerequisites</title>
       <note type="warning">You must satisfy all prerequisites <i>before</i> beginning
@@ -20,10 +23,11 @@
                 href="http://docs.hpcloud.com/#helion/installation/configure_ceph.html"
                 format="html" scope="external">Ceph</xref>.</li>
             <li>The <xref
-                href="../../../../hos.docs/helion/objectstorage/check_objectstorage_operation.dita#topic_bvm_yg2_jt"
-                >Swift Object Storage</xref> service must be configured. Swift is required for
-              Database Service backup and replication functionality, and is a requirement for
-              production deployments. Swift is also used by the installer, and is needed.</li>
+                href="http://docs.hpcloud.com/#helion/objectstorage/check_objectstorage_operation.html"
+                format="html" scope="external">Swift Object Storage</xref> service must be
+              configured. Swift is required for Database Service backup and replication
+              functionality, and is a requirement for production deployments. Swift is also used by
+              the installer, and is needed.</li>
             <li> If you did not <xref
                 href="http://docs.hpcloud.com/#helion/administration/create_hdp_servicenet.html"
                 format="html" scope="external">create the Service Network </xref>, you <b>must</b>
