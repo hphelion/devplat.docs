@@ -19,6 +19,10 @@
                 format="html" scope="external">3Par</xref>, or <xref
                 href="http://docs.hpcloud.com/#helion/installation/configure_ceph.html"
                 format="html" scope="external">Ceph</xref>.</li>
+            <li>The <xref
+                href="http://docs.hpcloud.com/#helion/objectstorage/check_objectstorage_operation.html"
+                format="html" scope="external">Swift Object Storage</xref> service must be
+              configured. Swift is required for installation and Database Service backup and replication functionality, and is a requirement for production deployments.</li>
             <li> If you did not <xref
                 href="http://docs.hpcloud.com/#helion/administration/create_hdp_servicenet.html"
                 format="html" scope="external">create the Service Network </xref>, you <b>must</b>
