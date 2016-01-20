@@ -129,7 +129,9 @@ openstack server list</codeblock></li>
               instance.<codeblock>ssh -i helionce-shared stack@&lt;<i>IP address of the helionce_deployer instance</i>></codeblock></li>
           <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph>
             folder.</li> 
-          <li>Run: <codeblock>ansible-playbook -i hosts/verb_hosts site.yml</codeblock></li></ol>
+
+  <li>Run the following
+            playbooks:<codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts rabbitmq-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts helionci-restart.yml</codeblock></li></ol>
       </section> 
       
       
@@ -146,10 +148,7 @@ openstack server list</codeblock></li>
           <li>Navigate to the <codeph>ansible</codeph> scratch directory.
             <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
           <li>Run the following playbooks in this order.
-            <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
-ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
-ansible-playbook -i hosts/verb_hosts cue-stop.yml
-ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
+            <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts cue-stop.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
           <li>Disconnect from the Messaging deployer node and HPE Helion OpenStack lifecycle manager
             node.</li></ol>
         
