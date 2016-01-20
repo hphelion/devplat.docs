@@ -51,9 +51,9 @@
             <li>This process creates a directory under<codeph> /opt </codeph>which is owned by root.
               The owner needs to be changed so that non-admin users can perform service
               installations. In this example, the user login is <i>stack</i>.
-              <codeblock>sudo chown stack.stack /opt/stack/venv/&lt;dev_platform_installer-devplat_installer-#.#.#.gz&gt; </codeblock></li>
+              <codeblock>sudo chown stack.stack /opt/stack/venv/&lt;dev_platform_installer-devplat_installer-#.#.# </codeblock></li>
             </ol></li><li>Source the virtual
-              environment.<codeblock>source /opt/stack/venv/&lt;dev_platform_installer-devplat_installer-#.#.#.gz&gt;/bin/activate</codeblock></li>
+          environment.<codeblock>source /opt/stack/venv/&lt;dev_platform_installer-devplat_installer-#.#.#/bin/activate</codeblock></li>
           
         <li>Test the installer by retrieving a list of installable files.
           <codeblock>openstack hdpi --os-cloud mycloud list</codeblock></li>
