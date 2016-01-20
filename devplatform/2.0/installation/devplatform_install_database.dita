@@ -22,7 +22,7 @@
       <ol id="ol_xct_5dz_nt">
         <li>SSH into the HP Helion OpenStack lifecycle manager.</li>
         <li>Source the Virtual
-          Environment.<codeblock>source /opt/stack/venv/&lt;dpi-venv&gt;/bin/activate</codeblock></li>
+          Environment.<codeblock>source /opt/stack/venv/&lt;dev_platform_installer-devplat_installer-#.#.#&gt;/bin/activate</codeblock></li>
         <li>Install the database service. <ol>
             <li>If you <xref href="install_offline.dita#topic_w25_hqp_xt">pre-downloaded</xref> the
               installation files:
@@ -72,10 +72,10 @@ $</codeblock></li>
         will configure HAProxy to receive and forward HTTP requests to the VM that hosts the REST
         API endpoint for the Database Service.<ol>
           <li> Identify all the API server IPs on the SVC network. <p>
-              <codeblock>openstack server list | awk '/trove[0-9]*_api/{ print $4,"\t", substr($8,5) }' --os-cloud mycloud</codeblock>
+              <codeblock>openstack server list | awk '/trove[0-9]*_api/{ print $4,"\t", substr($8,5) }' </codeblock>
             </p></li>
           <li> Identify the Virtual IP used to load balance the HPE Helion OpenStack
-            services.<codeblock>openstack endpoint list | grep database | grep public | awk '{ print $14 }' | awk -F':' '{ print $2 }' | awk -F'/' '{ print $3 }' --os-cloud mycloud</codeblock></li>
+            services.<codeblock>openstack endpoint list | grep database | grep public | awk '{ print $14 }' | awk -F':' '{ print $2 }' | awk -F'/' '{ print $3 }' </codeblock></li>
           <li> Update configuration of the HPE Helion OpenStack controller nodes. The following
             commands are run from the HLM deployer node.<ol>
               <li>Navigate to the following directory.
@@ -98,7 +98,19 @@ server trove-trove&lt;<i>n+1</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n+1
                     <codeph>/home/stack/helion/my_cloud/definition/data/network_groups.yml</codeph>
                   file and find the value for the <codeph>cert-file</codeph> parameter. </note></li>
               <li>Persist the updated configuration
-                file.<codeblock>git commit -a -m "updated haproxy for database service"</codeblock></li>
+                file.<codeblock>cd ~/helion/hos/ansible 
+git add -A
+git commit -m "updated haproxy for database service"</codeblock></li>
+              <li> Commit these changes to your local Git repo for
+                persistence.<codeblock>cd ~/helion/hos/ansible 
+                  git add -A 
+                  git commit -m "firewall for dbaas added" </codeblock></li>
+              <li>Run the configuration processor.
+                <codeblock>cd ~/helion/hos/ansible 
+ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
+              <li>Create the deployment directory structure.
+                <codeblock>cd ~/helion/hos/ansible 
+ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock></li>
               <li>Ready a new HLM
                 deployment.<codeblock>cd ~/helion/hos/ansible
 ansible-playbook -i hosts/localhost ready-deployment.yml</codeblock></li>
@@ -110,16 +122,16 @@ ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
               <li>Open the ~/helion/my_cloud/definition/data/firewall_rules.yml file for
                 editing.</li>
               <li>Add this code block to allow access to the DBaaS port (8779) through the firewall.
-                <codeblock>  - name: DBAAS 
-        network-groups:
-        - EXTERNAL-API 
-        - MANAGEMENT 
-        rules: 
-        - type: allow
-          remote-ip-prefix: 0.0.0.0/0 
-          port-range-min: 8779 
-          port-range-max: 8779 
-          protocol: tcp</codeblock></li>
+                <codeblock>- name: DBAAS 
+  network-groups:
+    - EXTERNAL-API 
+    - MANAGEMENT 
+  rules: 
+    - type: allow
+  remote-ip-prefix: 0.0.0.0/0 
+  port-range-min: 8779 
+  port-range-max: 8779 
+  protocol: tcp</codeblock></li>
               <li> Commit these changes to your local Git repo for
                 persistence.<codeblock>cd ~/helion/hos/ansible 
 git add -A 
@@ -130,11 +142,11 @@ ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
               <li>Create the deployment directory structure.
                 <codeblock>cd ~/helion/hos/ansible 
 ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock></li>
-              <li>Change to the deployment directory
-                <codeblock>cd ~/scratch/ansible/next/hos/ansible </codeblock></li>
+              
               <li>Run the <codeph>osconfig-iptables-deploy.yml</codeph> playbook to update your
                 iptable
-                rules.<codeblock>ansible-playbook -i hosts/verb_hosts osconfig-iptables-deploy.yml</codeblock></li>
+                rules.<codeblock>cd ~/scratch/ansible/next/hos/ansible
+ansible-playbook -i hosts/verb_hosts osconfig-iptables-deploy.yml</codeblock></li>
             </ol></li>
         </ol></sectiondiv></section>
   </body>
