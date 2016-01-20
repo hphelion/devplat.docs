@@ -77,7 +77,7 @@
             <li>To delete one cluster, click <b>Terminate Cluster </b>in the same row.</li>
           </ul><ul id="ul_ml5_441_j5">
             <li>To delete multiple clusters, check the checkboxes next to the unwanted clusters and
-              then click <b>Terminate Clusters</b>.</li>
+              then click <b>Terminate Clusters</b>.</li> 
           </ul></li>
       </ol>
 </section>
