@@ -56,6 +56,14 @@
       <topicref href="2.0/installation/install_listOptions.dita" toc="no"/>
       <topicref href="2.0/installation/install_dbaasNoTLS.dita" toc="no"/>
   </topicref>
+    <topicref href="2.0/uninstallation/devplatform_uninstall.dita">
+      <topicref href="2.0/uninstallation/devplatform_uninstall_platform.dita"/>
+      <topicref href="2.0/uninstallation/devplatform_uninstall_ALS.dita"/>
+      <topicref href="2.0/uninstallation/devplatform_uninstall_database.dita"/>
+      <topicref href="2.0/uninstallation/devplatform_uninstall_marketplace.dita"/>
+      <topicref href="2.0/uninstallation/devplatform_uninstall_messaging.dita"/>
+      <topicref href="2.0/uninstallation/devplatform_uninstall_vertica.dita"/>
+    </topicref>
  
     
     <!--uninstallation -->
