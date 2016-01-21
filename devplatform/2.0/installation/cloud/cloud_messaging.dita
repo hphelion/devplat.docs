@@ -27,18 +27,18 @@
       deployer_ext_net_id: ext-net
       deployer_cname: CN name used to generate the certificate file.   
       #####          
-    msgaas:
-      image_api_version: '1'
-      identity_api_version: '2'
-      region_name: region1
-      insecure: True
-      auth:
-        auth_url: http://##.##.##.##:####/v3
-        project_name: 
-        username: 
-        password: 
-        project_domain_name: default
-        user_domain_name: default              </codeblock></section><section><title>Service Configuration Parameters for the HDPI Installer</title><dl>
+  msgaas:
+    image_api_version: '1'
+    identity_api_version: '2'
+    region_name: region1
+    insecure: True
+    auth:
+      auth_url: http://##.##.##.##:####/v3
+      project_name: 
+      username: 
+      password: 
+      project_domain_name: default
+      user_domain_name: default              </codeblock></section><section><title>Service Configuration Parameters for the HDPI Installer</title><dl>
         <dlentry>
           <dt>deployer_cloud</dt>
           <dd>The cloud identified in the clouds.yaml where the deployer will be created. Note that
