@@ -10,9 +10,10 @@
           <codeph>~/.config/openstack/clouds.yaml</codeph>. If this file does not exist yet, <xref
           href="../install_cloudsyaml.dita">create it</xref>.</p>
       <p>
-        <note type="important">This section begins indented four spaces; look at the <xref
-            href="fullFile.dita">complete file</xref> to see how all the sections fit
-          together.</note>
+        <note type="important">The <codeph>messaging</codeph> section begins indented four spaces;
+          it is subordinate to the <codeph>mycloud</codeph> section. The <codeph>msgaas</codeph>
+          section begins indented two spaces. Look at the <xref href="fullFile.dita">complete
+            file</xref> to see how all the sections fit together.</note>
       </p>
       <codeblock id="cloudmsgaas">    messaging:
       deployer_cloud: "msgaas"
