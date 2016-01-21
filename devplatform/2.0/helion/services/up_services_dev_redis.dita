@@ -3,6 +3,33 @@
 <topic id="upservicesredis">
   <title>HPE Helion 2.0 Development Platform: Redis Integration for Developers</title>
   <body>
-    <p></p>
+    <section><title>Pre-requisites</title><p>
+        <ul id="ul_o3x_nr1_t5">
+          <li>You already have an ALS cluster.</li>
+          <li>You have access to the cluster and permission to deploy applications.</li>
+          <li>Access is allowed into the Redis instance or clustered IP addresses and Redis port
+            6379. If not, the process for configuring port access is <xref
+              href="../admin/server/configuration.dita#topic31232/container_allowed">located
+              here</xref>.</li>
+        </ul>
+      </p></section>
+    <section><title>Developer Steps</title>
+    
+    
+    
+    </section>
+    <ol id="ol_md4_yr1_t5">
+      <li>Create user-provided service in ALS cluster, provide connection credentials<ol
+          id="ol_p2w_bs1_t5">
+          <li>Login to ALS cluster</li>
+          <li>Get a list of all services in the ALS cluster</li>
+          <li>Create a new service for binding Redis from applications in the ALS cluster</li>
+          <li> Validate that the new service is available</li>
+        </ol></li>
+      <li>Check the credentials are set correctly </li>
+      <li>Bind to Redis user-provided service from an app during deployment</li>
+      <li>Deploy your application using helion CLI</li>
+      <li>Validate the service is bound to your application</li>
+    </ol>
   </body>
 </topic>
