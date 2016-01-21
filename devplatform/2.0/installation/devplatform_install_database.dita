@@ -124,7 +124,7 @@ ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
       - EXTERNAL-API
       - MANAGEMENT
       rules:
-        - type: allow
+      - type: allow
         remote-ip-prefix: 0.0.0.0/0
         port-range-min: 8779
         port-range-max: 8779
