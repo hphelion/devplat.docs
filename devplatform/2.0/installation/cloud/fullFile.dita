@@ -19,9 +19,9 @@
       Database service and HPE Helion Code Engine have one section each.</p>
     <p>
       <codeblock outputclass="codesquish" conref="cloud_platform.dita#cloudPlatform/cloudplatform"/>
-      <codeblock outputclass="codesquish" conref="cloud_messaging.dita#cloudMessaging/cloudmsgaas"/>
       <codeblock outputclass="codesquish" conref="cloud_database.dita#cloudDatabase/cloudDB"/>
-      <codeblock conref="cloud_codeengine.dita#cloudCodeEngine/cloudengine"/>
+      <codeblock outputclass="codesquish" conref="cloud_codeengine.dita#cloudCodeEngine/cloudengine"/>
+      <codeblock outputclass="codesquish" conref="cloud_messaging.dita#cloudMessaging/cloudmsgaas"/>
     </p>
   </body>
 </topic>
