@@ -111,9 +111,6 @@ ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
               <li>Create the deployment directory structure.
                 <codeblock>cd ~/helion/hos/ansible 
 ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock></li>
-              <li>Ready a new HLM
-                deployment.<codeblock>cd ~/helion/hos/ansible
-ansible-playbook -i hosts/localhost ready-deployment.yml</codeblock></li>
               <li>Update the HAProxy
                 configuration.<codeblock>cd ~/scratch/ansible/next/hos/ansible
 ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
@@ -122,16 +119,16 @@ ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
               <li>Open the ~/helion/my_cloud/definition/data/firewall_rules.yml file for
                 editing.</li>
               <li>Add this code block to allow access to the DBaaS port (8779) through the firewall.
-                <codeblock>- name: DBAAS 
-  network-groups:
-    - EXTERNAL-API 
-    - MANAGEMENT 
-  rules: 
-    - type: allow
-  remote-ip-prefix: 0.0.0.0/0 
-  port-range-min: 8779 
-  port-range-max: 8779 
-  protocol: tcp</codeblock></li>
+                <codeblock>    - name: DBAAS
+                  network-groups:
+                  - EXTERNAL-API
+                  - MANAGEMENT
+                  rules:
+                  - type: allow
+                  remote-ip-prefix: 0.0.0.0/0
+                  port-range-min: 8779
+                  port-range-max: 8779
+                  protocol: tcp</codeblock></li>
               <li> Commit these changes to your local Git repo for
                 persistence.<codeblock>cd ~/helion/hos/ansible 
 git add -A 
