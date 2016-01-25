@@ -6,9 +6,13 @@
   <body>
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the virtual
       machines which run the control plane will also affect the services that make up the HPE Helion
-      Development Platform. </p>
-    <p>Perform these additional steps to safely shut down these specific services prior to upgrading
-      and then to restart them after the upgrade is complete.</p>
+      Development Platform. Perform these additional steps to safely shut down these specific
+      services prior to upgrading and then to restart them after the upgrade is complete. <note>This
+        is not an upgrade for the HPE Helion Development Platform. It does not add any new
+        functionality or change existing functionality.  The process documented here ensures that
+        the HPE Helion Development Platform is shut down and restarted safely when performing the
+        latest upgrade to HPE Helion OpenStack. If your HPE Helion OpenStack installation does not
+        include the HPE Helion Development Platform, this process does not apply to you.</note></p>
     
     
     
