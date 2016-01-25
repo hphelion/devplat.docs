@@ -18,7 +18,8 @@
       deployer_flavor: 3
       deployer_ntp_servers: ntpservers
       deployer_dns_servers: dnsservers
-      deployer_cloud: 'mycloud'</codeblock></section>
+      deployer_cloud: 'mycloud'
+      username: helionce</codeblock></section>
     
     <section><title>Leave these Parameters Unchanged </title>
   
@@ -42,7 +43,12 @@
           <dt>deployer_dns_servers</dt>
           <dd>Provided value: dnsservers</dd>
           <dd>Do not change this value.</dd>
-        </dlentry></dl></section>
+        </dlentry>
+      <dlentry>
+        <dt>username</dt>
+        <dd>Provided value: helionce</dd>
+        <dd>Do not change this value</dd>
+      </dlentry></dl></section>
       
       <section><title>Modify the Following Parameters</title><dl>
 
