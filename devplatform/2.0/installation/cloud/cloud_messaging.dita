@@ -36,7 +36,7 @@
     auth:
       auth_url: http://##.##.##.##:####/v3
       project_name: 
-      username: 
+      username: msgaas
       password: 
       project_domain_name: default
       user_domain_name: default              </codeblock></section><section><title>Service Configuration Parameters for the HDPI Installer</title><dl>
@@ -127,8 +127,9 @@
         </dlentry>
         <dlentry>
           <dt>username</dt>
-          <dd>This user will be created by the HDPI service installation process. This project must
-            NOT exist prior to installing the Messaging Broker Service.</dd>
+          <dd>This user will be created by the HDPI service installation process. This user must NOT
+            exist prior to installing the Messaging Broker Service. The username must be
+              <b>msgaas</b>.</dd>
         </dlentry>
         <dlentry>
           <dt>password</dt>
