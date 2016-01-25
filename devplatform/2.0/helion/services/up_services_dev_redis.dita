@@ -52,18 +52,119 @@ Space:        default</codeblock></li>
           <li>When prompted, enter the field <b>names</b> to be used for Redis connection
             credentials. These are not the values, but the names of the fields.<ul
               id="ul_klc_qkj_t5">
-              <li> For a single instance Redis, provide field names such as: hostname, port,
-                db.</li>
+              <li> For a single instance Redis, provide field names such as:
+                  <codeph>hostname</codeph>, <codeph>port</codeph>,
+                <codeph>db</codeph>.<codeblock>$ helion create-service user-provided my-redis-db-service
+Which credentials to use for connections [hostname, port, password]: hostname,port,db
+hostname: 15.124.133.182
+port: 27017
+db: 0
+Creating new service … OK</codeblock></li>
               <li>For a Redis cluster, for example with 3 nodes, provide field names such as:
-                hostname1,hostname2,hostname3,port,db</li>
+                  <codeph>hostname1</codeph>,<codeph>hostname2</codeph>,<codeph>hostname3</codeph>,<codeph>port</codeph>,<codeph>db</codeph><codeblock>$ helion create-service user-provided my-redis-db-service
+Which credentials to use for connections [hostname, port, password]: hostname1,hostname2,hostname3,port,db
+hostname1: 15.124.133.191
+hostname2: 15.124.133.192
+hostname3: 15.124.133.193
+port: 6379
+db: 0
+Creating new service … OK </codeblock></li>
             </ul></li>
-        <li>Enter values for these connection credential fields.</li>
-          <li> Validate that the new service is available</li>
+          <li> Validate that the new service is
+            available<codeblock>$ helion services</codeblock>Example:<codeblock>$ helion services</codeblock><codeblock>============== Service Plans ================
+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+
+=========== Provisioned Services ============
+
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-redis-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></li>
         </ol></li>
-      <li>Check the credentials are set correctly </li>
+      <li>Verify that the credentials are set
+          correctly.<codeblock> $ helion service &lt;name of  Redis service></codeblock><ul
+          id="ul_cn3_m22_55">
+          <li>Example: For a single instance
+            Redis<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-redis-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | 0          |
+|  - hostname  | 15.124.133.182   |
+|  - port      | 6379           |
+| Applications |                  |
++--------------+------------------+</codeblock></li>
+          <li>Example: For a clustered Redis with 3
+            nodes<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-redis-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | test_db          |
+|  - hostname1    | 15.124.133.190   |
+|  - hostname2    | 15.124.133.191   |
+|  - hostname3    | 15.124.133.192   |
+|  - port         | 6379             |
+| Applications    |                  |
++-----------------+------------------+</codeblock></li>
+        </ul></li>
       <li>Bind to Redis user-provided service from an app during deployment</li>
-      <li>Deploy your application using helion CLI</li>
-      <li>Validate the service is bound to your application</li>
+      <li>Deploy your application using helion CLI<codeblock>helion push -n</codeblock></li>
+      <li>Validate the service is bound to your application.
+          <codeblock>helion service &lt;your Redis service&gt;</codeblock><ul id="ul_hxg_dh2_55">
+          <li>Example: Single instance
+            Redis<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | 0                |
+|  - hostname  | 15.124.133.182   |
+|  - port      | 6379             |
+| Applications |                  |
+| - my-app     |                  |
+|  - db        | 0                |
+|  - hostname  | 15.124.133.182   |
+|  - port      | 6379             |
++--------------+------------------+</codeblock></li>
+          <li>Example: Clustered Redis with 3
+            nodes<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | 0                |
+|  - hostname1    | 15.124.133.190   |
+|  - hostname2    | 15.124.133.191   |
+|  - hostname3    | 15.124.133.192   |
+|  - port         | 6379             |
+| Applications    |                  |
+| - my-app        |                  |
+|  - db           | 0                |
+|  - hostname1    | 15.124.133.190   |
+|  - hostname2    | 15.124.133.191   |
+|  - hostname3    | 15.124.133.192   |
+|  - port         | 6379             |
++-----------------+------------------+</codeblock></li>
+        </ul></li>
     </ol>
   </body>
 </topic>
