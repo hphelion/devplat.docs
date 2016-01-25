@@ -83,10 +83,11 @@ $</codeblock></li>
               <li>Open the <codeph>haproxy.cfg.j2</codeph> file for editing. Add the following lines
                 to the Custom Configuration section at the bottom of the
                   file.<codeblock>listen trove_api
-bind &lt;<i>virtual IP from step 2</i>&gt;:8779 ssl crt <i>&lt;path to certificate file/certFileName&gt; </i>
-option httpchk GET /
-server trove-trove&lt;<i>n</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n's IP Address</i>> check inter 2000 rise 2 fall 5
-server trove-trove&lt;<i>n+1</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n+1's IP Address</i>> check inter 2000 rise 2 fall 5</codeblock><note>The
+    bind &lt;<i>virtual IP from step 2</i>&gt;:8779 ssl crt <i>&lt;path to certificate file/certFileName&gt; </i>
+    option httpchk GET /
+    server trove-trove&lt;<i>n</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n's IP Address</i>> check inter 2000 rise 2 fall 5
+    server trove-trove&lt;<i>n+1</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n+1's IP Address</i>> check inter 2000 rise 2 fall 5
+    server trove-trove&lt;<i>n+2</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n+2's IP Address</i>> check inter 2000 rise 2 fall 5</codeblock><note>The
                   last line in the codeblock should be repeated once for <b>each</b> API server
                   identified in step 1. </note><note>The <codeph>ssl cert</codeph> information in
                   the <b>bind</b> statement only applies if SSL has been enabled for public
@@ -96,26 +97,8 @@ server trove-trove&lt;<i>n+1</i>>_api-&lt;<i>uniqueid</i>> &lt;<i>API server n+1
                   find the value of the <codeph>frontend_server_cert_directory</codeph> parameter.
                   To find the file name, open the
                     <codeph>/home/stack/helion/my_cloud/definition/data/network_groups.yml</codeph>
-                  file and find the value for the <codeph>cert-file</codeph> parameter. </note></li>
-              <li>Persist the updated configuration
-                file.<codeblock>cd ~/helion/hos/ansible 
-git add -A
-git commit -m "updated haproxy for database service"</codeblock></li>
-              <li> Commit these changes to your local Git repo for
-                persistence.<codeblock>cd ~/helion/hos/ansible 
-git add -A 
-git commit -m "firewall for dbaas added" </codeblock></li>
-              <li>Run the configuration processor.
-                <codeblock>cd ~/helion/hos/ansible 
-ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
-              <li>Create the deployment directory structure.
-                <codeblock>cd ~/helion/hos/ansible 
-ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock></li>
-              <li>Update the HAProxy
-                configuration.<codeblock>cd ~/scratch/ansible/next/hos/ansible
-ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
-            </ol></li>
-          <li>Perform IPTABLE setup <b>on each controller node</b>.<ol id="ol_bly_1gw_45">
+                    file and find the value for the <codeph>cert-file</codeph> parameter. </note></li> </ol></li>
+              <li>Update firewall rules on each controller node.<ol id="ol_bly_1gw_45">
               <li>Open the ~/helion/my_cloud/definition/data/firewall_rules.yml file for
                 editing.</li>
               <li>Add this code block to allow access to the DBaaS port (8779) through the firewall.
@@ -129,22 +112,25 @@ ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
         port-range-min: 8779
         port-range-max: 8779
         protocol: tcp</codeblock></li>
-              <li> Commit these changes to your local Git repo for
-                persistence.<codeblock>cd ~/helion/hos/ansible 
-git add -A 
-git commit -m "firewall for dbaas added" </codeblock></li>
+            </ol></li>
+              <li>Persist the updated configuration
+                files.<codeblock>cd ~/helion/hos/ansible 
+git add -A
+git commit -m "updated haproxy for database service and firewall for dbaas added"</codeblock></li>              
               <li>Run the configuration processor.
                 <codeblock>cd ~/helion/hos/ansible 
 ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
               <li>Create the deployment directory structure.
                 <codeblock>cd ~/helion/hos/ansible 
 ansible-playbook -i hosts/localhost ready-deployment.yml </codeblock></li>
-              
-              <li>Run the <codeph>osconfig-iptables-deploy.yml</codeph> playbook to update your
-                iptable
-                rules.<codeblock>cd ~/scratch/ansible/next/hos/ansible
+              <li>Update the HAProxy
+                configuration.<codeblock>cd ~/scratch/ansible/next/hos/ansible
+ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
+          <li>Run the <codeph>osconfig-iptables-deploy.yml</codeph> playbook to update your
+            iptable
+            rules.<codeblock>cd ~/scratch/ansible/next/hos/ansible
 ansible-playbook -i hosts/verb_hosts osconfig-iptables-deploy.yml</codeblock></li>
-            </ol></li>
+          
         </ol></sectiondiv></section>
   </body>
 </topic>
