@@ -103,8 +103,8 @@ git add -A
 git commit -m "updated haproxy for database service"</codeblock></li>
               <li> Commit these changes to your local Git repo for
                 persistence.<codeblock>cd ~/helion/hos/ansible 
-                  git add -A 
-                  git commit -m "firewall for dbaas added" </codeblock></li>
+git add -A 
+git commit -m "firewall for dbaas added" </codeblock></li>
               <li>Run the configuration processor.
                 <codeblock>cd ~/helion/hos/ansible 
 ansible-playbook -i hosts/localhost config-processor-run.yml </codeblock></li>
