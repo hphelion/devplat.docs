@@ -24,7 +24,7 @@
       
       <section><title>Database Service</title><p>The database instances and clusters must be gracefully stopped manually prior to upgrading HPE
         Helion OpenStack.<ol id="ol_u4h_54h_45">
-          <li>Download the <xref href="http://docs-staging.hpcloud.com/devplat.docs-bundle-2015-may/media/DevelopmentPlatformUpgrade-2.1.tar.gz"
+          <li>Download the <xref href="http://docs.hpcloud.com/media/devplat.docs/DevelopmentPlatformUpgrade-2.1.tar.gz"
             format="gz" scope="external">upgrade scripts</xref> (14.9 kb).<note type="tip">The
               easiest option is to download directly to the physical machine hosting the HPE Helion
               OpenStack lifecycle manager. If you can not download directly to that location,
