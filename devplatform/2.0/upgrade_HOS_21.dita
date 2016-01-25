@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_f2m_l1q_h5">
-  <title>HPE Helion 2.0 Development Platform: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
+  <title>HPE Helion Development Platform 2.0: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
     Version 2.1</title>
   <body>
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the virtual
@@ -36,14 +36,35 @@
               lifecycle manager. When downloading or copying, make sure there is enough space; the
               file sizes can be significant. </note></li>
           <li>SSH to the HPE Helion OpenStack lifecycle manager (previously known as the deployer node). </li>
-          <li>Decompress the downloaded file (<codeph>DevelopmentPlatformUpgrade-2.1.tar.gz</codeph>) to a local temp directory.<codeblock>tar -xzf DevelopmentPlatformUpgrade-2.1.tar.gz </codeblock></li>
-          <li>Source a virtual environment containing the OpenStack clients. Best practice is to use the built-in virtual environment on the HPE Helion OpenStack lifecycle manager, as follows:<ol id="ol_i4x_51w_45">
-            <li>List all available virtual environments.
-              <codeblock>ls /opt/stack/venv</codeblock></li>
-            <li> One of the names in that list will look like:
-              <codeph>openstackclient-<i>&lt;timestamp></i></codeph>. Copy the entire virtual environment name, including the timestamp value, for use in the next step.</li>
-            <li>Source the virtual environment.<codeblock>source /opt/stack/venv/<i>&lt;VirtualEnvironmentName></i>/bin/activate </codeblock></li>
-          </ol></li>
+          <li>Either create a virtual environment for extracting and sourcing the upgrade (recommended), or extract and source the upgrade directly.
+            <ul>
+              <li>Create a virtual environment (recommended):
+                <ol>
+                  <li>Create the directory. The directory name must exactly match the name of the upgrade package (<codeph>DevelopmentPlatformUpgrade-2.1</codeph>). Do not rename the directory later. Do not include the file extension in the directory name.
+                    <codeblock>sudo mkdir -p /opt/stack/venv/DevelopmentPlatformUpgrade-2.1</codeblock></li>
+                  <li>Uncompress the upgrade package into the directory.
+                    <codeblock>sudo tar -C /opt/stack/venv/DevelopmentPlatformUpgrade-2.1 -xzf DevelopmentPlatformUpgrade-2.1.tar.gz</codeblock></li>
+                  <li>This process creates a directory under <codeph>/opt</codeph> which is owned by root. The owner needs to be changed so that non-admin users can perform service installations. In this example, the user login is <i>stack</i>.
+                    <codeblock>sudo chown stack.stack /opt/stack/venv/DevelopmentPlatformUpgrade-2.1</codeblock></li>
+                  <li>Source the virtual environment.
+                    <codeblock>source /opt/stack/venv/DevelopmentPlatformUpgrade-2.1/bin/activate</codeblock></li>
+                </ol>
+              </li>
+              <li>Extract and source the upgrade directly:
+                <ol>
+                  <li>Decompress the downloaded file (<codeph>DevelopmentPlatformUpgrade-2.1.tar.gz</codeph>) to a local temp directory.<codeblock>tar -xzf DevelopmentPlatformUpgrade-2.1.tar.gz </codeblock></li>
+                  <li>Source a virtual environment containing the OpenStack clients. Best practice is to use the built-in virtual environment on the HPE Helion OpenStack lifecycle manager, as follows:<ol id="ol_i4x_51w_45">
+                    <li>List all available virtual environments.
+                      <codeblock>ls /opt/stack/venv</codeblock></li>
+                    <li> One of the names in that list will look like:
+                      <codeph>openstackclient-<i>&lt;timestamp></i></codeph>. Copy the entire virtual environment name, including the timestamp value, for use in the next step.</li>
+                    <li>Source the virtual environment.<codeblock>source /opt/stack/venv/<i>&lt;VirtualEnvironmentName></i>/bin/activate </codeblock></li>
+                  </ol></li>
+                </ol>
+              </li>
+            </ul>  
+          </li>
+          
           <li>Execute the following command to source credentials with access to the service.
             <codeblock>source service.osrc</codeblock></li>
           <li>Disable access to the Trove API. This will stop all
@@ -101,6 +122,8 @@
         <p>The database instances and clusters must be restarted safely after upgrading HPE Helion
           OpenStack.</p>
         <note>It is recommended to delete nova instances that are named hot_pools; do not delete instances that include any additional naming to hot_pools</note>
+        <note>The private key is the key specified in the <codeph>keypair</codeph> value in <codeph>~/.config/openstack/clouds.yaml</codeph>. For these steps, use the actual path and filename for the private key; it will typically
+        have a <codeph>.pem</codeph> or <codeph>.key</codeph> extension, depending on how it was created.</note>
         <p><ol id="ol_n1n_v4h_45">
           <li>Restart all control plane
             instances.<codeblock>./control_plane_upgrade/scripts/start_control_plane_instances.bash </codeblock></li>
