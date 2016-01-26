@@ -54,7 +54,7 @@
                         network is <b>SVC</b>. </dd></dlentry>
         <dlentry><dt>ntp_server</dt><dd> IP address of NTP server. In typical installations, this is the IP address of the first
                         Management Controller.</dd></dlentry>
-        <dlentry><dt>keypair</dt><dd> Specify the name of a keypair to use when creating the Database Service. This keypair will be
+        <dlentry id="keypair"><dt>keypair</dt><dd> Specify the name of a keypair to use when creating the Database Service. This keypair will be
                         used for debugging purposes when logging into instances of the Database
                         Service. You can use the <codeph>nova keypair-list</codeph> command to
                         retrieve a list of existing keypairs.<note>This key must already exist in
@@ -79,7 +79,7 @@
                             <codeph>rabbitmq_password</codeph> variable in the
                             <codeph>/etc/beaver/beaver.conf</codeph> configuration file located on
                         the controller nodes.</dd></dlentry>
-        <dlentry><dt>hotpools_enabled</dt><dd> Options are True or False. The default value is True. If True, a pool of "hot" databases will
+        <dlentry><dt id="hotpools">hotpools_enabled</dt><dd> Options are True or False. The default value is True. If True, a pool of "hot" databases will
             be pre-provisioned for use when a new instance is requested. This functionalty greatly
             reduces database creation time. If False, remove all other <i>hotpools</i> configuration
             variables.</dd></dlentry>
