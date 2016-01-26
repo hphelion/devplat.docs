@@ -175,7 +175,19 @@ openstack server list</codeblock></li>
           <li>Navigate to the <codeph>ansible</codeph> scratch directory.
             <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
           <li>Run the following playbooks in this order.
-            <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts cue-stop.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
+            <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock>
+            <codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock>
+            <note><p>In most cases, you will need to press <b>^C</b> and <b>c</b> and <b>return</b> to continue during
+                the above playbook (The text on the console gives the impression it will time out
+                after 10 minutes and continue; it will not time out, but instead will wait forever.) </p><p>This procedure assumes that the database that exists on <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> is the latest; 
+              the database server (mysqld) on <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> should be the last mysqld in your Percona
+              cluster to shutdown, and therefore the host with the latest sequence number. </p>
+              <p>The sequence number on a host can be found using: <codeph>$ sudo cat /var/lib/mysql/grastate.dat</codeph></p>
+              <p>If the sequence number is -1 in this file, use <codeph>$ sudo /usr/bin/mysqld_safe --wsrep-recover</codeph> when mysqlid is down; this logs the sequence number to <codeph>/var/log/mysql/error.log</codeph>.</p>
+              <p>If <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> does not have the latest sequence number from the list of the
+                above controllers then DO NOT use this procedure to bootstrap.</p></note>
+            <codeblock>ansible-playbook -i hosts/verb_hosts cue-stop.yml</codeblock>
+            <codeblock>ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
           <li>Disconnect from the Messaging deployer node and HPE Helion OpenStack lifecycle manager
             node.</li></ol>
         
