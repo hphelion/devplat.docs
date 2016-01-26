@@ -196,6 +196,7 @@ openstack server list</codeblock></li>
           the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the tenant
           RabbitMQ Clusters. </p><note>If you did not previously deploy any RabbitMQ clusters, the
             following steps do not apply to your environment.</note>
+        <note>This section is only necessary if you installed Messaging Service from the <b>msgaas_1.0.0-02-165.csu</b> package. If you installed from <b>msgaas_1.0.1-02-462.csu</b>, these steps do not apply.</note>
         <ol id="ol_r5h_xxg_45">
           <li>SSH into the HPE Helion OpenStack lifecycle manager.
             <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
