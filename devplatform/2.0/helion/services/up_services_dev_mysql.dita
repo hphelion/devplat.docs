@@ -3,6 +3,13 @@
 <topic id="upservicesdevmysql">
   <title>HPE Helion 2.0 Development Platform: MySQL Integration for Developers</title>
   <body>
-    <p></p>
+    <p>
+      <ol id="ol_zs1_ymf_55">
+        <li>Bind to MySQL service from an app during deployment.<ol id="ol_llq_ymf_55">
+            <li>Log in to ALS cluster</li>
+            <li>Bind to MySQL service from an app during deployment using manifest file</li>
+          </ol></li>
+      </ol>
+    </p>
   </body>
 </topic>

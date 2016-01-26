@@ -3,6 +3,21 @@
 <topic id="upservicesadminvertica">
   <title>HPE Helion 2.0 Development Platform: Vertica Integration for Administrators</title>
   <body>
-    <p></p>
+    <p>Vertica Community Edition 7.1.2 is packaged and distributed in the Vertica Preview included
+      with HPE Helion Development Platform 2.0.</p>
+    <p>Vertica Community Edition supports 3 nodes and has a 1TB limit. There is no way to modify
+      these limitations.</p>
+    
+    
+    <section><title>Administrator Steps</title>
+      <ol id="ol_k4x_jnf_55">
+        <li>Create a Vertica Preview single instance or cluster using HDP Database Service.
+            <note>For production deployments, clusters are recommended for high
+          availability.</note></li>
+        <li>Reset and obtain the root password for Vertica database.</li>
+        <li>Add user to Vertica database by using vertica client.</li>
+        <li>Configure ALS cluster for connectivity to Vertica.</li>
+        <li>Provide the Vertica connection parameters to application developers.</li>
+      </ol></section>
   </body>
 </topic>

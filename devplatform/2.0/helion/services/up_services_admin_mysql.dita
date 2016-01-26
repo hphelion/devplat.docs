@@ -3,6 +3,58 @@
 <topic id="upservicesadminmysql">
   <title>HPE Helion 2.0 Development Platform: MySQL Integration for Administrators</title>
   <body>
-    <p></p>
+    <p>This documentation provides guidance on how to connect and use managed MySQL clusters from
+      applications deployed in ALS. </p>
+    <p>For single instance connectivity and usage, such as non-clustered MySQL, refer to the <xref
+        href="../../../2.0/database/devplatform.database-ALS.dita">using the Database with the Application
+        Lifecycle Service</xref> documentation. </p>
+    
+    <section><title>Prerequisites</title>
+      <ul id="ul_b5y_skf_55">
+        <li>You have sufficient permissions to run <codeph>mysql</codeph> client shell commands to
+          connect and manage the MySQL database. For example, you can add users and databases.</li>
+      </ul></section>
+    <section><title>Limitations</title>
+      <ul id="ul_zxj_wkf_55">
+        <li>The HPE Helion Development Platform 2.0 Database as a Service creates MySQL cluster with
+          3 nodes by default, and there is no way to change this configuration during or after the
+          cluster creation. Adding or removing notes is not currently supported.</li>
+        <li><xref
+          href="../../../2.0/database/devplatform.database-ALS.dita">ALS cluster creation</xref> provides only an option to connect to MySQL single instances only.
+          Currently you cannot connect to a MySQL cluster on the Horizon UI while creating an ALS
+          cluster. To work around service binding after ALS cluster has been created, see the steps
+          below. </li>
+      </ul></section>
+    <section><title>Known Issues</title>
+      <ul id="ul_ckc_3lf_55">
+        <li>The <codeph>trove root-enable</codeph> command is not supported for <codeph>MySQL
+            cluster</codeph> using either its ID or name. To reset and obtain the root password for
+          your MySQL cluster, list all instances in your MySQL cluster and run the <codeph>trove
+            root-enable</codeph> command for one of the instances in the cluster, as described here. </li>
+        <li>During ALS cluster creation using the Horizon UI, clustered MySQL database names do not
+          populate. Only single instances are displayed and can be selected for binding to ALS
+          clusters using the Horizon UI. </li>
+      </ul></section>
+    <section><title>Administrator Steps</title>
+      <ol id="ol_cjr_plf_55">
+        <li>Create a MySQL cluster using HDP Database Service. For production deployments, clusters
+          are recommended for high availability.<ul id="ul_kbj_xlf_55">
+            <li><xref href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
+                >Create a cluster using Horizon</xref></li>
+            <li><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
+                >Create a cluster using the CLI</xref></li>
+          </ul></li>
+        <li>Configure a load balancer for your MySQL cluster.</li>
+        <li>Reset and obtain the root password for MySQL database.</li>
+        <li>Connect MySQL clustered database to ALS cluster.<ol id="ol_rkc_tlf_55">
+            <li>Add mysql service to ALS cluster.</li>
+            <li>Configure ALS cluster for access to MySQL cluster.</li>
+            <li>Configure ALS cluster for MySQL gateway access </li>
+          </ol></li><li>Provide the connection parameters for your MySQL cluster to application developers.</li>
+      </ol></section>
+    
+    
+    
+    
   </body>
 </topic>

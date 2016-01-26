@@ -120,7 +120,103 @@ Creating new service … OK </codeblock></li>
 | Applications    |                  |
 +-----------------+------------------+</codeblock></li>
         </ul></li>
-      <li>Bind to Redis user-provided service from an app during deployment</li>
+      <li>Bind to Redis user-provided service from an app during deployment. <p>List the name of
+          user-provided Redis service in the <codeph>services: </codeph>block of the application
+          manifest file. </p><p>Sample manifest file including a reference to user-provided Redis
+          service
+          (<codeph>my-redis-db-service</codeph>)<codeblock>applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-redis-db-service:
+   helion:
+    env:
+      ENV_VAR: ${name}</codeblock></p><note>When
+          an application is deployed in the ALS cluster, the service connection credentials are set
+          as defined in the user-provided service, and become available in the VCAP_SERVICES
+          environment variables. These variables can then be consumed by your application. Best
+          practise is to parse and use the VCAP_SERVICES environment variables, not to hardcode
+          connection credentials in your application code. More information on how to use
+          VCAP_SERVICES can be found <xref
+            href="../user/services/data-services.dita#user_data_services/vcap-services"
+            >here</xref>.<ul id="ul_dcw_5jf_55">
+            <li>Sample Python code snippet for how to interact with a Redis single-instance
+                database.<codeblock># For single instance Redis connections, it is required that “redis” is imported.
+import redis
+
+…
+def testConnection(self,credentials):
+# IP address of Redis single instance VM
+       hostname = credentials['hostname']
+       port = credentials['port'] 
+       db = credentials['db'] 
+
+       redisInstance = None
+        
+       try:
+            redisInstance = redis.StrictRedis(host=hostname, port=int(port), db=int(db))
+       except Exception as ex:
+            return ex
+        
+       try: 
+            redisInstance.set(TEST_KEY,TEST_VALUE)
+       except Exception as ex:
+            return ex
+        
+       try:
+            val = redisInstance.get(TEST_KEY)
+       except Exception as ex:
+            return ex
+            
+       try:
+            redisInstance.delete(TEST_KEY)
+       except Exception as ex:
+            return ex</codeblock><note>To
+                interact with a Redis cluster in any programming language, you need to use and
+                connect to a true Redis cluster API. For example, for Python language, Redis Cluster
+                API (rediscluster) provides a way to list all IP addresses for connection, and works
+                from within applications for true cluster behavior. More information here: <xref
+                  href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
+                  >https://github.com/Grokzen/redis-py-cluster</xref>.</note></li>
+            <li>Sample Python code snippet for how to interact with a Redis cluster
+              database.<codeblock># For clustered Redis connections, it is required that “rediscluster” is imported from “StrictRedisCluster” module to get the cluster behavior.
+
+from rediscluster import StrictRedisCluster
+
+…
+def testConnection(self,credentials):
+# 3 nodes of the Redis cluster
+       hostname1 = credentials['hostname1']
+       hostname2 = credentials['hostname2']
+       hostname3 = credentials['hostname3']
+# Same port is used for all redis cluster nodes
+       port = credentials['port'] 
+# Required structure for connecting to a redis cluster with multiple nodes                            
+       startup_nodes = [{"host":hostname1, "port":port}, {"host":hostname2, "port":port}, {"host":hostname3, "port":port}]
+        
+       redisInstance = None
+        
+       try:
+            redisInstance = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
+       except Exception as ex:
+            return ex
+        
+       try: 
+            redisInstance.set(TEST_KEY,TEST_VALUE)
+       except Exception as ex:
+            return ex
+        
+       try:
+            val = redisInstance.get(TEST_KEY)
+       except Exception as ex:
+            return ex
+            
+       try:
+            redisInstance.delete(TEST_KEY)
+       except Exception as ex:
+            return ex</codeblock></li>
+          </ul></note></li>
       <li>Deploy your application using helion CLI<codeblock>helion push -n</codeblock></li>
       <li>Validate the service is bound to your application.
           <codeblock>helion service &lt;your Redis service&gt;</codeblock><ul id="ul_hxg_dh2_55">

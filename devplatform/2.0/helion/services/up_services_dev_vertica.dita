@@ -4,6 +4,28 @@
   <title>
     HPE Helion 2.0 Development Platform: Vertica Integration for Developers</title>
   <body>
-    <p></p>
+<section><title>Prerequisites</title>
+      <ul id="ul_db3_tnf_55">
+        <li>You already have an ALS cluster created.</li>
+        <li>You can access it to deploy applications. </li>
+        <li>You have allowed access to the Vertica instance or clustered IP addresses and Vertica
+          port 5433 using <xref href="../admin/server/configuration.dita#topic31232/container_allowed">the process available here</xref>.</li>
+      </ul>
+
+
+</section>
+    <section><title>Developer Steps</title>
+      <ol id="ol_tnq_d4f_55">
+        <li> Create user-provided service in ALS cluster<ol id="ol_ql5_24f_55">
+            <li>Login to ALS cluster</li>
+            <li>Get a list of all services in the ALS cluster</li>
+            <li> Create a new service for binding Vertica from applications in the ALS cluster</li>
+            <li>enter values for these connection credential fields.</li>
+            <li>Validate that the new service is available</li>
+            <li>check the credentials are set correctly</li>
+          </ol></li>
+        <li>Bind to Vertica user-provided service from an app during deployment</li>
+        <li>Deploy your application using helion CLI</li>
+      </ol></section>
   </body>
 </topic>
