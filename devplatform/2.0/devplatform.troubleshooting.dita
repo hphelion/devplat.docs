@@ -46,7 +46,9 @@
       <p><b>Resolution</b>: Delete existing images and upload again. SSH into the HPE Helion
               OpenStack lifecycle manager (deployer node) and
                 run:<codeblock>glance image-list | grep -iE '('"$PRODUCT"')' | cut -d '|' -f2 | tr -d ' ' | xargs -I {} -n1 glance image-delete {}</codeblock><note
-                type="caution">This will remove ALL MSGaaS images.</note></p></dd>
+                type="caution">In order for the command to work as expected -- to remove only MSGaaS
+                images -- the variable <codeph>$PRODUCT</codeph> needs to be initialized first. If
+                  $<codeph>PRODUCT</codeph> is unspecified, ALL images will be removed.</note></p></dd>
   </dlentry><dlentry>
     <dt>When trying to communicate with Cue (API), <codeph>ERROR: openstack Unauthorized (HTTP 401)</codeph> is received.</dt>
     <dd>It is most likely that the Cue Keystone user has a different
