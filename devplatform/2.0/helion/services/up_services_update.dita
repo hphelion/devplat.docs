@@ -1,8 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesupdate">
-  <title>HPE Helion 2.0 Development Platform: Updating User-provided Services</title>
-  <body>
-    <p></p>
+  <title>HPE Helion 2.0 Development Platform: Updating User-provided Service Credentials</title>
+  <body>   
+    <p>If you need to make changes to the credentials for a user-provided service, follow the steps below.</p>
+    <ol id="ol_vss_wvk_55">
+  <li>Unbind the service from the application(s) that are bound to it.<ol id="ol_of2_cxl_55">
+          <li>Get the list of current credentials and applications that are bound to the service.
+            <codeblock>$ helion service &lt;your service name&gt;</codeblock>Example:<codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | test_db          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 27017            |
+|  - username  | demo             |
+| Applications |                  |
+| - my-app     |                  |
+|  - db        | test_db          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 27017            |
+|  - username  | demo             |
++--------------+------------------+</codeblock></li>
+          <li>Best practice is to stop the applications at this point. Updating a running
+            application may cause service connection failures. </li>
+          <li>Unbind the service from the applications.
+            <codeblock>$ helion unbind-service &lt;your service name> &lt;your app name></codeblock>Example:<codeblock>$ helion unbind-service my-mongo-db-service my-app</codeblock></li>
+        </ol></li>
+        <li>Update the user-provided service credentials. <ol id="ol_jpp_4xl_55">
+          <li>Update the credentials
+            <codeblock>$ helion update-user-provided-service &lt;your service name></codeblock></li>
+          <li>When prompted, enter the field names and their values.<note type="tip"> Best practice
+              is to keep the same field names and only update the value of the field.<ul
+                id="ul_obf_myl_55">
+                <li>If the credential field names are changed, you will need to re-deploy the
+                  applications that use them. When you redeploy your application(s), the service
+                  binding will happen automatically via the manifest file.</li>
+                <li>If any other field names change, enter the new values into the update command.
+                  You will need to update the applications so that the new fields are consumed,
+                  usually by parsing the VCAP_SERVICES environment variables.  </li>
+                <li>To avoid <i>accidentally</i> changing the application code, be sure you verify
+                  you are using the exact same field names when you enter new values.</li>
+              </ul></note><p>Example:</p><codeblock>$ helion update-user-provided-service my-mongo-db-service
+Which credentials to use for connections [hostname, port, password]: hostname,port,username,password,db
+hostname: 172.18.0.27
+port: 27017
+username: demo
+password: demo
+db: test_db
+Updating user-provided service my-mongo-db-service ...
+From ...
+    +----------+----------------+
+    | Key      | Value          |
+    +----------+----------------+
+    | db       | test_db        |
+    | hostname | 15.124.134.215 |
+    | port     | 27017          |
+    +----------+----------------+
+To ...
+    +----------+-------------+
+    | Key      | Value       |
+    +----------+-------------+
+    | db       | test_db     |
+    | hostname | 172.18.0.27 |
+    | port     | 27017       |
+    +----------+-------------+
+Committing ...OK</codeblock></li>
+          <li>Verify the service was
+            updated.<codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.134.240.xip.io -> default -> default -> my-mongo-db-service
++----------------------+------------------+
+| What                 | Value            |
++----------------------+------------------+
+| State                | no data          |
+| Type                 | user-provided    |
+| Space                | default::default |
+| Credentials          |                  |
+|  - db                | test_db          |
+|  - hostname          | 172.18.0.27      |
+|  - port              | 27017            |
+| Applications         |                  |
+| - my-app             |                  |
+|   - db               | test_db          |
+|   - hostname         | 15.124.134.215   |
+|   - port             | 27017            |
++----------------------+------------------+</codeblock></li>
+        </ol></li>
+        <li>Unbind and rebind the service to your application(s).<ol id="ol_hdw_4zl_55">
+          <li>If the credential field names were changed, remove and then re-deploy the applications
+            that use them. When you redeploy your application(s), the service binding will happen
+            automatically via the manifest file. <note type="important">When you delete an
+              application, do <b>not</b> remove the services when prompted. If you remove any
+              user-provided service, it will impact other applications that are bound to those
+              services. </note></li>
+          <li>To use the modified service credentials, first unbind the service from impacted
+            applications and then rebind to those applications.
+            <codeblock>helion unbind-service &lt;your service name> &lt;your application name> </codeblock><codeblock>helion bind-service &lt;your service name> &lt;your application name> </codeblock>Example:<codeblock>$ helion unbind-service my-mongo-db-service my-app
+Unbinding [my-mongo-db-service] from my-app ...
+Stopping Application [my-app] ... stackato[dea_ng.0]: Instance has been stopped upon request
+OK
+Starting Application [my-app] ...
+stackato[fence.0]: Destroyed Docker container
+stackato[fence.0]: Created Docker container
+stackato[fence.0]: Prepared Docker container
+stackato[dea_ng.0]: Launching web process: python ./wsgi.py
+app[stderr.0]: DEBUG:my-app:starting web server
+app[stderr.0]: DEBUG:my-app:launching application at 0.0.0.0:54580
+app[stderr.0]: Bottle v0.12.9 server starting up (using WSGIRefServer())...
+app[stderr.0]: Listening on http://0.0.0.0:54580/
+app[stderr.0]: Hit Ctrl-C to quit.
+app[stderr.0]:
+stackato[dea_ng.0]: Instance is ready
+OK
+http://my-app.15.124.134.240.xip.io/ deployed</codeblock><codeblock>$ helion bind-service my-mongo-db-service my-app
+  Binding [my-app-mongo-db-service] to my-app ...
+Stopping Application [my-app] ... stackato[dea_ng.0]: Instance has been stopped upon request
+OK
+Starting Application [my-app] ...
+stackato[fence.0]: Destroyed Docker container
+stackato[fence.0]: Created Docker container
+stackato[fence.0]: Prepared Docker container
+stackato[dea_ng.0]: Launching web process: python ./wsgi.py
+app[stderr.0]: Bottle v0.12.9 server starting up (using WSGIRefServer())...
+app[stderr.0]: Listening on http://0.0.0.0:43105/
+app[stderr.0]: Hit Ctrl-C to quit.
+app[stderr.0]:
+stackato[dea_ng.0]: Instance is ready
+OK
+http://my-app.15.124.134.240.xip.io/ deployed</codeblock></li>
+        </ol></li>
+      </ol>
   </body>
 </topic>

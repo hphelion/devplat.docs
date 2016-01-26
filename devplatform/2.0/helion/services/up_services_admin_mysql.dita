@@ -44,7 +44,15 @@
             <li><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
                 >Create a cluster using the CLI</xref></li>
           </ul></li>
-        <li>Configure a load balancer for your MySQL cluster.</li>
+        <li>Configure a load balancer for your MySQL cluster.<p>To access a MySQL cluster, you need
+            to create a virtual IP for it using a load balancer. The virtual IP is used for client
+            connections, instead of individual MySQL cluster nodes. Depending on load balancer
+            algorithm, virtual IP provides high-availability by routing the query traffic to MySQL
+            cluster nodes. </p><p>HPE Helion platform provides a software-based load balancer
+            solution (LBaaS) that can be used for enabling access to MySQL clusters. You can also
+            use any load balancer solution you might already have. </p><p>For the MySQL cluster you
+              created, using HPE Helion LBaaS, <xref href="../../../2.0/database/devplatform.database-create-loadbalancer.dita">configure a virtual IP</xref> for your cluster.</p>
+        </li>
         <li>Reset and obtain the root password for MySQL database.</li>
         <li>Connect MySQL clustered database to ALS cluster.<ol id="ol_rkc_tlf_55">
             <li>Add mysql service to ALS cluster.</li>

@@ -6,7 +6,10 @@
   <body>
 <section><title>Administrator Steps</title>
       <ol id="ol_ld1_q4f_55">
-        <li/>
+        <li>Create a Message Broker RabbitMQ Cluster</li>
+        <li>Configure HA Proxy for RabbitMQ cluster</li>
+        <li> Configure ALS cluster for connectivity to RabbitMQ cluster</li>
+        <li>Provide the RabbitMQ connection information to app developers</li>
       </ol>
 
 </section>

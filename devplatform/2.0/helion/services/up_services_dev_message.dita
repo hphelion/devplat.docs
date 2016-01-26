@@ -3,6 +3,26 @@
 <topic id="upservicesdevmessage">
   <title>HPE Helion 2.0 Development Platform: Messaging Integration for Developers</title>
   <body>
-    <p></p>
+    <section><title>Prerequisites</title>
+      <ul>
+        <li> You already have an ALS cluster.</li>
+        <li>You have sufficient access to the cluster to deploy applications.</li>
+        <li>Your administrator has allowed access to your RabbitMQ cluster and RabbitMQ port 5672
+          using the <xref href="../admin/server/configuration.dita#topic31232/container_allowed">process documented here</xref>.</li>
+      </ul></section>
+    <section><title>Developer Steps</title>
+      <ol id="ol_k1w_bvk_55">
+        <li>Create user-provided service in ALS cluster, provide connection credentials<ol
+            id="ol_z2h_qvk_55">
+            <li>Login to ALS cluster</li>
+            <li>Get a list of all services in the ALS cluster</li>
+            <li>Create a new service for binding RabbitMQ cluster from applications in the ALS
+              cluster</li>
+            <li> enter values for these connection credential fields.</li>
+            <li>Validate that the new service is available</li>
+            <li>check the credentials are set correctly </li>
+          </ol></li>
+        <li>Bind to RabbitMQ cluster user-provided service from an app during deployment</li>
+      </ol></section>
   </body>
 </topic>
