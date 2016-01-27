@@ -5,7 +5,7 @@
   <body>
     <section><title>Pre-requisites</title> You have clready created an ALS cluster, have access to
       it to deploy applications, and have allowed access to the MongoDB instance (or, for MongoDB
-      cluster, MongoDB query router floating IP) and MongoDB port 27017 using the process here. </section>
+      cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref href="../../../2.0/helion/admin/server/configuration.dita#topic31232/container_allowed">process here</xref>. </section>
     <section>
       <title>Procedure</title>
       <ol>

@@ -3,13 +3,87 @@
 <topic id="upservicesdevmysql">
   <title>HPE Helion 2.0 Development Platform: MySQL Integration for Developers</title>
   <body>
-    <p>
+  
       <ol id="ol_zs1_ymf_55">
         <li>Bind to MySQL service from an app during deployment.<ol id="ol_llq_ymf_55">
-            <li>Log in to ALS cluster</li>
-            <li>Bind to MySQL service from an app during deployment using manifest file</li>
-          </ol></li>
-      </ol>
-    </p>
+          <li>Log in to the ALS
+            cluster<codeblock>helion target &lt;ALS cluster end point>
+helion login</codeblock>
+            Example:<codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target:       https://api.15.124.133.173.xip.io
+Organization: &lt;none&gt;
+Space:        &lt;none&gt;       </codeblock><codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:      https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+          <li>Bind to MySQL service from an app during deployment using the manifest file. <p>List
+              the MySQL service in the <b>services</b> block of the application manifest
+              file.</p><p>Sample manifest file including a reference to a MySQL service:
+                <codeph>my-mysql-db-service</codeph><codeblock> applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-mysql-db-service: mysql
+   helion:
+    env:
+      ENV_VAR: ${name}</codeblock></p></li>
+        </ol><note> When an application is deployed in the ALS cluster, the service connection
+          credentials are set as defined in the MySQL service gateway. The credentials become
+          available in the VCAP_SERVICES environment variables, which can be consumed by your
+          application. You do not need to hardcode connection credentials in your application code,
+          instead parse and use the VCAP_SERVICES environment variables. More information on how to
+          use VCAP_SERVICES can be found <xref
+            href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
+            >here</xref>.</note></li>
+    <li>Deploy the application. <p>Example, using the helion CLI.
+          <codeblock>helion push -n</codeblock></p></li>
+     </ol>
+    <section><title>Code Snippet (Python) For Usage</title>
+    <codeblock>def testConnection(self,credentials):
+       hostname = credentials['hostname']
+       port = credentials['port']
+       username = credentials['username']
+       password = credentials['password']
+       db = credentials['db'] 
+       dbInstance = None
+           
+        try: 
+# hostname contains the virtual IP of MySQL cluster        
+            dbInstance = MySQLdb.connect(host=hostname,user=username,passwd=password,db=db,port=int(port)) 
+        except MySQLdb.Error as e:
+             return(e)
+            
+        try:
+            testTableCreate = 'CREATE TABLE IF NOT EXISTS testtable( test_id int not null, test_value char(100),PRIMARY KEY(test_id));'
+            cur = dbInstance.cursor()
+            cur.execute(testTableCreate)
+            dbInstance.commit()
+        except MySQLdb.Error as e:
+            return(e)
+        
+        try:
+            testTableInsert = "INSERT INTO testtable(test_id, test_value) values(1,'foo')";
+            cur = dbInstance.cursor()
+            cur.execute(testTableInsert)
+            dbInstance.commit() 
+        except MySQLdb.Error as e:
+            return(e)
+        
+        try:
+            testTableInsert = "DROP TABLE testtable";
+            cur = dbInstance.cursor()
+            cur.execute(testTableInsert)
+            dbInstance.commit()
+        except MySQLdb.Error as e:
+            return(e) </codeblock>
+    
+    </section>
   </body>
 </topic>

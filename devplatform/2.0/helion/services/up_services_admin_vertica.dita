@@ -5,19 +5,88 @@
   <body>
     <p>Vertica Community Edition 7.1.2 is packaged and distributed in the Vertica Preview included
       with HPE Helion Development Platform 2.0.</p>
-    <p>Vertica Community Edition supports 3 nodes and has a 1TB limit. There is no way to modify
-      these limitations.</p>
+    <p>
+      <note type="restriction">Vertica Community Edition supports 3 nodes and has a 1TB limit. There is no way to
+        modify these limitations.</note>
+    </p>
     
     
     <section><title>Administrator Steps</title>
       <ol id="ol_k4x_jnf_55">
         <li>Create a Vertica Preview single instance or cluster using HDP Database Service.
-            <note>For production deployments, clusters are recommended for high
-          availability.</note></li>
-        <li>Reset and obtain the root password for Vertica database.</li>
-        <li>Add user to Vertica database by using vertica client.</li>
-        <li>Configure ALS cluster for connectivity to Vertica.</li>
-        <li>Provide the Vertica connection parameters to application developers.</li>
+            <note>For production deployments, clusters are recommended for high availability.<ul
+              id="ul_tmf_l4n_55">
+              <li>
+                <p><xref href="../../../2.0/database/devplatform.database-create-horizon.dita"
+                    >Create single instance using Horizon</xref></p>
+              </li>
+              <li>
+                <p><xref
+                    href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
+                    >Create cluster using Horizon</xref></p>
+              </li>
+              <li>
+                <p><xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create
+                    single instance using CLI</xref></p>
+              </li>
+              <li>
+                <p><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
+                    >Create cluster using CLI</xref></p>
+              </li>
+            </ul></note></li>
+        <li>Reset and obtain the root password for Vertica database.<ol id="ol_rvt_rqn_55">
+            <li>On the machine that has access to the Trove control plane, run <codeph>trove
+                list</codeph> to obtain the list of all databases, and make a note of the <b>id</b>
+              value of the Vertica instance or cluster.</li>
+            <li>Make sure <codeph>service.osrc</codeph> has the correct OS_PROJECT_NAME value for
+              your tenant. <p>For example, to access the <b>mytest</b> tenant, add the following
+                line to the <codeph>service.osrc</codeph> file.
+                <codeblock>export OS_PROJECT_NAME=mytest</codeblock></p></li>
+            <li>Then source it: <codeblock>$ source service.osrc</codeblock></li>
+            <li> And retrieve the list of databases in that tenant:
+              <codeblock>$ trove list</codeblock>You should see output similar to the
+              following:<codeblock>+--------------------------------------+-----------------+--------+-----------+------+
+|                  id                  |       name      | status | flavor_id | size |
++--------------------------------------+-----------------+--------+-----------+------+
+| b5da7b05-a6d8-40a6-8be0-20c98c42e58c | mytest-vertica  | ACTIVE |     3     |  10  |
++--------------------------------------+-----------------+--------+-----------+------+</codeblock></li>
+            <li> Run <codeph>root-enable</codeph> to reset and obtain the root password for the
+              admin database of the MongoDB single instance:
+              <codeblock>$ trove root-enable<i>&lt;id of Vertica instance or cluster&gt;</i></codeblock>Example:
+              <codeblock>$ trove root-enable<i>b5da7b05-a6d8-40a6-8be0-20c98c42e58c</i></codeblock><codeblock>+----------+--------------------------------------+
+| Property |                Value                 |
++----------+--------------------------------------+
+|   name   |              admin.root              |
+| password | nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv |
++----------+--------------------------------------+</codeblock></li>
+            <li> Make a note of the name and password values, as you will need them in following
+              steps.</li>
+          </ol></li>
+        <li>Use vertica client to connect to the Vertica database and add a user to the Vertica
+          database. <note>The Vertica master node is used for connectivity to its corresponding
+            Vertica cluster. Do not connect to specific Vertica replica instances, but use the
+            master node instead. This will route Vertica traffic to the correct Vertica replica
+            VM.</note></li>
+        <li>Configure the ALS cluster for connectivity to Vertica. <p>Configure your ALS cluster for
+            access to each Vertica instance or cluster you have already created by <xref
+              href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
+              format="html" scope="external">configuring ALS cluster hosts and ports
+              access</xref>.<ul id="ul_ry4_1sn_55">
+              <li>For single instance Vertica, you need to open ALS access for the IP address of the
+                Vertica instance and port 5433.</li>
+              <li>For clustered Vertica, you need to open ALS access for the IP addresses of all
+                Vertica Preview cluster VM’s in the “admin” tenant and port 5433.</li>
+            </ul></p></li>
+        <li>Provide the Vertica connection parameters to application developers. <p>For the specific
+            Vertica database that will be used by an application, provide the following to the
+            developers:</p><ul id="ul_x52_msn_55">
+            <li>For Vertica single instance: IP address of the Veetica database instance</li>
+            <li>For Vertica Preview cluster: IP address(es) of Vertica clustered instance VM(s).
+              This includes also the IP address of the Vertica master node.</li>
+            <li>Username and password</li>
+            <li>Vertica database name</li>
+            <li>Vertica port number 5433</li>
+          </ul></li>
       </ol></section>
   </body>
 </topic>

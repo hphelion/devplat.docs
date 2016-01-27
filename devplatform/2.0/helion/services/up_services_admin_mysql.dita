@@ -22,15 +22,16 @@
         <li><xref
           href="../../../2.0/database/devplatform.database-ALS.dita">ALS cluster creation</xref> provides only an option to connect to MySQL single instances only.
           Currently you cannot connect to a MySQL cluster on the Horizon UI while creating an ALS
-          cluster. To work around service binding after ALS cluster has been created, see the steps
-          below. </li>
+          cluster. To work around service binding after ALS cluster has been created, <xref href="#upservicesadminmysql/alscluster">see the steps
+          below</xref>. </li>
       </ul></section>
     <section><title>Known Issues</title>
       <ul id="ul_ckc_3lf_55">
         <li>The <codeph>trove root-enable</codeph> command is not supported for <codeph>MySQL
             cluster</codeph> using either its ID or name. To reset and obtain the root password for
           your MySQL cluster, list all instances in your MySQL cluster and run the <codeph>trove
-            root-enable</codeph> command for one of the instances in the cluster, as described here. </li>
+            root-enable</codeph> command for one of the instances in the cluster, as described <xref
+            href="#upservicesadminmysql/rootenable" format="dita">here</xref>. </li>
         <li>During ALS cluster creation using the Horizon UI, clustered MySQL database names do not
           populate. Only single instances are displayed and can be selected for binding to ALS
           clusters using the Horizon UI. </li>
@@ -44,21 +45,105 @@
             <li><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
                 >Create a cluster using the CLI</xref></li>
           </ul></li>
-        <li>Configure a load balancer for your MySQL cluster.<p>To access a MySQL cluster, you need
+        <li id="loadbalancer">Configure a load balancer for your MySQL cluster.<p>To access a MySQL cluster, you need
             to create a virtual IP for it using a load balancer. The virtual IP is used for client
             connections, instead of individual MySQL cluster nodes. Depending on load balancer
             algorithm, virtual IP provides high-availability by routing the query traffic to MySQL
             cluster nodes. </p><p>HPE Helion platform provides a software-based load balancer
             solution (LBaaS) that can be used for enabling access to MySQL clusters. You can also
             use any load balancer solution you might already have. </p><p>For the MySQL cluster you
-              created, using HPE Helion LBaaS, <xref href="../../../2.0/database/devplatform.database-create-loadbalancer.dita">configure a virtual IP</xref> for your cluster.</p>
-        </li>
-        <li>Reset and obtain the root password for MySQL database.</li>
-        <li>Connect MySQL clustered database to ALS cluster.<ol id="ol_rkc_tlf_55">
-            <li>Add mysql service to ALS cluster.</li>
-            <li>Configure ALS cluster for access to MySQL cluster.</li>
-            <li>Configure ALS cluster for MySQL gateway access </li>
-          </ol></li><li>Provide the connection parameters for your MySQL cluster to application developers.</li>
+            created, using HPE Helion LBaaS, <xref
+              href="../../../2.0/database/devplatform.database-create-loadbalancer.dita">configure a
+              virtual IP</xref> for your cluster.</p></li>
+        <li>Reset and obtain the root password for the MySQL database. Since the <codeph>trove
+            root-enable</codeph> command is not supported for MySQL clusters using either ID or
+          name, the workaround is to identify the target MySQL cluster, list all instances in the
+          cluster, and then run <codeph>trove root-enabl</codeph>e on one of the instances in the
+            cluster.<ol id="ol_rl3_rhm_55">
+            <li>Find the ID and Name of the MySQL cluster.<ul id="ul_xxb_5hm_55">
+                <li>To obtain the list of <b>all</b> cluster databases: <ol id="ol_igb_vhm_55">
+                    <li>On the machine that has access to the Trove control plane, run <codeph>trove
+                        cluster-list</codeph>. (To see single instances, run <codeph>trove
+                        list</codeph>.)</li>
+                    <li>Make a note of the <codeph>id</codeph> value and the name of the target
+                      MySQL cluster.</li>
+                    <li>You should see output similar to following example:
+                      <codeblock>+--------------------------------------+-----------------+--------+-----------+------+
+|                  id                  |       name      | status | flavor_id | size |
++--------------------------------------+-----------------+--------+-----------+------+
+| b5da7b05-a6d8-40a6-8be0-20c98c42e58c | mysql-cluster   | ACTIVE |     3     |  10  |
++--------------------------------------+-----------------+--------+-----------+------+</codeblock></li>
+                  </ol></li>
+              </ul><ul id="ul_bb5_rhm_55">
+                <li>To get a list of all clusters on a specific tenant, make sure that
+                    <codeph>service.osrc</codeph> has the correct OS_PROJECT_NAME value for that
+                  tenant. <ol id="ol_epd_4mm_55">
+                    <li>Example: To access the <codeph>mytest</codeph> tenant, modify the
+                        <codeph>service.osrc</codeph> file to include the following line.
+                      <codeblock>export OS_PROJECT_NAME=mytest </codeblock></li>
+                    <li>Then source it: <codeblock>$ source service.osrc </codeblock></li>
+                    <li>And then get the list of databases in that tenant:
+                      <codeblock>$ trove cluster-list</codeblock></li>
+                  </ol></li>
+              </ul></li>
+            <li>Get a list of all the instances in the MySQL
+                cluster.<codeblock>$ trove cluster-instances &lt;Name of your mysql cluster></codeblock><p>
+                Example:</p><codeblock>trove cluster-instances mysql-cluster</codeblock> You should
+              see output similar to the following:
+              <codeblock>stack@helion-cp1-c0-m1-mgmt:~$ trove cluster-instances mysql-cluster
++--------------------------------------+------------------------+-----------+------+--------+
+| ID                                   | Name                   | Flavor ID | Size | Status |
++--------------------------------------+------------------------+-----------+------+--------+
+| 246b7e24-37aa-4f9a-bf18-978e44e24f44 | mysql-cluster-member-3 | 3         |   10 | ACTIVE |
+| 67ffa4d2-e947-40f9-9502-a991b75c9e35 | mysql-cluster-member-2 | 3         |   10 | ACTIVE |
+| f6bf00d5-d8fd-4d1c-807f-9da7d0058ddc | mysql-cluster-member-1 | 3         |   10 | ACTIVE |
++--------------------------------------+------------------------+-----------+------+--------+</codeblock></li>
+            <li id="rootenable">Run <codeph>root-enable</codeph> to obtain and set the root password
+              for the admin database of the MySQL database on one of the cluster instances
+              (preferably the one with a name that ends with<codeph> member-1</codeph>
+              <codeblock>$ trove root-enable<i>&lt;id of MySQL cluster instance&gt;</i></codeblock><p>Example:</p><codeblock>$ trove root-enable f6bf00d5-d8fd-4d1c-807f-9da7d0058ddc
++----------+--------------------------------------+
+| Property | Value                                |
++----------+--------------------------------------+
+| name     | root                                 |
+| password | tWPbZGzmWxcvwpnkNMy8nNunqkYrCCBjTVhh |
++----------+--------------------------------------+</codeblock></li>
+            <li>Make a note of the name and password values, as you will need them in the following
+              steps.</li>
+          </ol></li>
+        <li id="alscluster">Connect MySQL clustered database to ALS cluster. <p>After you <xref
+              href="#upservicesadminmysql/loadbalancer">configure the load balancer for MySQL
+              cluster</xref> and obtained a virtual IP address for MySQL cluster, follow the <xref
+              href="../../../2.0/database/devplatform.database-ALS.dita">instructions to connect it
+              to your ALS cluster</xref>.</p><ol id="ol_rkc_tlf_55">
+            <li> Use the cf-mgmt tool to add the mysql service to the ALS
+              cluster.<codeblock>cf-mgmt add-service --role mysql --load &lt;ALS cluster config file> </codeblock></li>
+            <li>Configure ALS cluster for access to MySQL cluster.<p>Follow the <xref
+                  href="../admin/server/configuration.dita#topic31232/container_allowed"
+                  >instructions to configure container allowed hosts and ports for the MySQL
+                  cluster</xref>.<note>To configure the ALS cluster for access, you need to SSH into
+                  each DEA node first.
+                  <codeblock>$ ssh -i &lt;your cluster public key> stackato@&lt;IP address of your ALS cluster DEA node></codeblock>
+                  Example:
+                  <codeblock>ssh -i MyALSCluster_public_key stackato@10.241.22.89</codeblock> For
+                  the port, use 3306 which is the MySQL port number. </note></p></li>
+            <li>Configure ALS cluster for MySQL gateway access. <note>kato <codeph>config</codeph>
+                commands can be run from anywhere in the cluster.</note><ol id="ol_jrs_r4m_55">
+                <li> Follow the <xref href="../../../2.0/database/devplatform.database-ALS.dita"
+                    >instructions to configure ALS cluster for MySQL cluster gateway access</xref>. </li>
+                <li>Check the mysql node.<codeblock>kato node list </codeblock></li>
+                <li>Restart the mysql node remotely.<p>
+                    <codeblock>kato restart mysql -n &lt;remote IP&gt;</codeblock>
+                  </p></li>
+              </ol></li>
+          </ol></li><li>Provide the connection parameters for your MySQL cluster to application developers.<p>For the
+            specific MySQL cluster database that will be used by an application, provide the
+            following to the developers:</p><ul id="ul_r4k_w4m_55">
+            <li>Virtual IP address of the MySQL cluster as you configured using LBaaS</li>
+              <li>Username/password as <xref href="#upservicesadminmysql/rootenable">set previously</xref> using
+              <codeph>root-enable</codeph>.</li>
+            <li>MySQL port number 3306</li>
+          </ul></li>      
       </ol></section>
     
     

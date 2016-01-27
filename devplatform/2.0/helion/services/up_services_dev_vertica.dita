@@ -16,16 +16,171 @@
 </section>
     <section><title>Developer Steps</title>
       <ol id="ol_tnq_d4f_55">
-        <li> Create user-provided service in ALS cluster<ol id="ol_ql5_24f_55">
-            <li>Login to ALS cluster</li>
-            <li>Get a list of all services in the ALS cluster</li>
-            <li> Create a new service for binding Vertica from applications in the ALS cluster</li>
-            <li>enter values for these connection credential fields.</li>
-            <li>Validate that the new service is available</li>
-            <li>check the credentials are set correctly</li>
+        <li> Create a user-provided service in the ALS cluster<ol id="ol_ql5_24f_55">
+            <li>Login to the ALS cluster
+              <codeblock>helion target &lt;ALS cluster end point&gt;</codeblock><codeblock>helion login</codeblock>Example:<codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target: https://api.15.124.133.173.xip.io
+Organization: &lt;none&gt;
+Space: &lt;none&gt;</codeblock><codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+            <li>Get a list of all services in the ALS cluster.
+                <codeblock>$ helion services</codeblock><p>On a new ALS cluster with no services
+                created, you should see output similar to
+              following:</p><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></li>
+            <li> Create a new service for binding Vertica from applications in the ALS cluster <codeblock>$ helion create-service user-provided <i>&lt;name of your Vertica service&gt;</i></codeblock><p>
+                <ol id="ol_ulx_2tn_55">
+                  <li> When prompted, enter the field names to be used for Vertica connection
+                      credentials.<ul id="ul_xdl_gtn_55">
+                      <li>For a single instance Vertica, provide field names such as:
+                        hostname,port,username,password,db. </li>
+                      <li>For a Vertica Preview cluster, for example with 3 nodes, provide field
+                        names such as: hostname,port,username,password,db  (Hostname refers to the
+                        master node of the Vertica cluster.)</li>
+                    </ul></li>
+                  <li>Then you will be prompted to enter values for these connection credential
+                    fields.</li>
+                </ol>
+              </p>Example:
+              <codeblock>$ helion create-service user-provided my-vertica-db-service
+Which credentials to use for connections [hostname, port, password]:
+hostname,port,username,password,db
+hostname: 15.124.133.182
+port: 5433
+username: demo
+password: demo
+db: db_srvr
+  Creating new service … OK</codeblock></li>
+            <li>Validate that the new service is available.
+                <codeblock>$ helion services</codeblock><p>Example:</p><codeblock>$ helion services
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        |    Service    | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default |    my-vertica-db-service    | user-provided |   n/a    |   n/a   | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></li>
+            <li>Check the credentials are set
+              correctly.<codeblock>$ helion service &lt;name of your Vertica service></codeblock>Example:<codeblock>$ helion service my-vertica-db-service
+https://api.15.124.133.173.xip.io -> default -> default -> my-vertica-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | db_srvr          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 5433             |
+|  - username  | demo             |
+| Applications |                  |
++--------------+------------------+</codeblock>
+              Now that you have validated the service has been created with correct credentials, you
+              can deploy your application and bind to the service using the manifest file.</li>
           </ol></li>
-        <li>Bind to Vertica user-provided service from an app during deployment</li>
-        <li>Deploy your application using helion CLI</li>
-      </ol></section>
+        <li>Bind to Vertica user-provided service from an app during deployment. <p>Sample manifest
+            file including a reference to a user-provided Vertica service
+              (<codeph>my-vertica-db-service</codeph>):<codeblock>applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-vertica-db-service:
+   helion:
+    env:
+      ENV_VAR: ${name}</codeblock></p><note>When
+            an application is deployed in the ALS cluster, the service connection credentials are
+            set as defined in the MySQL service gateway. The credentials become available in the
+            VCAP_SERVICES environment variables, which can be consumed by your application. You do
+            not need to hardcode connection credentials in your application code, instead parse and
+            use the VCAP_SERVICES environment variables. More information on how to use
+            VCAP_SERVICES can be found <xref
+              href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
+              >here</xref>.</note></li>
+        <li>Deploy your application using the helion CLI <codeblock>helion push -n</codeblock><ol
+            id="ol_zxl_2vn_55">
+            <li>Validate the service is bound to your application after the application has been
+              deployed successfully. To see the user-provided service bound to your application,
+                run:<p><codeblock>helion service &lt;your Vertica service&gt;</codeblock>Example:
+                <codeblock>$ helion service my-vertica-db-service
+
+https://api.15.124.133.173.xip.io -> default -> default -> my-vertica-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | db_srvr          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 5433             |
+|  - username  | demo             |
+| Applications |                  |
+| - my-app     |                  |
+|  - db        | db_srvr          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 5433             |
+|  - username  | demo             |
++--------------+------------------+</codeblock></p><p> </p></li>
+          </ol></li>
+      </ol></section><section><title>Sample Python Code Snippet</title>
+        <p>How to interact with a Vertica single instance or clustered
+        database.<codeblock>import vertica_python
+
+…
+def testConnection(self,credentials):
+# IP address of Vertica single instance VM, or IP address of the master node of Vertica cluster
+       hostname = credentials['hostname']
+       port = credentials['port'] 
+       username = credentials['username'] 
+       password = credentials['password'] 
+       db = credentials['db'] 
+
+       verticaDB = None
+
+       connInfo = {'host': hostname, 'port':int(port), 'user':username, 'password':password, 'database':db}
+        
+       try: # Connect to Vertica
+            verticaDB = vertica_python.connect(**connInfo) 
+       except Exception as ex:
+            return ex
+        
+       try: # Create a schema
+            cur = verticaDB.cursor()
+            cur.execute(“CREATE SCHEMA MySchema;”) 
+            cur.execute(“commit;”)
+       except Exception as ex:
+            return ex
+        
+       try: # Create a table
+            cur.execute(“CREATE TABLE IF NOT EXISTS MyTable (myField VARCHAR);”)
+            cur.execute(“commit;”)
+       except Exception as ex:
+            return ex</codeblock></p>
+      </section>
   </body>
 </topic>

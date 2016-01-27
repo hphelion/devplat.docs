@@ -3,17 +3,23 @@
 <topic id="upservicesadminmongo">
   <title>HPE Helion 2.0 Development Platform: MongoDB Integration for Administrators</title>
   <body>
-    <section><p>You can run “mongo” client shell command to connect and manage the MongoDB database. You can
-        install mongo client by following steps here
-        (https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-debian/ ) on the machine you will
-        run “mongo” commands to manage the MongoDB database. This machine should have access to the
-        MongoDB database IP address. Validate you can run “mongo” shell command and have basic
-        understanding of MongoDB.
-        https://docs.mongodb.org/manual/reference/program/mongo/#bin.mongo</p></section><section><title>Limitations</title><p>At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
+    <section><title>Prerequisites</title><ul><li>You can run mongo client shell commands to connect and manage the MongoDB database. </li>
+        <li>You can install mongo client by following the steps <xref
+            href="https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-debian/" format="html"
+            scope="external">here</xref> on the machine where you will run mongo commands.</li>
+        <li>The machine where the client is installed requires access to the MongoDB database IP
+          address. </li>
+        <li>Validate you can run mongo shell commands.</li>
+        <li>Have a basic understanding of <xref
+            href="https://docs.mongodb.org/manual/reference/program/mongo/#bin.mongo" format="html"
+            scope="external">MongoDB</xref>. </li></ul>
+       </section>
+    
+    <section><title>Limitations</title><p>At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
         cluster creation. On production environments where high-availability is a requirement for a
         MongoDB cluster access, consider creating at least one additional MongoDB query-router VM
         after you have created that MongoDB cluster. You can do this on CLI or UI by “grow cluster”
-        action. <!--[TODO: Add reference to grow cluster, and validate]--></p></section>
+        action.<!--[TODO: Add reference to grow cluster, and validate]--></p></section>
     
     
     
@@ -21,19 +27,21 @@
         <ul><li>There is a bug with authentication for MongoDB cluster -- For connectivity to a newly created
           MongoDB cluster, username/password is not needed. To enable authentication for a MongoDB
           cluster after it has been created and to secure it for client access with
-          username/password credentials, follow the process outlined
-          here:<!-- [TODO validate this workaround works ] https://docs.mongodb.org/manual/tutorial/enable-authentication/ --></li>
-        <li>MongoDB query-router VM of the MongoDB cluster is not attached to the tenant network
+          username/password credentials, follow the process outlined <xref
+            href="https://docs.mongodb.org/manual/tutorial/enable-authentication/" format="html"
+            scope="external">here</xref>.<!-- [TODO validate this workaround works ]  --></li>
+        <li>The MongoDB query-router VM of the MongoDB cluster is not attached to the tenant network
           specified during cluster creation. This means that it is not accessible to the ALS
-          clusters that are on the same tenant network as the MongoDB cluster. To access the MongoDB
-          cluster query router: <ol id="ol_zgw_rjl_p5">
-            <li>Associate floating IP address to the MongoDB query router VM in the “admin” tenant.
-              It has a name containing your MongoDB cluster name and ending with<codeph>
-                mongos-1</codeph>. For example: <codeblock>mymongocluster-mongos-1 </codeblock></li>
-            <li>Configure ALS cluster to allow access to the floating IP you associated above, using
-              instructions here. Example: For floating IP: 10.21.10.5, MongoDB Port: 27017
-              <codeblock>kato config push fence docker/allowed_subnet_ips 10.21.10.5:27017 </codeblock></li>
-          </ol></li></ul>
+          clusters that are on the same tenant network as the MongoDB cluster. <p>To access the
+            MongoDB cluster query router: <ol id="ol_zgw_rjl_p5">
+              <li>Associate floating IP address to the MongoDB query router VM in the “admin”
+                tenant. It has a name containing your MongoDB cluster name and ending with<codeph>
+                  mongos-1</codeph>. For example:
+                <codeblock>mymongocluster-mongos-1 </codeblock></li>
+              <li>Configure ALS cluster to allow access to the floating IP you associated above,
+                using instructions here. Example: For floating IP: 10.21.10.5, MongoDB Port: 27017
+                <codeblock>kato config push fence docker/allowed_subnet_ips 10.21.10.5:27017 </codeblock></li>
+            </ol></p></li></ul>
       </section><section><title>Administrator Procedure</title>
         <ol><li>Create a MongoDB single instance or cluster using HDP Database Service. <note>For production
             deployments, clusters are recommended for high availability. </note><sl>
@@ -54,8 +62,8 @@
         </li>
         <li>For Single instance MongoDB only. Skip this step for MongoDB clusters due to
           authentication bug, if authentication was not manually enabled.<ol id="ol_fv5_mll_p5">
-            <li>Run “trove root-enable” command, to reset and obtain the root password for the admin
-              database.</li>
+            <li>Run <codeph>trove root-enable</codeph> to reset and obtain the root password for the
+              admin database.</li>
             <li>On the machine that has access to the Trove control plane, run <codeph>trove
                 list</codeph> to obtain the list of all databases, and make a note of the “id” value
               of the MongoDB instance:<ol id="ol_kf2_wkl_p5">
@@ -72,8 +80,8 @@
 | b5da7b05-a6d8-40a6-8be0-20c98c42e58c |  mytest-mongodb | ACTIVE |      3    |  10  |
 +--------------------------------------+-----------------+--------+-----------+------+</codeblock></li>
               </ol></li>
-            <li>Run root-enable command to reset and obtain the root password for the admin database
-              of the MongoDB single
+            <li>Run <codeph>root-enable</codeph>  to reset and obtain the root password for the
+              admin database of the MongoDB single
               instance<codeblock>trove root-enable<i>&lt;id of MongoDB instance&gt;</i>Example:</codeblock><codeblock>trove root-enable<i>b5da7b05-a6d8-40a6-8be0-20c98c42e58c</i></codeblock><codeblock>+----------+--------------------------------------+
 | Property |                Value                 |
 +----------+--------------------------------------+
