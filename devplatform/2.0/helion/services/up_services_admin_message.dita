@@ -6,10 +6,45 @@
   <body>
 <section><title>Administrator Steps</title>
       <ol id="ol_ld1_q4f_55">
-        <li>Create a Message Broker RabbitMQ Cluster</li>
-        <li>Configure HA Proxy for RabbitMQ cluster</li>
-        <li> Configure ALS cluster for connectivity to RabbitMQ cluster</li>
-        <li>Provide the RabbitMQ connection information to app developers</li>
+        <li>Create a Message Broker RabbitMQ Cluster<p>
+            <ul id="ul_p21_bwn_55">
+              <li>Create a RabbitMQ cluster <xref
+                  href="../../../2.0/messaging/devplatform.using-the-messaging-service.dita">using
+                  the UI</xref> or <xref href="../../../2.0/messaging/cue_dev_createCluster.dita"
+                  >the command line</xref>. You can configure using 1, 3 or 5 nodes. Make note of
+                the username and password values as you will need them in following steps. You can
+                also <xref href="../../../2.0/messaging/cue_ops_manageCluster.dita">manage the
+                  RabbitMQ cluster</xref> to make changes in cluster configuration.</li>
+            </ul>
+          </p></li>
+        <li>Configure HA Proxy for RabbitMQ cluster. <p>
+            <ul id="ul_d23_bwn_55">
+              <li>To provide a virtual IP address for the RabbitMQ cluster nodes, <xref
+                  href="../../../2.0/messaging/cue_ops_loadBalancer.dita">configure HA proxy for the
+                  RabbitMQ cluster nodes</xref>.</li>
+            </ul>
+          </p></li>
+        <li> Configure ALS cluster for connectivity to RabbitMQ cluster.<ul id="ul_ipv_bwn_55">
+            <li>
+              <p><xref
+                  href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
+                  format="html" scope="external">Configure ALS cluster hosts and ports for
+                  access</xref> to the RabbitMQ cluster you have already created.</p>
+            </li>
+            <li>
+              <p>You need to open ALS access for the IP address of the RabbitMQ cluster, HA proxy
+                VM, and each RabbitMQ node in the cluster on port 5672.</p>
+            </li>
+          </ul></li>
+        <li>Provide the RabbitMQ connection information to app developers. <p>Provide the RabbitMQ
+            cluster connection information and credentials to developers as explained <xref
+              href="../../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita">here</xref>, such as:</p><ul id="ul_ozt_jwn_55">
+            <li>Cluster name</li>
+            <li>HA Proxy IP address for the RabbitMQ cluster, and port number 5672</li>
+            <li>Username and password</li>
+          </ul><p> The Connection string will be in the format:</p><p>
+            <codeblock>amqp://&lt;username&gt;:&lt;password&gt;@&lt;hostname&gt;:5672/</codeblock>
+          </p></li>
       </ol>
 
 </section>
