@@ -34,7 +34,7 @@
 nova keypair-add --pub-key ~/.ssh/id_rsa.pub helionce-shared</pre></li>    <li>Ensure all OS_ variables are unset. Run <codeblock>env | grep OS_ </codeblock> and then
             <codeph>unset</codeph> any variables which appear in the list of results. </li>
         <li>Source the Virtual Environment.
-          <codeblock>source /opt/stack/venv/dev_platform_installer-devplat_installer-1.0.0/bin/activate</codeblock></li>
+          <codeblock>source /opt/stack/venv/dev_platform_installer-devplat_installer-1.0.1/bin/activate</codeblock></li>
         <li> Install the Code Engine service installation files. <ol id="ol_mdn_zgq_yt">
             <li>If you <xref href="install_offline.dita#topic_w25_hqp_xt">pre-downloaded</xref> the
               installation file, run the following command to install
@@ -53,8 +53,8 @@ openstack --os-cloud mycloud hdpi helionce install <i>&lt;filename></i></codeblo
                   similar
                   to:<pre>+----------------------------+----------------+-----------+------------+
 | service                    | id             | version   | state      |
-+----------------------------+----------------+-----------+------------+<b>
-| Helion Code Engine         | wscatalog.2776 | 1.0.0     | available  |</b>
++----------------------------+----------------+-----------+------------+<ph outputclass="codehighlight">
+| Helion Code Engine         | wscatalog.2776 | 1.0.1     | available  |</ph>
 | als                        | wscatalog.2765 | 2.0.0.539 | available  |
 | als                        | wscatalog.2800 | 2.0.0.548 | available  |
 | database                   | wscatalog.2762 | 2.0.0.32  | available  |
@@ -78,7 +78,7 @@ openstack --os-cloud mycloud hdpi helionce install <i>&lt;filename></i></codeblo
 deactivate</codeblock></li>
         <li>List all available machines. You should see an instance named
             <codeph>helionce_deployer</codeph>. Make a note of its IP address.
-          <codeblock>source helionce.osrc
+          <codeblock>source ~/service.osrc
 openstack server list</codeblock></li>
         <li>Log in to and initialize the VM. <note>Ignore the TASK/msg message that appears in the
             output. Do not run the playbook at this time; that playbook must be run later in the
@@ -86,17 +86,17 @@ openstack server list</codeblock></li>
             process.</note><pre>ssh -i helionce-shared stack@&lt;IP address&gt;
 ...
 stack@helionce-deployer:~$ ls
-helionce-1.0.0
+helionce-1.0.1
 ...
-stack@helionce-deployer:~$ cd helionce-1.0.0/
-stack@helionce-deployer:~/helionce-1.0.0$ ./helionce-init.bash
+stack@helionce-deployer:~$ cd helionce-1.0.1/
+stack@helionce-deployer:~/helionce-1.0.1$ ./helionce-init.bash
 ...</pre><note>This
             process can take a few minutes. When the initialization has completed, ensure both
               <codeph>unreachable</codeph> and <codeph>failed</codeph> are zero (0). This indicates
             success. If not, check the output for error messages, address the errors, and try
             running the command again.</note></li>
         <li>Copy the helionce deployment model.
-          <codeblock>stack@helionce-deployer:~/helionce-1.0.0$ cd ~/helion/
+          <codeblock>stack@helionce-deployer:~/helionce-1.0.1$ cd ~/helion/
 stack@helionce-deployer:~/helion$ cp -R /home/stack/helion/examples/helionce/* /home/stack/helion/my_cloud/definition
 stack@helionce-deployer:~/helion$ cp ~/platform-pass-through.yml my_cloud/definition/data/pass-through/platform-pass-through.yml</codeblock></li>
         <li>Using Git, persist these changes. This information is required for playbooks executed
