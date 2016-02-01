@@ -50,28 +50,6 @@
         navtitle="Uninstallation"/>
     </topicref>
     <!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/-->
-    <topicref href="devplatform/1.2/1.2devplatform_quickstart.dita"
-      navtitle="Developer Quick Start Trial Guide" locktitle="yes" otherprops="dev-quick-start">
-      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start.dita"
-        navtitle="Quick Start Step 1: Register" locktitle="yes"
-        ><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/2/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/3/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/4/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/5/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/6/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/termination/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/troubleshooting/--></topicref>
-      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start2.dita"
-        navtitle="Quick Start Step 2: Download Tools" locktitle="yes"/>
-      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start3.dita"
-        navtitle="Quick Start Step 3: Create Sandbox" locktitle="yes"/>
-      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start4.dita"
-        navtitle="Quick Start Step 4: Create Cluster" locktitle="yes"/>
-      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start5.dita"
-        locktitle="yes" navtitle="Quick Start Step 5: Windows (optional)"/>
-      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start6.dita"
-        locktitle="yes" navtitle="Quick Start Step 6: Explore More"/>
-      <topicref
-        href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start-termination.dita"
-        locktitle="yes" navtitle="Quick Start Termination"/>
-      <topicref
-        href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start-troubleshooting.dita"
-        locktitle="yes" navtitle="Quick Start Troubleshooting"/>
-    </topicref>
     <!--permalink: /helion/devplatform/1.2/appdev/-->
     <!--permalink: /helion/devplatform/1.2/upgrade/-->
     <!--permalink: /helion/devplatform/1.2/install/troubleshooting/-->
@@ -82,6 +60,9 @@
     <topicref href="devplatform/1.2/1.2devplatform.appdev.dita" locktitle="yes"
       navtitle="Resources for Application Developers " otherprops="dev-resources">
       <!--permalink: /helion/devplatform/1.2/deploy/-->
+      <topicref href="devplatform/1.2/1.2devplatform.ALS-developer-trial-quick-start.dita"
+        navtitle="Quick Start Developer Trial" locktitle="yes"
+        ><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/2/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/3/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/4/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/5/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/6/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/termination/--><!--permalink: /helion/devplatform/1.2/ALS-developer-trial-quick-start/troubleshooting/--></topicref>
       <topicref href="devplatform/1.2/windows/windows_firstapp.dita" locktitle="yes"
         navtitle="Windows: Deploying your first .NET Application"/>
       <topicref href="devplatform/1.2/windows/windows_tools_guide.dita" locktitle="yes"

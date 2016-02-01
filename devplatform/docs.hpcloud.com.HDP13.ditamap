@@ -15,25 +15,6 @@
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="1.3/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
     <!--permalink: /helion/devplatform/ALS-developer-trial-quick-start/-->
-    <topicref href="1.3/devplatform.devquicktrial.dita" navtitle="Developer Quick Start Trial Guide" otherprops="devquicktrial">
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start.dita"
-        navtitle="Quick Start Step 1: Register" locktitle="yes"/>
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start2.dita"
-        navtitle="Quick Start Step 2: Download Tools" locktitle="yes"/>
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start3.dita"
-        navtitle="Quick Start Step 3: Create Sandbox" locktitle="yes"/>
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start4.dita"
-        navtitle="Quick Start Step 4: Create Cluster" locktitle="yes"/>
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start5.dita"
-        locktitle="yes" navtitle="Quick Start Step 5: Windows (optional)"/>
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start6.dita"
-        locktitle="yes" navtitle="Quick Start Step 6: Explore More"/>
-      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start-termination.dita"
-        locktitle="yes" navtitle="Quick Start Termination"/>
-      <topicref
-        href="1.3/devplatform.ALS-developer-trial-quick-start-troubleshooting.dita"
-        locktitle="yes" navtitle="Quick Start Troubleshooting"/>
-    </topicref>
     <!--installation-->
     <topicref href="1.3/devplatform.installation.dita" navtitle="Installation" otherprops="installation">
       <topicref href="1.3/installation/devplatform_commercial_install.dita"
@@ -107,6 +88,8 @@
     </topicref>
     <topicref href="1.3/devplatform.appdev.dita" locktitle="yes"
       navtitle="Resources for Application Developers " otherprops="app-dev">
+      <topicref href="1.3/devplatform.ALS-developer-trial-quick-start.dita"
+        navtitle="Quick Start Developer Trial" locktitle="yes"/>
       <topicref href="1.3/helion/user/deploy/deploy_index.dita" locktitle="yes"
         navtitle="General Deployment" otherprops="deploy">
         <!--permalink: /helion/devplatform/als/user/deploy/app-debug/-->
