@@ -78,7 +78,7 @@ openstack --os-cloud mycloud hdpi helionce install <i>&lt;filename></i></codeblo
 deactivate</codeblock></li>
         <li>List all available machines. You should see an instance named
             <codeph>helionce_deployer</codeph>. Make a note of its IP address.
-          <codeblock>source helionce.osrc
+          <codeblock>source ~/service.osrc
 openstack server list</codeblock></li>
         <li>Log in to and initialize the VM. <note>Ignore the TASK/msg message that appears in the
             output. Do not run the playbook at this time; that playbook must be run later in the
