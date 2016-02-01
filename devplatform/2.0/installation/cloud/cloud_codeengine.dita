@@ -14,12 +14,32 @@
             href="fullFile.dita">complete file</xref> to see how all the sections fit
           together.</note>
       </p><codeblock id="cloudengine">    helionce:
+      deployer_cacert:
       deployer_key: helionce-shared
       deployer_flavor: 3
       deployer_ntp_servers: ntpservers
       deployer_dns_servers: dnsservers
       deployer_cloud: 'mycloud'
       username: helionce</codeblock></section>
+    
+    <section><title>Modify the Following Parameters</title><dl>
+      
+      
+      <dlentry>
+        <dt>deployer_cacert</dt>
+        <dd>Set this value to the location to the SSL certificate that the installer needs to verify
+            your HPE Helion OpenStack installation. This value is usually the same as the
+              <codeph>cacert</codeph> value in the  <xref href="cloud_platform.dita#cloudPlatform"
+              >Platform Configuration</xref> section of your clouds.yaml file. </dd>
+      </dlentry>   <dlentry>
+        <dt>deployer_cloud</dt>
+        <dd>This value must match the name of the section you created in the <xref
+          href="cloud_platform.dita#cloudPlatform">Platform Configuration</xref> section. In the
+          examples, the name is <i>mycloud</i></dd>
+      </dlentry>
+      
+    </dl>
+    </section>
     
     <section><title>Leave these Parameters Unchanged </title>
   
@@ -37,30 +57,19 @@
         </dlentry>
         <dlentry>
           <dt>deployer_ntp_servers</dt>
-          <dd>Provided value: ntpservers</dd>
+          <dd>Provided value: <codeph>ntpservers</codeph></dd>
           <dd>Do not change this value. </dd>
         </dlentry>     <dlentry>
           <dt>deployer_dns_servers</dt>
-          <dd>Provided value: dnsservers</dd>
+          <dd>Provided value: <codeph>dnsservers</codeph></dd>
           <dd>Do not change this value.</dd>
         </dlentry>
       <dlentry>
         <dt>username</dt>
-        <dd>Provided value: helionce</dd>
+        <dd>Provided value: <codeph>helionce</codeph></dd>
         <dd>Do not change this value</dd>
       </dlentry></dl></section>
       
-      <section><title>Modify the Following Parameters</title><dl>
 
-    
-        <dlentry>
-          <dt>deployer_cloud</dt>
-          <dd>This value must match the name of the section you created in the <xref
-              href="cloud_platform.dita#cloudPlatform">Platform Configuration</xref> section. In the
-            examples, the name is <i>mycloud</i></dd>
-        </dlentry>
-
-      </dl>
-    </section>
   </body>
 </topic>
