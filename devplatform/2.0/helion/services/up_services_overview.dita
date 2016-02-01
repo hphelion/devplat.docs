@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesoverview">
-  <title>HPE Helion 2.0 Development Platform: User-provided Service Integration for ALS Clusters and
+  <title>HPE Helion Development Platform 2.0: User-provided Service Integration for ALS Clusters and
     Applications</title>
   <body>
-<section>   <p>This document describes the steps required to connect the managed HDP application services
-        instances/clusters to an HDP ALS cluster, and to applications in that ALS cluster. </p>
-      <p>The following application services come built-in with HDP: <ul id="ul_oxm_c3l_p5">
+<section>   <p>This document describes the steps required to connect managed HDP application services
+        instances/clusters to an HDP ALS cluster and to connect to applications in that ALS cluster. </p>
+      <p>The following application services come built-in with HPE Helion Development Platform: <ul
+          id="ul_oxm_c3l_p5">
           <li>
-            <lines>Database Service (Trove): Mysql, Redis, MongoDB</lines>
-          </li>
-          <li>
-            <lines>Vertica Preview single instances and clusters</lines>
+            <lines>Database Service (Trove): MySQL, Redis, MongoDB, Vertica Preview (single instances and clusters)</lines>
           </li>
           <li>
             <lines>Message Broker: RabbitMQ clusters </lines>
           </li>
-        </ul>With the exception of MySQL instances and clusters, these application services can be
-        bound to an ALS cluster via the standard Cloud Foundry <xref
+        </ul>Typically, application services can be bound to an ALS cluster via the standard Cloud
+        Foundry <xref
           href="http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
           format="html" scope="external">User Provided Service</xref> mechanism. MySQL instances and
-        clusters can be bound to ALS clusters via the <xref
-          href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref> mechanism. These steps are divided
-        between the database administrator and the developer. </p></section>
+        clusters are bound to ALS clusters via the <xref
+          href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref>
+        mechanism. </p>
+      <p><!--Add TOC inside the overview including how to update them--></p></section>
     <section>
       <title>Prerequisites</title>
       <p>
         <ul id="ul_t5j_l3l_p5">
           <li>You have access to Helion OpenStack deployer node or a jump box that is on the same
-            network as Trove control plane (i.e., trove management network). </li>
-          <li>You can run “trove” client commands such as “trove list”. . You can install trove
-            client by running <codeph>sudo apt-get install python-troveclient</codeph> on the
-            machine you will run “trove” commands. More information on how to obtain and use trove
-            CLI can be found <xref href="../../../2.0/database/devplatform.database-instance.dita#DatabaseService/more">here</xref>.
-            </li>
-          <li>You have access to an HDP ALS cluster, and can can run “helion” CLI to manage the
+            network as Trove control plane such as the Trove management network. </li>
+          <li>You can run Trove client commands such as <codeph>trove list</codeph>. You can install
+            the Trove client by running <codeph>sudo apt-get install python-troveclient</codeph> on
+            the machine you will run  Trove commands. More information on how to obtain and use the
+            Trove CLI can be found <xref
+              href="../../../2.0/database/devplatform.database-instance.dita#DatabaseService/more"
+              >here</xref>. </li>
+          <li>You have access to an HDP ALS cluster, and can run the helion client to manage the
             cluster and push applications. More information on ALS clusters and their usage can be
             found here: https://docs.hpcloud.com/#devplatform/2.0/helion/user/helion_user_index.html
             https://docs.hpcloud.com/#devplatform/2.0/helion/user/client/client_index.html </li>
@@ -49,17 +49,6 @@
             service instance or cluster.</li>
         </ul>
       </p>
-      <!--TODO: Reference to Network Reference Arch doc.-->
-    </section><section><title>Known Issues</title>
-    <ul>
-      <li>There is an issue with authentication for MongoDB cluster. When connecting to a
-          newly-created MongoDB cluster, credentials (username/password) are not required. To enable
-          authentication for a MongoDB cluster after it has been created and to secure it for client
-          access with username/password credentials, follow the process outlined here: <xref
-            href="https://docs.mongodb.org/manual/tutorial/enable-authentication/" format="html"
-            scope="external"
-          >https://docs.mongodb.org/manual/tutorial/enable-authentication/</xref><!--[TODO validate this workaround works ] --></li>
-    </ul>
-    </section>
-  </body>
+      <!--TODO: Reference to Network Reference Arch doc. When this architecture document is published, put a link to it here. Max will supply location of diagram when published.-->
+    </section></body>
 </topic>

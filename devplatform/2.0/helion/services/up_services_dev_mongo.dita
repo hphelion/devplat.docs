@@ -3,9 +3,11 @@
 <topic id="upservicesdevmongo">
   <title>HPE Helion 2.0 Development Platform: MongoDB Integration for Developers</title>
   <body>
-    <section><title>Pre-requisites</title> You have clready created an ALS cluster, have access to
+    <section><title>Pre-requisites</title> You have already created an ALS cluster, have access to
       it to deploy applications, and have allowed access to the MongoDB instance (or, for MongoDB
-      cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref href="../../../2.0/helion/admin/server/configuration.dita#topic31232/container_allowed">process here</xref>. </section>
+      cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref
+        href="../../../2.0/helion/admin/server/configuration.dita#topic31232/container_allowed"
+        >process here</xref>. </section>
     <section>
       <title>Procedure</title>
       <ol>
@@ -255,8 +257,8 @@ db: test_db
           </ul></li>
         <li> Deploy your application using the Helion CLI.
           <codeblock>helion push -n</codeblock></li>
-        <li> After the application has successfully deployed successfully, verify that the service
-          is bound to your application. <codeblock>helion service &lt;your MongoDB service&gt;</codeblock><ul>
+        <li> After the application has successfully deployed, verify that the service is bound to
+          your application. <codeblock>helion service &lt;your MongoDB service&gt;</codeblock><ul>
             <li>
               <p>Example: Single instance MongoDB</p>
               <codeblock>$ helion service my-mongo-db-service </codeblock>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminmongo">
-  <title>HPE Helion 2.0 Development Platform: MongoDB Integration for Administrators</title>
+  <title>HPE Helion Development Platform 2.0: MongoDB Integration for Administrators</title>
   <body>
     <section><title>Prerequisites</title><ul><li>You can run mongo client shell commands to connect and manage the MongoDB database. </li>
         <li>You can install mongo client by following the steps <xref
@@ -24,7 +24,7 @@
     
     
     <section><title>Known Issues</title>
-        <ul><li>There is a bug with authentication for MongoDB cluster -- For connectivity to a newly created
+        <ul><li>There is a bug with authentication for MongoDB cluster. When connecting to a newly-created
           MongoDB cluster, username/password is not needed. To enable authentication for a MongoDB
           cluster after it has been created and to secure it for client access with
           username/password credentials, follow the process outlined <xref
@@ -112,8 +112,8 @@ connecting to: 15.124.133.182:27017/admin
 &gt;</codeblock></li>
                 </ul></li>
               <li> Run <codeph>show dbs </codeph>command in mongo shell to validate you have basic
-                access: <codeblock>show dbs
-admin 0.078GB 
+                access: <codeblock>show dbs</codeblock>You should see output similar to the
+                following:<codeblock>admin 0.078GB 
 local 0.078GB</codeblock></li>
               <li>Run <codeph>db.createUser</codeph> command in mongo shell, to add a user for
                 client access to the selected MongoDB database, similar to following example. <ol>
@@ -127,9 +127,9 @@ local 0.078GB</codeblock></li>
           { role: "readWrite", db: "test_db"}
        ]
      }
-)</codeblock></li>
-                  <li>If successful, assign roles to the new
-                    user.<codeblock>{
+)</codeblock>If
+                    the command was successful, you will see output similar to the
+                    following:<codeblock>{
 "user" : "demo",
 "roles" : [
 {
@@ -139,8 +139,8 @@ local 0.078GB</codeblock></li>
 ]
 }</codeblock></li>
                   <li>Add additional users as needed.</li>
-                  <li>Verify that the users you have added are in the database, by running “show
-                    users” in mongo
+                  <li>Verify that the users you have added are in the database, by running
+                      <codeph>show users</codeph> in mongo
                     shell:<codeblock>show users
 {
 "_id" : "test_db.demo",
@@ -165,7 +165,7 @@ local 0.078GB</codeblock></li>
               of the MongoDB query router
               <!--<xref href="#h.rzi0pxsjejh9">open ALS access to the floating IP address of the MongoDB query router</xref>-->VM
               in the “admin” tenant and port 27017.</li>
-          </ul><note>To configure the ALS cluster for access, you first need to ssh to each DEA node
+          </ul><note>To configure the ALS cluster for access, you first need to SSH to each DEA node
             by using:
             <codeblock>ssh -i &lt;your cluster public key&gt;  stackato@&lt;IP address of your ALS cluster DEA node&gt;</codeblock>Example:<codeblock>ssh -i MyALSCluster_public_key stackato@10.241.22.89</codeblock></note></li>
         <li>Provide the MongoDB connection parameters to application developers <p>For the specific

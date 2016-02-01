@@ -17,7 +17,7 @@
     <section><title>Developer Steps</title>
       <ol id="ol_tnq_d4f_55">
         <li> Create a user-provided service in the ALS cluster<ol id="ol_ql5_24f_55">
-            <li>Login to the ALS cluster
+            <li>Log in to the ALS cluster
               <codeblock>helion target &lt;ALS cluster end point&gt;</codeblock><codeblock>helion login</codeblock>Example:<codeblock>$ helion target api.15.124.133.173.xip.io
 Successfully targeted to [https://api.15.124.133.173.xip.io]
 Target: https://api.15.124.133.173.xip.io

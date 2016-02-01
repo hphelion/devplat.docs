@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_pvd_bbd_w5">
+    <title>Vertica Integration for Developers (test Task layout)</title>
+    <shortdesc>How to create and integrate user-defined Vertica Technical Preview services.</shortdesc>
+    <taskbody><prereq> <ul>
+        <li>You already have an ALS cluster created.</li>
+        <li>You can access it to deploy applications. </li>
+        <li>You have allowed access to the Vertica instance or clustered IP addresses and Vertica
+            port 5433 using <xref href="../admin/server/configuration.dita#topic31232/container_allowed">the process available here</xref>.</li>
+    </ul></prereq>
+        <context>
+            <p>Create a user-provided service in the ALS cluster.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Log in to the target ALS cluster using <codeph>helion target</codeph> and
+                        <codeph>helion login</codeph>.</cmd><stepxmp><p>Target the ALS
+                    cluster.</p><codeblock>$ helion target &lt;ALS cluster end point&gt;</codeblock>Log
+                    in.<codeblock>$ helion login</codeblock></stepxmp>
+<stepresult>
+                    <codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target: https://api.15.124.133.173.xip.io
+Organization: &lt;none&gt;
+Space: &lt;none&gt;</codeblock>
+                    <codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock>
+                </stepresult>
+            </step><step>
+                <cmd>Retrieve a list of all services in the ALS cluster using <codeph>helion services</codeph>. </cmd><stepxmp><codeblock>$ helion services</codeblock></stepxmp><stepresult><p>On a new ALS cluster with no services created, you should see output similar to the
+                        following:</p><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></stepresult>
+            </step><step><cmd>Create a new service for binding Vertica from applications in the ALS cluster.</cmd><stepxmp>
+               <codeblock> $ helion create-service user-provided &lt;name of your Vertica service&gt;</codeblock></stepxmp>
+            
+            <substeps>
+                <substep>
+                    <cmd>You will be prompted for the field names to be used for Vertica connection credentials. For a
+                            single instance Vertica, provide field names such as:
+                            hostname,port,username,password,db.For a Vertica Preview cluster, for
+                            example with 3 nodes, provide field names such as:
+                            hostname,port,username,password,db (Hostname refers to the master node
+                            of the Vertica cluster.) </cmd>
+                </substep>
+            </substeps>
+                
+            
+            </step>
+        </steps>
+    </taskbody>
+</task>
