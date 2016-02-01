@@ -53,7 +53,7 @@ Your use is subject to the following restrictions, unless specifically allowed i
 <p>
 <b>7. Remote Monitoring.</b> Some software may require keys or other technical protection measures and HPE may monitor your compliance with the Agreement, remotely or otherwise. If HPE makes a license management program for recording and reporting license usage information, you will use such program no later than 180 days from the date it's made available.</p>
 <p>
-<b>8. Ownership.</b> No transfer of ownership of any intellectual property will occur under this Agreement..</p>
+<b>8. Ownership.</b> No transfer of ownership of any intellectual property will occur under this Agreement.</p>
 <p>
 <b>9. Copyright Notices.</b> You must reproduce copyright notices on software and documentation for authorized copies.</p>
 <p>
@@ -145,7 +145,7 @@ Subject to Customer's compliance with the terms and conditions of this Agreement
 </p>
 </section>
 <section id="ancilliary"> <title>Part 3: Ancillary and Open Source Software</title>
-<p>Additional license authorizations related to ancillary, third party and open source software components are available at:  <xref href="../../commercial/GA1/1.1.13rd-party-license-agreements.dita" >HPE Helion Development Platform Open Source and Third-Party Software License Agreements</xref>.</p>
+<p>Additional license authorizations related to ancillary, third party and open source software components are available at:  <xref href="1.2devplatform.thirdparty.licensing.dita" >HPE Helion Development Platform Open Source and Third-Party Software License Agreements</xref>.</p>
 <p>
   <xref href="#topic16601"> Return to Top </xref>
 </p>
