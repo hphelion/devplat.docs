@@ -17,25 +17,25 @@
                     together.</note>
                 <codeblock id="cloudDB">    database:
       trove_enable_ssl: False
-      ephemeral_ca_cert: /home/stack/ca/cacert.pem  
-      external_network: 
-      provider_network:
-      ntp_server: 
+      ephemeral_ca_cert: <i>&lt;SSL Certificate Location> </i>
+      external_network: ext-net
+      provider_network: SVC
+      ntp_server: <i>&lt;IP address of the first Management Controller></i>
       keypair: default
       enable_ha: False
       flavor: m1.medium
       database_flavor: m1.medium
       messaging_flavor: m1.medium
       database_volume_size: 10
-      logstash_rabbitmq_host:
-      logstash_rabbitmq_password:
+      logstash_rabbitmq_host: <i>&lt;IP address of the HPE Helion OpenStack logging service></i>
+      logstash_rabbitmq_password: <i>&lt;admin password for the HPE Helion OpenStack logging service></i>
       hotpools_enabled: True
       hotpools_max_instances: 1
       hotpools_image_name: percona
       hotpools_flavor_names: 'm1.medium'
-      project_id: 
-      control_plane_database_volume_type: VOLTYPE_HERE
-      guest_instance_volume_type: VOLTYPE_HERE
+      project_id: <i>&lt;Project id of the project where the service will be installed. ></i>
+      control_plane_database_volume_type: <i>&lt;the Cinder volume type, see instructions below></i>
+      guest_instance_volume_type: <i>&lt;the Cinder volume type, see instructions below></i>
       disable_rollback: true</codeblock>
             </p>
       <dl>
@@ -43,7 +43,9 @@
             implements SSL using HAProxy, so in installations of version 2.0 or later, this value
             must be <b>False</b>. </dd></dlentry>
         <dlentry><dt>ephemeral_ca_cert</dt><dd>If SSL has been enabled on the public endpoints, this value needs to be identical to the
-                            <codeph>cacert</codeph> value provided previously. </dd>
+                            <codeph>cacert</codeph> value provided in the <xref
+                            href="cloud_platform.dita#cloudPlatform">Platform Configuration</xref>
+                        section of your clouds.yaml file. </dd>
                     <dd>If SSL has <b>not</b> been enabled,<xref
                             href="../install_dbaasNoTLS.dita#topic_gxm_4xw_yt"> follow these
                             additional instructions</xref> to determine the value that should be
@@ -59,9 +61,9 @@
                         Service. You can use the <codeph>nova keypair-list</codeph> command to
                         retrieve a list of existing keypairs.<note>This key must already exist in
                             Nova prior to installation.</note></dd></dlentry>
-        <dlentry><dt>enable_ha</dt><dd> Options are True or False. If True, the database will be
-          created with high-availability configurations. Ensure you have enough quota to do
-          so.</dd></dlentry>
+        <dlentry><dt>enable_ha</dt><dd> Options are True or False. If True, the database will be created with high-availability
+                        configurations. Ensure you have enough quota to do so. The default value is
+                        False.</dd></dlentry>
         <dlentry><dt>flavor</dt><dd>The default is m1.medium. This flavor size is used when creating instances of the Database
                         Service. You can use the <codeph>nova flavor-list</codeph> command to
                         retrieve a list of flavor options.<note>The minimum size is m1.medium.
@@ -80,9 +82,9 @@
                             <codeph>/etc/beaver/beaver.conf</codeph> configuration file located on
                         the controller nodes.</dd></dlentry>
         <dlentry><dt>hotpools_enabled</dt><dd> Options are True or False. The default value is True. If True, a pool of "hot" databases will
-            be pre-provisioned for use when a new instance is requested. This functionalty greatly
-            reduces database creation time. If False, remove all other <i>hotpools</i> configuration
-            variables.</dd></dlentry>
+                        be pre-provisioned for use when a new instance is requested. This
+                        functionality greatly reduces database creation time. <note type="important">If False, remove
+                            all other <i>hotpools</i> configuration variables.</note></dd></dlentry>
         <dlentry><dt>hotpools_max_instances</dt><dd> Default is 1. This is the number of "hot" databases to keep in the pool.</dd></dlentry>
         <dlentry><dt>hotpools_image_name</dt><dd>The default value is <codeph>percona</codeph> . For HPE Helion OpenStack installations version
             2.0 or greater, this value must not be changed.</dd></dlentry>

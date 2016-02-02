@@ -14,7 +14,7 @@
             href="fullFile.dita">complete file</xref> to see how all the sections fit
           together.</note>
       </p><codeblock id="cloudengine">    helionce:
-      deployer_cacert:
+      deployer_cacert: <i>&lt;SSL Certificate Location></i>
       deployer_key: helionce-shared
       deployer_flavor: 3
       deployer_ntp_servers: ntpservers
