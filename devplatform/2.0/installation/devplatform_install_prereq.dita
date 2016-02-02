@@ -21,8 +21,8 @@
                 href="http://docs.hpcloud.com/#helion/installation/configure_3par.html"
                 format="html" scope="external">3Par</xref>, or <xref
                 href="http://docs.hpcloud.com/#helion/installation/configure_ceph.html"
-                format="html" scope="external">Ceph</xref>. <xref
-                href="blockstorage.dita#blockstorage">How to Check</xref></li>
+                format="html" scope="external">Ceph</xref>. If you don't know how your block storage
+              is configured, you can <xref href="blockstorage.dita#blockstorage">check</xref>.</li>
             <li>The <xref
                 href="http://docs.hpcloud.com/#helion/objectstorage/check_objectstorage_operation.html"
                 format="html" scope="external">Swift Object Storage</xref> service must be

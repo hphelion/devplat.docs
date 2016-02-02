@@ -11,15 +11,15 @@
           href="http://docs.hpcloud.com/#helion/installation/configure_ceph.html"
           format="html" scope="external">Ceph</xref>. </p><p>HPE Helion OpenStack aims to support all Cinder backends which have an upstream OpenStack driver,
       but only these three have been thoroughly tested. For complete information on how to configure
-      each option, click the relevant link to view the HPE Helion OpenStack documentation. LVM as a
-      back end is generally considered suitable for demonstrations, not production-grade
-      environments.</p>
+      each option, click the relevant link to view the HPE Helion OpenStack documentation.
+      Configuring LVM as a back end is not supported for production-grade environments.</p>
     <p>To quickly determine which Cinder flavor is in use, SSH into the HP Helion OpenStack Deployer
       and run <codeblock>cinder type-list</codeblock></p>
     <p>If you do not have administrator permissions, this command may not return any results.
       Consult the admin who created the volume types for this information.</p>
-    <p>If you did not create the volume types and the list results are cryptic
-        (<codeph>my-volume</codeph> instead of <codeph>ceph-volume</codeph>), consult the admin who
-      created them.</p>
+    <p>If the list results are cryptic (<codeph>my-volume</codeph> instead of
+        <codeph>ceph-volume</codeph>), you can check the volume type details <xref
+        href="../../../helion/installation/installation_verification.dita#install_verification/install_verification__volume_verify"
+        >using the Horizon dashboard</xref>.</p>
   </body>
 </topic>
