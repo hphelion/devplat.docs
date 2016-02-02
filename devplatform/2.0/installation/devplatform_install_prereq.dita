@@ -27,8 +27,7 @@
                 href="http://docs.hpcloud.com/#helion/objectstorage/check_objectstorage_operation.html"
                 format="html" scope="external">Swift Object Storage</xref> service must be
               configured. Swift is required for Database Service backup and replication
-              functionality, and is a requirement for production deployments. Swift is also used by
-              the installer, and is needed.</li>
+              functionality and is also used by the installer.</li>
             <li> If you did not <xref
                 href="http://docs.hpcloud.com/#helion/administration/create_hdp_servicenet.html"
                 format="html" scope="external">create the Service Network </xref>, you <b>must</b>
