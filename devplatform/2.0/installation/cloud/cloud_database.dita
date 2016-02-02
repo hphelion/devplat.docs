@@ -56,7 +56,7 @@
                         network is <b>SVC</b>. </dd></dlentry>
         <dlentry><dt>ntp_server</dt><dd> IP address of NTP server. In typical installations, this is the IP address of the first
                         Management Controller.</dd></dlentry>
-        <dlentry><dt>keypair</dt><dd> Specify the name of a keypair to use when creating the Database Service. This keypair will be
+        <dlentry id="keypair"><dt>keypair</dt><dd> Specify the name of a keypair to use when creating the Database Service. This keypair will be
                         used for debugging purposes when logging into instances of the Database
                         Service. You can use the <codeph>nova keypair-list</codeph> command to
                         retrieve a list of existing keypairs.<note>This key must already exist in
