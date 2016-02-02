@@ -12,33 +12,32 @@
           
    <p> Since arbitrary Docker images could potentially expose a root user and other escalated
         privileges, administrators will generally restrict the ability to push Docker images to: <ul>
-          <li> a trusted group of users in an Org with 'sudo' permissions enabled</li>
+          <li>a trusted group of users in an Org with <codeph>sudo</codeph> permissions enabled</li>
           <li>a trusted list of Docker images, namespaces, or registry servers</li>
           <li>a trusted group deploying from a trusted list </li>
         </ul></p>  <p>Depending on which restrictions your administrator has set, you may see an error describing the
         restriction if you attempt an unauthorized push.</p>
       <p>Pushing as an unauthorized user:
-        <codeblock> Error staging: Need 'allow_sudo' quota to stage and run a Docker app (400)</codeblock>Pushing
+        <codeblock>Error staging: Need 'allow_sudo' quota to stage and run a Docker app (400)</codeblock>Pushing
         an unauthorized image::
-        <codeblock> Error staging: Docker image example/simple-server is not from an allowed registry (400)</codeblock></p></section>
-    <section id="pushingDockerApps"><title>Pushing Docker Apps</title> Official images in the Docker Hub library can be
-      specified by <b>name</b>, with or without a tag::
-      <codeblock>helion push --docker-image django:1.8-python2 </codeblock>Images from a particular
-      user or organization can be specified with the
-      <b>namespace</b>:<codeblock>helion push --docker-image cloudfoundry/lattice-app</codeblock>Images
-      from a particular registry server require a<b> fully-qualified URL</b>, without the protocol
-      portion:
-      <codeblock>helion push --docker-image registry.example.com/user/docker-app:latest</codeblock>If
-      the registry you are using requires authentication, use the
-        <codeph>&lt;user&gt;:&lt;pass&gt;@&lt;host&gt;</codeph> format to specify the credentials:
+        <codeblock>Error staging: Docker image example/simple-server is not from an allowed registry (400)</codeblock></p></section>
+    <section id="pushingDockerApps"><title>Pushing Docker Apps</title> You can specify official
+      Docker Hub library images by name, with or without a tag, for example:
+      <codeblock>helion push --docker-image tomee:8-jre-7.0.0-M1-webprofile</codeblock>You can also
+      specify images from a particular user or organization by namespace, for
+      example:<codeblock>helion push --docker-image cloudfoundry/lattice-app</codeblock>Images from
+      a particular registry server require a fully-qualified URL (without the protocol portion):
+      <codeblock>helion push --docker-image registry.example.com/user/docker-app:latest</codeblock>For
+      registries that require authentication, use the
+        <codeph>&lt;user&gt;:&lt;pass&gt;@&lt;host&gt;</codeph> format to specify credentials:
       <codeblock>helion push --docker-image myname:mypass@reg.example.com/myname/myapp</codeblock>Administrators
-      may save default credentials for specific servers in the Allowed Registries list. If default
-      credentials exist, they are used by default unless overridden. Any credentials you specify
-      will override the default credentials.<note> If the registry credentials contain the '@' or
-        ':' characters, <xref
+      can save default credentials for specific servers in the Allowed Registries list. ALS uses
+      these credentials for a specific registry server, if it is present. However, any credentials
+      specified in the command override the default credentials.<note>If the registry credentials
+        contain the <codeph>@</codeph> or <codeph>:</codeph> characters, ensure that the username
+        and password strings are <xref
           href="https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters"
-          format="html" scope="external">URL encode</xref> the username or password strings as
-        needed.</note></section> <section><title>Docker Apps and Data Services</title> 
+          format="html" scope="external">URL-encoded</xref>.</note></section> <section><title>Docker Apps and Data Services</title> 
                     
          <p>Docker apps can be bound to <xref href="../../services/data-services.dita">data services</xref> just
             like staged apps. $VCAP_SERVICES and the URL-based
