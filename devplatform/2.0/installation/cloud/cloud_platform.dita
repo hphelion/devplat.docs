@@ -41,15 +41,18 @@
         </dlentry>
         <dlentry>
           <dt>cacert</dt>
-          <dd>The location where the SSL certificates can be accessed.</dd>
+          <dd>The location where the SSL certificates can be accessed. Unless you have a specific
+            SSL certificate you would prefer to use, use this one:
+              <codeph>~/usr/local/share/ca-certificates/hpes_cacert.crt</codeph></dd>
         </dlentry>
         <dlentry>
           <dt>auth_url</dt>
           <dd>
             <p>Note that this must be <codeph>https</codeph>, not simply <codeph>http</codeph>. This
               is the value of the <codeph>OS_AUTH_URL</codeph> variable from
-                <codeph>~/service.osrc</codeph>
-            </p>
+                <codeph>~/service.osrc</codeph>  The end of this URL will be <codeph>/v3</codeph> or
+                <codeph>/v2</codeph> depending on which version of Keystone authentication is in use
+              in your environment.</p>
             <p>Example:</p>
             <p>
               <pre>user@host:~$ grep OS_AUTH_URL ~/service.osrc</pre>
