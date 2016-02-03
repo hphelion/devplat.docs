@@ -18,7 +18,7 @@
     <p>If you do not have administrator permissions, this command may not return any results.
       Consult the admin who created the volume types for this information.</p>
     <p>If the list results are cryptic (<codeph>my-volume</codeph> instead of
-        <codeph>ceph-volume</codeph>), you can check the volume type details <xref
+        <codeph>ceph-volume</codeph>), you can check the volume types available in the <xref
         href="../../../helion/installation/installation_verification.dita#install_verification/install_verification__volume_verify"
         >using the Horizon dashboard</xref>.</p>
   </body>
