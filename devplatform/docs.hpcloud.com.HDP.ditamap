@@ -6,7 +6,6 @@
   <topichead navtitle="Database Service Reference">
     <topicref href="2.0/database/devplatform.database-instance.dita" locktitle="yes"
       navtitle="Using the Database Service"/>
-    <topicref href="2.0/database/devplatform.database-operations-guide.dita"/>
     <topicref href="2.0/database/devplatform.database-hotpools.dita"/> 
     <topicref href="2.0/database/devplatform.database-create-horizon.dita"
       navtitle="Creating a database instance from Horizon"/>
