@@ -174,7 +174,7 @@ Creating new service … OK</codeblock></li>
             </ul></li>
         </ol>
       </sectiondiv></section>
-    <section id="singlequery"><title outputclass="headerH">Procedure for a cluster with a single
+    <section id="singlequery"><title outputclass="headerH">Developer procedure for a cluster with a single
         query router </title><sectiondiv outputclass="insideSection">
         <ol>
           <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
@@ -346,7 +346,7 @@ Creating new service … OK</codeblock></li>
         </ol>
       </sectiondiv></section>
     
-    <section id="multiquery"><title outputclass="headerH">Procedure for a cluster with multiple query routers </title><sectiondiv outputclass="insideSection">
+    <section id="multiquery"><title outputclass="headerH">Developer procedure for a cluster with multiple query routers </title><sectiondiv outputclass="insideSection">
      
       <ol>
         <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
