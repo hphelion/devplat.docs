@@ -4,8 +4,8 @@
   <title>HPE Helion Development Platform 2.0: Messaging Integration for Developers</title>
     <shortdesc>Create a custom messaging service and bind it to an application.</shortdesc><body>
         <p>These steps are intended for developers who intend to create a custom messaging service and bind it
-        to an application. The <xref href="up_services_admin_message.dita">administrator steps</xref>
-        are required prior to this point.</p>
+            to an application. The <xref href="up_services_admin_message.dita">administrator procedure</xref>
+            must be completed prior to this point.</p>
     <section><title>Prerequisites</title>
       <ul>
         <li> You already have an ALS cluster.</li>
@@ -182,12 +182,5 @@ https://api.10.241.22.105.xip.io -> default -> default -> my-rabbitmq-service
             return(e)</codeblock>
     </section>
   </body>
-    <related-links>
-        <link  href="up_services_overview.dita"><linktext>User-provided Service Integration Overview</linktext></link>
-        <link href="up_services_dev_mongo.dita"><linktext>MongoDB Integration for Developers</linktext></link>
-        <link  href="up_services_dev_mysql.dita"><linktext>MySQL Integration for Developers</linktext></link>
-        <link  href="up_services_dev_redis.dita"><linktext>Redis Integration for Developers</linktext></link>
-        <link href="up_services_dev_vertica.dita"><linktext>Vertica Integration for Developers</linktext></link>
-        <link  href="up_services_update.dita"><linktext>Updating User-provided Service Credentials</linktext></link>
-    </related-links>
+
 </topic>

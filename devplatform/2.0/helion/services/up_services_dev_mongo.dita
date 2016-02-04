@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesdevmongo">
-  <title>HPE Helion Development Platform 2.0: MongoDB Integration for Developers</title>
-  <body>
+  <title>HPE Helion Development Platform 2.0: MongoDB Integration for Developers</title><shortdesc>Create a Mongo database service and bind it to an application.</shortdesc>
+  <body><p>These steps are intended for developers who intend to create a custom MongoDB service and bind it
+    to an application. The <xref href="up_services_admin_mongo.dita">administrator procedure</xref>
+    must be completed prior to this point.</p>
     <section><title>Pre-requisites</title> You have already created an ALS cluster, have access to
       it to deploy applications, and have allowed access to the MongoDB instance (or, for MongoDB
       cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref

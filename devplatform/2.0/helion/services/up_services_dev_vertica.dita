@@ -2,10 +2,10 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesdevvertica">
   <title>
-    HPE Helion 2.0 Development Platform: Vertica Integration for Developers</title>
+    HPE Helion 2.0 Development Platform: Vertica Integration for Developers</title><shortdesc>Create a Vertica database service and bind it to an application.</shortdesc>
   <body><p>These steps are intended for developers who intend to create a custom Vertica service and bind it
-      to an application. The <xref href="up_services_admin_vertica.dita">administrator steps</xref>
-      are required prior to this point.</p>
+      to an application. The <xref href="up_services_admin_vertica.dita">administrator
+        procedure</xref> must be completed prior to this point.</p>
 <section><title>Prerequisites</title>
       <ul id="ul_db3_tnf_55">
         <li>You already have an ALS cluster created.</li>

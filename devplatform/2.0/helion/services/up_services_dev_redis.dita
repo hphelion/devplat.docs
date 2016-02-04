@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesredis">
-  <title>HPE Helion Development Platform 2.0: Redis Integration for Developers</title>
-  <body>
-    <section><title>Pre-requisites</title><p>
+  <title>HPE Helion Development Platform 2.0: Redis Integration for Developers</title><shortdesc>Create a Redis service and bind it to an application.</shortdesc>
+  <body><p>These steps are intended for developers who intend to create a custom Redis service and bind it
+    to an application. The <xref href="up_services_admin_redis.dita">administrator procedure</xref>
+    must be completed prior to this point.</p>
+    <section><title>Prerequisites</title><p>
         <ul id="ul_o3x_nr1_t5">
           <li>You already have an ALS cluster.</li>
           <li>You have access to the cluster and permission to deploy applications.</li>

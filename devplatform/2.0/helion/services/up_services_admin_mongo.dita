@@ -18,8 +18,7 @@
     <section><title>Limitations</title><p id="mongolimits">At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
         cluster creation. On production environments where high-availability is a requirement for a
         MongoDB cluster access, consider creating at least one additional MongoDB query-router VM
-        after you have created that MongoDB cluster. You can do this on CLI or UI by “grow cluster”
-        action.<!--[TODO: Add reference to grow cluster, and validate]--></p></section>
+        after you have created that MongoDB cluster. You can do this on CLI or UI by "growing the cluster".<!--[TODO: Add reference to grow cluster, and validate]--></p></section>
     
     
     
@@ -183,13 +182,5 @@ local 0.078GB</codeblock></li>
             <li>Username/password for each MongoDB database</li>
             <li>MongoDB port number 27017</li>
           </ul></li></ol></section>
-  <section>
-      <title>Related Links</title>
-      <ul id="ul_p4z_ncg_q5">
-        <li>
-          <xref href="up_services_dev_mongo.dita#upservicesdevmongo">MongoDB Integration for
-            Developers</xref>
-        </li>
-      </ul>
-    </section></body></topic>
+  </body></topic>
     

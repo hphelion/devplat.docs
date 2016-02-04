@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesdevmysql">
-  <title>HPE Helion Development Platform 2.0: MySQL Integration for Developers</title>
-  <body>
+    <title>HPE Helion Development Platform 2.0: MySQL Integration for Developers</title><shortdesc>Create a MySQL database service and bind it to an application.</shortdesc>
+    <body><p>These steps are intended for developers who intend to create a custom MySQL service and bind it
+        to an application. The <xref href="up_services_admin_mysql.dita">administrator procedure</xref>
+        must be completed prior to this point.</p>
   
       <ol id="ol_zs1_ymf_55">
         <li>Bind to MySQL service from an app during deployment.<ol id="ol_llq_ymf_55">
