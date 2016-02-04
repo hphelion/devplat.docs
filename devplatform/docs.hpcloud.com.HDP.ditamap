@@ -257,7 +257,7 @@
     <topicref href="2.0/helion/user/reference/environment.dita" locktitle="yes"
       navtitle="Environment Variables "/>
   </topichead>
-  <topichead navtitle="User Defined Services For Review" linking="normal">
+  <topichead navtitle="User Defined Services For Review">
     <topicref href="2.0/helion/user/services/user-provided.dita" locktitle="yes"
       navtitle="no_User-Provided Services" toc="no"/>
     <topicref href="2.0/helion/services/up_services_overview.dita"
@@ -265,19 +265,7 @@
       collection-type=""/>
     <topicref href="2.0/helion/services/up_services_update.dita"
       navtitle="Updating User-provided Services" locktitle="yes"/>
-    <topichead navtitle="Developers" linking="normal" collection-type="family">
-      <topicref href="2.0/helion/services/up_services_dev_message.dita"
-        navtitle="Messaging Integration for Developers" locktitle="yes"/>
-      <topicref href="2.0/helion/services/up_services_dev_mongo.dita"
-        navtitle="MongoDB Integration for Developers" locktitle="yes"/>
-      <topicref href="2.0/helion/services/up_services_dev_mysql.dita"
-        navtitle="MySQL Integration for Developers" locktitle="yes"/>
-      <topicref href="2.0/helion/services/up_services_dev_redis.dita"
-        navtitle="Redis Integration for Developers" locktitle="yes"/>
-      <topicref href="2.0/helion/services/up_services_dev_vertica.dita"
-        navtitle="Vertica Integration for Developers" locktitle="yes"/>
-    </topichead>
-    <topichead navtitle="Administrators" linking="normal" collection-type="family">
+    <topichead navtitle="Administrators">
       <topicref href="2.0/helion/services/up_services_admin_message.dita"
         navtitle="Messaging Integration for Administrators" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_admin_mongo.dita"
@@ -289,6 +277,19 @@
       <topicref href="2.0/helion/services/up_services_admin_vertica.dita"
         navtitle="Vertica Integration for Administrators" locktitle="yes"/>
     </topichead>
+    <topicref href="2.0/helion/services/developers.dita" navtitle="Developer Procedures"
+      locktitle="yes" collection-type="family" linking="normal">
+      <topicref href="2.0/helion/services/up_services_dev_message.dita"
+        navtitle="Messaging Integration for Developers" locktitle="yes"/>
+      <topicref href="2.0/helion/services/up_services_dev_mongo.dita"
+        navtitle="MongoDB Integration for Developers" locktitle="yes"/>
+      <topicref href="2.0/helion/services/up_services_dev_mysql.dita"
+        navtitle="MySQL Integration for Developers" locktitle="yes"/>
+      <topicref href="2.0/helion/services/up_services_dev_redis.dita"
+        navtitle="Redis Integration for Developers" locktitle="yes"/>
+      <topicref href="2.0/helion/services/up_services_dev_vertica.dita"
+        navtitle="Vertica Integration for Developers" locktitle="yes"/>
+    </topicref>
   </topichead>
  </map>
 

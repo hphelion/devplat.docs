@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_sqv_hfy_w5">
+  <title>User-Provided Services for Developers</title>
+  <body>
+    <p>These procedures describe the steps that developers must take to connect managed HDP application services instances/clusters to an HDP ALS cluster and to connect to applications in that ALS cluster. </p>
+  </body>
+</topic>
