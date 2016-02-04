@@ -6,7 +6,7 @@
   <body>
     <p>This document describes the <xref href="#topic_nbm_13y_w5/procedures">administrative procedures</xref> required to connect managed HDP application
       services instances/clusters to an HDP ALS cluster. These steps must be performed before the
-      developers can <xref href="developers.dita#topic_sqv_hfy_w5">bind the service to an
+      developers can <xref href="up_developers.dita">bind the service to an
         application</xref>.</p><section><title>Limitations and Restrictions</title><p><b>Mongo</b></p>
           <p conref="up_services_admin_mongo.dita#upservicesadminmongo/mongolimits"/><p><b>MySQL</b><ul conref="up_services_admin_mysql.dita#upservicesadminmysql/mysqllimit"
           id="ul_mvf_2jy_w5">
