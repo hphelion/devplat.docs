@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_rkg_vlg_tt">
-  <title>HPE Helion 2.0 Development Platform: Testing</title>
+  <title>HPE Helion Development Platform 2.0: Testing</title>
   <body>
     <p>Each of the tech stacks and frameworks has conventions for supporting unit testing. </p>
     <p>The HPE Helion Code Engine looks for specific files in the root directory of the project. The

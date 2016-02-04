@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_cfn_lvq_dt">
-  <title>HPE Helion 2.0 Development Platform: Continuous Integration and Deployment Overview</title>
+  <title>HPE Helion Development Platform 2.0: Continuous Integration and Deployment Overview</title>
   <body>
     <p>HPE Helion Code Engine is a continuous integration and delivery system designed for small
       development teams who are interested in building "greenfield" cloud native apps and deploying

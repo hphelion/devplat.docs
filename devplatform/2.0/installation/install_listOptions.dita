@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="listContent">
-  <title>HPE Helion 2.0 Development Platform: List Available HDN Content</title>
+  <title>HPE Helion Development Platform 2.0: List Available HDN Content</title>
   <body><p>There are two ways to retrieve the list the HDN content available to you. </p>   
     
   <section id="option1"><title>Option 1: Quick list of recent versions only with no installation

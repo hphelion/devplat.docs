@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_qs2_sgy_kt">
-  <title>HPE Helion 2.0 Development Platform: Enable Container Deployment</title>
+  <title>HPE Helion Development Platform 2.0: Enable Container Deployment</title>
   <body>
     <p>For security, Docker container deployments are disabled. You can enable container deployment
       in two ways:<ul id="ul_ztf_ghy_kt">

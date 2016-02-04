@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_f2m_l1q_h5">
-  <title>HPE Helion 2.0 Development Platform: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
+  <title>HPE Helion Development Platform 2.0: Upgrading HPE Helion <tm tmtype="reg">OpenStack</tm> to
     Version 2.1</title>
   <body>
     <p>When upgrading HPE Helion OpenStack from version 2.0 to 2.1, shutting down the virtual

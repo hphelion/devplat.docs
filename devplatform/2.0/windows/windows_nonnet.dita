@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" ><topic xml:lang="en-us" id="windows_nonnet">
-  <title>HPE Helion 2.0 Development Platform: Deploying a Node.js Application</title>
+  <title>HPE Helion Development Platform 2.0: Deploying a Node.js Application</title>
   <prolog>
     <metadata>
       <othermeta name="layout" content="default-devplatform"/>
@@ -19,7 +19,7 @@
     </metadata>
   </prolog>
   <body>
-    <section><title>HPE Helion 2.0 Development Platform: Deploying a Node.js Application</title>
+    <section><title>HPE Helion Development Platform 2.0: Deploying a Node.js Application</title>
       <ph><i>Windows, .NET, SQL Server, and IIS are either registered trademarks or trademarks of
           Microsoft Corporation in the United States and/or other countries.</i></ph>
       <p>This tutorial demonstrates how to deploy a Node.js Application application. For the

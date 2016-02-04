@@ -2,7 +2,7 @@
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" >
 <topic xml:lang="en-us" id="topic24073_2">	
-    <title>HPE Helion 2.0 Development Platform: Windows Overview</title>
+    <title>HPE Helion Development Platform 2.0: Windows Overview</title>
     <titlealts>
         <searchtitle>HPE Helion 2.0 Development Platform: Windows Overview</searchtitle>
     </titlealts>
@@ -25,7 +25,7 @@
     </prolog>
     <body>
 <!--PUBLISH-->
-<section id="introduction"><title>HPE Helion 2.0 Development Platform: Windows Overview</title>
+<section id="introduction"><title>HPE Helion Development Platform 2.0: Windows Overview</title>
 
     <p><i>Windows, .NET, SQL Server, and IIS are either registered trademarks or trademarks of Microsoft Corporation in the United States and/or other 
         countries.</i></p>
