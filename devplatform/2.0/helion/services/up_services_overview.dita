@@ -50,5 +50,15 @@
         </ul>
       </p>
       <!--TODO: Reference to Network Reference Arch doc. When this architecture document is published, put a link to it here. Max will supply location of diagram when published.-->
-    </section></body>
+    </section><section><title>Related Processes</title>
+      <ul><li><xref href="up_services_update.dita">Updating User-provided Service Credentials</xref></li></ul>
+      
+      <p>Developer Steps</p><ul>
+    <li><xref href="up_services_dev_message.dita">Messaging Integration for Developers</xref></li>
+        <li><xref href="up_services_dev_mongo.dita">MongoDB Integration for Developers</xref></li>
+    <li><xref href="up_services_dev_mysql.dita">MySQL Integration for Developers</xref></li>
+        <li><xref href="up_services_dev_redis.dita">Redis Integration for Developers</xref></li>
+    <li><xref href="up_services_dev_vertica.dita">Vertica Integration for Developers</xref></li>
+    
+  </ul></section></body>
 </topic>

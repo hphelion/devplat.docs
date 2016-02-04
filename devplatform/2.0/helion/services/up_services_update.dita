@@ -137,4 +137,11 @@ http://my-app.15.124.134.240.xip.io/ deployed</codeblock></li>
         </ol></li>
       </ol>
   </body>
+  <related-links>
+    <link  href="up_services_overview.dita"><linktext>User-provided Service Integration Overview</linktext></link>
+    <link href="up_services_dev_message.dita"><linktext>Messaging Integration for Developers</linktext></link>
+    <link href="up_services_dev_mongo.dita"><linktext>MongoDB Integration for Developers</linktext></link>
+    <link  href="up_services_dev_mysql.dita"><linktext>MySQL Integration for Developers</linktext></link>
+    <link href="up_services_dev_vertica.dita"><linktext>Vertica Integration for Developers</linktext></link>
+      </related-links>
 </topic>

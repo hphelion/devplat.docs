@@ -86,4 +86,12 @@ Space:        default</codeblock></li>
     
     </section>
   </body>
+    <related-links>
+        <link  href="up_services_overview.dita"><linktext>User-provided Service Integration Overview</linktext></link>
+        <link href="up_services_dev_message.dita"><linktext>Messaging Integration for Developers</linktext></link>
+        <link  href="up_services_dev_mongo.dita"><linktext>Mongo Integration for Developers</linktext></link>
+        <link  href="up_services_dev_redis.dita"><linktext>Redis Integration for Developers</linktext></link>
+        <link href="up_services_dev_vertica.dita"><linktext>Vertica Integration for Developers</linktext></link>
+        <link  href="up_services_update.dita"><linktext>Updating User-provided Service Credentials</linktext></link>
+    </related-links>
 </topic>
