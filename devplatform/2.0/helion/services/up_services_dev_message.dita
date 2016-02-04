@@ -2,10 +2,11 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesdevmessage">
   <title>HPE Helion Development Platform 2.0: Messaging Integration for Developers</title>
-    <shortdesc>Create a custom messaging service and bind it to an application.</shortdesc><body>
-        <p>These steps are intended for developers who intend to create a custom messaging service and bind it
-            to an application. The <xref href="up_services_admin_message.dita">administrator procedure</xref>
-            must be completed prior to this point.</p>
+    <abstract>These steps are intended for developers who intend to <shortdesc>create a custom messaging service and bind it to an application.</shortdesc> The <xref
+            href="up_services_admin_message.dita">administrator procedure</xref> must be completed
+        prior to this point.</abstract>
+    <body>
+      
     <section><title>Prerequisites</title>
       <ul>
         <li> You already have an ALS cluster.</li>
