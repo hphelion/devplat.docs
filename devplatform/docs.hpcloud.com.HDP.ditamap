@@ -261,10 +261,11 @@
     <topicref href="2.0/helion/user/services/user-provided.dita" locktitle="yes"
       navtitle="no_User-Provided Services" toc="no"/>
     <topicref href="2.0/helion/services/up_services_overview.dita"
-      navtitle="User-provided Service Integration for ALS Clusters and Applications" locktitle="yes"/>
+      navtitle="User-provided Service Integration for ALS Clusters and Applications" locktitle="yes"
+      collection-type=""/>
     <topicref href="2.0/helion/services/up_services_update.dita"
       navtitle="Updating User-provided Services" locktitle="yes"/>
-    <topichead navtitle="Developers" linking="normal">
+    <topichead navtitle="Developers" linking="normal" collection-type="family">
       <topicref href="2.0/helion/services/up_services_dev_message.dita"
         navtitle="Messaging Integration for Developers" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_dev_mongo.dita"
@@ -276,7 +277,7 @@
       <topicref href="2.0/helion/services/up_services_dev_vertica.dita"
         navtitle="Vertica Integration for Developers" locktitle="yes"/>
     </topichead>
-    <topichead navtitle="Administrators" linking="normal">
+    <topichead navtitle="Administrators" linking="normal" collection-type="family">
       <topicref href="2.0/helion/services/up_services_admin_message.dita"
         navtitle="Messaging Integration for Administrators" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_admin_mongo.dita"
