@@ -10,8 +10,8 @@
       cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref
         href="../../../2.0/helion/admin/server/configuration.dita#topic31232/container_allowed"
         >process here</xref>. </section>
-    <section>
-      <title>Procedure</title>
+    <section> <title outputclass="headerH">Procedure</title><sectiondiv outputclass="insideSection">
+     
       <ol>
         <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
             <li> Log in to the ALS cluster
@@ -340,7 +340,8 @@ db: test_db
             </li>
           </ul></li>
       </ol>
-    </section>
+    </sectiondiv></section>
+    
   </body>
 
 </topic>
