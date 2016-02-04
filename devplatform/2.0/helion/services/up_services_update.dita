@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesupdate">
-  <title>HPE Helion 2.0 Development Platform: Updating User-provided Service Credentials</title>
+  <title>HPE Helion Development Platform 2.0: Updating User-provided Service Credentials</title>
   <body>   
     <p>If you need to make changes to the credentials for a user-provided service, follow the steps below.</p>
     <ol id="ol_vss_wvk_55">
