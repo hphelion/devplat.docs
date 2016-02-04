@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminvertica">
   <title>HPE Helion Development Platform 2.0: Vertica Integration for Administrators</title>
-  <shortdesc>Connect Vertica instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>
+  <abstract><shortdesc outputclass="hdphidden">Connect Vertica instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_vertica.dita">create and bind custom Vertica services</xref>. </abstract>
   <body>
     <p>Vertica Community Edition 7.1.2 is packaged and distributed in the Vertica Preview included
       with HPE Helion Development Platform 2.0.</p>

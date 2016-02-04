@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminmongo">
-  <title>HPE Helion Development Platform 2.0: MongoDB Integration for Administrators</title><shortdesc>Connect Mongo database instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>
+  <title>HPE Helion Development Platform 2.0: MongoDB Integration for Administrators</title><abstract><shortdesc outputclass="hdphidden">Connect Mongo database instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_mongo.dita">create and bind custom Mongo services</xref>.</abstract>
   <body>
     <section><title>Prerequisites</title><ul><li>You can run mongo client shell commands to connect and manage the MongoDB database. </li>
         <li>You can install mongo client by following the steps <xref

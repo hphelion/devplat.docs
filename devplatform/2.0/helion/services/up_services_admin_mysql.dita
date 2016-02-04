@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminmysql">
   <title>HPE Helion Development Platform 2.0: MySQL Integration for Administrators</title>
-  <shortdesc>Connect managed MySQL clusters to ALS clusters to support service creation and application binding.</shortdesc><body>
+  <abstract><shortdesc outputclass="hdphidden">Connect managed MySQL clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_mysql.dita">create and bind custom MySQL services</xref>.</abstract><body>
     <p>This documentation provides guidance on how to connect and use managed MySQL clusters for applications that will be deployed using ALS.</p>
     <p>For single instance connectivity and usage, such as non-clustered MySQL, refer to the <xref
         href="../../../2.0/database/devplatform.database-ALS.dita">using the Database with the Application
