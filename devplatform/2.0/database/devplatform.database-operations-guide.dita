@@ -31,6 +31,54 @@
                guidelines, see <xref
                    href="http://docs.hpcloud.com/#commercial/GA1/1.1commercial.-vsa-overview.html"
                    format="html" scope="external">Cinder Block Storage Using HPE StoreVirtual VSA</xref>.</p>
+         <ul>
+           <li>
+             <p>For documentation on backup/restore capability for single-instance client databases, see 
+             <xref href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-backup.html" scope="local">Back up a Database</xref>. 
+             HPE Helion Development Platform (HDP) does not provide a tool or automation for establishing a backup policy and schedule. You can either use existing solutions to configure your desired policy, 
+             or use “cron” type tools. Depending on how accessible your client databases are from outside of a Helion OpenStack environment, you might initiate backups from external cloud providers 
+             (such as AWS), or copy backup data to outside the boundaries of the Helion OpenStack. HDP does not provide a mechanism for that within the product. There is also database replication functionality 
+             for single instances, but this is not applicable for clustered databases (such as MySQL clusters).</p>
+             
+           </li>
+           <li><p>For clustered client databases, depending on datastore type (MySQL, MongoDB, Redis, or Vertica Preview), use the respective data backup tools that are available externally. 
+             Examples: mysqldump, innobackupex, mongodump.  Also, make sure you are considering whether to encrypt the data as you back it up. It is recommended that you copy and store the backup 
+             in an external location or on different AZs.
+           </p>
+             <p>A client database will show in SHUTDOWN state in case the datastore process for it is down. This will be shown in “trove list --include-cluster”, or “trove show” command for a specific database. 
+               You can implement an automated job to detect and alert based on the state of databases.
+             </p>
+             <p>In addition to the database state health check, you also need to monitor the availability of the load balancer for clustered databases, by implementing an automated tool to poll the 
+               state of the load balancer.
+             </p>
+             <p>For MongoDB clusters, you also need to check the status and availability of the MongoDB cluster query router.</p>
+             <p>In a DR scenario impacting the client databases, first identify the cause of the outage: whether it is load balancer or network related, or database cluster outage. In case of a load balancer issue, recover the load balancer.
+             </p></li>
+           <li>In case of database cluster outage, do the following:
+             <ol>
+               <li>Create a new database cluster</li>
+               <li>Use the same data dump tool to perform a restore of the backed up data to the new database cluster</li>
+               <li>Ensure your data is restored correctly and begin using the new clustered database</li>
+             </ol>
+           </li>
+           <li><p>For documentation for High Availability (HA) capability for Trove Control Plane VMs, see <xref href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-architecture.htm" scope="local">
+              Database Service Architecture</xref>.  </p>
+             <p>For HA, the number of AZs and hardware redundancy determines your HA capability. In a single rack, all AZs will share the same power/network. The Trove Control Plane database is a 
+               MySQL Galera cluster (active/active multi-master sync config). It can tolerate down to one node staying up (on a 3 AZ config, 2 node failures). In addition, control plane database is 
+               automatically backed up to Swift every hour.
+             </p></li>
+           <li>In a Disaster Recover (DR) scnerio, if the DBaaS control plane goes down, you need to redeploy DBaaS and restore the control plane database using data from the Swift backup. You can 
+             find the Swift backup file as follows:
+             <ol>
+               <li>Swift container name: <b>backup_container</b></li>
+               <li><p>Swift backup file name format: <b>&lt;hostname&gt;-&lt;date&gt;-backup-percona</b></p>
+                 <p>where &lt;hostname&gt; is the name of the DBaaS control plane database host. Run <codeph>nova list</codeph> to get the database host name that resembles 
+                   <codeph>trove-db-....</codeph> prefix.
+                 </p></li>
+             </ol>
+           </li>
+         </ul>
          </section>
+     </section>
      </body>
   </topic>
