@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_mhg_f2n_vt">
-  <title>HPE Helion 2.0 Development Platform: Full clouds.yaml Sample File</title>
+  <title>HPE Helion Development Platform 2.0: Full clouds.yaml Sample File</title>
   <body>
     <p>For information on what each parameter is, which parameters are required, and where to find
       values for each parameters, see the complete <xref

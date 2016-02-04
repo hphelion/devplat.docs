@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="cloudMessaging">
-  <title>HPE Helion 2.0 Development Platform: Messaging Broker Service Configuration</title>
+  <title>HPE Helion Development Platform 2.0: Messaging Broker Service Configuration</title>
   <body>
     <section><p>If you are installing the Messaging Broker service, add and populate the <codeph>messaging</codeph>
         and <codeph>msgaas</codeph> sections of the <codeph>clouds.yml</codeph> file as described

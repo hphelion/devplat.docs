@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="blockstorage">
-  <title>HPE Helion 2.0 Development Platform: Checking Block Storage</title>
+  <title>HPE Helion Development Platform 2.0: Checking Block Storage</title>
   <body>
     <p>The Cinder block storage backend must be configured to use <xref
       href="http://docs.hpcloud.com/#helion/installation/configure_vsa.html" format="html"
