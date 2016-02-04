@@ -14,7 +14,346 @@
       cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref
         href="../admin/server/configuration.dita#topic31232/container_allowed"
         >process here</xref>. </section>
-    <section> <title outputclass="headerH">Procedure</title><sectiondiv outputclass="insideSection">
+    
+    <section><ul><li>
+      <xref href="upservicesdevmongo/instance">Procedure for a single instance</xref>
+    </li><li>
+      <xref href="upservicesdevmongo/singlequery">Procedure for a cluster with a single query router</xref>
+    </li><li>
+      <xref href="upservicesdevmongo/multiquery">Procedure for a cluster with multiple query routers</xref>
+    </li></ul></section>
+    <section id="instance"><title outputclass="headerH">Procedure for a single MongoDB instance
+        </title><sectiondiv outputclass="insideSection">
+        <ol>
+          <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
+              <li> Log in to the ALS cluster
+                <codeblock>helion target &lt;ALS cluster end point>
+helion login</codeblock>
+                Example:
+                <codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target:       https://api.15.124.133.173.xip.io
+Organization: &lt;none>
+Space:        &lt;none></codeblock><codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+              <li>Get a list of all services in the ALS
+                  cluster.<p><codeblock>helion services</codeblock> On a new ALS cluster with no
+                  services created, you should see output similar to the
+                  following:<codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></p></li>
+              <li>Create a new service for binding MongoDB from applications in the ALS
+                  cluster.<codeblock>helion create-service user-provided <i>&lt;name of your MongoDB service&gt;</i></codeblock><ol
+                  id="ol_xbq_c25_q5">
+                  <li>When prompted, enter the field names to be used for MongoDB connection
+                      credentials.<ul id="ul_tkq_wd5_q5">
+                      <li>For a single instance MongoDB, provide field names such as: hostname,
+                        port, username, password, db.</li>
+                      <li>For a MongoDB cluster, provide field names such as: queryrouter, port,
+                        username, password, db. If you have multiple query routers, provide each
+                        router name: queryrouter1, queryrouter2, port, username, password, db</li>
+                    </ul></li>
+                  <li>When prompted, enter values for these connection credential fields.<ul
+                      id="ul_o2v_325_q5">
+                      <li>Example: Single Instance MongoDB
+                        <codeblock>$ helion create-service user-provided my-mongo-db-service
+Which credentials to use for connections [hostname, port, password]: hostname,port,username,password,db
+hostname: 15.124.133.182
+port: 27017
+username: demo
+password: demo
+db: test_db
+Creating new service … OK</codeblock></li>
+                    </ul></li>
+                  <li>Validate that the new service is
+                      available.<codeblock>$ helion services</codeblock><p>Example:
+                      <codeblock>$ helion services
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-mongo-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></p></li>
+                  <li>Verify that the credentials are correct for the service you just created.
+                    <codeblock>$ helion service &lt;name of your MongoDB service&gt;</codeblock>Example:
+                    A single-instance MongoDB:
+                    <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | test_db          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 27017            |
+|  - username  | demo             |
+| Applications |                  |
++--------------+------------------+</codeblock></li>
+                </ol></li>
+            </ol><p>Now that you have validated the service has been created and populated with the
+              correct credentials, you can deploy your application and bind to the service using the
+              manifest file.</p></li>
+          <li> Bind to a MongoDB user-provided service from an app during deployment. <ol>
+              <li>Add the name of user-provided MongoDB service to the <codeph>services:</codeph>
+                block of the application's manifest file. <p>Sample manifest file including a
+                  reference to a user-provided MongoDB service named
+                    <codeph>my-mongo-db-service</codeph>
+                  <codeblock>applications:
+  .:
+    name: my-app
+    mem: 128M
+    <ph outputclass="codehighlight">services:
+      my-mongo-db-service:</ph>
+    helion:
+      env:
+      ENV_VAR: ${name}</codeblock></p></li>
+            </ol></li>
+          <li>Create and connect the VCAP_SERVICES environment variables. <p>When an application is
+              deployed in an ALS cluster, the service connection credentials are populated with the
+              values that were defined in the user-provided service. These credentials become
+              available in the VCAP_SERVICES environment variables, which can be consumed by your
+              application. Best practice is not to hardcode connection credentials in your
+              application code; you should parse and use the VCAP_SERVICES environment variables
+              instead. More information on how to use VCAP_SERVICES can be found <xref
+                href="../user/services/data-services.dita#user_data_services/vcap-services"
+                >here</xref>.</p><ul id="ul_jq4_hhv_q5">
+              <li>
+                <p>Sample code snippet on how to parse VCAP_SERVICES variables and how to interact
+                  with a single instance MongoDB database in a Python
+                  application.<codeblock>def mongoDBConnection(self,credentials):  
+
+#For single instance MongoDB, use hostname variable 
+        hostname = credentials['hostname']
+        port = credentials['port']
+        username = credentials['username']
+        password = credentials['password']
+        db = credentials['db']
+
+# For connecting to a single instance MongoDB:                                    
+        mongoDB_URI = "mongodb://%s:%s@%s:%d/%s"%(username,password,hostname,int(port),db)
+
+        try: 
+            mongoClient = MongoClient(mongoDB_URI) 
+            dbInstance = mongoClient.get_default_database()
+        except Exception as e:
+            return(e)
+            
+        try: #Create a collection in database
+            collection = dbInstance['mytestcollection']
+        except  Exception as e:
+            return(e)
+        
+        try: #Insert a document into collection
+            collection.insert({ 'foo':'bar' })
+        except Exception as e:
+            return(e)
+
+        try: # find a document in collection
+            collection.find()
+        except Exception as e:
+            return(e)
+        
+        try: # remove a collection from database
+            dbInstance.drop_collection(“mytestcollection")
+        except Exception as e:
+            return(e)              </codeblock></p>
+              </li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
+    <section id="singlequery"><title outputclass="headerH">Procedure for a Cluster with a single
+        query router </title><sectiondiv outputclass="insideSection">
+        <ol>
+          <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
+              <li> Log in to the ALS cluster
+                <codeblock>helion target &lt;ALS cluster end point>
+helion login</codeblock>
+                Example:
+                <codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target:       https://api.15.124.133.173.xip.io
+Organization: &lt;none>
+Space:        &lt;none></codeblock><codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+              <li>Get a list of all services in the ALS
+                  cluster.<p><codeblock>helion services</codeblock> On a new ALS cluster with no
+                  services created, you should see output similar to the
+                  following:<codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></p></li>
+              <li>Create a new service for binding MongoDB from applications in the ALS cluster.<codeblock>helion create-service user-provided <i>&lt;name of your MongoDB service&gt;</i></codeblock><ol>
+                  <li>When prompted, enter the field names to be used for MongoDB connection credentials.<ul>
+                      <li>For a single instance MongoDB, provide field names such as: hostname,
+                        port, username, password, db.</li>
+                      <li>For a MongoDB cluster, provide field names such as: queryrouter, port,
+                        username, password, db. If you have multiple query routers, provide each
+                        router name: queryrouter1, queryrouter2, port, username, password, db</li>
+                    </ul></li>
+                  <li>When prompted, enter values for these connection credential fields.<ul>
+                      <li>Example: Clustered MongoDB with one query-router. You need to specify the
+                        floating IP address of the query router and the single port number 27017 for
+                        MongoDB.
+                        <codeblock>$ helion create-service user-provided my-mongo-db-service
+SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+Which credentials to use for connections [hostname, port, password]: query-router,port,username,password,db
+query-router: 15.124.133.192
+port: 27017
+username: demo
+password: demo
+db: test_db
+Creating new service … OK</codeblock></li>
+                    </ul></li>
+                  <li>Validate that the new service is
+                      available.<codeblock>$ helion services</codeblock><p>Example:
+                      <codeblock>$ helion services
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-mongo-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></p></li>
+                  <li>Verify that the credentials are correct for the service you just created. <codeblock>$ helion service &lt;name of your MongoDB service&gt;</codeblock><ul>
+                      <li>Example: A clustered MongoDB with one query router:
+                        <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | test_db          |
+|  - query-router | 15.124.133.190   |
+|  - password     | demo             |
+|  - port         | 27017            |
+|  - username     | demo             |
+| Applications    |                  |
++-----------------+------------------+</codeblock></li>
+                    </ul></li>
+                </ol></li>
+            </ol><p>Now that you have validated the service has been created and populated with the
+              correct credentials, you can deploy your application and bind to the service using the
+              manifest file.</p></li>
+          <li> Bind to a MongoDB user-provided service from an app during deployment. <ol>
+              <li>Add the name of user-provided MongoDB service to the <codeph>services:</codeph>
+                block of the application's manifest file. <p>Sample manifest file including a
+                  reference to a user-provided MongoDB service named
+                    <codeph>my-mongo-db-service</codeph>
+                  <codeblock>applications:
+  .:
+    name: my-app
+    mem: 128M
+    <ph outputclass="codehighlight">services:
+      my-mongo-db-service:</ph>
+    helion:
+      env:
+      ENV_VAR: ${name}</codeblock></p></li>
+            </ol></li>
+          <li>Create and connect the VCAP_SERVICES environment variables. <p>When an application is
+              deployed in an ALS cluster, the service connection credentials are populated with the
+              values that were defined in the user-provided service. These credentials become
+              available in the VCAP_SERVICES environment variables, which can be consumed by your
+              application. Best practice is not to hardcode connection credentials in your
+              application code; you should parse and use the VCAP_SERVICES environment variables
+              instead. More information on how to use VCAP_SERVICES can be found <xref
+                href="../user/services/data-services.dita#user_data_services/vcap-services"
+                >here</xref>.</p><ul>
+              <li>
+                <p>Sample code for connection to a clustered MongoDB database with a single query
+                  router(s).
+                  <codeblock>def mongoDBConnection(self,credentials): 
+# for clustered MongoDB with one query router, use query-router variable
+        query-router= credentials['query-router']
+
+# port, username, password, and db variables apply to all query routers
+        port = int(credentials['port'])
+
+# Skip username/password unless authentication was manually enabled for the MongoDB cluster
+        username = credentials['username']
+        password = credentials['password']
+        db = credentials['db']
+
+# URI for using one query router. Use this URI value for connecting to one query router                                    
+        mongoDB_URI = "mongodb://%s:%s@%s:%d/%s"%(username,password,query-router,port,db)
+
+        try: 
+            mongoClient = MongoClient(mongoDB_URI) 
+            dbInstance = mongoClient.get_default_database()
+        except Exception as e:
+            return(e)</codeblock></p>
+              </li>
+            </ul></li>
+          <li> Deploy your application using the Helion CLI.
+            <codeblock>helion push -n</codeblock></li>
+          <li> After the application has successfully deployed, verify that the service is bound to
+            your application. <codeblock>helion service &lt;your MongoDB service&gt;</codeblock><ul>
+              <li>
+                <p>Example: Clustered MongoDB with <b>one</b> query router</p>
+                <codeblock>$ helion service my-mongo-db-service</codeblock>
+                <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | test_db          |
+|  - query-router | 15.124.133.150   |
+|  - password     | demo             |
+|  - port         | 27017            |
+|  - username     | demo             |
+| Applications    |                  |
+| - my-app        |                  |
+|  - db           | test_db          |
+|  - query-router | 15.124.133.150   |
+|  - password     | demo             |
+|  - port         | 27017            |
+|  - username     | demo             |
++-----------------+------------------+</codeblock>
+              </li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
+    
+    <section id="multiquery"><title outputclass="headerH">Procedure for a MongoDB cluster with multiple query routers </title><sectiondiv outputclass="insideSection">
      
       <ol>
         <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
@@ -46,43 +385,22 @@ Space:        default</codeblock></li>
 +--------+------+-------------+---------+------+--------+----------+---------+--------+------+
 =========== Provisioned Services ============</codeblock></p></li>
             <li>Create a new service for binding MongoDB from applications in the ALS
-                cluster.<codeblock>helion create-service user-provided <i>&lt;name of your MongoDB service&gt;</i></codeblock><ol
-                id="ol_xbq_c25_q5">
+                cluster.<codeblock>helion create-service user-provided <i>&lt;name of your MongoDB service&gt;</i></codeblock><ol>
                 <li>When prompted, enter the field names to be used for MongoDB connection
-                    credentials.<ul id="ul_tkq_wd5_q5">
+                    credentials.<ul>
                     <li>For a single instance MongoDB, provide field names such as: hostname, port,
                       username, password, db.</li>
                     <li>For a MongoDB cluster, provide field names such as: queryrouter, port,
                       username, password, db. If you have multiple query routers, provide each
                       router name: queryrouter1, queryrouter2, port, username, password, db</li>
                   </ul></li>
-                <li>When prompted, enter values for these connection credential fields.<ul
-                    id="ul_o2v_325_q5">
-                    <li>Example: Single Instance MongoDB
-                      <codeblock>$ helion create-service user-provided my-mongo-db-service
-Which credentials to use for connections [hostname, port, password]: hostname,port,username,password,db
-hostname: 15.124.133.182
-port: 27017
-username: demo
-password: demo
-db: test_db
-Creating new service … OK</codeblock></li>
-                    <li>Example: Clustered MongoDB with one query-router. You need to specify the
-                      floating IP address of the query router and the single port number 27017 for
-                      MongoDB.
-                      <codeblock>$ helion create-service user-provided my-mongo-db-service
-SSL warning for "api.15.124.133.173.xip.io": self signed certificate
-Which credentials to use for connections [hostname, port, password]: query-router,port,username,password,db
-query-router: 15.124.133.192
-port: 27017
-username: demo
-password: demo
-db: test_db
-Creating new service … OK</codeblock></li>
-                    <li>Example: Clustered MongoDB with multiple query-routers (for example, 2 query
-                      routers). You need to specify the floating IP address per query router and the
-                      single port number 27017 for
-                      MongoDB.<codeblock>$ helion create-service user-provided my-mongo-db-service
+                <li>When prompted, enter values for these connection credential fields.<ul>
+                    
+                   
+                    <li>Example: Clustered MongoDB with two query routers. You need to specify the
+                        floating IP address of each query router and the single port number 27017
+                        for
+                        MongoDB.<codeblock>$ helion create-service user-provided my-mongo-db-service
 SSL warning for "api.15.124.133.173.xip.io": self signed certificate
 Which credentials to use for connections [hostname, port, password]: query-router1,query-router2,port,username,password,db
 
@@ -109,41 +427,9 @@ db: test_db
 | default::default | my-mongo-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
 +------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></p></li>
                 <li>Verify that the credentials are correct for the service you just created. <codeblock>$ helion service &lt;name of your MongoDB service&gt;</codeblock><ul>
-                    <li>Example: A single-instance MongoDB:
-                      <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
-+--------------+------------------+
-| What         | Value            |
-+--------------+------------------+
-| State        | no data          |
-| Type         | user-provided    |
-| Space        | default::default |
-| Credentials  |                  |
-|  - db        | test_db          |
-|  - hostname  | 15.124.133.182   |
-|  - password  | demo             |
-|  - port      | 27017            |
-|  - username  | demo             |
-| Applications |                  |
-+--------------+------------------+</codeblock></li>
-                    <li>Example: A clustered MongoDB with one query router:
-                      <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
-+-----------------+------------------+
-| What            | Value            |
-+-----------------+------------------+
-| State           | no data          |
-| Type            | user-provided    |
-| Space           | default::default |
-| Credentials     |                  |
-|  - db           | test_db          |
-|  - query-router | 15.124.133.190   |
-|  - password     | demo             |
-|  - port         | 27017            |
-|  - username     | demo             |
-| Applications    |                  |
-+-----------------+------------------+</codeblock></li>
-                    <li>Example: A clustered MongoDB with multiple query-routers. In this example,
-                      there are 2 query routers.
-                      <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
+                 
+                    <li>Example: A clustered MongoDB with 2 query routers.
+                        <codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
 +------------------+------------------+
 | What             | Value            |
 +------------------+------------------+
@@ -187,55 +473,11 @@ db: test_db
             code; you should parse and use the VCAP_SERVICES environment variables instead. More
             information on how to use VCAP_SERVICES can be found <xref
               href="../user/services/data-services.dita#user_data_services/vcap-services"
-              >here</xref>.</p><ul id="ul_jq4_hhv_q5">
-            <li>
-              <p>Sample code snippet on how to parse VCAP_SERVICES variables and how to interact
-                with a single instance MongoDB database in a Python
-                application.<codeblock>def mongoDBConnection(self,credentials):  
-
-#For single instance MongoDB, use hostname variable 
-        hostname = credentials['hostname']
-        port = credentials['port']
-        username = credentials['username']
-        password = credentials['password']
-        db = credentials['db']
-
-# For connecting to a single instance MongoDB:                                    
-        mongoDB_URI = "mongodb://%s:%s@%s:%d/%s"%(username,password,hostname,int(port),db)
-
-        try: 
-            mongoClient = MongoClient(mongoDB_URI) 
-            dbInstance = mongoClient.get_default_database()
-        except Exception as e:
-            return(e)
-            
-        try: #Create a collection in database
-            collection = dbInstance['mytestcollection']
-        except  Exception as e:
-            return(e)
-        
-        try: #Insert a document into collection
-            collection.insert({ 'foo':'bar' })
-        except Exception as e:
-            return(e)
-
-        try: # find a document in collection
-            collection.find()
-        except Exception as e:
-            return(e)
-        
-        try: # remove a collection from database
-            dbInstance.drop_collection(“mytestcollection")
-        except Exception as e:
-            return(e)              </codeblock></p>
-            </li>
-            <li>
+              >here</xref>.</p><ul>
+           <li>           
               <p>Sample code for connection to a clustered MongoDB database with query router(s).
-                This example shows connecting to both a single query router and two query routers.
+                This example shows connecting to two query routers.
                 <codeblock>def mongoDBConnection(self,credentials): 
-# for clustered MongoDB with one query router, use query-router variable
-        query-router= credentials['query-router']
-
 # for clustered MongoDB with two query routers, use query-router1 and query-router2 variables (and add and use more variables, one for each additional query router)
         query-router1= credentials['query-router1']
         query-router2= credentials['query-router2']
@@ -248,9 +490,6 @@ db: test_db
         password = credentials['password']
         db = credentials['db']
 
-# URI for using one query router. Use this URI value for connecting to one query router                                    
-        mongoDB_URI = "mongodb://%s:%s@%s:%d/%s"%(username,password,query-router,port,db)
-
 # URI for using 2 query routers. Use this URI value for connecting to two query routers                                    
         mongoDB_URI = "mongodb://%s:%s@%s:%d,%s:%d/%s"%(username,password,query-router1,port,query-router2,port,db)
 
@@ -258,65 +497,16 @@ db: test_db
             mongoClient = MongoClient(mongoDB_URI) 
             dbInstance = mongoClient.get_default_database()
         except Exception as e:
-            return(e)</codeblock></p>
-            </li>
+            return(e)</codeblock></p></li>
+            
           </ul></li>
         <li> Deploy your application using the Helion CLI.
           <codeblock>helion push -n</codeblock></li>
         <li> After the application has successfully deployed, verify that the service is bound to
           your application. <codeblock>helion service &lt;your MongoDB service&gt;</codeblock><ul>
             <li>
-              <p>Example: Single instance MongoDB</p>
-              <codeblock>$ helion service my-mongo-db-service </codeblock>
-              <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
-+--------------+------------------+
-| What         | Value            |
-+--------------+------------------+
-| State        | no data          |
-| Type         | user-provided    |
-| Space        | default::default |
-| Credentials  |                  |
-|  - db        | test_db          |
-|  - hostname  | 15.124.133.182   |
-|  - password  | demo             |
-|  - port      | 27017            |
-|  - username  | demo             |
-| Applications |                  |
-| - my-app     |                  |
-|  - db        | test_db          |
-|  - hostname  | 15.124.133.182   |
-|  - password  | demo             |
-|  - port      | 27017            |
-|  - username  | demo             |
-+--------------+------------------+</codeblock>
-            </li>
-            <li>
-              <p>Example: Clustered MongoDB with <b>one</b> query router</p>
-              <codeblock>$ helion service my-mongo-db-service</codeblock>
-              <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
-+-----------------+------------------+
-| What            | Value            |
-+-----------------+------------------+
-| State           | no data          |
-| Type            | user-provided    |
-| Space           | default::default |
-| Credentials     |                  |
-|  - db           | test_db          |
-|  - query-router | 15.124.133.150   |
-|  - password     | demo             |
-|  - port         | 27017            |
-|  - username     | demo             |
-| Applications    |                  |
-| - my-app        |                  |
-|  - db           | test_db          |
-|  - query-router | 15.124.133.150   |
-|  - password     | demo             |
-|  - port         | 27017            |
-|  - username     | demo             |
-+-----------------+------------------+</codeblock>
-            </li>
-            <li>
-              <p>Example: Clustered MongoDB with <b>two</b> query routers</p>
+            
+              <p>Example: Clustered MongoDB with two query routers</p>
               <codeblock>$ helion service my-mongo-db-service</codeblock>
               <codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
 +------------------+------------------+
