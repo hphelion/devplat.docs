@@ -15,14 +15,7 @@
         href="../admin/server/configuration.dita#topic31232/container_allowed"
         >process here</xref>. </section>
     
-    <section><ul><li>
-      <xref href="upservicesdevmongo/instance">Procedure for a single instance</xref>
-    </li><li>
-      <xref href="upservicesdevmongo/singlequery">Procedure for a cluster with a single query router</xref>
-    </li><li>
-      <xref href="upservicesdevmongo/multiquery">Procedure for a cluster with multiple query routers</xref>
-    </li></ul></section>
-    <section id="instance"><title outputclass="headerH">Procedure for a single MongoDB instance
+        <section id="instance"><title outputclass="headerH">Procedure for a single MongoDB instance
         </title><sectiondiv outputclass="insideSection">
         <ol>
           <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
