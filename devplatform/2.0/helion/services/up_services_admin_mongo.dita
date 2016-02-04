@@ -15,7 +15,7 @@
             scope="external">MongoDB</xref>. </li></ul>
        </section>
     
-    <section><title>Limitations</title><p>At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
+    <section><title>Limitations</title><p id="mongolimits">At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
         cluster creation. On production environments where high-availability is a requirement for a
         MongoDB cluster access, consider creating at least one additional MongoDB query-router VM
         after you have created that MongoDB cluster. You can do this on CLI or UI by “grow cluster”

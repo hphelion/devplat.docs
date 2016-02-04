@@ -264,7 +264,8 @@
       navtitle="User-provided Service Integration for ALS Clusters and Applications" locktitle="yes"/>
     <topicref href="2.0/helion/services/up_services_update.dita"
       navtitle="Updating User-provided Services" locktitle="yes"/>
-    <topichead navtitle="Administrators">
+    <topicref href="2.0/helion/services/up_administrator.dita" navtitle="Administrator Procedures"
+      locktitle="yes" collection-type="family" linking="normal">
       <topicref href="2.0/helion/services/up_services_admin_message.dita"
         navtitle="Messaging Integration for Administrators" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_admin_mongo.dita"
@@ -275,8 +276,8 @@
         navtitle="Redis Integration for Administrators" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_admin_vertica.dita"
         navtitle="Vertica Integration for Administrators" locktitle="yes"/>
-    </topichead>
-    <topicref href="2.0/helion/services/developers.dita" navtitle="Developer Procedures"
+    </topicref>
+    <topicref href="2.0/helion/services/up_developers.dita" navtitle="Developer Procedures"
       locktitle="yes" collection-type="family" linking="normal">
       <topicref href="2.0/helion/services/up_services_dev_message.dita"
         navtitle="Messaging Integration for Developers" locktitle="yes"/>

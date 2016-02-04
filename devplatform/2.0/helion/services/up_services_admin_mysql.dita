@@ -15,7 +15,7 @@
           connect and manage the MySQL database. For example, you can add users and databases.</li>
       </ul></section>
     <section><title>Limitations</title>
-      <ul id="ul_zxj_wkf_55">
+      <ul id="mysqllimit">
         <li>The HPE Helion Development Platform 2.0 Database as a Service creates MySQL cluster with
           3 nodes by default, and there is no way to change this configuration during or after the
           cluster creation. Adding or removing notes is not currently supported.</li>
