@@ -3,7 +3,9 @@
 <topic id="upservicesdevvertica">
   <title>
     HPE Helion 2.0 Development Platform: Vertica Integration for Developers</title>
-  <body><p>These steps are intended for developers who intend to create custom Vertica service and bind it to an application. The <xref href="up_services_admin_vertica.dita">administrator steps</xref> are required prior to this point.</p>
+  <body><p>These steps are intended for developers who intend to create a custom Vertica service and bind it
+      to an application. The <xref href="up_services_admin_vertica.dita">administrator steps</xref>
+      are required prior to this point.</p>
 <section><title>Prerequisites</title>
       <ul id="ul_db3_tnf_55">
         <li>You already have an ALS cluster created.</li>

@@ -2,7 +2,9 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesdevmessage">
   <title>HPE Helion Development Platform 2.0: Messaging Integration for Developers</title>
-  <body>
+    <body><p>These steps are intended for developers who intend to create a custom messaging service and bind it
+        to an application. The <xref href="up_services_admin_message.dita">administrator steps</xref>
+        are required prior to this point.</p>
     <section><title>Prerequisites</title>
       <ul>
         <li> You already have an ALS cluster.</li>
@@ -114,7 +116,6 @@ https://api.10.241.22.105.xip.io -> default -> default -> my-rabbitmq-service
       </ol>
     </section><section><title>Code snippet for Python usage</title>
     <codeblock>import pika
-
        ...
     def testConnection(self,credentials):
     
