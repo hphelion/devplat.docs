@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminmessage">
   <title>
-    HPE Helion 2.0 Development Platform: Messaging Integration for Administrators</title>
+    HPE Helion 2.0 Development Platform: Messaging Integration for Administrators</title><shortdesc>Connect messaging clusters to ALS clusters to support service creation and application binding.</shortdesc>
   <body>
 <section><title>Administrator Steps</title>
       <ol id="ol_ld1_q4f_55">

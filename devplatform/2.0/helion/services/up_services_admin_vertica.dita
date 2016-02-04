@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminvertica">
-  <title>HPE Helion Development Platform 2.0: Vertica Integration for Administrators</title>
+  <title>HPE Helion Development Platform 2.0: Vertica Integration for Administrators</title><shortdesc>Connect Vertica instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>
   <body>
     <p>Vertica Community Edition 7.1.2 is packaged and distributed in the Vertica Preview included
       with HPE Helion Development Platform 2.0.</p>
