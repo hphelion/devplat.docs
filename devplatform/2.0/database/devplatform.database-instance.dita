@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" ><topic xml:lang="en-us" id="DatabaseService">
-<title>HPE Helion 2.0 Development Platform: Using the Database Service</title>
+<title>HPE Helion Development Platform 2.0: Using the Database Service</title>
 <body>
 <p>The database service provides lifecycle services for MySQL, Vertica Preview, Redis, or MongoDB database instances.
       Lifecycle services include provisioning, configuration, patching, backups, restores, and
