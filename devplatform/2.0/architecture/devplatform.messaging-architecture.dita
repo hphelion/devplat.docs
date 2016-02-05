@@ -2,7 +2,7 @@
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" >
 <topic xml:lang="en-us" id="MessagingArchitecture ">
-  <title>Messaging Service Architecture</title>
+  <title>HPE Helion Development Platform 2.0: Messaging Service Architecture</title><abstract><shortdesc outputclass="hpdhidden">Provides lifecycle services for RabbitMQ clusters.</shortdesc></abstract>
   <body>
     <p>The <xref
         href="http://docs.hpcloud.com/#devplatform/2.0/messaging/messaging_service_ref.html"

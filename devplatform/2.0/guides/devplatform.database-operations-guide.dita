@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic xml:lang="en-us" id="database_operations_guide">
-   <title>Database Service Operations Guide</title>
+  <title>HPE Helion Development Platform 2.0: Database Service Operations Guide</title><abstract><shortdesc>Documentation to help operate the Database service.</shortdesc></abstract>
    <body>
        <section>
          <p>When HA is enabled, the database service will distribute its multiple database instances across the compute hosts in those zones, ensuring that a single hardware failure in one availability zone (AZ) does not impact more than one database instance. </p>
@@ -34,7 +34,7 @@
          <ul>
            <li>
              <p>For documentation on backup/restore capability for single-instance client databases, see 
-             <xref href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-backup.html" scope="local">Back up a Database</xref>. 
+             <xref href="../../2.0/database/devplatform.database-backup.html" scope="local">Back up a Database</xref>. 
              HPE Helion Development Platform (HDP) does not provide a tool or automation for establishing a backup policy and schedule. You can either use existing solutions to configure your desired policy, 
              or use “cron” type tools. Depending on how accessible your client databases are from outside of a Helion OpenStack environment, you might initiate backups from external cloud providers 
              (such as AWS), or copy backup data to outside the boundaries of the Helion OpenStack. HDP does not provide a mechanism for that within the product. There is also database replication functionality 
@@ -61,7 +61,7 @@
                <li>Ensure your data is restored correctly and begin using the new clustered database</li>
              </ol>
            </li>
-           <li><p>For documentation for High Availability (HA) capability for Trove Control Plane VMs, see <xref href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-architecture.htm" scope="local">
+           <li><p>For documentation for High Availability (HA) capability for Trove Control Plane VMs, see <xref href="../../2.0/database/devplatform.database-architecture.htm" scope="local">
               Database Service Architecture</xref>.  </p>
              <p>For HA, the number of AZs and hardware redundancy determines your HA capability. In a single rack, all AZs will share the same power/network. The Trove Control Plane database is a 
                MySQL Galera cluster (active/active multi-master sync config). It can tolerate down to one node staying up (on a 3 AZ config, 2 node failures). In addition, control plane database is 

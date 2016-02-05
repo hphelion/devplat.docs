@@ -2,7 +2,7 @@
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd" >
 <topic xml:lang="en-us" id="messagingservice">
-  <title>Messaging Broker Operations Guide</title>
+  <title>HPE Helion Development Platform 2.0: Messaging Broker Operations Guide</title>
   <body>
           <ul>
         <li><xref type="section" href="#messagingservice/operations">Operations Guide</xref></li>

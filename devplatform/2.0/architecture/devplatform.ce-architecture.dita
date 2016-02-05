@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+  PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" >
+<topic xml:lang="en-us" id="cearch">
+  <title>HPE Helion Development Platform 2.0: Code Engine Service Architecture</title><abstract><shortdesc outputclass="hpdhidden">Continuous integration and delivery  based on Git version control technologies</shortdesc></abstract>
+  <body>
+    
+  </body>
+</topic>

@@ -18,13 +18,13 @@
       <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
     </section>
     
-    <section><title outputclass="headerH">Platform Overview</title>This section provides an
+    <section><title outputclass="headerH">Platform Overview</title><sectiondiv
+        outputclass="insideSection"><p>This section provides an
       introduction to the services that comprise the HPE Helion Development Platform. The HPE Helion
       Development Platform provides the foundation for developers to build great cloud-native
       applications on HPE Helion OpenStack. Based on Cloud Foundry™ and fully integrated with HPE
       Helion OpenStack®, the HPE Helion Development Platform is open and interoperable, ensuring
-      that developers can focus on building the right app for any environment. <sectiondiv
-        outputclass="insideSection"><p>HPE Helion Development Platform Application Services are
+      that developers can focus on building the right app for any environment. </p><p>HPE Helion Development Platform Application Services are
           trusted services:<ul id="ul_btw_x1b_x5">
             <li> The Database Service control plane runs in the Admin tenant.</li>
             <li> The databases created by the Database Service run in the user tenant. </li>
@@ -59,7 +59,7 @@
       </sectiondiv></section>
     
     <section>
-      <title outputclass="headerH">IaaS Requirements </title>
+      <title outputclass="headerH">IaaS Requirements </title><sectiondiv outputclass="insideSection">
       <p>This section focuses on the HPE Helion Development Platform requirements on HPE Helion
         OpenStack 2.0. All of the HPE Helion Development Platform services run “in-cloud”, which
         means inside of virtual machine instances provided by HPE Helion OpenStack. Once installed
@@ -154,7 +154,7 @@
         visibility to the database/message broker instances. </p>
       <p>In the default reference architecture, this is provided by having all databases and message
         brokers on the same tenant supplied network as the ALS cluster housing the applications that
-        need database/message queue access.</p>
+        need database/message queue access.</p></sectiondiv>
     </section>
     
     <section><title outputclass="headerH">OpenStack Service Requirements</title><sectiondiv
@@ -392,8 +392,8 @@
           the ESX and KVM hypervisors. All other distributions support only KVM.</note>
       </p>
    </sectiondiv> </section>
-    <section id="relinfo"><title outputclass="headerH">Related Service Reference Architecture Documents</title><sectiondiv outputclass="insideSection"><p>Each service has a separate document to show what the service architecture looks like
-      after installation and provide operational guidance. </p></sectiondiv></section>
+    <section id="relinfo"><title outputclass="headerH">Related Service Reference Architecture Documents</title><p>Each service has a separate document to show what the service architecture looks like
+      after installation and provide operational guidance. </p></section>
     
   </body>
 </topic>
