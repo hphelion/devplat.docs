@@ -49,64 +49,46 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
     <section><title>Known Bugs</title>
     <p>None.</p></section>
     
-    <section><title>Administrator Procedure</title>
-    
-    <ol>
-      <li>Create a Redis single instance or cluster using HDP Database Service. For production
-          deployments, clusters are recommended for high availability. <p>
-            <sl>
-              <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
-                  single instance on Horizon</xref></sli>
+    <section>
+      <title outputclass="headerH">Administrator procedure for a single instance</title>
+      <ol id="ol_xxb_kyz_w5">
+        <li>Create a Redis single instance using the HDP Database Service. For production
+          deployments, clusters are recommended for high availability. <sl>
+            <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+                single instance on Horizon</xref></sli>
+            <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+                single instance using CLI</xref></sli>
+          </sl>
+        </li>
+        <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
+            the ALS cluster</xref> to open access to the IP addresse of the Redis instance and port
+          6379.</li>
+        <li>For the specific Redis database that will be used by an application, provide the
+          following connection parameters to the developers.<ul id="ul_zdv_fr1_t5">
+            <li>The IP address of the Redis database instance</li>
+            <li>That Redis communicates on port 6379</li>
+          </ul></li>
+      </ol>
+    </section>
+    <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv
+        outputclass="insideSection">
+        <ol id="ol_s1g_zxz_w5">
+          <li>Create a Redis cluster using the HDP Database Service. For production deployments,
+            clusters are recommended for high availability. <sl>
               <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
                   cluster on Horizon</xref></sli>
               <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
-                  single instance using CLI</xref></sli>
-              <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
                   cluster using CLI</xref></sli>
-            </sl>
-          </p></li>
-      <li>Configure ALS cluster for connectivity to Redis.<p>Configure your ALS cluster for access
-            to each Redis instance or cluster you have already created, by <xref
-              href="../admin/server/configuration.dita#topic31232/container_allowed">configuring ALS cluster hosts and ports
-            access</xref>.</p><ul id="ul_qxq_vq1_t5">
-            <li>For single instance Redis, you need to open ALS access for the IP address of the
-              Redis instance and port 6379.</li>
-            <li>For clustered Redis, you need to open ALS access for the IP addresses of all Redis
-              cluster VM’s in the “admin” tenant and port 6379.</li>
-          </ul></li>
-      <li>Provide the Redis connection parameters to application developers.<p>For the specific
-            Redis database that will be used by an application, provide the following to the
-            developers:</p><ul id="ul_zdv_fr1_t5">
-            <li>For Redis single instance: IP address of the Redis database instance</li>
-            <li>For Redis cluster: IP address(es) of Redis clustered instance VM(s).</li>
-            <li>Redis port number 6379</li>
-          </ul></li>
-      
-      
-      
-    </ol>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </section>
+            </sl></li>
+          <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
+              the ALS cluster</xref> to open access to all IP addresses of the Redis cluster VMs in
+            the <codeph>admin</codeph> tenant and port 6379.</li>
+          <li> For the specific Redis database that will be used by an application, provide the
+            following connection parameters to the developers.<ul>
+              <li>IP address(es) of Redis clustered instance VM(s).</li>
+              <li>That Redis communicates on port 6379</li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
   </body>
 </topic>

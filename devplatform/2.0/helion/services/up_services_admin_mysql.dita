@@ -135,13 +135,12 @@
                     <codeblock>kato restart mysql -n &lt;remote IP&gt;</codeblock>
                   </p></li>
               </ol></li>
-          </ol></li><li>Provide the connection parameters for your MySQL cluster to application developers.<p>For the
-            specific MySQL cluster database that will be used by an application, provide the
-            following to the developers:</p><ul id="ul_r4k_w4m_55">
-            <li>Virtual IP address of the MySQL cluster as you configured using LBaaS</li>
-              <li>Username/password as <xref href="#upservicesadminmysql/rootenable">set previously</xref> using
-              <codeph>root-enable</codeph>.</li>
-            <li>MySQL port number 3306</li>
+          </ol></li><li>Provide th application developers with the connection parameters for the specific MySQL cluster
+          database that can be used by an application. <ul id="ul_r4k_w4m_55">
+            <li>The virtual IP address, as configured using LBaaS</li>
+            <li>Username/password as <xref href="#upservicesadminmysql/rootenable">set
+                previously</xref> using <codeph>root-enable</codeph>.</li>
+            <li>That MySQL communicates on port 3306</li>
           </ul></li>      
       </ol></section>
     
