@@ -4,16 +4,11 @@
 <topic xml:lang="en-us" id="messagingservice">
   <title>HPE Helion Development Platform 2.0: Messaging Broker Operations Guide</title><abstract><shortdesc outputclass="hdphidden">Documentation to help operate the Messaging Broker service.</shortdesc></abstract>
   <body>
-          <ul>
-        <li><xref type="section" href="#messagingservice/operations">Operations Guide</xref></li>
-        <li><xref type="section" href="#messagingservice/consoleaccess">Management Console Access</xref></li>
-        <li><xref type="section" href="#messagingservice/sizing">RabbitMQ Sizing and Usage</xref></li>
-        <li><xref type="section" href="#messagingservice/stackato">Access from Helion Stackato</xref></li>
-        <li><xref type="section" href="#messagingservice/portmapping">Node/Network/Component/Service/Port mapping</xref></li>
-        <li><xref type="section" href="#messagingservice/restrictions">Port Restrictions</xref></li>
-        <li><xref type="section" href="#messagingservice/info">For More Information</xref></li>
-      </ul>
-    
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
+   
     <section id="operations">
       <title>Messaging Broker Operations Guide</title>
       <p>Users can create RabbitMQ clusters using the Horizon UI or the Cue CLI. 
@@ -33,9 +28,9 @@
         where larger memory instances are added and the original smaller memory instances 
         are removed is recommended.</p>
     </section>
+    <section><title outputclass="headerH">Management Console Access</title>
+      <sectiondiv outputclass="insideSection">
     
-    <section id="consoleaccess">
-      <title>Management Console Access</title>
       <p>The Management Console for a created RabbitMQ cluster can be exposed and accessed 
         by end user following one of 3 options.</p>
       <ul>
@@ -53,10 +48,11 @@
           </ul>
         </li>
       </ul>
+      </sectiondiv>
     </section>
-    
-    <section id="sizing">
-      <title>RabbitMQ Sizing and Usage</title>
+    <section><title outputclass="headerH">RabbitMQ Sizing and Usage</title>
+      <sectiondiv outputclass="insideSection">
+   
       <p>RabbitMQ clusters configured for full replication will replicate all data to all 
         nodes. Adding more nodes to the cluster increases availability at the expense of 
         communication. For that reason it is recommended to have a 3 node minimum cluster 
@@ -67,16 +63,18 @@
         added from within the RabbitMQ management console. Developers can use native RabbitMQ 
         functionality to create queues and write cloud native applications. To access the 
         console from outside the external-network a floating IP can be assigned to the cluster.</p>
+      </sectiondiv>
     </section>
-    
-    <section id="stackato">
-      <title>Access from Helion Stackato</title>
+    <section><title outputclass="headerH">Access from Helion Stackato</title>
+      <sectiondiv outputclass="insideSection">
+   
       <p>HDP users that have created a Helion Stackato cluster in their tenant space can access 
         Messaging Service managed RabbitMQ instances via User Provided Service Instances.</p>
+      </sectiondiv>
     </section>
+    <section><title outputclass="headerH">Node/ Network/ Component/ Service/ Port Mapping</title>
+      <sectiondiv outputclass="insideSection">
     
-    <section id="portmapping">
-      <title>Node/Network/Component/Service/Port mapping</title>
         <p>This section shows the services and ports used by the control plane and message broker (RabbitMQ) nodes.</p>
       
         <p>
@@ -194,11 +192,11 @@
         </table>
       </p>
       <note>Restrictions on rules not shown in this table (see Port Restrictions table below)</note>
-      
+      </sectiondiv>
     </section>
+    <section><title outputclass="headerH">Port Restrictions</title>
+      <sectiondiv outputclass="insideSection">
     
-    <section id="restrictions">
-      <title>Port Restrictions</title>
       <p>
         <table frame="all" rowsep="1" colsep="1" id="table_l1g_zwc_w5">
           <title/>
@@ -269,15 +267,17 @@
         </table>
       </p>
   
-    
+      </sectiondiv>
       </section>
     
     
     
+    <section><title outputclass="headerH">For More Information</title>
+      <sectiondiv outputclass="insideSection">
     
-    <section id="info"><title>For More Information</title>
       <p>For more details on OpenStack Cue, Message Broker, see <xref href="http://docs.openstack.org/developer/cue/" format="html"
           scope="external">Cue, Message Broker Provisioning for OpenStack</xref></p>
+      </sectiondiv>
     </section>
   </body>
 </topic>
