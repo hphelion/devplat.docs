@@ -6,20 +6,602 @@
     <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
     <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
   </section>
-    <section><title outputclass="headerH">Deployed View</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section id="alsnetwork"><title outputclass="headerH">Network </title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">Life of an ALS Cluster</title><sectiondiv outputclass="insideSection">
-            <p><b>Networks</b></p>
-      <p><b>Network Resources</b></p>
-      <p><b>Security Groups</b></p>  
-    </sectiondiv></section>
-    <section><title outputclass="headerH">Helion ALS Cluster Sizing Considerations</title><sectiondiv outputclass="insideSection">
+    <section><p>Application Lifecycle Service (ALS, aka Stackato) is a Cloud Foundry-based, managed runtime environment for applications.
       
-      
-      
-    </sectiondiv></section>
-    <section><title outputclass="headerH">Sizing Examples</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+      <ul><li>It supports .NET, Java, Node.js, PHP, and other language runtimes.</li>
+        <li>Users can deploy apps using buildpacks or as Docker images. All applications run in Docker containers.</li>
+        <li>It provides the following  developer grade, non-managed, and not highly available single VM based services: MySQL, PostgreSQL, RabbitMQ, MongoDB, and memcached. </li>
+        <li>It allows Disk, Memory and Placement Zone constraints to be set per application.</li>
+        <li> It provides application auto-scaling, which scales the application within a pool of DEA nodes, and application log drains.</li>
+              <li> It also provides DEA scaling, which can increase the resource pool by adding DEA nodes. This requires the operator to create a script to interact with the IaaS layer (Helion OpenStack) to operationalize the addition of nodes. There is no DEA resource pool shrink functionality. An administrator can manually scale down through the use of ‘kato node retire’. This process involves evacuating the DEA and moving the hosted applications onto the other DEA nodes in the cluster, then removing the node from the cluster config.</li></ul></p>
+      <p>The Helion Development Platform integrates ALS PaaS with HP Helion OpenStack.  </p>
+    </section>
+    <section><title outputclass="headerH">Deployed View</title><sectiondiv
+        outputclass="insideSection"><p>ALS doesn’t have a control plane. When an instance of ALS is
+          created either from the Horizon UI or using the cf-mgmt CLI, a small VM instance is booted
+          with an ALS cluster Constructor image, which in turn builds out the ALS cluster by
+          creating additional VM instances for the various cluster components.</p> ALS image names
+        have the following naming convention and format:
+        <codeblock>HP Helion Development Platform - Application Lifecycle Service Seed Node 2.0.0.XXX 
+HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.XXX</codeblock>
+        The diagram below shows a sample single availability zone ALS cluster built out by the
+        cf-mgmt CLI  </sectiondiv></section>
+    <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection">
+        <table frame="all" rowsep="1" colsep="1" id="table_v4w_w4b_x5">
+          <tgroup cols="2">
+            <colspec colname="c1" colnum="1" colwidth="1*"/>
+            <colspec colname="c2" colnum="2" colwidth="4.26*"/>
+            <thead>
+              <row>
+                <entry>Component</entry>
+                <entry>Function</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry> ALS cluster Core Node </entry>
+                <entry>Responsible for directing all elements of the system. The attached Health
+                  monitor keeps track of DEA availability. All ALS cluster VMs communicate with the
+                  ALS Core Node over NATS, a lightweight publish-subscribe and distribute queuing
+                  messaging system. During cluster configuration, all VMs are connected to the ALS
+                  Core Node via NATS.</entry>
+              </row>
+              <row>
+                <entry>Droplet Execution Agents (DEAs) </entry>
+                <entry>These are the worker nodes of the system and where applications run. Each DEA
+                  hosts multiple applications within separate Linux or Windows based containers.
+                  Application droplets are pulled from the ALS cluster Core Node and launched inside
+                  a pre-allocated container. If a DEA becomes unresponsive for any reason, the
+                  Health Manager will detect this and have the ALS cluster Core Node redeploy the
+                  assigned applications for that DEA to the other "healthy" DEAs. The ALS cluster
+                  Core Node is responsible for deploying to Linux-based or Windows-based DEA as
+                  required by the application.</entry>
+              </row>
+              <row>
+                <entry>Router </entry>
+                <entry>Maps application URLs to the application instances running on the DEAs.
+                  Application users connecting from the web are redirected transparently to an
+                  internal URL and port. Connections from ALS clients are routed directly to the ALS
+                  cluster Controller.<p dir="ltr">The Router component can be scaled for high
+                    availability and failover purposes (like other ALS components). It also offers
+                    support for innovative new standards such as WebSocket and SPDY (an
+                    application-layer protocol designed specifically for minimal latency for
+                    transporting content over the web faster), so your development team can build
+                    modern applications with no restrictions.</p>The Router's Harbor feature offers
+                  port tunneling as a service (external TCP, UDP, and dual TCP/UDP ports can forward
+                  directly to an application, including to multiple instances (TCP only)).The Router
+                  also supports multiple SSL certificates.</entry>
+              </row>
+              <row>
+                <entry>ALS Developer-Grade Application Services </entry>
+                <entry>Built-in ALS services such as database, messaging, file system, and other
+                  services can be automatically provisioned by the ALS cluster Core Node. These
+                  built-in ALS services are developer grade: they do not offer any guarantee for
+                  high-availability and thus are intended for development purposes. ALS Data
+                  Services are bound to applications by way of a special environment variable that
+                  exposes the connection information in the application container. Any service
+                  requested by a user can be bound to any application and deployed by that user, so
+                  multiple services can be bound to any application and vice versa. ALS Data
+                  Services can be run on separate VMs, or can share VMs as required. Applications
+                  can use HPE Helion Development Platform Enterprise Grade Application Services as
+                  well as other external services.<p dir="ltr">ALS supports the following
+                    developer-grade data services:</p><ul id="ul_ofm_3pb_x5">
+                    <li>MySQL 5.5.46</li>
+                    <li>filesystem 1.0 (SSHFS 2.3, FUSE 2.8.6)</li>
+                    <li>memcached 1.4.13</li>
+                    <li>Redis 2.8.21</li>
+                    <li>PostgreSQL 9.1.19</li>
+                    <li>RabbitMQ (rabbit) 2.8.7</li>
+                    <li>RabbitMQ (rabbit3) 3.1.3</li>
+                    <li>MongoDB 2.4.1</li>
+                    <li>MSSQL2012 Express</li>
+                    <li>MSSQL2014 Express</li>
+                    <li>Harbor (port forwarding) 1.0<p>
+                        <note>Helion Development Platform Application Services’ Database Service, an
+                          implementation of OpenStack Trove can be used by ALS hosted applications.
+                          For more information, see <xref
+                            href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-ALS.html"
+                            format="html" scope="external">Connecting the Database Service with ALS
+                            Clusters</xref></note>
+                      </p></li>
+                  </ul></entry>
+              </row>
+              <row>
+                <entry>Service gateways </entry>
+                <entry>Service Gateways are an abstraction with the ALS that lets Cloud Foundry
+                  applications talk to ALS services. Service gateways are registered with a cluster,
+                  and applications can then bind to those service gateways to consume different
+                  service plans.</entry>
+              </row>
+              <row>
+                <entry>User-provided service instances </entry>
+                <entry>User-provided service instances are essentially a credential cache that
+                  enables an application to consume a specific service. They only provide a
+                  connection specified by the credentials they contain - unlike standard service
+                  brokers they cannot provision resources within the service they represent.
+                </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </sectiondiv></section>
+    <p>A single ALS cluster VM instance is called a micro-cloud and can run all the services
+      required to operate. A micro-cloud is useful for simple testing, but not for production use.
+      This same VM is also the building block used to construct a full-scale PaaS cluster. One or
+      many clusters can be created within a given HP Helion OpenStack cloud. ALS clusters are
+      created, and can have additional resources added or removed. For basic functionality, the
+      OpenStack Dashboard can be used, however for production deployments the cf-mgmt command line
+      is recommended. The cf-mgmt command line provides additional configuration options.</p>
+    <p>An application consumes the data services in an abstract manner via a service broker pattern
+      provided by ALS, without a need to hardcode service access credentials (such as database
+      connection strings and account login and password). ALS cluster provides the values in
+      environment variables, which applications can consume. This abstracts the binding of data
+      services from the application, which provides degrees of freedom in terms of deployments and
+      management of these data services. This service abstraction enables that both the application
+      and the service can be moved without breaking the application. Logically, this service
+      abstraction can be considered analogous to DNS for services.</p>
+    <p>Managed Application Services outside of the ALS PaaS can be accessed by custom service
+      brokers, or user provided service instances, as shown in the diagram above.</p>
+   
+    <section id="alsnetwork"><title outputclass="headerH">Network </title><sectiondiv outputclass="insideSection">
+      <p>This diagram shows an example of how ALS cluster could be deployed. Note that the Tenant supplied network is connected to the  External public internet (Ext Network) via a router. All of this is assumed to have been done prior to ALS cluster creation.</p></sectiondiv></section>
+    <section id="life"><title outputclass="headerH">Life of an ALS Cluster</title><sectiondiv
+        outputclass="insideSection">
+        <p>Initially you will start with no instances pre-created for the cluster. From a jumpbox,
+          ideally in a tmux session, you run <codeph>cf-mgmt</codeph> which points to the OpenStack
+          public APIs. Running the commands in tmux session will ensure that if the network
+          connection drops, the installation still continues. The <codeph>cf-mgmt
+            create-cluster</codeph> command has HPE Helion OpenStack create a ALS cluster
+          Constructor VM (m1.small) which in turn needs access to the HPE Helion OpenStack public
+          APIs to create the final ALS cluster. This final ALS cluster will need access to the
+          public internet (perhaps via proxies) in order to get patches, download build packs from
+          Github, etc. Once the cluster is up, the constructor VM destroys itself. </p>
+        <p>Adding/removing additional DEAs or services or destroying a cluster takes a similar
+          approach. A m1.small VM instance is created to perform those operations and then destroys
+          itself unless the <codeph>--keep-constructor</codeph> option is specified. In case of a
+          failure, if you use the <codeph>--no-rollback</codeph> option, all the ALS clusters VMs
+          will be preserved for troubleshooting purposes.</p>
+        <p>Test of the environment: <ul>
+            <li>Create a Debian instance in the network and tenant where your ALS cluster will
+              be.</li>
+            <li>SSH into it.</li>
+            <li>Can it resolve IP addresses? <codeblock>nslookup www.cnn.com</codeblock></li>
+            <li>Can it get to the public internet?
+              <codeblock>export http_proxy=htt… 
+wget http://www.cnn.com/</codeblock></li>
+          </ul></p>
+        <p><b>Networks</b></p>
+        <p>Every time you create an ALS cluster, you will need to supply the following resources: <ul>
+            <li>1 tenant network - as shown above, a connection to the public internet is done by
+              routing the tenant network to the Ext-Network network. This is the network that gets
+              created via Neutron (either implemented by VLAN or VxLan).</li>
+          </ul>
+        </p>
+        <p><b>Network Resources</b></p>
+        <p>When an ALS cluster is created, the following resources are consumed (make sure you have
+          quotas for them, and increase quotas as needed)<ul id="ul_xmd_lqb_x5">
+            <li>1 Floating IP for the short-lived Constructor VM and 1 Floating IP per router node
+              in the cluster (default 1) <note>DEAs do not need floating IPs.</note></li>
+            <li>3 security groups to manage ingress and egress from the cluster.</li>
+          </ul></p>
+        <p>The following references can be used to identify and manage capacity in your
+            environment:<ul id="ul_uth_kqb_x5">
+            <li dir="ltr">
+              <p dir="ltr">Adding Compute Hosts - <xref
+                  href="http://docs.openstack.org/openstack-ops/content/scaling.html" format="html"
+                  scope="external"
+                  >http://docs.openstack.org/openstack-ops/content/scaling.html</xref></p>
+            </li>
+            <li>Managing Quotas - <xref
+                href="http://docs.openstack.org/user-guide-admin/content/cli_set_quotas.html"
+                format="html" scope="external"
+                >http://docs.openstack.org/user-guide-admin/content/cli_set_quotas.html</xref></li>
+          </ul></p>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Firewall Rules</title><sectiondiv
+        outputclass="insideSection">
+        <p>Refer to <xref href="#servicearchals/life">Life of an ALS Cluster</xref> -- the
+          constructor only needs access to the OpenStack Public APIs. The ALS cluster itself doesn’t
+          need to.</p>
+        <table frame="all" rowsep="1" colsep="1" id="table_mdy_brb_x5">
+          <tgroup cols="4">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <colspec colname="c3" colnum="3"/>
+            <colspec colname="c4" colnum="4"/>
+            <thead>
+              <row>
+                <entry>Source </entry>
+                <entry>Destination</entry>
+                <entry>Ports (TCP)</entry>
+                <entry>Description</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry> External Network </entry>
+                <entry>HOS Management network</entry>
+                <entry> We use nova, neutron, cinder, and keystone OpenStack public endpoints:
+                    <p>443 (https) </p><p>8000 (heat) </p><p>8774 (nova) </p><p>9696
+                    (neutron)</p><p>9292 (glance) </p><p>21131</p><p>, 8776 (cinder)</p><p>,
+                    6080,8004 (heat)</p><p>, 8080 (swift)</p><p> , 5000 (keystone)</p><p> , 5433
+                    </p><p>, 14000 </p></entry>
+                <entry>HDP services / Nova interaction with OpenStack APIs and external user access
+                  to Horizon and SSH</entry>
+              </row>
+              <row>
+                <entry>External Network </entry>
+                <entry>Public Internet</entry>
+                <entry>80, 443, 9418 (Git)</entry>
+                <entry>HDP access to the Internet to download Git and other content.</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <p><b>Security Groups</b></p>
+        <p> The Security groups listed below enforce the firewall rules defined above. They are
+          created during the ALS Cluster Creation process. All of these Security Groups are defined
+          on the Tenant supplied network. There are no egress restrictions.<table frame="all"
+            rowsep="1" colsep="1" id="table_agj_qrb_x5">
+            <tgroup cols="6">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <colspec colname="c3" colnum="3"/>
+              <colspec colname="c4" colnum="4"/>
+              <colspec colname="c5" colnum="5"/>
+              <colspec colname="c6" colnum="6"/>
+              <thead>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></p>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Helion ALS Cluster Sizing
+        Considerations</title><sectiondiv outputclass="insideSection">
+        <p>Sizing an ALS cluster is an exercise in approximation and here are some guidelines on how
+          to size one appropriately. There are three main components of a cluster – the core node,
+          the data services nodes and the DEAs where the applications are executed. </p>
+        <p>Every ALS cluster has a core node that is responsible for the web portal, API endpoint,
+          routing web traffic to the applications, authentication and other operations. The
+          recommendation is use at least an m1.large (8GB, 4 VCPU) instance for this node. </p>
+        <p>Each of the data services such as mongodb, redis, etc should be on their own instance at
+          least m1.medium (4GB, 2 VCPU). </p>
+        <p>The next step is to estimate the number of applications and the technology stack to be
+          used in the cluster. For Java and .NET applications typically 1GB of memory per
+          application instance is sufficient. Applications written in nodejs, php, python typically
+          use less memory and 512MB may be sufficient. While Open Source based technology stacks
+          (Java, Python, php, etc) are hosted on Linux DEAs, applications written in .NET only run
+          on Windows-based DEAs. By default DEA nodes have 80% of memory available for application
+          use. That means a 4GB m1.medium DEA will have 3.2GB memory available for applications and
+          an 8GB m1.large DEA will have 6.4GB available.</p>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Sizing Examples</title><sectiondiv
+        outputclass="insideSection"><p>Suppose you are supporting a cluster that will be running 5
+          applications, 2 based on .NET, 1 written in Java a 2 written in python. The .NET and Java
+          applications are expected to scale horizontally to 8 instances each. The 2 python
+          applications are expected to scale to 5 instances for each application. Additionally we
+          want to be able to support all data services except postgres and MSSQL2012 in this
+          environment.</p>
+        <p>Every ALS cluster has a core node which should be at least m1.large to handle the portal,
+          web traffic, authentication, managing applications and terminating SSL traffic.<table
+            frame="all" rowsep="1" colsep="1" id="table_jt4_wrb_x5">
+            <tgroup cols="3">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <colspec colname="c3" colnum="3"/>
+              <thead>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></p>
+        <p>Next account for the nodes required for the data services. Each of the services run in
+          their own instance and should be m1.medium flavor or larger. For smaller POC or low
+          traffic environments, it may be acceptable to host more than one service on the same
+            instance.<table frame="all" rowsep="1" colsep="1" id="table_pgy_yrb_x5">
+            <tgroup cols="3">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <colspec colname="c3" colnum="3"/>
+              <thead>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></p><p>Next calculate the number of Linux-based DEAs and .NET-based WinDEAs are
+          required. Based on the example,</p><p>(2 .NET applications * 1GB memory) * 8 application
+          instances => 16GB memory in a WinDEA pool. (1 Java application * 1GB memory) * 8
+          application instances = > 8GB memory in the Linux DEA pool. </p><p>(2 python applications
+          * 512MB) * 5 application instances. => 5GB memory in the Linux DEA pool </p><p>To
+          determine the number of m1.large WinDEA instances, divide 16GB by 6.4GB available per
+          instance => 2.5 m1.large instances, so round up to 3 m1.large instances. If using
+          m1.medium instances are desired, divide 16 by 3.2GB available per instance => 5 m1.medium
+          instances. </p><p>For number of Linux DEAs, add 8GB for the Java based app and 5GB for the
+          python based application for a total 13GB of memory for the Linux DEA pool. To determine
+          the number of m1.large Linux DEA instances, divide 13GB by 6.4GB available per instance =>
+          2.03 instances and round up to 3 m1.large instances. If using m1.medium instances are
+          desired, divide 13 by 3.2GB available per instance => 4.06 instances and round up to 5
+          m1.medium instances.<table frame="all" rowsep="1" colsep="1" id="table_ds4_dsb_x5">
+            <tgroup cols="3">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <colspec colname="c3" colnum="3"/>
+              <thead>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></p> Or: <table frame="all" rowsep="1" colsep="1" id="table_vmm_2sb_x5">
+          <tgroup cols="3">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <colspec colname="c3" colnum="3"/>
+            <thead>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <p>Adding all the requirements together give the following results. </p><p>If the preference
+          is to use m1.medium instances:<table frame="all" rowsep="1" colsep="1"
+            id="table_fdc_hsb_x5">
+            <tgroup cols="3">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <colspec colname="c3" colnum="3"/>
+              <thead>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></p><p>If the preference is to use m1.large instances:</p><table frame="all"
+          rowsep="1" colsep="1" id="table_wln_jsb_x5">
+          <tgroup cols="3">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <colspec colname="c3" colnum="3"/>
+            <thead>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+              <row>
+                <entry/>
+                <entry/>
+                <entry/>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </sectiondiv></section>
   
   
   </body>

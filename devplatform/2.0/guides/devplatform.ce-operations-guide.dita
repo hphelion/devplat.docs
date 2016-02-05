@@ -3,12 +3,22 @@
 <topic id="opguidecodeengine">
   <title>HPE Helion Development Platform 2.0: Code Engine Operations Guide</title><abstract><shortdesc outputclass="hdphidden">Documentation to help operate Helion Code Engine.</shortdesc></abstract>
   <body>
-    <section id="expandCollapse">
-      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
-      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
-    </section>
-    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><p>Please find the following documentation below to help you install and operate Helion Code Engine:
+  <ol><li> HCE Walk-through video: <xref href="http://bit.ly/HelionCodeEngine" format="html"
+              scope="external">http://bit.ly/HelionCodeEngine</xref></li>
+      
+    <li> User Documentation: <xref
+              href="http://dev.hpcloud.com/hdp/reference/2.0/resource/continuous/engine_walkthrough"
+              format="html" scope="external"
+              >http://dev.hpcloud.com/hdp/reference/2.0/resource/continuous/engine_walkthrough</xref></li>
+      
+    <li> Install Documentation: <xref
+              href="http://dev.hpcloud.com/hdp/reference/2.0/install/install_engine" format="html"
+              scope="external"
+              >http://dev.hpcloud.com/hdp/reference/2.0/install/install_engine</xref></li>
+      
+        <li>HPE Helion Development Platform <xref href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5"
+              >upgrade documentation</xref> (for use when upgrading HPE Helion OpenStack from
+            version 2.0 to version 2.1)</li></ol> </p></section>
   </body>
 </topic>

@@ -9,9 +9,86 @@
       <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
     </section>
     
-    <section><title outputclass="headerH">Availability zones</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">Application Service Access</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">Docker Support Requirements</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">Microsoft .NET Support Requirements</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">Availability zones</title><sectiondiv outputclass="insideSection"><p>ALS AZs do not automatically align to HPE Helion OpenStack AZs. It is important that they are configured the same in order for the applications to be distributed correctly.
+      You can set the availablity zone for a node by using “kato node availabilityzone $ZONE --node $IP” command.
+      Additional references:
+      http://docs.stackato.com/admin/cluster/zones.html
+      https://docs.hpcloud.com/devplatform/2.0/helion/admin/reference/kato-ref.html#topic39432__kato-command-ref-node-availabilityzone
+    </p></sectiondiv></section>
+    <section><title outputclass="headerH">Application Service Access</title><sectiondiv outputclass="insideSection"><p>ALS cluster users can connect to internal databases by leveraging the dbshell (recommended) and
+          tunnels (only for sql server) via the helion cli. For more information read this document. </p>
+        <p>They can also access external,managed databases and message brokers provided by the
+          Database and Messaging Services by specifying database credentials in user provided
+          services instances. </p>
+        <p>Note that applications in ALS must have line of sight to the database endpoints that they
+          are trying to reach. In the default reference architecture, all of the database instances
+          were created on the same network that the ALS cluster nodes were. </p></sectiondiv></section>
+    <section><title outputclass="headerH">Docker Support Requirements</title><sectiondiv outputclass="insideSection"><p>ALS 2.0 supports Docker Apps. Docker Apps are Docker containers that are web apps and expose a
+          port. From an ALS cluster operator perspective two major considerations need to be
+          referred: <ul id="ul_r2v_ssb_x5">
+            <li>The Internal Docker Registry – ALS uses this registry for caching and improving the
+              developer experience. This registry lives in the cloud controller nodes. ALS fetches
+              images from the Docker Hub or the specified repository and keeps copies in a local
+              registry server on the controller so that subsequent deployments using any of the
+              downloaded layers can be done more quickly. A cron job runs periodically to keep the
+              local registry server from growing too large. The size limit is defined in the
+              following setting in kato config and it’s default value is 10240MB. (10GB) </li>
+            <li>Controlling developer deployments – due to security considerations it is recommended
+              that container deployments are done from a trusted source and from in ALS
+              Organizations with sudo access. It is the operator’s discretion to allow container
+              deployments and they are disabled by default. </li>
+          </ul>For more information read this doc:
+          http://docs.hpcloud.com/#devplatform/1.3/helion/admin/server/docker.html </p></sectiondiv></section>
+    <section><title outputclass="headerH">Microsoft .NET Support Requirements</title><sectiondiv outputclass="insideSection"><p>Support for applications using Microsoft .NET technologies has been added to Helion Stackato in
+          HDP V1.2. This allows .NET developers to deploy applications to an Helion Stackato cluster
+          with the the same advantages of Platform-as-a-Service such as automatic build packs,
+          application scaling and monitoring that Linux application developers have.</p>
+        <p>For details of .NET and Visual Studio versions, application frameworks and software
+          requirements, refer to following references:<ul id="ul_a5l_wsb_x5">
+            <li dir="ltr">
+              <p dir="ltr"><xref
+                  href="https://docs.hpcloud.com/devplatform/1.3/windows/windows_overview.html#topic24073_2__apps"
+                  format="html" scope="external"
+                  >https://docs.hpcloud.com/devplatform/1.3/windows/windows_overview.html#topic24073_2__apps</xref></p>
+            </li>
+            <li dir="ltr"><xref
+                href="https://docs.hpcloud.com/devplatform/1.3/windows/windows_overview.html#topic24073_2__softwarerequirements"
+                format="html" scope="external"
+                >https://docs.hpcloud.com/devplatform/1.3/windows/windows_overview.html#topic24073_2__softwarerequirements</xref></li>
+          </ul></p></sectiondiv></section>
+    <p>For licensing reasons there are some additional steps an administrator needs to take in order
+      to add .NET and Microsoft SQL Server to the Helion Stackato environment. The administrator
+      will use their own licensed Microsoft Windows Server 2012 R2 ISO image and volume license keys
+      to create the glance images by using the new glazier tool.</p>
+    <p>Glazier has a number of uncommon requirements that should be considered. The glazier tool
+      must be run either from a Linux (Ubuntu recommended) or MAC OSX system that has hardware-based
+      virtualization support enabled and Oracle VirtualBox 4.3.26 or later installed. That system
+      also requires a network connection to the public internet and to the Helion OpenStack where
+      the Helion Stackato cluster will be deployed. </p>
+    <p>The full list of requirements is:<ul id="ul_g1v_zsb_x5">
+        <li> System running either Linux (Ubuntu recommended) or MAC OS X. <ul id="ul_bgd_2tb_x5">
+            <li>Virtualization support enabled o 16GB RAM recommended</li>
+            <li>100GB available disk space</li>
+            <li>Connectivity to the public internet</li>
+            <li>Connectivity to the Helion OpenStack environment where the Windows images will be
+              deployed ·</li>
+          </ul></li>
+        <li>Glazier tool downloaded</li>
+        <li>Oracle VirtualBox 4.3.26 or later installed</li>
+        <li>Additional downloads o Windows <ul id="ul_mtf_gtb_x5">
+            <li>VirtIO Image 0.1.96:
+              https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.96/virtio-win-0.1.96.iso </li>
+            <li>Windows Server 2012 R2 ISO (either Volume licensed obtained via MSDN for development
+              &amp; test or volume-licensed production images obtained through the Microsoft OEM
+              channel)</li>
+          </ul></li>
+        <li>Windows Product Key for Windows Server 2012 R2, Standard Edition.</li>
+        <li>OpenStack RC file for an admin account from your Helion OpenStack environment</li>
+        <li>Helion OpenStack CA Certificate (ephemeralca-cacert.crt) <p>For full information on
+            creating .NET and MSSQL database support, see <xref
+              href="http://docs.hpcloud.com/#devplatform/2.0/windows/windows_building_and_deploying.html"
+              format="html" scope="external"
+              >http://docs.hpcloud.com/#devplatform/2.0/windows/windows_building_and_deploying.html</xref></p></li>
+      </ul></p>
   </body>
 </topic>

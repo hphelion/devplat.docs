@@ -8,9 +8,96 @@
       <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
       <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
     </section>
-    
-    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
-    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><p>The Helion Code Engine (CE) service provides continuous integration and delivery. Based on git
+        version control technologies, Code Engine automates build, test and deploy cycles so that
+        developers can quickly bring their ideas to life and get customer validation. </p>
+      <p>It is designed for small development teams in the enterprise who are interested in building
+        cloud native apps and deploying them into Helion Developer Platform. </p>
+      <p>Helion CE is based on git version control technologies, and it automates build, test and
+        deploy cycles so that developers can quickly bring their ideas to life and get customer
+        validation. </p>
+      <p>More specifically, Code Engine supports applications written in: <ul id="ul_wgx_mtb_x5">
+          <li>node.js</li>
+          <li>Java</li>
+          <li>Python </li>
+        </ul> It automates unit tests by using the most popular testing frameworks for each of the
+        tech stacks, and it can deploy to specified HDP environments - whether they are testing,
+        staging or production.</p>
+      <p>In short, we expect this CICD tool to work as catalyst in our customer's journey to modern
+        development workflows, as it automates processes that traditionally curb agile development
+        in the enterprise.</p></section>
+    <section><title outputclass="headerH">Deployed View</title><sectiondiv
+        outputclass="insideSection">
+        <p>Helion Code Engine Control Plane and Worker nodes are striped across 3 VMs that are not
+          guaranteed to be in different availability zones. </p>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection"
+      ><p>
+          <table frame="all" rowsep="1" colsep="1" id="table_pb3_ttb_x5">
+            <tgroup cols="2">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <thead>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </p></sectiondiv></section>
+    <section><title outputclass="headerH">Network</title><sectiondiv outputclass="insideSection">
+        <p/>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Networks Created At Install Time</title><sectiondiv
+        outputclass="insideSection">
+        <p/>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Firewall Rules</title><sectiondiv
+        outputclass="insideSection">
+        <p/>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Security groups</title><sectiondiv
+        outputclass="insideSection">
+        <p/>
+      </sectiondiv></section>
   </body>
 </topic>
