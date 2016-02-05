@@ -71,10 +71,11 @@
              find the Swift backup file as follows:
              <ol>
                <li>Swift container name: <b>backup_container</b></li>
-               <li><p>Swift backup file name format: <b>&lt;hostname&gt;-&lt;date&gt;-backup-percona</b></p>
-                 <p>where &lt;hostname&gt; is the name of the DBaaS control plane database host. Run <codeph>nova list</codeph> to get the database host name that resembles 
-                   <codeph>trove-db-....</codeph> prefix.
-                 </p></li>
+               <li>Swift backup file name format:
+                <b>&lt;hostname&gt;-&lt;date&gt;-backup-percona</b><p>where &lt;hostname&gt; is the
+                name of the DBaaS control plane database host. Run <codeph>nova list</codeph> to get
+                the database host name that resembles <codeph>trove-db-....</codeph> prefix.
+              </p></li>
              </ol>
            </li>
          </ul>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_qxj_d51_x5">
+  <title>HPE Helion Development Platform 2.0: Service Architecture Overview</title>
+  <abstract><shortdesc>Installation prerequisites and architectural overview of the HPE Helion Development Platform.</shortdesc>    This Reference Architecture document outlines installation prerequisites and provides an architectural overview of the key components of the HPE Helion Development Platform (HDP). This document complements the HPE Helion OpenStack® Reference Architecture Document and assumes the following:
+    The underlying IaaS complies with that reference architecture. 
+    The reader is familiar with the HPE Helion OpenStack specific concepts covered in that reference architecture. 
+    This document and associated service reference architecture documents describe one of the supported architectures for HDP 2.0. There are other architectures and further customizations possible. It is not the intent of this document to cover all different reference architectures. For any questions, please contact your HPE HDP sales or account representative. </abstract>
+  <body>
+    
+<section><title>Related Information</title></section>
+  </body>
+</topic>

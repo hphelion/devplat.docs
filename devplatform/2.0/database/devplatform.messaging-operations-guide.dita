@@ -2,10 +2,9 @@
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd" >
 <topic xml:lang="en-us" id="messagingservice">
-  <title><ph conkeyref="HOS-conrefs/product-title"/>Messaging Broker Operations Guide</title>
+  <title>Messaging Broker Operations Guide</title>
   <body>
-    <p conkeyref="HOS-conrefs/applies-to"/>
-      <ul>
+          <ul>
         <li><xref type="section" href="#messagingservice/operations">Operations Guide</xref></li>
         <li><xref type="section" href="#messagingservice/consoleaccess">Management Console Access</xref></li>
         <li><xref type="section" href="#messagingservice/sizing">RabbitMQ Sizing and Usage</xref></li>
