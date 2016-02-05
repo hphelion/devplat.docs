@@ -1,13 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="topic_qxj_d51_x5">
+<topic id="archoverview">
   <title>HPE Helion Development Platform 2.0: Service Architecture Overview</title>
-  <abstract><shortdesc>Installation prerequisites and architectural overview of the HPE Helion Development Platform.</shortdesc>    This Reference Architecture document outlines installation prerequisites and provides an architectural overview of the key components of the HPE Helion Development Platform (HDP). This document complements the HPE Helion OpenStack® Reference Architecture Document and assumes the following:
-    The underlying IaaS complies with that reference architecture. 
-    The reader is familiar with the HPE Helion OpenStack specific concepts covered in that reference architecture. 
-    This document and associated service reference architecture documents describe one of the supported architectures for HDP 2.0. There are other architectures and further customizations possible. It is not the intent of this document to cover all different reference architectures. For any questions, please contact your HPE HDP sales or account representative. </abstract>
+  <abstract><shortdesc>Installation prerequisites and architectural overview of the HPE Helion
+      Development Platform.</shortdesc> This Reference Architecture document outlines installation
+    prerequisites and provides an architectural overview of the key components of the HPE Helion
+    Development Platform. This document complements the HPE Helion <tm tmtype="reg">OpenStack</tm>
+    Reference Architecture Document and assumes that the underlying IaaS complies with that
+    reference architecture and that the reader is familiar with the HPE Helion OpenStack-specific
+    concepts covered there. This document and associated service architecture reference documents
+    describe only one supported architecture for HPE Helion Development Platform version 2.0, not
+    all possible architectures and customizations. For any questions, please contact your  HPE
+    Helion Development Platform sales or account representative. </abstract>
   <body>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections </sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
     
-<section><title>Related Information</title></section>
+    <section><title outputclass="headerH">Platform Overview</title>This section provides an
+      introduction to the services that comprise the HPE Helion Development Platform. The HPE Helion
+      Development Platform provides the foundation for developers to build great cloud-native
+      applications on HPE Helion OpenStack. Based on Cloud Foundry™ and fully integrated with HPE
+      Helion OpenStack®, the HPE Helion Development Platform is open and interoperable, ensuring
+      that developers can focus on building the right app for any environment. <sectiondiv
+        outputclass="insideSection"><p>HPE Helion Development Platform Application Services are
+          trusted services:<ul id="ul_btw_x1b_x5">
+            <li> The Database Service control plane runs in the Admin tenant.</li>
+            <li> The databases created by the Database Service run in the user tenant. </li>
+            <li> The Messaging Service control plane and message queue instances created for the
+              user run in the Messaging Service Tenant (msgaas). </li>
+            <li> The HPE Helion Application Lifecycle Service (ALS) PaaS runs in the user tenant.
+            </li>
+          </ul></p> The HPE Helion Development Platform (HDP) consists of the following components:
+          <ul id="ul_nbw_z1b_x5">
+          <li> Application Lifecycle Service (ALS, aka Stackato) - Cloud Foundry based Platform as a
+            Service (PaaS) deploys, scales, and ensures availability of application instances.</li>
+          <li> Code Engine - a Continuous Integration service that automates build, test, and deploy
+            steps to streamline the software release and quality assurance processes. </li>
+          <li> Application Services - external application services provide enterprise grade
+            durability and manageability for the services used by applications in the Helion
+            Stackato PaaS.</li>
+          <li> Database as a Service - provides lifecycle management for relational and non
+            relational databases, including MySQL, MongoDB, Redis, and Vertica Preview. </li>
+          <li> Messaging as a Service - provides lifecycle management for RabbitMQ clusters</li>
+        </ul></sectiondiv></section>
+    
+    <section><title outputclass="headerH">HPE Helion Development Platform Users</title><sectiondiv
+        outputclass="insideSection">
+        <ul>
+          <li>Developers - the end user of the PaaS is a developer who writes applications for end
+            users.</li>
+          <li> Admins - manage all HPE Helion Development Platform services</li>
+          <li> Operators - install HPE Helion Development Platform services and manage the HPE
+            Helion OpenStack installation. These users are assumed to have root access for HPE
+            Helion OpenStack including full control over the cloud IaaS and hypervisors.</li>
+        </ul>
+      </sectiondiv></section>
+    
+    <section>
+      <title outputclass="headerH">IaaS Requirements  </title>
+      <p>This section focuses on the HPE Helion Development Platform requirements on HPE Helion
+        OpenStack 2.0. All of the HPE Helion Development Platform services run “in-cloud”, which
+        means inside of virtual machine instances provided by HPE Helion OpenStack. Once installed
+        and configured, users interact with the services either from an API, command line (CLI), or
+        by using the HPE Helion OpenStack Horizon Dashboard. The way in which the HPE Helion
+        Development Platform services are configured and deployed on top of a HPE Helion OpenStack
+        environment is described in more detail in the following sections. </p>
+      <p>
+        <b>Availability Zones</b></p>
+      <p>In order to achieve maximum availability for services and applications running in your
+        environment, you will want to be sure to configure availability zones (AZs). Availability
+        zones enable you to arrange OpenStack® compute hosts into logical groups that provide a form
+        of physical isolation and redundancy from other availability zones. For example, servers on
+        independent power sources and networking equipment. Availability zones should be defined
+        such that if equipment fails in one zone that the failure will not affect compute resources
+        in another zone. Defining availability zones and assigning compute resources to those zones
+        is carried out within the HPE Helion OpenStack environment by the operators.</p>
+      <p> When users provision resources, they can specify which availability zone is to be used for
+        those resources. This allows services and developers to ensure that the multiple components
+        of their application resources are spread across separate fault-tolerant compute pools to
+        achieve high availability in the event of hardware failure.</p>
+      <p>
+        <b>Networking Requirements</b></p><p>High-level networking requirements for each HDP service are detailed in the <xref
+          href="#archoverview/relinfo" format="dita">service reference architecture
+        documents</xref>. </p>
+      <p>The HPE Helion Development Platform runs in the HPE Helion OpenStack environment and it is
+        important to ensure the networking is properly configured. Please refer to <xref
+          href="http://docs.hpcloud.com/#helion/example_configurations.html" scope="external"
+          format="html">HPE OpenStack example configurations </xref> to see the different networking
+        configurations that the HPE Helion Development Platform runs on. <note>
+          <ul id="ul_fyy_bdb_x5">
+            <li>At this time, HPE Helion Development Platform  version 2.0 has only been validated
+              on KVM-based hypervisors. </li>
+            <li>The ALS and Code Engine services need access to the public internet.</li>
+          </ul>
+        </note></p>
+      <p><b>Global Security Rules</b></p>
+      <p><b>Product Deployment Assumptions</b></p>
+    </section>
+    
+    <section><title outputclass="headerH">OpenStack Service Requirements</title><sectiondiv outputclass="insideSection">
+     <p> <b>Service Installation</b></p>
+     <p> <b>Service Installation Resource Assumptions</b></p>
+ <p>     <b>Requirements By Service</b></p>
+    <p>  <b>Additional Quotas</b></p>
+    </sectiondiv></section>
+    
+    <section>
+      <title outputclass="headerH">HPE Helion Development Platform Support Matrix</title>
+      <p>The following is the HPE Helion Development Platform support matrix outlining where it can
+        be installed: </p>
+      <p>
+        <table frame="all" rowsep="1" colsep="1" id="table_c35_fbb_x5">
+          <tgroup cols="3">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <colspec colname="c3" colnum="3"/>
+            <thead>
+              <row>
+                <entry> HPE Helion Development Platform Version </entry>
+                <entry>HPE Helion OpenStack Version </entry>
+                <entry>CloudSystem Version </entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry> HDP 2.0 </entry>
+                <entry>HOS 2.0, HOS 2.1 </entry>
+                <entry>N/A </entry>
+              </row>
+              <row>
+                <entry> HDP 1.3 </entry>
+                <entry>HOS 1.2 </entry>
+                <entry>CS 9.0, CS 9.0.1 </entry>
+              </row>
+              <row>
+                <entry> HDP 1.2 </entry>
+                <entry>HOS 1.2 </entry>
+                <entry>CS 9.0, CS 9.0.1 </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <note>Only HPE Helion Development Platform distributions on CS 9.0 and above support both
+          the ESX and KVM hypervisors. All other distributions support only KVM.</note>
+      </p>
+    </section>
+<section id="relinfo"><title>Related Service Reference Architecture Documents</title></section>
+    <p>Each service has a separate document to show what the service architecture looks like
+      after installation and provide operational guidance. </p>
   </body>
 </topic>
