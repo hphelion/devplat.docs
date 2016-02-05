@@ -27,10 +27,10 @@
         development workflows, as it automates processes that traditionally curb agile development
         in the enterprise.</p></section>
     <section><title outputclass="headerH">Deployed View</title><sectiondiv
-        outputclass="insideSection">
-        <p>Helion Code Engine Control Plane and Worker nodes are striped across 3 VMs that are not
-          guaranteed to be in different availability zones. </p>
-      </sectiondiv></section>
+        outputclass="insideSection">Helion Code Engine Control Plane and Worker nodes are striped
+        across 3 VMs that are not guaranteed to be in different availability zones.  <image
+          placement="break" href="../../../media/refarch_ce_deployed_view.png" id="image_fx2_y4g_x5"
+        /></sectiondiv></section>
     <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection"
       ><p>
           <table frame="all" rowsep="1" colsep="1" id="table_pb3_ttb_x5">
@@ -39,65 +39,196 @@
               <colspec colname="c2" colnum="2"/>
               <thead>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry> Component  </entry>
+                  <entry>Function</entry>
                 </row>
               </thead>
               <tbody>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry> Web </entry>
+                  <entry> Proxies all calls to CodeEngine service API, implements the auth layer.
+                    Also serves page assets (scripts, images, etc) </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>CodeEngine Service API </entry>
+                  <entry> A Rest API Service that forms the control plane for the service. It acts
+                    as a catalog, listing users, projects, and build cycles. And can also kick off
+                    Build jobs for user projects. </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Build Manager  </entry>
+                  <entry> A Worker that is responsible for scheduling Build, Test, Deploy cycles. It
+                    listens to the CI_INPUT queue for any requests to start the build cycle for a
+                    project. The build manager is responsible for coordinating builds, and updating
+                    build status to the CI REST service. </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Build Worker </entry>
+                  <entry> This worker is responsible for building projects. It currently also is
+                    responsible for cloning and initializing the workspace. </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Test Worker </entry>
+                  <entry> This worker is responsible for running the test cases for a project. </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Deploy Worker </entry>
+                  <entry> Once the Build, Test steps are completed, the Deploy Worker deploys the
+                    User application to the HP Helion Helion Stackato cluster of their choice </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Git Poller Worker </entry>
+                  <entry> For projects not hosted on GitHub, we are unable to get Webhooks. To get
+                    around this, we create a worker that polls the git repo for the current HEAD
+                    hash. When we see a change, the git-poller triggers a build to the
+                    polled-builder. </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Notification Worker </entry>
+                  <entry> This is the worker responsible for firing notifications that are
+                    configured for a project at various stages of a build's life cycle. </entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>RabbitMQ </entry>
+                  <entry> This is the message queue used by the system to co-ordinate various events
+                    in the system. </entry>
+                </row>
+                <row>
+                  <entry>MySQL</entry>
+                  <entry> We use MySql as the backing store for data that is hosted by the CI
+                    Service. </entry>
                 </row>
               </tbody>
             </tgroup>
           </table>
         </p></sectiondiv></section>
     <section><title outputclass="headerH">Network</title><sectiondiv outputclass="insideSection">
-        <p/>
-      </sectiondiv></section>
-    <section><title outputclass="headerH">Networks Created At Install Time</title><sectiondiv
-        outputclass="insideSection">
-        <p/>
+        <p>The Code Engine Management Network is created at installation. It is required for control
+          plane and worker services to communicate.</p>
+        <image placement="break" href="../../../media/refarch_ce_.network.png" id="image_smx_rqg_x5"
+        />
       </sectiondiv></section>
     <section><title outputclass="headerH">Firewall Rules</title><sectiondiv
         outputclass="insideSection">
-        <p/>
+        <p>
+          <table frame="all" rowsep="1" colsep="1" id="table_xlk_yqg_x5">
+        
+            <tgroup cols="4">
+              <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+              <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+              <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+              <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+              <thead>
+                <row>
+                  <entry> Source </entry>
+                  <entry>Destination </entry>
+                  <entry>Ports (TCP) </entry>
+                  <entry>Description </entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>External network</entry>
+                  <entry>Public Internet</entry>
+                  <entry>80, 443</entry>
+                  <entry> Access to the internet to download from git and build dependencies </entry>
+                </row>
+                <row>
+                  <entry>Service network</entry>
+                  <entry>Management network</entry>
+                  <entry><p>443 (https - Horizon) </p>
+                    <p>8000 (heat)</p>
+                    <p>8774 (nova) </p>
+                    <p>9696 (neutron) </p>
+                    <p>9292 (glance) </p>
+                    <p>8776 (cinder) </p>
+                    <p>8004 (heat) </p>
+                    <p>8080 (swift) </p>
+                    <p>5000 (keystone) </p>
+                    <p>123, 8003, 22, 79, 8070 TCP</p>
+                    <p>14000 TCP</p></entry>
+                  <entry>
+                    <p>Access to internal OpenStack API endpoints. </p>
+                    <p>Port 79 - Extra APT repository server</p>
+                    <p>Port 22 - SSH access to HelionCE deployer node to run HLM </p>
+                    <p>Port 8070 TCP - Monitoring </p>
+                  </entry>
+                </row>
+                <row>
+                  <entry>HOS Management Network</entry>
+                  <entry>Service Network</entry>
+                  <entry>443<p>5672 TCP</p></entry>
+                  <entry>Ops Console UI Access Port 5672 (HOS Central logging access)</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </p>
       </sectiondiv></section>
     <section><title outputclass="headerH">Security groups</title><sectiondiv
         outputclass="insideSection">
-        <p/>
+        <p>
+          <table frame="all" rowsep="1" colsep="1" id="table_xbx_yqg_x5">
+            <tgroup cols="4">
+              <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+              <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+              <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+              <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+              <thead>
+                <row>
+                  <entry> Name  </entry>
+                  <entry>Network </entry>
+                  <entry>Ports/Protocols </entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>logging-producer SVC security group</entry>
+                  <entry>SVC</entry>
+                  <entry>80 (TCP), 443 (TCP)</entry>
+                  <entry>Security group for logging service access.</entry>
+                </row>
+                <row>
+                  <entry>logging-producer HELIONCI_NET_MGMT security group</entry>
+                  <entry>HELIONCI_NET_MGMT</entry>
+                  <entry>80 (TCP), 443 (TCP)</entry>
+                  <entry>Security group for http(s) Helion Code Engine website access.</entry>
+                </row>
+                <row>
+                  <entry>ip-cluster SVC security group</entry>
+                  <entry>SVC</entry>
+                  <entry> AH (51), VRRP(112) </entry>
+                  <entry>Security group for the <xref
+                      href="https://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol"
+                      format="html" scope="external">Virtual Router Redundancy Protocol</xref>, and
+                    the <xref href="https://en.wikipedia.org/wiki/Authentication_Header"
+                      format="html" scope="external">Authentication Header</xref> protocol.</entry>
+                </row>
+                <row>
+                  <entry>ip-cluster HELIONCI_NET_MGMT security group</entry>
+                  <entry>HELIONCI_NET_MGMT</entry>
+                  <entry>AH (51), VRRP(112) </entry>
+                  <entry>Security group for the <xref
+                      href="https://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol"
+                      format="html" scope="external">Virtual Router Redundancy Protocol</xref>, and
+                    the <xref href="https://en.wikipedia.org/wiki/Authentication_Header"
+                      format="html" scope="external">Authentication Header</xref> protocol.</entry>
+                </row>
+                <row>
+                  <entry>ip-cluster HELIONCI_NET_EXT security group</entry>
+                  <entry>HELIONCI_NET_EXT</entry>
+                  <entry>AH (51), VRRP(112) </entry>
+                  <entry>Security group for the <xref
+                      href="https://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol"
+                      format="html" scope="external">Virtual Router Redundancy Protocol</xref>, and
+                    the <xref href="https://en.wikipedia.org/wiki/Authentication_Header"
+                      format="html" scope="external">Authentication Header</xref> protocol.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </p>
       </sectiondiv></section>
   </body>
 </topic>
