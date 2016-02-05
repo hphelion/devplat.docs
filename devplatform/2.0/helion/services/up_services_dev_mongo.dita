@@ -15,8 +15,8 @@
         href="../admin/server/configuration.dita#topic31232/container_allowed"
         >process here</xref>. </section>
     
-        <section id="instance"><title outputclass="headerH">Developer procedure for a single instance
-        </title><sectiondiv outputclass="insideSection">
+        <section id="instance"><title outputclass="headerH">Developer procedure for a single
+        instance </title><sectiondiv outputclass="insideSection">
         <ol>
           <li>Create the user-provided service in ALS cluster and provide connection credentials.<ol>
               <li> Log in to the ALS cluster
