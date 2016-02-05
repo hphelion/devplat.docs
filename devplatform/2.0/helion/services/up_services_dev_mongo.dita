@@ -121,15 +121,15 @@ Creating new service … OK</codeblock></li>
       env:
       ENV_VAR: ${name}</codeblock></p></li>
             </ol></li>
-          <li>Create and connect the VCAP_SERVICES environment variables. <p>When an application is
-              deployed in an ALS cluster, the service connection credentials are populated with the
-              values that were defined in the user-provided service. These credentials become
+          <li>Create and connect the VCAP_SERVICES environment variables. <note>When an application
+              is deployed in an ALS cluster, the service connection credentials are populated with
+              the values that were defined in the user-provided service. These credentials become
               available in the VCAP_SERVICES environment variables, which can be consumed by your
               application. Best practice is not to hardcode connection credentials in your
               application code; you should parse and use the VCAP_SERVICES environment variables
               instead. More information on how to use VCAP_SERVICES can be found <xref
                 href="../user/services/data-services.dita#user_data_services/vcap-services"
-                >here</xref>.</p><ul id="ul_jq4_hhv_q5">
+                >here</xref>.</note><ul id="ul_jq4_hhv_q5">
               <li>
                 <p>Sample code snippet on how to parse VCAP_SERVICES variables and how to interact
                   with a single instance MongoDB database in a Python

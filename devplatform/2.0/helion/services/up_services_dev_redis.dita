@@ -14,137 +14,7 @@
               href="../admin/server/configuration.dita#topic31232/container_allowed">located
               here</xref>.</li>
         </ul>
-      </p></section>
-    <section><title>Developer Steps</title>
-    
-    
-    
-    </section>
-    <ol id="ol_md4_yr1_t5">
-      <li>Create user-provided service in ALS cluster, provide connection credentials<ol
-          id="ol_p2w_bs1_t5">
-          <li>Login to the ALS cluster
-              <codeblock>helion target &lt;ALS cluster end point&gt;</codeblock><codeblock>helion login </codeblock><p>Example:</p><codeblock>$ helion target api.15.124.133.173.xip.io</codeblock><codeblock>Successfully targeted to [https://api.15.124.133.173.xip.io]
-Target: https://api.15.124.133.173.xip.io
-Organization: &lt;none&gt;
-Space: &lt;none&gt;</codeblock><codeblock>$ helion login</codeblock><codeblock>Attempting login to [https://api.15.124.133.173.xip.io]
-Username: myuser@mycompany.com
-Password:
-Successfully logged into [https://api.15.124.133.173.xip.io]
-demo@hpe.com Choosing the one available organization: "default"
-Choosing the one available space: "default"
-Target:       https://api.15.124.133.173.xip.io
-Organization: default
-Space:        default</codeblock></li>
-          <li>Get a list of all services in the ALS cluster
-              <codeblock>$ helion services </codeblock><p> On a new ALS cluster with no services
-              created, you should see an output similar to
-            following:</p><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
-            
-============== Service Plans ================
-            
-+--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
-+--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-+--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-    
-=========== Provisioned Services ============ </codeblock></li>
-          <li>Create a new service for binding Redis from applications in the ALS cluster
-            <codeblock>$ helion create-service user-provided &lt;name of your Redis service&gt;</codeblock></li>
-          <li>When prompted, enter the field <b>names</b> to be used for Redis connection
-            credentials. These are not the values, but the names of the fields.<ul
-              id="ul_klc_qkj_t5">
-              <li> For a single instance Redis, provide field names such as:
-                  <codeph>hostname</codeph>, <codeph>port</codeph>,
-                <codeph>db</codeph>.<codeblock>$ helion create-service user-provided my-redis-db-service
-Which credentials to use for connections [hostname, port, password]: hostname,port,db
-hostname: 15.124.133.182
-port: 27017
-db: 0
-Creating new service … OK</codeblock></li>
-              <li>For a Redis cluster, for example with 3 nodes, provide field names such as:
-                  <codeph>hostname1</codeph>,<codeph>hostname2</codeph>,<codeph>hostname3</codeph>,<codeph>port</codeph>,<codeph>db</codeph><codeblock>$ helion create-service user-provided my-redis-db-service
-Which credentials to use for connections [hostname, port, password]: hostname1,hostname2,hostname3,port,db
-hostname1: 15.124.133.191
-hostname2: 15.124.133.192
-hostname3: 15.124.133.193
-port: 6379
-db: 0
-Creating new service … OK </codeblock></li>
-            </ul></li>
-          <li> Validate that the new service is
-            available<codeblock>$ helion services</codeblock>Example:<codeblock>$ helion services</codeblock><codeblock>============== Service Plans ================
-
-+--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
-+--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-+--------+------+-------------+---------+------+--------+----------+---------+--------+------+
-
-=========== Provisioned Services ============
-
-+------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
-| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
-+------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
-| default::default | my-redis-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
-+------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></li>
-        </ol></li>
-      <li>Verify that the credentials are set
-          correctly.<codeblock> $ helion service &lt;name of  Redis service></codeblock><ul
-          id="ul_cn3_m22_55">
-          <li>Example: For a single instance
-            Redis<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-redis-db-service
-+--------------+------------------+
-| What         | Value            |
-+--------------+------------------+
-| State        | no data          |
-| Type         | user-provided    |
-| Space        | default::default |
-| Credentials  |                  |
-|  - db        | 0          |
-|  - hostname  | 15.124.133.182   |
-|  - port      | 6379           |
-| Applications |                  |
-+--------------+------------------+</codeblock></li>
-          <li>Example: For a clustered Redis with 3
-            nodes<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-redis-db-service
-+-----------------+------------------+
-| What            | Value            |
-+-----------------+------------------+
-| State           | no data          |
-| Type            | user-provided    |
-| Space           | default::default |
-| Credentials     |                  |
-|  - db           | test_db          |
-|  - hostname1    | 15.124.133.190   |
-|  - hostname2    | 15.124.133.191   |
-|  - hostname3    | 15.124.133.192   |
-|  - port         | 6379             |
-| Applications    |                  |
-+-----------------+------------------+</codeblock></li>
-        </ul></li>
-      <li>Bind to Redis user-provided service from an app during deployment. <p>List the name of
-          user-provided Redis service in the <codeph>services: </codeph>block of the application
-          manifest file. </p><p>Sample manifest file including a reference to user-provided Redis
-          service
-          (<codeph>my-redis-db-service</codeph>)<codeblock>applications:
-  .:
-   name: my-app
-   mem: 128M
-   services:
-     my-redis-db-service:
-   helion:
-    env:
-      ENV_VAR: ${name}</codeblock></p><note>When
-          an application is deployed in the ALS cluster, the service connection credentials are set
-          as defined in the user-provided service, and become available in the VCAP_SERVICES
-          environment variables. These variables can then be consumed by your application. Best
-          practise is to parse and use the VCAP_SERVICES environment variables, not to hardcode
-          connection credentials in your application code. More information on how to use
-          VCAP_SERVICES can be found <xref
-            href="../user/services/data-services.dita#user_data_services/vcap-services"
-            >here</xref>.<ul id="ul_dcw_5jf_55">
-            <li>Sample Python code snippet for how to interact with a Redis single-instance
-                database.<codeblock># For single instance Redis connections, it is required that “redis” is imported.
+    </p></section> <section><title outputclass="headerH">Sample Python code snippet for a single instance</title><sectiondiv outputclass="insideSection"><codeblock># For single instance Redis connections, it is required that “redis” is imported.
 import redis
 
 …
@@ -175,14 +45,263 @@ def testConnection(self,credentials):
             redisInstance.delete(TEST_KEY)
        except Exception as ex:
             return ex</codeblock><note>To
-                interact with a Redis cluster in any programming language, you need to use and
-                connect to a true Redis cluster API. For example, for Python language, Redis Cluster
-                API (rediscluster) provides a way to list all IP addresses for connection, and works
-                from within applications for true cluster behavior. More information here: <xref
-                  href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
-                  >https://github.com/Grokzen/redis-py-cluster</xref>.</note></li>
-            <li>Sample Python code snippet for how to interact with a Redis cluster
-              database.<codeblock># For clustered Redis connections, it is required that “rediscluster” is imported from “StrictRedisCluster” module to get the cluster behavior.
+              interact with a Redis cluster in any programming language, you need to use and
+              connect to a true Redis cluster API. For example, for Python language, Redis Cluster
+              API (rediscluster) provides a way to list all IP addresses for connection, and works
+              from within applications for true cluster behavior. More information here: <xref
+                href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
+                >https://github.com/Grokzen/redis-py-cluster</xref>.</note></sectiondiv></section>
+    <section><title outputclass="headerH">Developer procedure for a single
+        instance</title><sectiondiv outputclass="insideSection">
+        <ol id="ol_md4_yr1_t5">
+          <li>Create user-provided service in ALS cluster and provide connection credentials<ol
+              id="ol_p2w_bs1_t5">
+              <li>Log in to the ALS cluster
+                  <codeblock>helion target &lt;ALS cluster end point&gt;</codeblock><codeblock>helion login </codeblock><p>Example:</p><codeblock>$ helion target api.15.124.133.173.xip.io</codeblock><codeblock>Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target: https://api.15.124.133.173.xip.io
+Organization: &lt;none&gt;
+Space: &lt;none&gt;</codeblock><codeblock>$ helion login</codeblock><codeblock>Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+              <li>Get a list of all services in the ALS cluster
+                  <codeblock>$ helion services </codeblock><p> On a new ALS cluster with no services
+                  created, you should see an output similar to
+                following:</p><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+            
+============== Service Plans ================
+            
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+    
+=========== Provisioned Services ============ </codeblock></li>
+              <li>Create a new service for binding Redis to applications in the ALS cluster
+                <codeblock>$ helion create-service user-provided &lt;name of your Redis service&gt;</codeblock></li>
+              <li>When prompted, enter the field <b>names</b> to be used for Redis connection
+                credentials. These are not the values, but the names of the fields.<ul
+                  id="ul_klc_qkj_t5">
+                  <li>The field names are <codeph>hostname</codeph>, <codeph>port</codeph>,
+                      <codeph>db</codeph>.<codeblock>$ helion create-service user-provided my-redis-db-service
+Which credentials to use for connections [hostname, port, password]: hostname,port,db
+hostname: 15.124.133.182
+port: 27017
+db: 0
+Creating new service … OK</codeblock></li>
+                </ul></li>
+              <li> Validate that the new service is
+                available<codeblock>$ helion services</codeblock>If the command is successful, you
+                will see output similar to the
+                following:<codeblock>============== Service Plans ================
+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+
+=========== Provisioned Services ============
+
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-redis-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></li>
+            </ol></li>
+          <li>Verify that the credentials are set
+            correctly.<codeblock> $ helion service &lt;name of  Redis service></codeblock>Example:<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-redis-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | 0          |
+|  - hostname  | 15.124.133.182   |
+|  - port      | 6379           |
+| Applications |                  |
++--------------+------------------+</codeblock></li>
+          <li>To bind to the service from an app during deployment, add the nameof the service in
+            the <codeph>services:</codeph> block of the application's manifest file. <p>Sample
+              manifest file including a reference to user-provided Redis service
+                (<codeph>my-redis-db-service</codeph>)<codeblock>applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-redis-db-service:
+   helion:
+    env:
+      ENV_VAR: ${name}</codeblock></p><note>When
+              an application is deployed in the ALS cluster, the service connection credentials are
+              set as defined in the user-provided service, and become available in the VCAP_SERVICES
+              environment variables. These variables can then be consumed by your application. Best
+              practise is to parse and use the VCAP_SERVICES environment variables; do not hardcode
+              connection credentials in your application. More information on how to use
+              VCAP_SERVICES can be found <xref
+                href="../user/services/data-services.dita#user_data_services/vcap-services"
+                >here</xref>.</note></li>
+          <li>Deploy your application using helion CLI<codeblock>helion push -n</codeblock></li>
+          <li>Validate the service is bound to your application.
+            <codeblock>helion service &lt;your Redis service&gt;</codeblock>Example:<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | 0                |
+|  - hostname  | 15.124.133.182   |
+|  - port      | 6379             |
+| Applications |                  |
+| - my-app     |                  |
+|  - db        | 0                |
+|  - hostname  | 15.124.133.182   |
+|  - port      | 6379             |
++--------------+------------------+</codeblock></li></ol></sectiondiv></section>
+
+    
+    
+    
+    <section><title outputclass="headerH">Developer procedure for a cluster</title><sectiondiv outputclass="insideSection">
+          
+          
+          <ol>
+            <li>Create user-provided service in ALS cluster and provide connection credentials<ol>
+              <li>Login to the ALS cluster
+                <codeblock>helion target &lt;ALS cluster end point&gt;</codeblock><codeblock>helion login </codeblock><p>Example:</p><codeblock>$ helion target api.15.124.133.173.xip.io</codeblock><codeblock>Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target: https://api.15.124.133.173.xip.io
+Organization: &lt;none&gt;
+Space: &lt;none&gt;</codeblock><codeblock>$ helion login</codeblock><codeblock>Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+              <li>Get a list of all services in the ALS cluster
+                <codeblock>$ helion services </codeblock><p> On a new ALS cluster with no services
+                  created, you should see an output similar to
+                  following:</p><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+            
+============== Service Plans ================
+            
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+    
+=========== Provisioned Services ============ </codeblock></li>
+              <li>Create a new service for binding Redis to applications in the ALS cluster
+                <codeblock>$ helion create-service user-provided &lt;name of your Redis service&gt;</codeblock></li>
+              <li>When prompted, enter the field names to be used for Redis connection credentials:
+                  <codeph>hostname1</codeph>,<codeph>hostname2</codeph>,<codeph>hostname3</codeph>,<codeph>port</codeph>,<codeph>db</codeph>.
+                These are not the values, but the <b>names</b> of the fields.<p>This sample has
+                  three
+                  nodes.<codeblock>$ helion create-service user-provided my-redis-db-service
+Which credentials to use for connections [hostname, port, password]: hostname1,hostname2,hostname3,port,db
+hostname1: 15.124.133.191
+hostname2: 15.124.133.192
+hostname3: 15.124.133.193
+port: 6379
+db: 0
+Creating new service … OK </codeblock></p></li>
+              <li> Validate that the new service is
+                available<codeblock>$ helion services</codeblock>If the command is successful, you
+                will see output similar to the
+                following:<codeblock>============== Service Plans ================
+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+
+=========== Provisioned Services ============
+
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        | Service       | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-redis-db-service | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></li>
+            </ol></li>
+            <li>Verify that the credentials are set
+            correctly.<codeblock> $ helion service &lt;name of  Redis service></codeblock>Example
+            cluster with 3
+            nodes:<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-redis-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | test_db          |
+|  - hostname1    | 15.124.133.190   |
+|  - hostname2    | 15.124.133.191   |
+|  - hostname3    | 15.124.133.192   |
+|  - port         | 6379             |
+| Applications    |                  |
++-----------------+------------------+</codeblock></li>
+            <li>To bind to Redis user-provided service from an app during deployment, add the name
+            of the service to the <codeph>services:</codeph> block of the application's manifest
+            file. <p>Sample manifest file including a reference to user-provided Redis service
+                (<codeph>my-redis-db-service</codeph>)<codeblock>applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-redis-db-service:
+   helion:
+    env:
+      ENV_VAR: ${name}</codeblock></p><note>When
+              an application is deployed in the ALS cluster, the service connection credentials are
+              set as defined in the user-provided service, and become available in the VCAP_SERVICES
+              environment variables. These variables can then be consumed by your application. Best
+              practise is to parse and use the VCAP_SERVICES environment variables; do not hardcode
+              connection credentials in your application. More information on how to use
+              VCAP_SERVICES can be found <xref
+                href="../user/services/data-services.dita#user_data_services/vcap-services"
+                >here</xref>.</note></li>
+          <li>Deploy your application using helion CLI<codeblock>helion push -n</codeblock></li>
+          <li>Validate the service is bound to your application.
+            <codeblock>helion service &lt;your Redis service&gt;</codeblock>Example: Clustered Redis
+            with 3
+            nodes<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
++-----------------+------------------+
+| What            | Value            |
++-----------------+------------------+
+| State           | no data          |
+| Type            | user-provided    |
+| Space           | default::default |
+| Credentials     |                  |
+|  - db           | 0                |
+|  - hostname1    | 15.124.133.190   |
+|  - hostname2    | 15.124.133.191   |
+|  - hostname3    | 15.124.133.192   |
+|  - port         | 6379             |
+| Applications    |                  |
+| - my-app        |                  |
+|  - db           | 0                |
+|  - hostname1    | 15.124.133.190   |
+|  - hostname2    | 15.124.133.191   |
+|  - hostname3    | 15.124.133.192   |
+|  - port         | 6379             |
++-----------------+------------------+</codeblock></li></ol></sectiondiv></section>
+          
+   
+    
+    <section><title outputclass="headerH">Sample Python code snippet for a
+        cluster</title><sectiondiv outputclass="insideSection">
+        <codeblock># For clustered Redis connections, it is required that “rediscluster” is imported from “StrictRedisCluster” module to get the cluster behavior.
 
 from rediscluster import StrictRedisCluster
 
@@ -217,52 +336,13 @@ def testConnection(self,credentials):
        try:
             redisInstance.delete(TEST_KEY)
        except Exception as ex:
-            return ex</codeblock></li>
-          </ul></note></li>
-      <li>Deploy your application using helion CLI<codeblock>helion push -n</codeblock></li>
-      <li>Validate the service is bound to your application.
-          <codeblock>helion service &lt;your Redis service&gt;</codeblock><ul id="ul_hxg_dh2_55">
-          <li>Example: Single instance
-            Redis<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
-+--------------+------------------+
-| What         | Value            |
-+--------------+------------------+
-| State        | no data          |
-| Type         | user-provided    |
-| Space        | default::default |
-| Credentials  |                  |
-|  - db        | 0                |
-|  - hostname  | 15.124.133.182   |
-|  - port      | 6379             |
-| Applications |                  |
-| - my-app     |                  |
-|  - db        | 0                |
-|  - hostname  | 15.124.133.182   |
-|  - port      | 6379             |
-+--------------+------------------+</codeblock></li>
-          <li>Example: Clustered Redis with 3
-            nodes<codeblock>$ helion service my-redis-db-service</codeblock><codeblock>https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
-+-----------------+------------------+
-| What            | Value            |
-+-----------------+------------------+
-| State           | no data          |
-| Type            | user-provided    |
-| Space           | default::default |
-| Credentials     |                  |
-|  - db           | 0                |
-|  - hostname1    | 15.124.133.190   |
-|  - hostname2    | 15.124.133.191   |
-|  - hostname3    | 15.124.133.192   |
-|  - port         | 6379             |
-| Applications    |                  |
-| - my-app        |                  |
-|  - db           | 0                |
-|  - hostname1    | 15.124.133.190   |
-|  - hostname2    | 15.124.133.191   |
-|  - hostname3    | 15.124.133.192   |
-|  - port         | 6379             |
-+-----------------+------------------+</codeblock></li>
-        </ul></li>
-    </ol>
+            return ex</codeblock>
+        <note>To interact with a Redis cluster in any programming language, you need to use and
+          connect to a true Redis cluster API. For example, for Python language, Redis Cluster API
+          (rediscluster) provides a way to list all IP addresses for connection, and works from
+          within applications for true cluster behavior. More information here: <xref
+            href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
+            >https://github.com/Grokzen/redis-py-cluster</xref>. </note>
+      </sectiondiv></section>
   </body>
 </topic>

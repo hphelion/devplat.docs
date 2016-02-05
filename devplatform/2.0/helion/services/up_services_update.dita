@@ -29,10 +29,10 @@ https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
 |  - port      | 27017            |
 |  - username  | demo             |
 +--------------+------------------+</codeblock></li>
-          <li>Best practice is to stop the applications at this point. Updating a running
-            application may cause service connection failures. </li>
-          <li>Unbind the service from the applications.
-            <codeblock>$ helion unbind-service &lt;your service name> &lt;your app name></codeblock>Example:<codeblock>$ helion unbind-service my-mongo-db-service my-app</codeblock></li>
+          <li>Unbind the service from the applications.  <note>Best practice is to stop the
+              applications at this point. Updating a running application may cause service
+              connection failures.
+            </note><codeblock>$ helion unbind-service &lt;your service name> &lt;your app name></codeblock>Example:<codeblock>$ helion unbind-service my-mongo-db-service my-app</codeblock></li>
         </ol></li>
         <li>Update the user-provided service credentials. <ol id="ol_jpp_4xl_55">
           <li>Update the credentials

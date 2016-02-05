@@ -5,13 +5,12 @@
         to an application. The <xref href="up_services_admin_mysql.dita">administrator procedure</xref>
         must be completed prior to this point.</abstract>
     <body>
-  
+  <section><title>Developer procedure to bind a MySQL service to an application.</title>
       <ol id="ol_zs1_ymf_55">
-        <li>Bind to MySQL service from an app during deployment.<ol id="ol_llq_ymf_55">
-          <li>Log in to the ALS
-            cluster<codeblock>helion target &lt;ALS cluster end point>
+            <li>Log in to the ALS
+                cluster<codeblock>helion target &lt;ALS cluster end point>
 helion login</codeblock>
-            Example:<codeblock>$ helion target api.15.124.133.173.xip.io
+                Example:<codeblock>$ helion target api.15.124.133.173.xip.io
 Successfully targeted to [https://api.15.124.133.173.xip.io]
 Target:       https://api.15.124.133.173.xip.io
 Organization: &lt;none&gt;
@@ -24,10 +23,9 @@ Choosing the one available space: "default"
 Target:      https://api.15.124.133.173.xip.io
 Organization: default
 Space:        default</codeblock></li>
-          <li>Bind to MySQL service from an app during deployment using the manifest file. <p>List
-              the MySQL service in the <b>services</b> block of the application manifest
-              file.</p><p>Sample manifest file including a reference to a MySQL service:
-                <codeph>my-mysql-db-service</codeph><codeblock> applications:
+            <li>Add the MySQL service to the <b>services</b> block of the application's manifest
+                        file.<p>Sample manifest file including a reference to a MySQL service named
+                            <codeph>my-mysql-db-service</codeph><codeblock> applications:
   .:
    name: my-app
    mem: 128M
@@ -35,19 +33,19 @@ Space:        default</codeblock></li>
      my-mysql-db-service: mysql
    helion:
     env:
-      ENV_VAR: ${name}</codeblock></p></li>
-        </ol><note> When an application is deployed in the ALS cluster, the service connection
-          credentials are set as defined in the MySQL service gateway. The credentials become
-          available in the VCAP_SERVICES environment variables, which can be consumed by your
-          application. You do not need to hardcode connection credentials in your application code,
-          instead parse and use the VCAP_SERVICES environment variables. More information on how to
-          use VCAP_SERVICES can be found <xref
-            href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
-            >here</xref>.</note></li>
-    <li>Deploy the application. <p>Example, using the helion CLI.
-          <codeblock>helion push -n</codeblock></p></li>
-     </ol>
-    <section><title>Code Snippet (Python) For Usage</title>
+      ENV_VAR: ${name}</codeblock></p><note>
+                        When an application is deployed in the ALS cluster, the service connection
+                        credentials are set as defined in the MySQL service gateway. The credentials
+                        become available in the VCAP_SERVICES environment variables, which can be
+                        consumed by your application. Best practice is to parse and use the
+                        VCAP_SERVICES environment variables; do not hardcode connection credentials
+                        in your application. More information on how to use VCAP_SERVICES can be
+                        found <xref
+                            href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
+                            >here</xref>.</note></li>
+    <li>Deploy the application using the helion CLI. <codeblock>helion push -n</codeblock></li>
+     </ol></section>
+    <section><title>Sample code Snippet (Python)</title>
     <codeblock>def testConnection(self,credentials):
        hostname = credentials['hostname']
        port = credentials['port']
