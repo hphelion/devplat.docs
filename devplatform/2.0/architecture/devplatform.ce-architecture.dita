@@ -4,6 +4,13 @@
 <topic xml:lang="en-us" id="cearch">
   <title>HPE Helion Development Platform 2.0: Code Engine Service Architecture</title><abstract><shortdesc outputclass="hpdhidden">Continuous integration and delivery  based on Git version control technologies</shortdesc></abstract>
   <body>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
     
+    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">TITLE</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
   </body>
 </topic>

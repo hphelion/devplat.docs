@@ -392,7 +392,7 @@
           the ESX and KVM hypervisors. All other distributions support only KVM.</note>
       </p>
    </sectiondiv> </section>
-    <section id="relinfo"><title outputclass="headerH">Related Service Reference Architecture Documents</title><p>Each service has a separate document to show what the service architecture looks like
+    <section id="relinfo"><title>Related Service Reference Architecture Documents</title><p>Each service has a separate document to show what the service architecture looks like
       after installation and provide operational guidance. </p></section>
     
   </body>

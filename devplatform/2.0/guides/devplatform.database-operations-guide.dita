@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic xml:lang="en-us" id="database_operations_guide">
-  <title>HPE Helion Development Platform 2.0: Database Service Operations Guide</title><abstract><shortdesc>Documentation to help operate the Database service.</shortdesc></abstract>
+  <title>HPE Helion Development Platform 2.0: Database Service Operations Guide</title><abstract><shortdesc outputclass="hdphidden">Documentation to help operate the Database service.</shortdesc></abstract>
    <body>
        <section>
          <p>When HA is enabled, the database service will distribute its multiple database instances across the compute hosts in those zones, ensuring that a single hardware failure in one availability zone (AZ) does not impact more than one database instance. </p>

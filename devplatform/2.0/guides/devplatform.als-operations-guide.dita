@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="opguideals">
-  <title>HPE Helion Development Platform 2.0: ALS Operations Guide</title><abstract><shortdesc outputclass="hpdhidden">A Cloud Foundry-based, managed runtime environment for applications.</shortdesc></abstract>
+  <title>HPE Helion Development Platform 2.0: ALS Operations Guide</title>
+  <abstract><shortdesc outputclass="hdphidden">Documentation to help operate the Application Lifecycle Service.</shortdesc>This section contains usage requirements - additional requirements needed to successfully operate an Application Lifecycle Service (ALS) cluster.</abstract>
   <body>
-    <p></p>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
+    
+    <section><title outputclass="headerH">Availability zones</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">Application Service Access</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">Docker Support Requirements</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">Microsoft .NET Support Requirements</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
   </body>
 </topic>

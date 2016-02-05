@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="servicearchals">
-  <title>HPE Helion Development Platform 2.0: ALS Service Architecture</title>
-  <body>
-    <p></p>
+  <title>HPE Helion Development Platform 2.0: ALS Service Architecture</title><abstract><shortdesc outputclass="hpdhidden">A Cloud Foundry-based, managed runtime environment for applications.</shortdesc></abstract>
+  <body>    <section id="expandCollapse">
+    <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+    <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+  </section>
+    <section><title outputclass="headerH">Deployed View</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section id="alsnetwork"><title outputclass="headerH">Network </title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+    <section><title outputclass="headerH">Life of an ALS Cluster</title><sectiondiv outputclass="insideSection">
+            <p><b>Networks</b></p>
+      <p><b>Network Resources</b></p>
+      <p><b>Security Groups</b></p>  
+    </sectiondiv></section>
+    <section><title outputclass="headerH">Helion ALS Cluster Sizing Considerations</title><sectiondiv outputclass="insideSection">
+      
+      
+      
+    </sectiondiv></section>
+    <section><title outputclass="headerH">Sizing Examples</title><sectiondiv outputclass="insideSection"></sectiondiv></section>
+  
+  
   </body>
+  
 </topic>
