@@ -3,6 +3,10 @@
 <topic xml:lang="en-us" id="database_operations_guide">
   <title>HPE Helion Development Platform 2.0: Database Service Operations Guide</title><abstract><shortdesc outputclass="hdphidden">Documentation to help operate the Database service.</shortdesc></abstract>
    <body>
+     <section id="expandCollapse">
+       <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+       <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+     </section>
        <section>
          <p>When HA is enabled, the database service will distribute its multiple database instances across the compute hosts in those zones, ensuring that a single hardware failure in one availability zone (AZ) does not impact more than one database instance. </p>
          
@@ -17,8 +21,9 @@
          <p>Once a new database becomes active, users connect to it via the datastore command-line client, datastore tools, or libraries used by applications.  Users can also assign a floating IP address to the database, and update the security group 
              to allow for connection from outside the external network.</p>
          </section>
-       <section id="Data_Durability">
-           <title>Data Durability</title>
+     <section><title outputclass="headerH">Data Durability</title>
+       <sectiondiv outputclass="insideSection">
+
            <p>The Database service ensures database content is protected through its integration with the
                HPE Helion OpenStack Block Storage. HPE Helion Openstack offers two cinder block storage
                plugin choices that provide Highly Available RAID protected Storage volumes for use by the
@@ -79,6 +84,7 @@
              </ol>
            </li>
          </ul>
+       </sectiondiv>
          </section>
 
      </body>
