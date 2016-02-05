@@ -124,7 +124,7 @@ HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.X
             </tbody>
           </tgroup>
         </table>
-      </sectiondiv></section>
+      
     <p>A single ALS cluster VM instance is called a micro-cloud and can run all the services
       required to operate. A micro-cloud is useful for simple testing, but not for production use.
       This same VM is also the building block used to construct a full-scale PaaS cluster. One or
@@ -141,7 +141,7 @@ HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.X
       and the service can be moved without breaking the application. Logically, this service
       abstraction can be considered analogous to DNS for services.</p>
     <p>Managed Application Services outside of the ALS PaaS can be accessed by custom service
-      brokers, or user provided service instances, as shown in the diagram above.</p>
+      brokers, or user provided service instances, as shown in the diagram above.</p></sectiondiv></section>
    
     <section id="alsnetwork"><title outputclass="headerH">Network </title><sectiondiv outputclass="insideSection">
       <p>This diagram shows an example of how ALS cluster could be deployed. Note that the Tenant supplied network is connected to the  External public internet (Ext Network) via a router. All of this is assumed to have been done prior to ALS cluster creation.</p></sectiondiv></section>
