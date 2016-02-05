@@ -150,29 +150,26 @@
       </topichead>
       <!--<topicref href="2.0/messaging/cue_ops_overview.dita" navtitle="Messaging Service" locktitle="yes"><topicref href="2.0/messaging/devplatform.using-the-messaging-service.dita" locktitle="yes" navtitle="Using the RabbitMQ Messaging Service"/><topicref href="2.0/messaging/devplatform.using-messaging-service-with-ALS.dita" locktitle="yes" navtitle="Using the Messaging Service with ALS"/><topicref href="2.0/messaging/cue_dev_createCluster.dita" navtitle="Create a Cluster from the Command Line" locktitle="yes"/><topicref href="2.0/messaging/cue_ops_manageCluster.dita" navtitle="Manage a Cluster from the Command Line" locktitle="yes"/><topicref href="2.0/messaging/cue_ops_install.dita" navtitle="Install the Cue Service" locktitle="yes"/><topicref href="2.0/messaging/cue_ops_referenceArchitecture.dita" navtitle="Cue Reference Architecture" locktitle="yes"/><topicref href="2.0/messaging/cue_ops_bestPractices.dita" navtitle="Cue Best Practices" locktitle="yes"/><topicref href="2.0/messaging/cue_ops_monitoring.dita" navtitle="Monitoring Cue" locktitle="yes"/></topicref>-->
     </topicref>
-    <topicgroup navtitle="Ops and Arch for Review" locktitle="yes">
-      <topicref href="devplatform.overview-architecture.dita"
-        navtitle="Service Architecture Overview" locktitle="yes" linking="normal"
-        collection-type="family">
-        <topicref href="2.0/database/devplatform.als-operations-guide.dita"
-          navtitle="ALS Service Architecture" locktitle="yes"/>
-        <topicref href="2.0/database/devplatform.als-operations-guide.dita"
-          navtitle="Code Engine Service Architecture" locktitle="yes"/>
-        <topicref href="2.0/database/devplatform.database-architecture.dita"/>
-        <topicref href="2.0/database/devplatform.messaging-architecture.dita"
-          navtitle=" Messaging Service Architecture"/>
-      </topicref>
-      <topicref href="2.0/database/devplatform.op-guides.dita" navtitle="Operations Guides"
-        locktitle="yes" collection-type="family" linking="normal">
-        <topicref href="2.0/database/devplatform.als-operations-guide.dita"
-          navtitle="ALS Operations Guide" locktitle="yes"/>
-        <topicref href="2.0/database/devplatform.als-operations-guide.dita"
-          navtitle="Code Engine Operations Guide" locktitle="yes"/>
-        <topicref href="2.0/database/devplatform.database-operations-guide.dita"/>
-        <topicref href="2.0/database/devplatform.messaging-operations-guide.dita"
-          navtitle=" Messaging Broker Operations Guide" locktitle="yes"/>
-      </topicref>
-    </topicgroup>
+    <topicref href="devplatform.overview-architecture.dita" navtitle="Service Architecture Overview"
+      locktitle="yes" linking="normal" collection-type="family">
+      <topicref href="2.0/database/devplatform.als-operations-guide.dita"
+        navtitle="ALS Service Architecture" locktitle="yes"/>
+      <topicref href="2.0/database/devplatform.als-operations-guide.dita"
+        navtitle="Code Engine Service Architecture" locktitle="yes"/>
+      <topicref href="2.0/database/devplatform.database-architecture.dita"/>
+      <topicref href="2.0/database/devplatform.messaging-architecture.dita"
+        navtitle=" Messaging Service Architecture"/>
+    </topicref>
+    <topicref href="2.0/database/devplatform.op-guides.dita" navtitle="Operations Guides"
+      locktitle="yes" collection-type="family" linking="normal">
+      <topicref href="2.0/database/devplatform.als-operations-guide.dita"
+        navtitle="ALS Operations Guide" locktitle="yes"/>
+      <topicref href="2.0/database/devplatform.als-operations-guide.dita"
+        navtitle="Code Engine Operations Guide" locktitle="yes"/>
+      <topicref href="2.0/database/devplatform.database-operations-guide.dita"/>
+      <topicref href="2.0/database/devplatform.messaging-operations-guide.dita"
+        navtitle=" Messaging Broker Operations Guide" locktitle="yes"/>
+    </topicref>
   </topicref>
   <!-- -->
  </map>
