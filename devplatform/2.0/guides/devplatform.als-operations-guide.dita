@@ -55,7 +55,7 @@
                 href="https://docs.hpcloud.com/devplatform/1.3/windows/windows_overview.html#topic24073_2__softwarerequirements"
                 format="html" scope="external"
                 >https://docs.hpcloud.com/devplatform/1.3/windows/windows_overview.html#topic24073_2__softwarerequirements</xref></li>
-          </ul></p></sectiondiv></section>
+          </ul></p>
     <p>For licensing reasons there are some additional steps an administrator needs to take in order
       to add .NET and Microsoft SQL Server to the Helion Stackato environment. The administrator
       will use their own licensed Microsoft Windows Server 2012 R2 ISO image and volume license keys
@@ -89,6 +89,6 @@
               href="http://docs.hpcloud.com/#devplatform/2.0/windows/windows_building_and_deploying.html"
               format="html" scope="external"
               >http://docs.hpcloud.com/#devplatform/2.0/windows/windows_building_and_deploying.html</xref></p></li>
-      </ul></p>
+    </ul></p></sectiondiv></section>
   </body>
 </topic>
