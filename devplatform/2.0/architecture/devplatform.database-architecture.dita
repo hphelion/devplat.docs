@@ -3,7 +3,12 @@
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" ><topic xml:lang="en-us" id="DatabaseArchitecture ">
   <title>HPE Helion Development Platform 2.0: Database Service Architecture</title><abstract><shortdesc outputclass="hpdhidden">Provides lifecycle services for both single instance and clustered databases.</shortdesc></abstract>
 <body>
-  <section id="introduction">
+  <section id="expandCollapse">
+    <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+    <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+  </section>
+    <section><title outputclass="headerH">Introduction</title>
+      <sectiondiv outputclass="insideSection">
     <p>The database service provides lifecycle services for both single instance and clustered
         databases for Percona MySQL, MongoDB, Redis, and Vertica. Lifecycle services include
         provisioning, configuration, patching, instance backups, and restores that can be
@@ -33,10 +38,12 @@
       </li>
       <li>Users can consume the service via the REST API, CLI, or HPE Helion OpenStack console.</li>
     </ul>
+      </sectiondiv>
   </section>
-  <section id="architecture_graphic">
-    <title>Deployed View</title>
-    <image placement="break" href="../../../media/dbaas_architecture.png" />
+  <section><title outputclass="headerH">Deployed View</title>
+    <sectiondiv outputclass="insideSection">
+  
+    <image placement="break" href="../../../media/database_architecture_services.png" />
     <p>The Database Service is deployed as an In-Cloud service and is composed of the following components:</p>
     <ul>
       <li>A control plane, which is a set of services deployed on fifteen virtual machines (VMs) that manage and run the Database Service in a three availability zone (AZ) configuration. 
@@ -47,9 +54,12 @@
     </ul>
     <p>If HPE Helion OpenStack is configured to use multiple AZs, the Database Service will install across all zones using intelligent orchestration and data-level clustering. 
     </p>
+    </sectiondiv>
   </section>
-  <section id="components">
-    <title>Components</title>    
+  <section><title outputclass="headerH">Components</title>
+    <sectiondiv outputclass="insideSection">
+  
+    
     <p>A description of each component in the Database Service is provided below.</p>
     <table>
       <tgroup cols="2">
@@ -94,9 +104,11 @@
       </tgroup>
       
     </table>
+    </sectiondiv>
   </section>
-  <section id="Deployment">
-    <title>Deployment</title>
+  <section><title outputclass="headerH">Deployment</title>
+    <sectiondiv outputclass="insideSection">
+  
     <p>The Database Service uses HPE Helion Orchestration (OpenStack Heat) to orchestrate its
         deployment. </p>
     
@@ -126,25 +138,32 @@
     <p>Once a new database becomes active users connect to it via the MySQL command line client, MySQL tools, or MySQL libraries used by applications.  Users can also assign a floating IP address to the database and update the security 
       group to allow for connection from outside the external-network.</p>-->
     
-    
+    </sectiondiv>
   </section>
-  <section>
-    <title>Networks</title>
+  <section><title outputclass="headerH">Network</title>
+    <sectiondiv outputclass="insideSection">
+  
     <p>The following networks are created when the Database Service is installed: </p>
     <ul>
       <li><b>DBaaS MgmtNetwork</b>: Used for control plane nodes to communicate with one another.</li>
       <li><b>Guest Network</b>: Used for Trove Agents to communicate back to the RabbitMQ cluster on the control plane.</li>
     </ul>
+    </sectiondiv>
   </section>
-  <section>
-    <title>Routers</title>
+
+    <section><title outputclass="headerH">Routers</title>
+      <sectiondiv outputclass="insideSection">
+    
     <p>The following routers are created when the Database Service is installed:</p>
     <ul>
       <li>A router joining the DBaaS guest network to Ext Network, enabling databases to back themselves up using the Swift API.</li>
       <li>A router joining the DBaaS management network to Ext Network, enabling the control plane to access OpenStack APIs.</li>
     </ul>
+      </sectiondiv>
   </section>
-  <section>Security Requirements
+  <section><title outputclass="headerH">Security Requirements</title>
+    <sectiondiv outputclass="insideSection">
+  
     <p>The following port restrictions between networks are required for the DBaaS Service to function correctly. These are implemented by Security Groups.</p>
     <table>
       <tgroup cols="4">
@@ -208,9 +227,11 @@
         </tbody>
       </tgroup>
     </table>
+    </sectiondiv>
   </section>
-  <section>
-    <title>Security Groups</title>
+  <section><title outputclass="headerH">Security Groups</title>
+    <sectiondiv outputclass="insideSection">
+  
     <p>The Security groups listed below enforce the security requirements defined above. They are created during the installation process.  There are no egress restrictions.</p>
     <table>
       <tgroup cols="6">
@@ -417,7 +438,7 @@
         </tbody>
       </tgroup>
     </table>
-    
+    </sectiondiv>
   </section>
   
 </body>

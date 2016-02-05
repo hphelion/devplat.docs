@@ -3,8 +3,13 @@
 <topic id="database_supported_reference_architectures">
   <title>Helion Development Platform 2.0: Supported Database Reference Architectures</title>
   <body>
-    <p>This section contains the deployed architecture for all supported databases.</p>
-    <section><title>Access from Helion Stackato</title>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
+    <p>This document contains the deployed architecture for all supported databases.</p>
+    <section><title outputclass="headerH">Access from Helion Stackato</title>
+      <sectiondiv outputclass="insideSection">
       <p>The following datastore types come built-in with HPE Helion Development Platform (HDP) (both single instances and clusters):</p>
       <ul>
         <li>MySql</li>
@@ -24,8 +29,11 @@
         we discuss validated connection approaches.</p>
       <p>The HDP User-provided Services Integration for ALS Clusters and Applications document shows the details of how to connect and use 
         these managed databases.</p>
+      </sectiondiv>
     </section>
-    <section><title>MySQL Instance</title>
+    <section><title outputclass="headerH">MySQL Instance</title>
+      <sectiondiv outputclass="insideSection">
+    
       <p><b>Overview</b></p>
       <p>MySQL instances are deployed as singletons. However other MySQL instances can be created
         and slaved, so that data is replicated to a slaved instance. </p>
@@ -70,8 +78,10 @@
       <p><b>Database Footprint Growth</b></p>
       <p>Each additional MySQL database instance requires 1 VM and user-specified amount of Cinder block storage (in GB’s). Floating IP 
         does not need to be associated for a database instance, but if required, it will consume 1 floating IP from the quota.</p>
+      </sectiondiv>
     </section>
-    <section><title>MySQL Cluster</title>
+    <section><title outputclass="headerH">MySQL Cluster</title>
+      <sectiondiv outputclass="insideSection">
     <p><b>Overview</b></p>
       <p>A MySQL cluster is a Percona Galera three node cluster. If 3 Availability zones (AZ) exist,
         the nodes of the cluster will be deployed across those zones randomly. Nodes might end up
@@ -119,9 +129,11 @@
       </table>
       <p><b>Database Footprint Growth</b></p>
       <p>In HDP 2.0, growing or shrinking MySQL clusters is not supported; that is, nodes cannot be added or removed.</p>
+      </sectiondiv>
     </section>
-    <section>
-      <title>MongoDB Cluster</title>
+    <section><title outputclass="headerH">MongoDB Cluster</title>
+      <sectiondiv outputclass="insideSection">
+    
       <p><b>Overview</b></p>
       <p>MongoDB Clusters initially deploy with:</p>
       <ul>
@@ -183,9 +195,11 @@
         <li><xref href="https://docs.mongodb.org/manual/core/sharded-cluster-config-servers/"
             format="html" scope="external">MongoDB Config Servers</xref></li>
       </ul>
-      
+      </sectiondiv>
     </section>
-    <section><title>Redis Clusters</title>
+    <section><title outputclass="headerH">Redis Clusters</title>
+      <sectiondiv outputclass="insideSection">
+    
     <p><b>Overview</b></p>
       <p>A Redis cluster consists of 3 redis nodes. If 3 availability zones (AZs) are defined in the underlying HPE Helion OpenStack 
         installation, Redis cluster nodes will be distributed across AZs randomly. Nodes might end up deployed on the same AZ. To ensure 
@@ -230,9 +244,10 @@
       <p><b>Database Footprint Growth</b></p>
       <p>Each additional Redis cluster node requires 1 VM and same amount of Cinder block storage as in other nodes of the cluster (in GB’s). 
         A floating IP does not need to be associated with a Redis node, but if required, it will consume 1 floating IP from the quota.</p>
-      
+      </sectiondiv>
     </section>
-    <section><title>Vertica Clusters</title>
+    <section><title outputclass="headerH">Vertica Clusters</title>
+      <sectiondiv outputclass="insideSection">
     <p><b>Overview</b></p>
       <p>Vertica is available in Preview mode. The Preview release packages Vertica Community Edition 7.1.2, and limits Vertica cluster size 
         to three nodes and one terabyte of raw data.</p>
@@ -245,7 +260,7 @@
       <image href="../../../media/database_reference_vertica_replication.png" align="center" placement="break" />
       <p><b>Security Groups</b></p>
       <p>The following ports are exposed so that users can access the Vertica cluster:</p>
-      <table frame="all" rowsep="1" colsep="1" id="table_redis">
+      <table frame="all" rowsep="1" colsep="1" id="table_security">
         <tgroup cols="5">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -278,6 +293,7 @@
       </table>
       <p><b>Database Footprint Growth</b></p>
       <p>In HDP 2.0, growing or shrinking Vertica Preview clusters is not supported; that is, nodes cannot be added or removed.</p>
+      </sectiondiv>
     </section>
   </body>
 </topic>
