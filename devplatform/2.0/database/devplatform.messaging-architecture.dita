@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+  PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" >
+<topic xml:lang="en-us" id="MessagingArchitecture ">
+  <title>Messaging Service Architecture</title>
+  <body>
+    <p>The <xref
+        href="http://docs.hpcloud.com/#devplatform/2.0/messaging/messaging_service_ref.html"
+        format="html" scope="external">Messaging Service</xref> provides lifecycle services for
+      RabbitMQ clusters, including provisioning, configuration, and scaling, all administered from
+      either a command line interface, RESTful APIs, or the Horizon Dashboard.</p>
+    <ul>
+      <li>The Messaging Service is an implementation of the <xref
+          href="https://wiki.openstack.org/wiki/Cue" format="html" scope="external">OpenStack
+          Cue</xref> project.</li>
+      <li>It provides developers with the ability to provision multi-node RabbitMQ clusters using a wizard-based UI from the HP Helion 
+        OpenStack console. </li>
+      <li>It supports RabbitMQ version 3.4.</li>
+      <li>It integrates with <xref
+          href="http://docs.hpcloud.com/#helion/identity/identity_overview.html" format="html"
+          scope="external">Keystone</xref> to remove the need to create separate credentials for
+        accessing the Messaging Service API. RabbitMQ username/password credentials are accepted
+        through the Messaging Service API. </li>
+      <li>The Messaging Service allows developers to focus on building their apps without worrying about installing, configuring, and 
+        troubleshooting RabbitMQ.</li>
+      <li>The Messaging Service can be easily accessed from the Application Lifecycle Service so that developers can use scaled and managed 
+        RabbitMQ clusters in their production applications. </li>
+    </ul>
+    <section><title>Deployed View</title>
+      <p>The control plane of the Messaging Service is deployed across 3 nodes. Those nodes are not
+        guaranteed to be in different availability zones.<simpletable frame="all" relcolwidth="1.0*"
+          id="simpletable_hf1_ctz_w5">
+          <strow>
+            <stentry>
+              <image href="../../../media/messaging_architecture.png" align="center"
+                placement="break" id="image_rbh_ctz_w5"/>
+            </stentry>
+          </strow>
+          <strow>
+            <stentry align="center"><i>HP Helion Development Platform Messaging Service Architecture</i></stentry>
+          </strow>
+        </simpletable></p>
+
+      <p><b>Components</b></p>
+      <p>A description of each component in the Messaging Service is provided below.</p>
+      
+    </section>
+    <table frame="all" rowsep="1" colsep="1" id="table_dln_psz_w5">
+      <tgroup cols="2">
+        <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+        <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+        <thead>
+          <row>
+            <entry>Component</entry>
+            <entry>Function</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>Cue API</entry>
+            <entry>A REST API that provides access to common broker provisioning and administration tasks such as creating 
+              a messaging broker cluster, deleting, retrieval and list all clusters. The API provides a single way for 
+              administrators and developers to interact with individual message brokers in a consistent manner without 
+              having to be experts in a particular messaging technology</entry>
+          </row>
+          <row>
+            <entry>Cue Worker</entry>
+            <entry>Executes the steps to create, delete and monitor messaging broker clusters.</entry>
+          </row>
+          <row>
+            <entry>Cue Monitor</entry>
+            <entry>Submits monitoring jobs for Cue worker to execute</entry>
+          </row>
+          <row>
+            <entry>Zookeeper</entry>
+            <entry>Queues API and monitoring requests for Cue workers. Version 3.4.</entry>
+          </row>
+          <row>
+            <entry>Database</entry>
+            <entry>Provides persistent storage for maintaining the state of the service and message broker 
+              clusters. Uses MySQL Percona version 5.5.</entry>
+          </row>
+          <row>
+            <entry>HAProxy</entry>
+            <entry>Routes requests to the Cue API instances, handles underlying Cue API instance failures. 
+              Uses version 1.5.8</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p><b>Network</b></p>
+    <p>The following picture shows how the Messaging Service connects to the networks defined in the networking section above, 
+      as well as showing the networks that are created when the Messaging Service is installed.</p>
+  </body>
+</topic>
