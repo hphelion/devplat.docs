@@ -28,18 +28,24 @@
     </ul>
     <section><title>Deployed View</title>
       <p>The control plane of the Messaging Service is deployed across 3 nodes. Those nodes are not
-        guaranteed to be in different availability zones.<simpletable frame="all" relcolwidth="1.0*"
-          id="simpletable_hf1_ctz_w5">
-          <strow>
-            <stentry>
-              <image href="../../../media/messaging_architecture.png" align="center"
-                placement="break" id="image_rbh_ctz_w5"/>
-            </stentry>
-          </strow>
-          <strow>
-            <stentry align="center"><i>HP Helion Development Platform Messaging Service Architecture</i></stentry>
-          </strow>
-        </simpletable></p>
+        guaranteed to be in different availability zones.</p>
+      <table frame="all" rowsep="1" colsep="1"
+          id="table_xbd_yvz_w5">
+          <tgroup cols="1">
+            <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+            <tbody>
+              <row>
+                <entry>
+                  <image href="../../../media/messaging_architecture.png" align="center"
+                    placement="break" id="image_rbh_ctz_w5"/>
+                </entry>
+              </row>
+              <row>
+                <entry align="center"><i>HP Helion Development Platform Messaging Service Architecture</i></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
 
       <p><b>Components</b></p>
       <p>A description of each component in the Messaging Service is provided below.</p>
