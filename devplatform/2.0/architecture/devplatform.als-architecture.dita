@@ -62,7 +62,7 @@ HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.X
                 <entry>Maps application URLs to the application instances running on the DEAs.
                   Application users connecting from the web are redirected transparently to an
                   internal URL and port. Connections from ALS clients are routed directly to the ALS
-                  cluster Controller.<p dir="ltr">The Router component can be scaled for high
+                  cluster Controller.<p>The Router component can be scaled for high
                     availability and failover purposes (like other ALS components). It also offers
                     support for innovative new standards such as WebSocket and SPDY (an
                     application-layer protocol designed specifically for minimal latency for
@@ -84,7 +84,7 @@ HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.X
                   multiple services can be bound to any application and vice versa. ALS Data
                   Services can be run on separate VMs, or can share VMs as required. Applications
                   can use HPE Helion Development Platform Enterprise Grade Application Services as
-                  well as other external services.<p dir="ltr">ALS supports the following
+                  well as other external services.<p>ALS supports the following
                     developer-grade data services:</p><ul id="ul_ofm_3pb_x5">
                     <li>MySQL 5.5.46</li>
                     <li>filesystem 1.0 (SSHFS 2.3, FUSE 2.8.6)</li>
@@ -186,8 +186,8 @@ wget http://www.cnn.com/</codeblock></li>
           </ul></p>
         <p>The following references can be used to identify and manage capacity in your
             environment:<ul id="ul_uth_kqb_x5">
-            <li dir="ltr">
-              <p dir="ltr">Adding Compute Hosts - <xref
+            <li>
+              <p>Adding Compute Hosts - <xref
                   href="http://docs.openstack.org/openstack-ops/content/scaling.html" format="html"
                   scope="external"
                   >http://docs.openstack.org/openstack-ops/content/scaling.html</xref></p>
@@ -241,85 +241,77 @@ wget http://www.cnn.com/</codeblock></li>
         <p><b>Security Groups</b></p>
         <p> The Security groups listed below enforce the firewall rules defined above. They are
           created during the ALS Cluster Creation process. All of these Security Groups are defined
-          on the Tenant supplied network. There are no egress restrictions.<table frame="all"
-            rowsep="1" colsep="1" id="table_agj_qrb_x5">
-            <tgroup cols="6">
-              <colspec colname="c1" colnum="1"/>
-              <colspec colname="c2" colnum="2"/>
-              <colspec colname="c3" colnum="3"/>
-              <colspec colname="c4" colnum="4"/>
-              <colspec colname="c5" colnum="5"/>
-              <colspec colname="c6" colnum="6"/>
-              <thead>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-              </thead>
-              <tbody>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-                <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                  <entry/>
-                </row>
-              </tbody>
-            </tgroup>
-          </table></p>
+          on the Tenant supplied network. There are no egress restrictions.
+          <table frame="all" rowsep="1" colsep="1">
+              <tgroup cols="6">
+                <colspec colnum="1" colname="col1"/>
+                <colspec colnum="2" colname="col2"/>
+                <colspec colnum="3" colname="col3"/>
+                <colspec colnum="4" colname="col4"/>
+                <colspec colnum="5" colname="col5"/>
+                <colspec colnum="6" colname="col6"/>
+              
+                  <thead><row>
+                    <entry>Group</entry>
+                    <entry>Ether Type</entry>
+                    <entry>IP Protocol</entry>
+                    <entry>Port Range</entry>
+                    <entry>Remote IP Prefix</entry>
+                    <entry>Remote Security Group</entry>
+                  </row></thead>  <tbody>
+                  <row>
+                    <entry morerows="1">&lt;cluster-name&gt;-Internal</entry>
+                    <entry>IPv6</entry>
+                    <entry>Any</entry>
+                    <entry>Any</entry>
+                    <entry>-</entry>
+                    <entry>internal</entry>
+                  </row>
+                  <row>
+                    <entry>IPv4</entry>
+                    <entry>Any</entry>
+                    <entry>Any</entry>
+                    <entry>-</entry>
+                    <entry>internal</entry>
+                  </row>
+                  <row>
+                    <entry morerows="2">&lt;cluster-name&gt;-Router</entry>
+                    <entry morerows="2">IPv4</entry>
+                    <entry>ICMP</entry>
+                    <entry>Any</entry>
+                    <entry>0.0.0.0/0</entry>
+                    <entry>-</entry>
+                  </row>
+                  <row>
+                    <entry>TCP</entry>
+                    <entry>80</entry>
+                    <entry>0.0.0.0/0</entry>
+                    <entry>-</entry>
+                  </row>
+                  <row>
+                    <entry>TCP</entry>
+                    <entry>443</entry>
+                    <entry>0.0.0.0/0</entry>
+                    <entry>-</entry>
+                  </row>
+                  <row>
+                    <entry morerows="1">&lt;cluster-name&gt;-SSH</entry>
+                    <entry morerows="1">IPv4</entry>
+                    <entry>TCP</entry>
+                    <entry>22</entry>
+                    <entry>0.0.0.0/0</entry>
+                    <entry>-</entry>
+                  </row>
+                  <row>
+                    <entry>TCP</entry>
+                    <entry>5986</entry>
+                    <entry>0.0.0.0/0</entry>
+                    <entry>-</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
+          </p>
       </sectiondiv></section>
     <section><title outputclass="headerH">Helion ALS Cluster Sizing
         Considerations</title><sectiondiv outputclass="insideSection">
@@ -348,98 +340,97 @@ wget http://www.cnn.com/</codeblock></li>
           want to be able to support all data services except postgres and MSSQL2012 in this
           environment.</p>
         <p>Every ALS cluster has a core node which should be at least m1.large to handle the portal,
-          web traffic, authentication, managing applications and terminating SSL traffic.<table
-            frame="all" rowsep="1" colsep="1" id="table_jt4_wrb_x5">
+          web traffic, authentication, managing applications and terminating SSL traffic. <table
+            frame="all" rowsep="1" colsep="1">
             <tgroup cols="3">
-              <colspec colname="c1" colnum="1"/>
-              <colspec colname="c2" colnum="2"/>
-              <colspec colname="c3" colnum="3"/>
+              <colspec colnum="1" colname="col1"/>
+              <colspec colnum="2" colname="col2"/>
+              <colspec colnum="3" colname="col3"/>
               <thead>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Role</entry>
+                  <entry>Count</entry>
+                  <entry>Flavor</entry>
                 </row>
               </thead>
               <tbody>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>ALS cluster Core node</entry>
+                  <entry>1</entry>
+                  <entry>m1.large or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>TOTAL</entry>
+                  <entry>1</entry>
+                  <entry>M1.larger or larger</entry>
                 </row>
               </tbody>
             </tgroup>
-          </table></p>
-        <p>Next account for the nodes required for the data services. Each of the services run in
-          their own instance and should be m1.medium flavor or larger. For smaller POC or low
-          traffic environments, it may be acceptable to host more than one service on the same
-            instance.<table frame="all" rowsep="1" colsep="1" id="table_pgy_yrb_x5">
+          </table></p><p>Next account for the nodes required for the data services. Each of the
+          services run in their own instance and should be m1.medium flavor or larger. For smaller
+          POC or low traffic environments, it may be acceptable to host more than one service on the
+          same instance. <table frame="all" rowsep="1" colsep="1">
             <tgroup cols="3">
-              <colspec colname="c1" colnum="1"/>
-              <colspec colname="c2" colnum="2"/>
-              <colspec colname="c3" colnum="3"/>
+              <colspec colnum="1" colname="col1"/>
+              <colspec colnum="2" colname="col2"/>
+              <colspec colnum="3" colname="col3"/>
               <thead>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Role</entry>
+                  <entry>Count</entry>
+                  <entry>Flavor</entry>
                 </row>
               </thead>
               <tbody>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>RabbitMQ</entry>
+                  <entry>1</entry>
+                  <entry>M1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Redis</entry>
+                  <entry>1</entry>
+                  <entry>m1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Mongodb</entry>
+                  <entry>1</entry>
+                  <entry>m1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>MySQL</entry>
+                  <entry>1</entry>
+                  <entry>M1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Memcache</entry>
+                  <entry>1</entry>
+                  <entry>M1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Postgresql</entry>
+                  <entry>0</entry>
+                  <entry>m1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>MSSQL2014</entry>
+                  <entry>1</entry>
+                  <entry>m1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>MSSQL2012 </entry>
+                  <entry>0</entry>
+                  <entry>M1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Filesystem</entry>
+                  <entry>1</entry>
+                  <entry>M1.medium or larger</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>TOTAL</entry>
+                  <entry>7</entry>
+                  <entry>M1.medium or larger</entry>
                 </row>
               </tbody>
             </tgroup>
@@ -456,151 +447,155 @@ wget http://www.cnn.com/</codeblock></li>
           the number of m1.large Linux DEA instances, divide 13GB by 6.4GB available per instance =>
           2.03 instances and round up to 3 m1.large instances. If using m1.medium instances are
           desired, divide 13 by 3.2GB available per instance => 4.06 instances and round up to 5
-          m1.medium instances.<table frame="all" rowsep="1" colsep="1" id="table_ds4_dsb_x5">
+          m1.medium instances.</p><p>
+          <table frame="all" rowsep="1" colsep="1">
             <tgroup cols="3">
-              <colspec colname="c1" colnum="1"/>
-              <colspec colname="c2" colnum="2"/>
-              <colspec colname="c3" colnum="3"/>
+              <colspec colnum="1" colname="col1"/>
+              <colspec colnum="2" colname="col2"/>
+              <colspec colnum="3" colname="col3"/>
               <thead>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Role</entry>
+                  <entry>Count</entry>
+                  <entry>Flavor</entry>
                 </row>
               </thead>
               <tbody>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Windows DEA</entry>
+                  <entry>5</entry>
+                  <entry>M1.medium</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Linux DEA</entry>
+                  <entry>5</entry>
+                  <entry>M1.medium</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>TOTAL</entry>
+                  <entry>10</entry>
+                  <entry>M1.medium</entry>
                 </row>
               </tbody>
             </tgroup>
-          </table></p> Or: <table frame="all" rowsep="1" colsep="1" id="table_vmm_2sb_x5">
-          <tgroup cols="3">
-            <colspec colname="c1" colnum="1"/>
-            <colspec colname="c2" colnum="2"/>
-            <colspec colname="c3" colnum="3"/>
-            <thead>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-        <p>Adding all the requirements together give the following results. </p><p>If the preference
-          is to use m1.medium instances:<table frame="all" rowsep="1" colsep="1"
-            id="table_fdc_hsb_x5">
+          </table>
+        </p>Or: <p>
+          <table frame="all" rowsep="1" colsep="1">
             <tgroup cols="3">
-              <colspec colname="c1" colnum="1"/>
-              <colspec colname="c2" colnum="2"/>
-              <colspec colname="c3" colnum="3"/>
+              <colspec colnum="1" colname="col1"/>
+              <colspec colnum="2" colname="col2"/>
+              <colspec colnum="3" colname="col3"/>
               <thead>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Role</entry>
+                  <entry>Count</entry>
+                  <entry>Flavor</entry>
                 </row>
               </thead>
               <tbody>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Windows DEA</entry>
+                  <entry>3</entry>
+                  <entry>M1.large</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Linux DEA</entry>
+                  <entry>3</entry>
+                  <entry>M1.large</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>TOTAL</entry>
+                  <entry>6</entry>
+                  <entry>M1.large</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </p><p>Adding all the requirements together give the following results. </p><p>If the
+          preference is to use m1.medium instances: <table frame="all" rowsep="1" colsep="1">
+            <tgroup cols="3">
+              <colspec colnum="1" colname="col1"/>
+              <colspec colnum="2" colname="col2"/>
+              <colspec colnum="3" colname="col3"/>
+              <thead>
+                <row>
+                  <entry>Role</entry>
+                  <entry>Count</entry>
+                  <entry>Flavor</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>ALS cluster Core node</entry>
+                  <entry>1</entry>
+                  <entry>M1large</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
-                  <entry/>
+                  <entry>Service nodes</entry>
+                  <entry>7</entry>
+                  <entry>M1.medium</entry>
                 </row>
                 <row>
-                  <entry/>
-                  <entry/>
+                  <entry>Windows DEA</entry>
+                  <entry>5</entry>
+                  <entry>M1.medium</entry>
+                </row>
+                <row>
+                  <entry>Linux DEA</entry>
+                  <entry>5</entry>
+                  <entry>M1.medium</entry>
+                </row>
+                <row>
+                  <entry>TOTAL</entry>
+                  <entry>1 m1.large; 17 m1.medium</entry>
                   <entry/>
                 </row>
               </tbody>
             </tgroup>
-          </table></p><p>If the preference is to use m1.large instances:</p><table frame="all"
-          rowsep="1" colsep="1" id="table_wln_jsb_x5">
-          <tgroup cols="3">
-            <colspec colname="c1" colnum="1"/>
-            <colspec colname="c2" colnum="2"/>
-            <colspec colname="c3" colnum="3"/>
-            <thead>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-              <row>
-                <entry/>
-                <entry/>
-                <entry/>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
+          </table>
+        </p><p>If the preference is to use m1.large instances: <table frame="all" rowsep="1"
+            colsep="1">
+            <tgroup cols="3">
+              <colspec colnum="1" colname="col1"/>
+              <colspec colnum="2" colname="col2"/>
+              <colspec colnum="3" colname="col3"/>
+              <thead>
+                <row>
+                  <entry>Role</entry>
+                  <entry>Count</entry>
+                  <entry>Flavor</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>ALS cluster Core node</entry>
+                  <entry>1</entry>
+                  <entry>M1large</entry>
+                </row>
+                <row>
+                  <entry>Service nodes</entry>
+                  <entry>7</entry>
+                  <entry>M1.medium</entry>
+                </row>
+                <row>
+                  <entry>Windows DEA</entry>
+                  <entry>3</entry>
+                  <entry>M1.large</entry>
+                </row>
+                <row>
+                  <entry>Linux DEA</entry>
+                  <entry>3</entry>
+                  <entry>M1.large</entry>
+                </row>
+                <row>
+                  <entry>TOTAL</entry>
+                  <entry>7 m1.large; 7 m1.medium</entry>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </p>
       </sectiondiv></section>
   
   
