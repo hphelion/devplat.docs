@@ -12,19 +12,21 @@
     </p>
     
     
-    <section><title outputclass="headerH">Administrator steps for a single
-        instance</title><sectiondiv outputclass="insideSection"> Create a Vertica Preview single
-        instance or cluster using the HDP Database Service. <note>For production deployments,
-          clusters are recommended for high availability.<ul id="ul_tmf_l4n_55">
-            <li>
-              <p><xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create
-                  single instance using Horizon</xref></p>
-            </li>
-            <li>
-              <p><xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create
-                  single instance using CLI</xref></p>
-            </li>
-          </ul></note><ol id="ol_k4x_jnf_55">
+    <section><title outputclass="headerH">Administrator procedure for a single
+        instance</title><sectiondiv outputclass="insideSection">
+        <ol id="ol_k4x_jnf_55">
+          <li> Create a Vertica Preview single instance using the HDP Database Service. <note>For
+              production deployments, clusters are recommended for high availability.<ul
+                id="ul_tmf_l4n_55">
+                <li>
+                  <xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create
+                    single instance using Horizon</xref>
+                </li>
+                <li>
+                  <xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create
+                    single instance using CLI</xref>
+                </li>
+              </ul></note></li>
           <li>Reset and obtain the root password for Vertica database.<ol id="ol_rvt_rqn_55">
               <li> Run <codeph>root-enable</codeph> to reset and obtain the root password for the
                 admin database of the Vertica
@@ -49,21 +51,21 @@
               <li>Vertica database name</li>
               <li>That Vertica communicates on port 5433</li>
             </ul></li>
-        </ol></sectiondiv></section>    <section><title outputclass="headerH">Administrator steps for a cluster</title><sectiondiv
+        </ol>
+      </sectiondiv></section>    <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv
         outputclass="insideSection">
         <ol>
-          <li>Create a Vertica Preview cluster using the HDP Database Service. <note>For production
-              deployments, clusters are recommended for high availability.<ul>
-                <li>
-                  <p><xref
-                      href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
-                      >Create cluster using Horizon</xref></p>
-                </li>
-                <li>
-                  <p><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
-                      >Create cluster using CLI</xref></p>
-                </li>
-              </ul></note></li>
+          <li>Create a Vertica Preview cluster using the HDP Database Service.<ul id="ul_g3v_ql1_x5">
+              <li>
+                <p><xref
+                    href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
+                    >Create cluster using Horizon</xref></p>
+              </li>
+              <li>
+                <p><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
+                    >Create cluster using CLI</xref></p>
+              </li>
+            </ul></li>
           <li>Reset and obtain the root password for Vertica database.<ol>
               <li>On the machine that has access to the Trove control plane, run <codeph>trove
                   list</codeph> to obtain the list of all databases, and make a note of the

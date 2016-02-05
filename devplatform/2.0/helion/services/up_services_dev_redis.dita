@@ -14,43 +14,7 @@
               href="../admin/server/configuration.dita#topic31232/container_allowed">located
               here</xref>.</li>
         </ul>
-    </p></section> <section><title outputclass="headerH">Sample Python code snippet for a single instance</title><sectiondiv outputclass="insideSection"><codeblock># For single instance Redis connections, it is required that “redis” is imported.
-import redis
-
-…
-def testConnection(self,credentials):
-# IP address of Redis single instance VM
-       hostname = credentials['hostname']
-       port = credentials['port'] 
-       db = credentials['db'] 
-
-       redisInstance = None
-        
-       try:
-            redisInstance = redis.StrictRedis(host=hostname, port=int(port), db=int(db))
-       except Exception as ex:
-            return ex
-        
-       try: 
-            redisInstance.set(TEST_KEY,TEST_VALUE)
-       except Exception as ex:
-            return ex
-        
-       try:
-            val = redisInstance.get(TEST_KEY)
-       except Exception as ex:
-            return ex
-            
-       try:
-            redisInstance.delete(TEST_KEY)
-       except Exception as ex:
-            return ex</codeblock><note>To
-              interact with a Redis cluster in any programming language, you need to use and
-              connect to a true Redis cluster API. For example, for Python language, Redis Cluster
-              API (rediscluster) provides a way to list all IP addresses for connection, and works
-              from within applications for true cluster behavior. More information here: <xref
-                href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
-                >https://github.com/Grokzen/redis-py-cluster</xref>.</note></sectiondiv></section>
+    </p></section> 
     <section><title outputclass="headerH">Developer procedure for a single
         instance</title><sectiondiv outputclass="insideSection">
         <ol id="ol_md4_yr1_t5">
@@ -166,7 +130,43 @@ Creating new service … OK</codeblock></li>
 |  - hostname  | 15.124.133.182   |
 |  - port      | 6379             |
 +--------------+------------------+</codeblock></li></ol></sectiondiv></section>
+    <section><title outputclass="headerH">Sample Python code snippet for a single instance</title><sectiondiv outputclass="insideSection"><codeblock># For single instance Redis connections, it is required that “redis” is imported.
+import redis
 
+…
+def testConnection(self,credentials):
+# IP address of Redis single instance VM
+       hostname = credentials['hostname']
+       port = credentials['port'] 
+       db = credentials['db'] 
+
+       redisInstance = None
+        
+       try:
+            redisInstance = redis.StrictRedis(host=hostname, port=int(port), db=int(db))
+       except Exception as ex:
+            return ex
+        
+       try: 
+            redisInstance.set(TEST_KEY,TEST_VALUE)
+       except Exception as ex:
+            return ex
+        
+       try:
+            val = redisInstance.get(TEST_KEY)
+       except Exception as ex:
+            return ex
+            
+       try:
+            redisInstance.delete(TEST_KEY)
+       except Exception as ex:
+            return ex</codeblock><note>To
+              interact with a Redis cluster in any programming language, you need to use and
+              connect to a true Redis cluster API. For example, for Python language, Redis Cluster
+              API (rediscluster) provides a way to list all IP addresses for connection, and works
+              from within applications for true cluster behavior. More information here: <xref
+                href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
+                >https://github.com/Grokzen/redis-py-cluster</xref>.</note></sectiondiv></section>
     
     
     

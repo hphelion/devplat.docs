@@ -90,7 +90,7 @@ local 0.078GB</codeblock></li>
      }
 )</codeblock>If
                       the command was successful, you will see output similar to the
-                      following:<codeblock>{
+                      following:<!--note the spacing of the brackets is off, it was flat like that in the original, does it need fixing?--><codeblock>{
 "user" : "demo",
 "roles" : [
 {

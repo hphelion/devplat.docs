@@ -3,10 +3,11 @@
 <topic id="upservicesadminmysql">
   <title>HPE Helion Development Platform 2.0: MySQL Integration for Administrators</title>
   <abstract><shortdesc outputclass="hdphidden">Connect managed MySQL clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_mysql.dita">create and bind custom MySQL services</xref>.</abstract><body>
-    <p>This documentation provides guidance on how to connect and use managed MySQL clusters for applications that will be deployed using ALS.</p>
-    <p>For single instance connectivity and usage, such as non-clustered MySQL, refer to the <xref
-        href="../../../2.0/database/devplatform.database-ALS.dita">using the Database with the Application
-        Lifecycle Service</xref> documentation. </p>
+    <p>
+      <note>For single instance connectivity and usage, such as non-clustered MySQL, refer to the
+          <xref href="../../../2.0/database/devplatform.database-ALS.dita">using the Database with
+          the Application Lifecycle Service</xref> documentation. </note>
+    </p>
     
     <section><title>Prerequisites</title>
       <ul id="ul_b5y_skf_55">
@@ -35,7 +36,7 @@
           populate. Only single instances are displayed and can be selected for binding to ALS
           clusters using the Horizon UI. </li>
       </ul></section>
-    <section><title>Administrator Steps</title>
+    <section><title>Administrator procedure for a cluster</title>
       <ol id="ol_cjr_plf_55">
         <li>Create a MySQL cluster using HDP Database Service. For production deployments, clusters
           are recommended for high availability.<ul id="ul_kbj_xlf_55">
@@ -135,7 +136,7 @@
                     <codeblock>kato restart mysql -n &lt;remote IP&gt;</codeblock>
                   </p></li>
               </ol></li>
-          </ol></li><li>Provide th application developers with the connection parameters for the specific MySQL cluster
+          </ol></li><li>Provide the application developers with the connection parameters for the specific MySQL cluster
           database that can be used by an application. <ul id="ul_r4k_w4m_55">
             <li>The virtual IP address, as configured using LBaaS</li>
             <li>Username/password as <xref href="#upservicesadminmysql/rootenable">set

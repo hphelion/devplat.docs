@@ -3,16 +3,16 @@
 <topic id="upservicesadminredis">
   <title>HPE Helion Development Platform 2.0: Redis Integration for Administrators</title><abstract><shortdesc outputclass="hdphidden">Connect Redis instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_redis.dita">create and bind custom Redis services</xref>.</abstract>
   <body>
-   <section><title>Pre-requisites</title>
-     <sl>
-        <sli>A basic understanding of Redis.</sli>
-        <sli>You can run the <codeph>redis-cli</codeph> client shell command to connect and manage
-          your Redis database. </sli>
-        <sli>You can download the <codeph>redis-cli</codeph> client here, and install on the machine
-          you will run client commands to manage the Redis database. </sli>
-        <sli>This machine should have access to the Redis database IP address.</sli>
-        <sli>Verify that you can run <codeph>redis-cli</codeph> shell commands.</sli>
-      </sl>
+   <section><title>Prerequisites</title>
+     <ul>
+        <li>A basic understanding of Redis.</li>
+        <li>You can run the <codeph>redis-cli</codeph> client shell command to connect and manage
+          your Redis database. </li>
+        <li>You can download the <codeph>redis-cli</codeph> client here, and install on the machine
+          you will run client commands to manage the Redis database. </li>
+        <li>This machine should have access to the Redis database IP address.</li>
+        <li>Verify that you can run <codeph>redis-cli</codeph> shell commands.</li>
+      </ul>
       </section>
     <section>
       <title>Limitations</title>
@@ -52,8 +52,8 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
     <section>
       <title outputclass="headerH">Administrator procedure for a single instance</title>
       <ol id="ol_xxb_kyz_w5">
-        <li>Create a Redis single instance using the HDP Database Service. For production
-          deployments, clusters are recommended for high availability. <sl>
+        <li>Create a Redis single instance using the HDP Database Service. <note>For production
+            deployments, clusters are recommended to ensure high availability. </note><sl>
             <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
                 single instance on Horizon</xref></sli>
             <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
@@ -61,7 +61,7 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
           </sl>
         </li>
         <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
-            the ALS cluster</xref> to open access to the IP addresse of the Redis instance and port
+            the ALS cluster</xref> to open access to the IP address of the Redis instance and port
           6379.</li>
         <li>For the specific Redis database that will be used by an application, provide the
           following connection parameters to the developers.<ul id="ul_zdv_fr1_t5">
@@ -73,8 +73,7 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
     <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv
         outputclass="insideSection">
         <ol id="ol_s1g_zxz_w5">
-          <li>Create a Redis cluster using the HDP Database Service. For production deployments,
-            clusters are recommended for high availability. <sl>
+          <li> Create a Redis cluster using the HDP Database Service.<sl>
               <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
                   cluster on Horizon</xref></sli>
               <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
