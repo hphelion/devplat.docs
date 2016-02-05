@@ -50,10 +50,11 @@
         instance</title><sectiondiv outputclass="insideSection">
         <ol>
           <li>Create a MongoDB single instance using the HDP Database Service. <note>For production
-              deployments, clusters are recommended for high availability. </note>
-            <ul>
-              <li><xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create single instance using Horizon </xref></li>
-              <li><xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create single instance using CLI</xref></li>
+              deployments, clusters are recommended for high availability.  </note><ul>
+              <li><xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create
+                  single instance using Horizon </xref></li>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create
+                  single instance using CLI</xref></li>
             </ul>
           </li>
           <li>Run <codeph>root-enable</codeph> to reset and obtain the root password for the admin
