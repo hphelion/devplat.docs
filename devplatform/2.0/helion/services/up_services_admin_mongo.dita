@@ -50,14 +50,11 @@
         instance</title><sectiondiv outputclass="insideSection">
         <ol>
           <li>Create a MongoDB single instance using the HDP Database Service. <note>For production
-              deployments, clusters are recommended for high availability. </note><sl>
-              <sli><xref
-                  href="https://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-create-horizon.html"
-                  format="html" scope="external">Create single instance on Horizon </xref></sli>
-              <sli><xref
-                  href="https://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-create-cli.html"
-                  format="html" scope="external">Create single instance using CLI</xref></sli>
-            </sl>
+              deployments, clusters are recommended for high availability. </note>
+            <ul>
+              <li><xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create single instance using Horizon </xref></li>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create single instance using CLI</xref></li>
+            </ul>
           </li>
           <li>Run <codeph>root-enable</codeph> to reset and obtain the root password for the admin
             database. Make a note of name and password values, as you will need them in following
@@ -137,14 +134,13 @@ local 0.078GB</codeblock></li>
         cluster</title><sectiondiv outputclass="insideSection">
         <ol>
           <li>Create a MongoDB cluster using the HDP Database Service. <note>For production
-              deployments, clusters are recommended for high availability. </note><sl>
-              <sli><xref
-                  href="https://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-create-cluster-horizon.html"
-                  format="html" scope="external">Create cluster on Horizon</xref></sli>
-              <sli><xref
-                  href="https://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
-                  format="html" scope="external">Create cluster using CLI</xref></sli>
-            </sl>
+              deployments, clusters are recommended for high availability. </note>
+            <ul>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
+                  format="html" scope="external">Create cluster using Horizon</xref></li>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
+                  format="html" scope="external">Create cluster using CLI</xref></li>
+            </ul>
           </li>
           <li>Run <codeph>trove root-enable</codeph> to reset and obtain the root password for the
             admin database. <note>Due to the authentication bug, if authentication was not manually
@@ -237,9 +233,7 @@ local 0.078GB</codeblock></li>
                   </ol></li>
               </ol>
             </p></li>
-          <li><xref
-              href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
-              format="html" scope="external">Configure the ALS cluster</xref> to open access to the
+          <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure the ALS cluster</xref> to open access to the
             IP address of the MongoDB query router, the VM of the <codeph>admin</codeph> tenant,
             and port 27017.<note>To configure the ALS cluster for access, you first need to SSH to
               each DEA node by using:
