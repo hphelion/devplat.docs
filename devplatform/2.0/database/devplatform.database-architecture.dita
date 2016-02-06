@@ -15,7 +15,7 @@
     <p>The Database service provides a simple and easy way to access and utilize features in a
         database without the overhead of administration. It consists of several components including
         an API server, message bus, task manager, conductor and guest agent. If HPE Helion OpenStack
-        is configured as a Multi-AZ (Availaility Zone), the Database Service will install across all
+        is configured as a Multi-AZ (Availability Zone), the Database Service will install across all
         zones using intelligent orchestration and data-level clustering. This results in the
         deployed service being resilient to single AZ failures as illustrated in the <xref
           href="#DatabaseArchitecture/architecture_graphic" format="dita">Database Service
