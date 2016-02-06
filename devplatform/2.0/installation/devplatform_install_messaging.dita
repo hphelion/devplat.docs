@@ -149,9 +149,9 @@ stack@messaging-deployer:~/helion/my_cloud/definition/data$ nano network_groups.
                     <b>my-public-cert</b>). <note>The certificate file must contain both the
                       certificate and the private key data.</note></li>
                 </ol></note></li>
-          <li> Using Git, persist these changes. This information is required for the Pre-Install playbook,
-              which is executed later in this installation
-              process.<codeblock>stack@messaging-deployer:/helion/my_cloud/definition/data/pass-through$ cd ~/helion
+          <li> Using Git, persist these changes. This information is required for the Pre-Install
+              playbook, which is executed later in this installation
+              process.<codeblock>stack@messaging-deployer:~/helion/my_cloud/definition/data$ cd ~/helion
 stack@messaging-deployer:~/helion$ git add -A # Required if you copied a new cert file
 stack@messaging-deployer:~/helion$ git commit -a -m "Configured Deployment Model"</codeblock></li>
 
