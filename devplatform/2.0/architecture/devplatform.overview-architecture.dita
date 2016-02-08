@@ -395,5 +395,10 @@
     <section id="relinfo"><title>Related Service Reference Architecture Documents</title><p>Each service has a separate document to show what the service architecture looks like
       after installation and provide operational guidance. </p></section>
     
-  </body>
+  </body><related-links>
+    <link href="../guides/devplatform.als-operations-guide.dita"></link>
+    <link href="../guides/devplatform.ce-operations-guide.dita"></link>
+    <link href="../guides/devplatform.database-operations-guide.dita"></link>
+      <link href="../guides/devplatform.messaging-operations-guide.dita"></link>
+  </related-links>
 </topic>
