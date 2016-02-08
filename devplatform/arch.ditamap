@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map xml:lang="en" linking="normal">
+<map xml:lang="en" linking="normal" locktitle="yes">
  <title>DITA Topic Map</title>
  
  <topicref href="2.0/architecture/devplatform.overview-architecture.dita"
@@ -28,5 +28,16 @@
   <topicref href="2.0/guides/devplatform.messaging-operations-guide.dita"
    navtitle=" Messaging Broker Operations Guide"  />
  </topicref>
+ 
+ <reltable>
+  <relrow><relcell collection-type="family">  <topicref href="2.0/guides/devplatform.als-operations-guide.dita"
+   navtitle="ALS Operations Guide"  />
+   <topicref href="2.0/guides/devplatform.ce-operations-guide.dita"
+    navtitle="Code Engine Operations Guide"  />
+   <topicref href="2.0/guides/devplatform.database-operations-guide.dita"
+    navtitle="Database Service Operations Guide"  />
+   <topicref href="2.0/guides/devplatform.messaging-operations-guide.dita"
+    navtitle=" Messaging Broker Operations Guide"  /></relcell></relrow>
+ </reltable>
  
 </map>
