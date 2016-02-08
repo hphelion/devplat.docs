@@ -3,7 +3,16 @@
 <topic id="topic_vsf_hnh_ts">
   <title>HPE Helion Development Platform 2.0: Install the Database Service</title>
   <body>
-    <section id="install-database">
+    <section><title>Contents</title>
+      <ul>
+        <li><xref href="#topic_vsf_hnh_ts/prerequisites" format="dita">Prerequisites</xref></li>
+        <li><xref href="#topic_vsf_hnh_ts/dbaas_installation" format="dita">Install the Database
+            Service</xref></li>
+        <li><xref href="#topic_vsf_hnh_ts/configure_haproxy" format="dita">Configure
+          HAProxy</xref></li>
+        <li><xref href="#topic_vsf_hnh_ts/uninstall" format="dita">Prepare Database Service for reinstallation</xref></li>
+      </ul></section>
+    <section id="prerequisites">
       <title>Prerequisites</title>
       <ul>
         <li>The HDP Installer 2.0, also known as HDPI, must already <xref
@@ -132,5 +141,22 @@ ansible-playbook -i hosts/verb_hosts FND-CLU-reconfigure.yml</codeblock></li>
 ansible-playbook -i hosts/verb_hosts osconfig-iptables-deploy.yml</codeblock></li>
           
         </ol></sectiondiv></section>
+    <section id="uninstall"><title>Prepare Database Service for reinstallation</title> The following
+      steps will reset elements of the Database service in preparation for reinstallation. <ol>
+        <li>List all swift containers:
+          <codeblock>$ source service.osrc
+$ swift list</codeblock></li>
+        <li>Note if any of the following containers are present:
+          <codeblock>DBaaS-heat-templates
+dbaas-horizon-ui-installer
+dbaas-ops-console-ui-installer
+hdp
+sherpa-cache
+trove-database0_backup_container-lavvqarpkhnl
+trove-database0_backup_container-n7i2n5n4ntkf</codeblock></li>
+        <li>Delete any of the above containers if they are present:
+          <codeblock>swift delete DBaaS-heat-templates
+...</codeblock></li>
+      </ol></section>
   </body>
 </topic>
