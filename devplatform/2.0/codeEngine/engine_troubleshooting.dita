@@ -29,6 +29,17 @@
               project</xref>.</dd>
         </dlentry>
       </dl></section>
-    <!--<section><title>Builds</title></section><section><title>Installation</title></section><section><title>Configuration</title></section>-->
+    <section><title>Builds</title><dl>
+      <dlentry>
+        <dt>Automated Build Doesn't Run</dt>
+        <dd>If your implementation is completely internal (it cannot reach the public Internet or
+            GitHub) the Code Engine may be configured to listen for updates on an external IP
+            address that it cannot reach. Since the webhook is invalid, the build process will never
+            be triggered. To fix this, <xref href="engine_create_build.dita#createProject">specify a
+              valid Git location</xref>. The Code Engine uses the floating IP address allocated by
+            the HPE Helion OpenStack Installation. If this IP is unreachable, the webhook cannot be
+            created.</dd>
+      </dlentry>
+    </dl></section><!--<section><title>Installation</title></section><section><title>Configuration</title></section>-->
   </body>
 </topic>
