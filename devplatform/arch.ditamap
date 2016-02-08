@@ -6,25 +6,25 @@
  <topicref href="2.0/architecture/devplatform.overview-architecture.dita"
   navtitle="Service Architecture Overview"  collection-type="family">
   <topicref href="2.0/architecture/devplatform.als-architecture.dita"
-   navtitle="ALS Service Architecture"/>
+   navtitle="ALS Service Architecture" locktitle="yes"/>
   <topicref href="2.0/architecture/devplatform.ce-architecture.dita"
-   navtitle="Code Engine Service Architecture" />
+   navtitle="Code Engine Service Architecture" locktitle="yes"/>
   <topicref href="2.0/architecture/devplatform.database-architecture.dita"
-   navtitle="Database Service Architecture" />
+   navtitle="Database Service Architecture" locktitle="yes" />
   <topicref href="2.0/architecture/devplatform.database-supported-reference-architectures.dita"
-   navtitle="Supported Database Reference Architectures" />
+   navtitle="Supported Database Reference Architectures" locktitle="yes" />
   <topicref href="2.0/architecture/devplatform.messaging-architecture.dita"
-   navtitle=" Messaging Service Architecture" />
+   navtitle=" Messaging Service Architecture" locktitle="yes"/>
  </topicref>
  <topicref href="2.0/guides/devplatform.op-guides.dita" navtitle="Operations Guides" collection-type="family">
   <topicref href="2.0/guides/devplatform.als-operations-guide.dita"
-   navtitle="ALS Operations Guide" />
+   navtitle="ALS Operations Guide" locktitle="yes" />
   <topicref href="2.0/guides/devplatform.ce-operations-guide.dita"
-   navtitle="Code Engine Operations Guide" />
+   navtitle="Code Engine Operations Guide" locktitle="yes" />
   <topicref href="2.0/guides/devplatform.database-operations-guide.dita"
-   navtitle="Database Service Operations Guide" />
+   navtitle="Database Service Operations Guide"  locktitle="yes"/>
   <topicref href="2.0/guides/devplatform.messaging-operations-guide.dita"
-   navtitle=" Messaging Broker Operations Guide" />
+   navtitle=" Messaging Broker Operations Guide" locktitle="yes" />
  </topicref>
  
 </map>
