@@ -14,7 +14,7 @@
                         id="image_dzh_2vm_zt"/></li>
             
             
-                <li>Specify the source for this project: <note>If your repo is internal, make sure
+                <li id="source">Specify the source for this project: <note>If your repo is internal, make sure
                         you select the <b>Git</b> option or the webhook which triggers the automated
                         build process may not be created properly.</note><image placement="break"
                         href="../../../media/engine_project_create_source.png" id="image_ux2_sqy_kt"/><ol>

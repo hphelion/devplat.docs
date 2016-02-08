@@ -35,7 +35,7 @@
         <dd>If your implementation is completely internal (it cannot reach the public Internet or
             GitHub) the Code Engine may be configured to listen for updates on an external IP
             address that it cannot reach. Since the webhook is invalid, the build process will never
-            be triggered. To fix this, <xref href="engine_create_build.dita#createProject">specify a
+            be triggered. To fix this, <xref href="engine_create_project.dita#createProject/source">specify a
               valid Git location</xref>. The Code Engine uses the floating IP address allocated by
             the HPE Helion OpenStack Installation. If this IP is unreachable, the webhook cannot be
             created.</dd>
