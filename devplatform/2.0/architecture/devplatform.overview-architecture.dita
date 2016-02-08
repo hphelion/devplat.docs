@@ -40,11 +40,11 @@
             steps to streamline the software release and quality assurance processes. </li>
           <li> Application Services - external application services provide enterprise grade
             durability and manageability for the services used by applications in the Helion
-            Stackato PaaS.</li>
-          <li> Database as a Service - provides lifecycle management for relational and non
-            relational databases, including MySQL, MongoDB, Redis, and Vertica Preview. </li>
-          <li> Messaging as a Service - provides lifecycle management for RabbitMQ clusters</li>
-        </ul></sectiondiv></section>
+            Stackato PaaS.
+       <ul>   <li> Database as a Service - provides lifecycle management for relational and non-relational
+                databases, including MySQL, MongoDB, Redis, and Vertica Preview. </li>
+          <li> Messaging as a Service - provides lifecycle management for RabbitMQ clusters</li></ul>
+        </li></ul></sectiondiv></section>
     
     <section><title outputclass="headerH">HPE Helion Development Platform Users</title><sectiondiv
         outputclass="insideSection">
