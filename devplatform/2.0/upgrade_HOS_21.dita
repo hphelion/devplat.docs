@@ -77,10 +77,36 @@
               instances.<codeblock> ./control_plane_upgrade/scripts/stop_control_plane_instances.bash</codeblock></li>
           </ol></p></section>
       <section>
-        <title>HPE Helion Code Engine</title><p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
+        <title>HPE Helion Code Engine</title>
+        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the Code Engine control plane:</p>
+        <ol>
+          <li>SSH into the HPE Helion OpenStack lifecycle manager.
+            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
+          <li>Source the environment variables.
+            <codeblock>source service.osrc</codeblock></li>
+          <li>Start the HelionCI deployer.
+            <codeblock>nova list --all-tenants | grep helionce
+nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
+          <li>Start the HelionCI controller.
+            <codeblock>nova list --all-tenants | grep helionci – displays three controllers
+nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
+        </ol>
       </section>
       <section>
-        <title>Messaging Service</title><p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
+        <title>Messaging Service</title>
+        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the messaging control plane:</p>
+        <ol>
+          <li>SSH into the HPE Helion OpenStack lifecycle manager.
+            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
+          <li>Source the environment variables.
+            <codeblock>source service.osrc</codeblock></li>
+          <li>Start the messaging deployer.
+            <codeblock>nova list --all-tenants | grep messaging
+nova start &lt;instance-uuid-of-messaging-deployer&gt; </codeblock></li>
+          <li>Start the messaging controller.
+            <codeblock>nova list --all-tenants | grep msgaas 
+nova start &lt;instance-uuid-of-messaging-controllers&gt;</codeblock></li> 
+        </ol>
       </section>
     </body>
   </topic>
