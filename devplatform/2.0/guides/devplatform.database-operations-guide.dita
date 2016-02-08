@@ -72,17 +72,17 @@
                MySQL Galera cluster (active/active multi-master sync config). It can tolerate down to one node staying up (on a 3 AZ config, 2 node failures). In addition, control plane database is 
                automatically backed up to Swift every hour.
              </p></li>
-           <li>In a Disaster Recover (DR) scnerio, if the DBaaS control plane goes down, you need to redeploy DBaaS and restore the control plane database using data from the Swift backup. You can 
-             find the Swift backup file as follows:
-             <ol>
-               <li>Swift container name: <b>backup_container</b></li>
-               <li>Swift backup file name format:
-                <b>&lt;hostname&gt;-&lt;date&gt;-backup-percona</b><p>where &lt;hostname&gt; is the
-                name of the DBaaS control plane database host. Run <codeph>nova list</codeph> to get
-                the database host name that resembles <codeph>trove-db-....</codeph> prefix.
-              </p></li>
-             </ol>
-           </li>
+           <li>In a Disaster Recover (DR) scenerio, if the DBaaS control plane goes down, you need
+            to redeploy DBaaS and restore the control plane database using data from the Swift
+            backup. You can find the Swift backup file as follows: <ol>
+              <li>Swift container name: <b>backup_container</b></li>
+              <li>Swift backup file name format:
+                  <b>&lt;hostname&gt;-&lt;date&gt;-backup-percona</b><p>where &lt;hostname&gt; is
+                  the name of the DBaaS control plane database host. Run <codeph>nova list</codeph>
+                  to get the database host name that resembles <codeph>trove-db-....</codeph>
+                  prefix. </p></li>
+            </ol>
+          </li>
          </ul>
        </sectiondiv>
          </section>
