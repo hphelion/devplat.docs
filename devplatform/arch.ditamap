@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map xml:lang="en" linking="normal" locktitle="yes">
+<map xml:lang="en" linking="normal">
  <title>DITA Topic Map</title>
  
  <topicref href="2.0/architecture/devplatform.overview-architecture.dita"
@@ -16,6 +16,8 @@
   <topicref href="2.0/architecture/devplatform.messaging-architecture.dita"
    navtitle=" Messaging Service Architecture" />
  </topicref>
+ 
+ 
  <topicref href="2.0/guides/devplatform.op-guides.dita" navtitle="Operations Guides">
   <topicref href="2.0/guides/devplatform.als-operations-guide.dita"
    navtitle="ALS Operations Guide"  />
