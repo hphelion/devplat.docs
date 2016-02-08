@@ -4,27 +4,27 @@
  <title>DITA Topic Map</title>
  
  <topicref href="2.0/architecture/devplatform.overview-architecture.dita"
-  navtitle="Service Architecture Overview"  collection-type="family">
+  navtitle="Service Architecture Overview">
   <topicref href="2.0/architecture/devplatform.als-architecture.dita"
-   navtitle="ALS Service Architecture" locktitle="yes"/>
+   navtitle="ALS Service Architecture"/>
   <topicref href="2.0/architecture/devplatform.ce-architecture.dita"
-   navtitle="Code Engine Service Architecture" locktitle="yes"/>
+   navtitle="Code Engine Service Architecture" />
   <topicref href="2.0/architecture/devplatform.database-architecture.dita"
-   navtitle="Database Service Architecture" locktitle="yes" />
+   navtitle="Database Service Architecture"  />
   <topicref href="2.0/architecture/devplatform.database-supported-reference-architectures.dita"
-   navtitle="Supported Database Reference Architectures" locktitle="yes" />
+   navtitle="Supported Database Reference Architectures"  />
   <topicref href="2.0/architecture/devplatform.messaging-architecture.dita"
-   navtitle=" Messaging Service Architecture" locktitle="yes"/>
+   navtitle=" Messaging Service Architecture" />
  </topicref>
- <topicref href="2.0/guides/devplatform.op-guides.dita" navtitle="Operations Guides" collection-type="family">
+ <topicref href="2.0/guides/devplatform.op-guides.dita" navtitle="Operations Guides">
   <topicref href="2.0/guides/devplatform.als-operations-guide.dita"
-   navtitle="ALS Operations Guide" locktitle="yes" />
+   navtitle="ALS Operations Guide"  />
   <topicref href="2.0/guides/devplatform.ce-operations-guide.dita"
-   navtitle="Code Engine Operations Guide" locktitle="yes" />
+   navtitle="Code Engine Operations Guide"  />
   <topicref href="2.0/guides/devplatform.database-operations-guide.dita"
-   navtitle="Database Service Operations Guide"  locktitle="yes"/>
+   navtitle="Database Service Operations Guide"  />
   <topicref href="2.0/guides/devplatform.messaging-operations-guide.dita"
-   navtitle=" Messaging Broker Operations Guide" locktitle="yes" />
+   navtitle=" Messaging Broker Operations Guide"  />
  </topicref>
  
 </map>
