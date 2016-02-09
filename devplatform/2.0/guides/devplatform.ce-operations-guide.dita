@@ -20,5 +20,13 @@
         <li>HPE Helion Development Platform <xref href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5"
               >upgrade documentation</xref> (for use when upgrading HPE Helion OpenStack from
             version 2.0 to version 2.1)</li></ol> </p></section>
-  </body>
+  </body><related-links>
+    <link href="../architecture/devplatform.als-architecture.dita"></link>
+    <link href="../architecture/devplatform.ce-architecture.dita"></link>
+    <link href="../architecture/devplatform.database-architecture.dita"></link>
+    <link href="../architecture/devplatform.messaging-architecture.dita"></link>
+    <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+    <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+    
+  </related-links>
 </topic>
