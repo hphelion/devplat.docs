@@ -25,7 +25,9 @@
         <codeblock>HP Helion Development Platform - Application Lifecycle Service Seed Node 2.0.0.XXX 
 HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.XXX</codeblock>
         The diagram below shows a sample single availability zone ALS cluster built out by the
-        cf-mgmt CLI  </sectiondiv></section>
+        cf-mgmt CLI </sectiondiv><image placement="break"
+        href="C:\Users\perlmanj\devplat.docs\media\archref_als_singleAZ.png" id="image_irc_4qh_y5"
+      /></section>
     <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection">
         <table frame="all" rowsep="1" colsep="1" id="table_v4w_w4b_x5">
           <tgroup cols="2">
@@ -144,7 +146,11 @@ HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.X
       brokers, or user provided service instances, as shown in the diagram above.</p></sectiondiv></section>
    
     <section id="alsnetwork"><title outputclass="headerH">Network </title><sectiondiv outputclass="insideSection">
-      <p>This diagram shows an example of how ALS cluster could be deployed. Note that the Tenant supplied network is connected to the  External public internet (Ext Network) via a router. All of this is assumed to have been done prior to ALS cluster creation.</p></sectiondiv></section>
+      <p>This diagram shows an example of how ALS cluster could be deployed. Note that the Tenant
+          supplied network is connected to the External public internet (Ext Network) via a router.
+          All of this is assumed to have been done prior to ALS cluster creation.<image
+            placement="break" href="../../../media/archref_als_network.png" id="image_k1l_1rh_y5"
+          /></p></sectiondiv></section>
     <section id="life"><title outputclass="headerH">Life of an ALS Cluster</title><sectiondiv
         outputclass="insideSection">
         <p>Initially you will start with no instances pre-created for the cluster. From a jumpbox,

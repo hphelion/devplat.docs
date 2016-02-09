@@ -142,7 +142,12 @@
   </section>
   <section><title outputclass="headerH">Network</title>
     <sectiondiv outputclass="insideSection">
-  
+      <p>The following picture shows how the Database Service connects to the pre-existing HOS
+          Service, Management, and External networks. It also shows the networks that are created
+          when the Database Service is installed. For simplicity, the entire control plane across
+          Availability Zones is shown as a single set of control plane components.<image
+            placement="break" href="../../../media/archref_db_network.png" id="image_lhk_rrh_y5"
+          /></p>
     <p>The following networks are created when the Database Service is installed: </p>
     <ul>
       <li><b>DBaaS MgmtNetwork</b>: Used for control plane nodes to communicate with one another.</li>
