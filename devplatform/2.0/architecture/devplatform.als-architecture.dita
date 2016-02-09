@@ -26,7 +26,7 @@
 HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.XXX</codeblock>
         The diagram below shows a sample single availability zone ALS cluster built out by the
         cf-mgmt CLI </sectiondiv><image placement="break"
-        href="C:\Users\perlmanj\devplat.docs\media\archref_als_singleAZ.png" id="image_irc_4qh_y5"
+        href="../../../media/archref_als_singleAZ.png"
       /></section>
     <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection">
         <table frame="all" rowsep="1" colsep="1" id="table_v4w_w4b_x5">
@@ -605,6 +605,11 @@ wget http://www.cnn.com/</codeblock></li>
       </sectiondiv></section>
   
   
-  </body>
+  </body>    <link href="../guides/devplatform.als-operations-guide.dita"></link>
+  <link href="../guides/devplatform.ce-operations-guide.dita"></link>
+  <link href="../guides/devplatform.database-operations-guide.dita"></link>
+  <link href="../guides/devplatform.messaging-operations-guide.dita"></link>
+  <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+  <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
   
 </topic>

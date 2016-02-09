@@ -108,5 +108,13 @@
                 >Building and Deploying Windows DEA and SQL Server Express Images</xref>.
        
       </sectiondiv></section>
-  </body>
+  </body><related-links>
+    <link href="../architecture/devplatform.als-architecture.dita"></link>
+    <link href=""></link>
+    <link href=""></link>
+    <link href=""></link>
+    <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+    <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+    
+  </related-links>
 </topic>

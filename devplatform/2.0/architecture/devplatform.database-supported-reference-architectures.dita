@@ -295,5 +295,13 @@
       <p>In HDP 2.0, growing or shrinking Vertica Preview clusters is not supported; that is, nodes cannot be added or removed.</p>
       </sectiondiv>
     </section>
-  </body>
+  </body><related-links>
+    <link href="../guides/devplatform.als-operations-guide.dita"></link>
+    <link href="../guides/devplatform.ce-operations-guide.dita"></link>
+    <link href="../guides/devplatform.database-operations-guide.dita"></link>
+    <link href="../guides/devplatform.messaging-operations-guide.dita"></link>
+    <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+    <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+    
+  </related-links>
 </topic>

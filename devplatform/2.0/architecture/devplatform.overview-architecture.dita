@@ -396,7 +396,7 @@
       after installation and provide operational guidance. </p></section>
     
   </body><related-links>
-    <link href="../guides/devplatform.als-operations-guide.dita"><linktext>Application </linktext></link>
+    <link href="../guides/devplatform.als-operations-guide.dita"></link>
     <link href="../guides/devplatform.ce-operations-guide.dita"></link>
     <link href="../guides/devplatform.database-operations-guide.dita"></link>
       <link href="../guides/devplatform.messaging-operations-guide.dita"></link>
