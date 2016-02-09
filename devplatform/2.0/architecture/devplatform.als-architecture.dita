@@ -25,9 +25,9 @@
         <codeblock>HP Helion Development Platform - Application Lifecycle Service Seed Node 2.0.0.XXX 
 HP Helion Development Platform - Application Lifecycle Service Installer 2.0.0.XXX</codeblock>
         The diagram below shows a sample single availability zone ALS cluster built out by the
-        cf-mgmt CLI </sectiondiv><image placement="break"
+        cf-mgmt CLI <image placement="break"
         href="../../../media/archref_als_singleAZ.png"
-      /></section>
+      /></sectiondiv></section>
     <section><title outputclass="headerH">Components</title><sectiondiv outputclass="insideSection">
         <table frame="all" rowsep="1" colsep="1" id="table_v4w_w4b_x5">
           <tgroup cols="2">
