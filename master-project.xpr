@@ -15,8 +15,6 @@
     </meta>
     <projectTree name="master-project.xpr">
         <folder path="devplatform/"/>
-        <folder path="devplatform/2.0/architecture/"/>
-        <folder path="devplatform/2.0/guides/"/>
         <folder path="media/"/>
     </projectTree>
 </project>
