@@ -185,6 +185,6 @@ def testConnection(self,credentials):
     
  
 
-  </body>
+  </body><related-links>  <linkpool conref="up_services_dev_message.dita#upservicesdevmessage/upservicesadmin"/></related-links>
 
 </topic>

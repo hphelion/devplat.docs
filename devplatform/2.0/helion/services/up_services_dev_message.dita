@@ -182,6 +182,16 @@ https://api.10.241.22.105.xip.io -> default -> default -> my-rabbitmq-service
         except Exception as e:
             return(e)</codeblock>
     </section>
-  </body>
+  </body><related-links>
+      <linkpool id="upservicesadmin">
+          <link href="up_services_overview.dita"></link>
+          <link href="up_services_update.dita"></link>
+          <link href="up_services_admin_message.dita"></link>
+          <link href="up_services_admin_mongo.dita"></link>
+          <link href="up_services_admin_mysql.dita"></link>
+          <link href="up_services_admin_redis.dita"></link>
+          <link href="up_services_admin_vertica.dita"></link>
+     </linkpool>
+  </related-links>
 
 </topic>

@@ -446,7 +446,7 @@
         linking="normal" otherprops="upservicesadmin">
         <topicref href="2.0/helion/services/up_services_overview.dita"
           navtitle="User-provided Service Integration for ALS Clusters and Applications"
-          locktitle="yes"/>
+          locktitle="yes" linking="none"/>
         <topicref href="2.0/helion/services/up_services_update.dita"
           navtitle="Updating User-provided Service Credentials" locktitle="yes"/>
         <topicref href="2.0/helion/services/up_services_admin_message.dita"

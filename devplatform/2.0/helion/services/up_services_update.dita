@@ -3,9 +3,10 @@
 <topic id="upservicesupdate">
   <title>HPE Helion Development Platform 2.0: Updating User-provided Service Credentials</title>
   
-  <abstract><shortdesc outputclass="hdphidden">Procedure for changing credentials for a
-      user-provided service.</shortdesc>If you need to make changes to the credentials for a
-    user-provided service, follow the steps below.<ol id="ol_vss_wvk_55">
+  <abstract><shortdesc outputclass="hdphidden">Procedure for changing credentials for a user-provided service.</shortdesc>If you need to make changes to the credentials for a user-provided service, follow the steps below.</abstract>
+  
+  <body>
+    <ol>
       <li>Unbind the service from the application(s) that are bound to it.<ol id="ol_of2_cxl_55">
           <li>Get the list of current credentials and applications that are bound to the service.
             <codeblock>$ helion service &lt;your service name&gt;</codeblock>Example:<codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
@@ -136,12 +137,5 @@ stackato[dea_ng.0]: Instance is ready
 OK
 http://my-app.15.124.134.240.xip.io/ deployed</codeblock></li>
         </ol></li>
-    </ol></abstract>
-  <related-links>
-    <link  href="up_services_overview.dita"><linktext>User-provided Service Integration Overview</linktext></link>
-    <link href="up_services_dev_message.dita"><linktext>Messaging Integration for Developers</linktext></link>
-    <link href="up_services_dev_mongo.dita"><linktext>MongoDB Integration for Developers</linktext></link>
-    <link  href="up_services_dev_mysql.dita"><linktext>MySQL Integration for Developers</linktext></link>
-    <link href="up_services_dev_vertica.dita"><linktext>Vertica Integration for Developers</linktext></link>
-      </related-links>
-</topic>
+    </ol>
+  </body><related-links><linkpool conref="up_services_admin_message.dita#upservicesadminmessage/devproc"/></related-links></topic>

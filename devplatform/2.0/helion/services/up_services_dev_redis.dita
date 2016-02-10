@@ -344,5 +344,5 @@ def testConnection(self,credentials):
             href="https://github.com/Grokzen/redis-py-cluster" format="html" scope="external"
             >https://github.com/Grokzen/redis-py-cluster</xref>. </note>
       </sectiondiv></section>
-  </body>
+  </body><related-links>  <linkpool conref="up_services_dev_message.dita#upservicesdevmessage/upservicesadmin"/></related-links>
 </topic>
