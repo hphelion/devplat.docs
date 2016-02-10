@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="upservicesadminmongo">
+  <title>HPE Helion Development Platform 2.0: MongoDB Integration for Administrators</title><abstract><shortdesc outputclass="hdphidden">Connect Mongo database instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_mongo.dita">create and bind custom Mongo services</xref>.</abstract>
+  <body>
+    <section><title>Prerequisites</title><ul><li>You can run mongo client shell commands to connect and manage the MongoDB database. </li>
+        <li>You can install mongo client by following the steps <xref
+            href="https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-debian/" format="html"
+            scope="external">here</xref> on the machine where you will run mongo commands.</li>
+        <li>The machine where the client is installed requires access to the MongoDB database IP
+          address. </li>
+        <li>Validate you can run mongo shell commands.</li>
+        <li>Have a basic understanding of <xref
+            href="https://docs.mongodb.org/manual/reference/program/mongo/#bin.mongo" format="html"
+            scope="external">MongoDB</xref>. </li></ul>
+       </section>
+    
+    <section><title>Limitations</title><p id="mongolimits">At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
+        cluster creation. On production environments where high-availability is a requirement for a
+        MongoDB cluster access, consider creating at least one additional MongoDB query-router VM
+        after you have created that MongoDB cluster. You can do this on CLI or UI by "growing the cluster".<!--[TODO: Add reference to grow cluster, and validate]--></p></section>
+    
+    
+    
+    <section><title>Known Issues</title>
+        <ul><li>There is a bug with authentication for MongoDB cluster. When connecting to a newly-created
+          MongoDB cluster, username/password is not needed. Enable authentication for a MongoDB
+          cluster after it has been created and secure it for client access with username/password
+          credentials using the process outlined <xref
+            href="https://docs.mongodb.org/manual/tutorial/enable-authentication/" format="html"
+            scope="external">here</xref>.<!-- [TODO validate this workaround works ]  --></li>
+        <li>The MongoDB query-router VM of the MongoDB cluster is not attached to the tenant network
+          specified during cluster creation. This means that it is not accessible to the ALS
+          clusters that are on the same tenant network as the MongoDB cluster. <p>To access the
+            MongoDB cluster query router: <ol id="ol_zgw_rjl_p5">
+              <li>Associate a floating IP address to the MongoDB query router VM in the
+                  <codeph>admin</codeph> tenant. It has a name containing your MongoDB cluster name
+                and ending with<codeph> mongos-1</codeph>. For example:
+                <codeblock><i>mymongocluster</i>-mongos-1 </codeblock></li>
+              <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed"
+                  >Configure the ALS cluster</xref> to allow access to the floating IP you
+                associated above. Example: For floating IP: 10.21.10.5, MongoDB Port: 27017
+                <codeblock>kato config push fence docker/allowed_subnet_ips 10.21.10.5:27017 </codeblock></li>
+            </ol></p></li></ul>
+      </section>
+    
+    
+    
+    <section id="single"><title outputclass="headerH">Administrator procedure for a single
+        instance</title><sectiondiv outputclass="insideSection">
+        <ol>
+          <li>Create a MongoDB single instance using the HDP Database Service. <note>For production
+              deployments, clusters are recommended for high availability.  </note><ul>
+              <li><xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create
+                  single instance using Horizon </xref></li>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create
+                  single instance using CLI</xref></li>
+            </ul>
+          </li>
+          <li>Run <codeph>root-enable</codeph> to reset and obtain the root password for the admin
+            database. Make a note of name and password values, as you will need them in following
+            steps.<codeblock>trove root-enable &lt;<i>id of MongoDB instance</i>&gt;</codeblock>Example:
+            <codeblock>trove root-enable <i>b5da7b05-a6d8-40a6-8be0-20c98c42e58c</i></codeblock><codeblock>+----------+--------------------------------------+
+| Property |                Value                 |
++----------+--------------------------------------+
+|   name   |             admin.root               |
+| password | nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv |
++----------+--------------------------------------+</codeblock></li>
+          <li>Add user to MongoDB database using the Mongo client <p>
+              <ol id="ol_n5s_1ml_p5">
+                <li> Use the Mongo client to connect to the MongoDB database.
+                  <codeblock>mongo -u root -p &lt;root-password_from_root_enable_command&gt; --host &lt;IP address of MongoDB instance&gt; admin</codeblock>Example:<codeblock> mongo -u root -p nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv --host 15.124.133.182 admin</codeblock></li>
+                <li> Verify that you have basic access by running the <codeph>show dbs</codeph>
+                  Mongo shell command. <codeblock>show dbs</codeblock>You should see output similar
+                  to the following:<codeblock>admin 0.078GB 
+local 0.078GB</codeblock></li>
+                <li>Run <codeph>db.createUser</codeph> command in mongo shell to add a user for
+                  client access. Example:<ol>
+                    <li>Set context to the target database.<codeblock>use test_db</codeblock></li>
+                    <li>Create
+                      user:<codeblock>&gt; db.createUser(
+      {
+       user: "demo",
+       pwd: "demo",
+       roles: [
+          { role: "readWrite", db: "test_db"}
+       ]
+     }
+)</codeblock>If
+                      the command was successful, you will see output similar to the
+                      following:<!--note the spacing of the brackets is off, it was flat like that in the original, does it need fixing?--><codeblock>{
+"user" : "demo",
+"roles" : [
+{
+"role" : "readWrite",
+"db" : "test_db"
+}
+]
+}</codeblock></li>
+                    <li>Add additional users as needed.</li>
+                    <li>Verify that the users you have added are in the database. In the mongo
+                      shell, run <codeph>show
+                      users</codeph>.<codeblock>show users
+{
+"_id" : "test_db.demo",
+"user" : "demo",
+"db" : "test_db",
+"roles" : [
+{
+"role" : "readWrite",
+"db" : "test_db"
+}
+]
+}</codeblock></li>
+                  </ol></li>
+              </ol>
+            </p></li>
+          <li><xref
+              href="http://docs.hpcloud.com/devplatform/2.0/helion/admin/server/configuration.html#topic31232__container_allowed"
+              format="html" scope="external">Configure the ALS cluster</xref> to open access to the
+            IP address of the MongoDB instance and port 27017.<note>To configure the ALS cluster for
+              access, you first need to SSH to each DEA node by using:
+              <codeblock>ssh -i &lt;your cluster public key&gt;  stackato@&lt;IP address of your ALS cluster DEA node&gt;</codeblock>Example:<codeblock>ssh -i MyALSCluster_public_key stackato@10.241.22.89</codeblock></note></li>
+          <li> Provide the following information to the developers.<ul id="ul_zdk_pbg_q5">
+              <li>The IP address of the MongoDB database instance that will be used by the
+                application</li>
+              <li>The name(s) of the MongoDB database instance that will be used by the
+                application</li>
+              <li>Username/password for each MongoDB database</li>
+              <li>That MongoDB communicates on port 27017</li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
+    <section id="cluster"><title outputclass="headerH">Administrator procedure for a
+        cluster</title><sectiondiv outputclass="insideSection">
+        <ol>
+          <li>Create a MongoDB cluster using the HDP Database Service. <note>For production
+              deployments, clusters are recommended for high availability. </note>
+            <ul>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
+                  format="html" scope="external">Create cluster using Horizon</xref></li>
+              <li><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
+                  format="html" scope="external">Create cluster using CLI</xref></li>
+            </ul>
+          </li>
+          <li>Run <codeph>trove root-enable</codeph> to reset and obtain the root password for the
+            admin database. <note>Due to the authentication bug, if authentication was not manually
+              enabled, skip this step.</note><ol>
+              <li>On the machine that has access to the Trove control plane, run <codeph>trove
+                  list</codeph> to obtain the list of all databases, and make a note of the
+                  <codeph>id</codeph> value of the MongoDB instance.<ol>
+                  <li>Make sure service.osrc has the correct OS_PROJECT_NAME value for your tenant.
+                    Example: To access the “mytest” tenant, modify the value to have the following
+                    line <codeblock>export OS_PROJECT_NAME=mytest</codeblock></li>
+                  <li>Then source it:<codeblock>source service.osrc</codeblock></li>
+                  <li>And get the list of databases in that
+                    tenant:<codeblock>trove list</codeblock>The output should appear similar to the
+                    following:
+                    <codeblock>+--------------------------------------+-----------------+--------+-----------+------+
+|                id                    |       name      | status | flavor_id | size |
++--------------------------------------+-----------------+--------+-----------+------+
+| b5da7b05-a6d8-40a6-8be0-20c98c42e58c |  mytest-mongodb | ACTIVE |      3    |  10  |
++--------------------------------------+-----------------+--------+-----------+------+</codeblock></li>
+                </ol></li>
+              <li>Run <codeph>root-enable</codeph> to reset and obtain the root password for the
+                admin
+                database.<codeblock>trove root-enable<i>&lt;id of MongoDB instance&gt;</i>Example:</codeblock><codeblock>trove root-enable<i>b5da7b05-a6d8-40a6-8be0-20c98c42e58c</i></codeblock><codeblock>+----------+--------------------------------------+
+| Property |                Value                 |
++----------+--------------------------------------+
+|   name   |             admin.root               |
+| password | nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv |
++----------+--------------------------------------+</codeblock></li>
+              <li>Make a note of name and password values, as you will need them in following
+                steps.</li>
+            </ol></li>
+          <li>Add user to MongoDB database by using Mongo client <note>The MongoDB query-router VM
+              is used for connectivity to its corresponding MongoDB cluster. Do not connect to
+              specific MongoDB replica instances, but instead use query-router which will route
+              MongoDB traffic to the correct MongoDB replica VM.</note><p>
+              <ol>
+                <li> Use mongo client to connect to the MongoDB database.<ul>
+                    <li>Due to the authentication bug, unless authentication was manually enabled
+                      after cluster creation, the username and password are not needed and should
+                      not be used for
+                      connecting.<codeblock> mongo --host &lt;IP address of MongoDB query router&gt; admin</codeblock>Example:
+                      <codeblock>mongo --host 15.124.133.100 admin</codeblock>If the connection is
+                      successful, the output will appear similar to the following:
+                      <codeblock>MongoDB shell version: 3.0.7 
+connecting to: 15.124.133.182:27017/admin
+></codeblock></li>
+                  </ul></li>
+                <li>Verify that you have basic access by running the <codeph>show dbs</codeph> Mongo
+                  shell command.<codeblock>show dbs</codeblock>You should see output similar to the
+                  following:<codeblock>admin 0.078GB 
+local 0.078GB</codeblock></li>
+                <li>Add a user for client access to the selected MongoDB database with the
+                    <codeph>db.createUser</codeph> Mongo shell command.<ol>
+                    <li>Set context to the target database:<codeblock>use test_db</codeblock></li>
+                    <li>Create
+                      user:<codeblock>&gt; db.createUser(
+      {
+       user: "demo",
+       pwd: "demo",
+       roles: [
+          { role: "readWrite", db: "test_db"}
+       ]
+     }
+)</codeblock>If
+                      the command was successful, you will see output similar to the
+                      following:<codeblock>{
+"user" : "demo",
+"roles" : [
+{
+"role" : "readWrite",
+"db" : "test_db"
+}
+]
+}</codeblock></li>
+                    <li>Add additional users as needed.</li>
+                    <li>Verify that the users you have added are in the database by running the
+                        <codeph>show users</codeph> Mongo shell
+                      command.<codeblock>show users
+{
+"_id" : "test_db.demo",
+"user" : "demo",
+"db" : "test_db",
+"roles" : [
+{
+"role" : "readWrite",
+"db" : "test_db"
+}
+]
+}</codeblock></li>
+                  </ol></li>
+              </ol>
+            </p></li>
+          <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure the ALS cluster</xref> to open access to the
+            IP address of the MongoDB query router, the VM of the <codeph>admin</codeph> tenant,
+            and port 27017.<note>To configure the ALS cluster for access, you first need to SSH to
+              each DEA node by using:
+              <codeblock>ssh -i &lt;your cluster public key&gt;  stackato@&lt;IP address of your ALS cluster DEA node&gt;</codeblock>Example:<codeblock>ssh -i MyALSCluster_public_key stackato@10.241.22.89</codeblock></note></li>
+          <li>Provide the following connection parameters to application developers:<ul>
+              <li>The floating IP address(es) of the MongoDB query-router VM(s).<ul>
+                  <li>By default one query-router VM is created for each MongoDB cluster. It can be
+                    used for connections.</li>
+                  <li>If additional query-routers have been added after cluster was created, provide
+                    floating IP addresses for all query-router VMs.</li>
+                </ul></li>
+              <li>The name of the MongoDB database(s) that can be used by an application.</li>
+              <li>Username/password for each MongoDB database.</li>
+              <li>That MongoDB communicates on port 27017</li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
+  </body></topic>
+    

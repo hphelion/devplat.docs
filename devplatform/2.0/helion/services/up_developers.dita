@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_sqv_hfy_w5">
+  <title>User-Provided Service Procedures for Developers</title>
+  <body>
+    <p>These procedures describe the steps that developers must take to create a user-defined service and bind it to applications during deployment. 
+    </p><note type="important">The <xref href="up_administrator.dita">administrative procedures</xref> that create and connect the service instance or cluster with the ALS cluster must be completed before the developer procedures will work.</note>
+    <section><title>Developer Procedures</title></section>
+  </body>
+</topic>

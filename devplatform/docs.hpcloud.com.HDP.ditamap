@@ -294,6 +294,19 @@
         <topicref href="2.0/helion/user/deploy/app-logs.dita" locktitle="yes"
           navtitle="Application Logs "/>
       </topicref>
+      <topicref href="2.0/helion/services/up_developers.dita" otherprops="devupservices"
+        collection-type="family" linking="normal">
+        <topicref href="2.0/helion/services/up_services_dev_message.dita"
+          navtitle="Messaging Integration for Developers" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_dev_mongo.dita"
+          navtitle="MongoDB Integration for Developers" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_dev_mysql.dita"
+          navtitle="MySQL Integration for Developers" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_dev_redis.dita"
+          navtitle="Redis Integration for Developers" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_dev_vertica.dita"
+          navtitle="Vertica Integration for Developers" locktitle="yes"/>
+      </topicref>
     </topicref>
     <topicref href="2.0/database/database_service_reference.dita" otherprops="db-ref">
       <topicref href="2.0/database/devplatform.database-instance.dita" locktitle="yes"
@@ -428,6 +441,24 @@
           navtitle="Database Service Operations Guide" locktitle="yes"/>
         <topicref href="2.0/guides/devplatform.messaging-operations-guide.dita"
           navtitle="Messaging Broker Operations Guide" locktitle="yes"/>
+      </topicref>
+      <topicref href="2.0/helion/services/up_administrator.dita" collection-type="family"
+        linking="normal" otherprops="upservicesadmin">
+        <topicref href="2.0/helion/services/up_services_overview.dita"
+          navtitle="User-provided Service Integration for ALS Clusters and Applications"
+          locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_update.dita"
+          navtitle="Updating User-provided Service Credentials" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_admin_message.dita"
+          navtitle="Messaging Integration for Administrators" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_admin_mongo.dita"
+          navtitle="MongoDB Integration for Administrators" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_admin_mysql.dita"
+          navtitle="MySQL Integration for Administrators" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_admin_redis.dita"
+          navtitle=" Redis Integration for Administrators" locktitle="yes"/>
+        <topicref href="2.0/helion/services/up_services_admin_vertica.dita"
+          navtitle="Vertica Integration for Administrators" locktitle="yes"/>
       </topicref>
     </topicref>
 

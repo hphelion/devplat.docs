@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="upservicesdevmessage">
+  <title>HPE Helion Development Platform 2.0: Messaging Integration for Developers</title>
+    <abstract><shortdesc outputclass="hdphidden">Create a custom messaging service and bind it to an application.</shortdesc>These steps are intended for developers who intend to create a custom messaging service and bind it to an application. The <xref
+            href="up_services_admin_message.dita">administrator procedure</xref> must be completed
+        prior to this point.</abstract>
+    <body>
+      
+    <section><title>Prerequisites</title>
+      <ul>
+        <li> You already have an ALS cluster.</li>
+        <li>You have sufficient access to the cluster to deploy applications.</li>
+        <li>Your administrator has allowed access to your RabbitMQ cluster and RabbitMQ port 5672
+          using the <xref href="../admin/server/configuration.dita#topic31232/container_allowed">process documented here</xref>.</li>
+      </ul></section>
+    <section><title>Developer Steps</title>
+      <ol id="ol_k1w_bvk_55">
+        <li>Create user-provided service in ALS cluster and provide connection credentials.<ol
+            id="ol_z2h_qvk_55">
+            <li>Log in the to ALS
+              cluster<codeblock>helion target &lt;ALS cluster end point></codeblock><codeblock>helion login</codeblock>Example:<codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target:       https://api.15.124.133.173.xip.io
+Organization: &lt;none>
+Space:        &lt;none></codeblock><codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+            <li>Get a list of all services in the ALS cluster.
+              <codeblock>$ helion services</codeblock> On a new ALS cluster with no services
+              created, you should see an output similar to the
+              following:<codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></li>
+            <li>Create a new service for binding RabbitMQ cluster to applications in the ALS
+              cluster.
+              <codeblock>$ helion create-service user-provided <i>&lt;name of your RabbitMQ service&gt;</i></codeblock></li>
+            <li>When prompted, enter the field names to be used for RabbitMQ cluster connection
+                credentials.<ul id="ul_ely_2xn_55">
+                <li>hostname, port, username, password</li>
+              </ul></li>
+            <li> Enter values for these connection credential fields. <note>For hostname parameter
+                value, enter the HA proxy IP address that you configured for your RabbitMQ cluster.
+                  <p>Example:<codeblock>$ helion create-service user-provided my-rabbitmq-service
+Which credentials to use for connections [hostname, port, password]: hostname,port,username,password
+hostname: 192.168.10.23
+port: 5672
+username: demo
+password: demo
+  Creating new service … OK</codeblock></p></note></li>
+            <li>Validate that the new service is available.
+                <codeblock>$ helion services</codeblock><p> Example:
+                <codeblock>$ helion services
+============== Service Plans ================ 
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============ 
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        |     Service   | Provider | Version | Plan | Applications |  State  |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default | my-rabbitmq-service         | user-provided | n/a      | n/a     | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></p></li>
+            <li>Check the credentials are set correctly.
+                <codeblock>$ helion service &lt;name of your RabbitMQ service&gt;</codeblock>Example:<codeblock>$ helion service my-rabbitmq-service
+https://api.10.241.22.105.xip.io -> default -> default -> my-rabbitmq-service
++----------------------+--------------------------------------+
+| What                 | Value                                |
++----------------------+--------------------------------------+
+| State                | no data                              |
+| Type                 | user-provided                        |
+| Space                | default::default                     |
+| Credentials          |                                      |
+|  - hostname          | 192.168.10.23                        |
+|  - password          | demo                                 |
+|  - port              | 5672                                 |
+|  - username          | demo                                 |
++----------------------+--------------------------------------+</codeblock><p>Now
+                that you have validated the service has been created with correct credentials, you
+                can deploy your application and bind to the service using the manifest
+              file.</p></li>
+          </ol></li>
+        <li>Bind to RabbitMQ cluster user-provided service from an app during deployment. <p>List
+            the name of user-provided RabbitMQ service in the<codeph>services:</codeph> block of the
+            application manifest file.</p><p> Sample manifest file including a reference to a
+            user-provided RabbitMQ service
+            (<codeph>my-rabbitmq-service</codeph>):<codeblock>applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-rabbitmq-service:
+   helion:
+    env:
+      ENV_VAR: ${name} </codeblock></p><note>
+            When an application is deployed in the ALS cluster, the service connection credentials
+            are set as defined in the MySQL service gateway. The credentials become available in the
+            VCAP_SERVICES environment variables, which can be consumed by your application. You do
+            not need to hardcode connection credentials in your application code, instead parse and
+            use the VCAP_SERVICES environment variables. More information on how to use
+            VCAP_SERVICES can be found <xref
+              href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
+              >here</xref>.</note></li>
+        <li> Deploy the application. Example, using helion CLI.:
+          <codeblock>helion push -n</codeblock></li>
+      </ol>
+    </section><section><title>Code snippet for Python usage</title>
+    <codeblock>import pika
+       ...
+    def testConnection(self,credentials):
+    
+        testqueue = "test_queue"
+
+        # hostname refers to “HA procy IP address” for the RabbitMQ cluster    
+        hostname = credentials['hostname']
+        username = credentials['username']
+        password = credentials['password']
+        portNum = credentials['port']
+
+        connection = None
+        channel = None
+        
+        #    Connection string is in the form of:
+        #        amqp://username:password@hostName:portNumber/vhost
+        uri = "amqp://" + username + ":" + password + "@" + hostname + ":" + portNum + "/"
+
+        try: 
+            parameters = pika.URLParameters(uri)
+            connection = pika.BlockingConnection(parameters)
+            channel = connection.channel()
+        except Exception as e:
+            return(e)
+            
+        try:
+            self.queueName = testqueue
+            channel.queue_declare(queue=testqueue, durable=True)
+            connection.close()
+        except  Exception as e:
+            return(e)
+        
+        try:
+            parameters = pika.URLParameters(uri)
+            connection = pika.BlockingConnection(parameters)
+            channel = connection.channel() 
+            body = "testmessage"
+            channel.basic_publish(exchange='', routing_key=testqueue, body=body)
+            connection.close()
+        except Exception as e:
+            return(e)
+        
+        try: #receive message
+            parameters = pika.URLParameters(uri)
+            connection = pika.BlockingConnection(parameters)   
+            channel = connection.channel() 
+            method_frame, header_frame, body = channel.basic_get(testqueue)
+            if method_frame:
+                channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+            else:
+                raise Exception("unable to receive message")
+            connection.close()
+        except Exception as e:
+            return(e)              
+             
+        try:  # drop queue
+            parameters = pika.URLParameters(uri)
+            connection = pika.BlockingConnection(parameters)
+            channel = connection.channel() 
+            channel.queue_delete(queue=testqueue)
+            connection.close()
+        except Exception as e:
+            return(e)</codeblock>
+    </section>
+  </body>
+
+</topic>

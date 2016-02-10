@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="upservicesoverview">
+  <title>HPE Helion Development Platform 2.0: User-provided Service Integration for ALS Clusters and
+    Applications</title>
+  <body>
+<section>   <p>This document describes the steps required to connect managed HDP application services
+        instances/clusters to an HDP ALS cluster and to connect to applications in that ALS cluster. </p>
+      <p>The following application services come built-in with HPE Helion Development Platform: <ul
+          id="ul_oxm_c3l_p5">
+          <li>
+            <lines>Database Service (Trove): MySQL, Redis, MongoDB, Vertica Preview (single instances and clusters)</lines>
+          </li>
+          <li>
+            <lines>Message Broker: RabbitMQ clusters </lines>
+          </li>
+        </ul>Typically, application services can be bound to an ALS cluster via the standard Cloud
+        Foundry <xref
+          href="http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
+          format="html" scope="external">User Provided Service</xref> mechanism. MySQL instances and
+        clusters are bound to ALS clusters via the <xref
+          href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref>
+        mechanism. </p>
+      <p><!--Add TOC inside the overview including how to update them--></p></section>
+    <section>
+      <title>Prerequisites</title>
+      <p>
+        <ul id="ul_t5j_l3l_p5">
+          <li>You have access to Helion OpenStack deployer node or a jump box that is on the same
+            network as Trove control plane such as the Trove management network. </li>
+          <li>You can run Trove client commands such as <codeph>trove list</codeph>. You can install
+            the Trove client by running <codeph>sudo apt-get install python-troveclient</codeph> on
+            the machine you will run  Trove commands. More information on how to obtain and use the
+            Trove CLI can be found <xref
+              href="../../../2.0/database/devplatform.database-instance.dita#DatabaseService/more"
+              >here</xref>. </li>
+          <li>You have access to an HDP ALS cluster, and can run the helion client to manage the
+            cluster and push applications. For more information on ALS clusters and their usage, see
+            the <xref href="../user/helion_user_index.dita#topic1693">ALS User's Guide</xref> or the
+            full <xref href="../user/client/client_index.dita#topic3165">helion client
+              reference</xref>.</li>
+          <li><b>Connectivity from ALS cluster to user-provided services: It is required that ALS
+              cluster(s) and user-provided service instance(s) and cluster(s) be on the same
+              network.</b> On the ALS cluster that you will deploy applications, to be able to
+            access user-provided service instances, you need to configure to allow network traffic
+            to IP’s and ports for these service instances/clusters. For each service instance or
+            cluster you create, you also need to <xref
+              href="../admin/server/configuration.dita#topic31232/container_allowed">configure ALS cluster to allow access to it</xref>.
+            Here it is assumed that you have already configured your ALS cluster for access to each
+            service instance or cluster.</li>
+        </ul>
+      </p>
+      <!--TODO: Reference to Network Reference Arch doc. When this architecture document is published, put a link to it here. Max will supply location of diagram when published.-->
+    </section><section><title>Related Processes</title>
+      <ul><li><xref href="up_services_update.dita">Updating User-provided Service Credentials</xref></li></ul>
+      <p>Administrator Steps</p>
+      <ul>
+        <li><xref href="up_services_admin_message.dita">Messaging Integration for Administrators</xref></li>
+        <li><xref href="up_services_admin_mongo.dita">MongoDB Integration for Administrators</xref></li>
+        <li><xref href="up_services_admin_mysql.dita">MySQL Integration for Administrators</xref></li>
+        <li><xref href="up_services_admin_redis.dita">Redis Integration for Administrators</xref></li>
+        <li><xref href="up_services_admin_vertica.dita">Vertica Integration for Administrators</xref></li></ul>
+      
+      <p>Developer Steps</p><ul>
+    <li><xref href="up_services_dev_message.dita">Messaging Integration for Developers</xref></li>
+        <li><xref href="up_services_dev_mongo.dita">MongoDB Integration for Developers</xref></li>
+    <li><xref href="up_services_dev_mysql.dita">MySQL Integration for Developers</xref></li>
+        <li><xref href="up_services_dev_redis.dita">Redis Integration for Developers</xref></li>
+    <li><xref href="up_services_dev_vertica.dita">Vertica Integration for Developers</xref></li>
+    
+  </ul></section></body>
+</topic>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="upservicesadminvertica">
+  <title>HPE Helion Development Platform 2.0: Vertica Integration for Administrators</title>
+  <abstract><shortdesc outputclass="hdphidden">Connect Vertica instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_vertica.dita">create and bind custom Vertica services</xref>. </abstract>
+  <body>
+    <p>Vertica Community Edition 7.1.2 is packaged and distributed in the Vertica Preview included
+      with HPE Helion Development Platform 2.0.</p>
+    <p id="verticalimit">
+      <note type="restriction">Vertica Community Edition supports 3 nodes and has a 1TB limit. There is no way to
+        modify these limitations.</note>
+    </p>
+    
+    
+    <section><title outputclass="headerH">Administrator procedure for a single
+        instance</title><sectiondiv outputclass="insideSection">
+        <ol id="ol_k4x_jnf_55">
+          <li> Create a Vertica Preview single instance using the HDP Database Service. <note>For
+              production deployments, clusters are recommended for high availability.<ul
+                id="ul_tmf_l4n_55">
+                <li>
+                  <xref href="../../../2.0/database/devplatform.database-create-horizon.dita">Create
+                    single instance using Horizon</xref>
+                </li>
+                <li>
+                  <xref href="../../../2.0/database/devplatform.database-create-cli.dita">Create
+                    single instance using CLI</xref>
+                </li>
+              </ul></note></li>
+          <li>Reset and obtain the root password for Vertica database.<ol id="ol_rvt_rqn_55">
+              <li> Run <codeph>root-enable</codeph> to reset and obtain the root password for the
+                admin database of the Vertica
+                instance.<codeblock>$ trove root-enable<i>&lt;id of Vertica instance or cluster&gt;</i></codeblock>Example:
+                <codeblock>$ trove root-enable<i>b5da7b05-a6d8-40a6-8be0-20c98c42e58c</i></codeblock><codeblock>+----------+--------------------------------------+
+| Property |                Value                 |
++----------+--------------------------------------+
+|   name   |              admin.root              |
+| password | nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv |
++----------+--------------------------------------+</codeblock></li>
+              <li> Make a note of the name and password values, as you will need them in following
+                steps.</li>
+            </ol></li>
+          <li>Use the Vertica client to connect to the Vertica database and add a user. </li>
+          <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
+              the ALS cluster</xref> to open access to the IP address of the Vertica instance and
+            port 5433.</li>
+          <li> For the specific Redis database that will be used by an application, provide the
+            following connection parameters to the developers.<ul id="ul_x52_msn_55">
+              <li>For Vertica single instance: IP address of the Vertica database instance</li>
+              <li>Username and password</li>
+              <li>Vertica database name</li>
+              <li>That Vertica communicates on port 5433</li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>    <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv
+        outputclass="insideSection">
+        <ol>
+          <li>Create a Vertica Preview cluster using the HDP Database Service.<ul id="ul_g3v_ql1_x5">
+              <li>
+                <p><xref
+                    href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
+                    >Create cluster using Horizon</xref></p>
+              </li>
+              <li>
+                <p><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
+                    >Create cluster using CLI</xref></p>
+              </li>
+            </ul></li>
+          <li>Reset and obtain the root password for Vertica database.<ol>
+              <li>On the machine that has access to the Trove control plane, run <codeph>trove
+                  list</codeph> to obtain the list of all databases, and make a note of the
+                  <b>id</b> value of the Vertica instance or cluster.</li>
+              <li>Make sure <codeph>service.osrc</codeph> has the correct OS_PROJECT_NAME value for
+                your tenant. <p>For example, to access the <b>mytest</b> tenant, add the following
+                  line to the <codeph>service.osrc</codeph> file.
+                  <codeblock>export OS_PROJECT_NAME=mytest</codeblock></p></li>
+              <li>Then source it: <codeblock>$ source service.osrc</codeblock></li>
+              <li> And retrieve the list of databases in that tenant:
+                <codeblock>$ trove list</codeblock>You should see output similar to the
+                following:<codeblock>+--------------------------------------+-----------------+--------+-----------+------+
+|                  id                  |       name      | status | flavor_id | size |
++--------------------------------------+-----------------+--------+-----------+------+
+| b5da7b05-a6d8-40a6-8be0-20c98c42e58c | mytest-vertica  | ACTIVE |     3     |  10  |
++--------------------------------------+-----------------+--------+-----------+------+</codeblock></li>
+              <li> Run <codeph>root-enable</codeph> to reset and obtain the root password for the
+                admin database of the MongoDB single instance:
+                <codeblock>$ trove root-enable<i>&lt;id of Vertica instance or cluster&gt;</i></codeblock>Example:
+                <codeblock>$ trove root-enable<i>b5da7b05-a6d8-40a6-8be0-20c98c42e58c</i></codeblock><codeblock>+----------+--------------------------------------+
+| Property |                Value                 |
++----------+--------------------------------------+
+|   name   |              admin.root              |
+| password | nAUmsTRvekFbgjV8n6z8qnZc9CpGZQjxyCbv |
++----------+--------------------------------------+</codeblock></li>
+              <li> Make a note of the name and password values, as you will need them in following
+                steps.</li>
+            </ol></li>
+          <li>Use the Vertica client to connect to the Vertica database and add a user.<note>The
+              Vertica master node is used for connectivity to its corresponding Vertica cluster. Do
+              not connect to specific Vertica replica instances, but use the master node instead.
+              This will route Vertica traffic to the correct Vertica replica VM.</note></li>
+          <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
+              the ALS cluster</xref> to open access to the addresses of all Vertica Preview cluster
+            VMs in the <codeph>admin</codeph> tenant and port 5433.</li>
+          <li>Provide the Vertica connection parameters to application developers. <ul>
+              <li>IP address(es) of Vertica clustered instance VM(s). This includes also the IP
+                address of the Vertica master node.</li>
+              <li>Username and password</li>
+              <li>Vertica database name</li>
+              <li>That Vertica communicates on port 5433</li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
+  </body>
+</topic>

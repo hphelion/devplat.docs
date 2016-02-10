@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="upservicesadminredis">
+  <title>HPE Helion Development Platform 2.0: Redis Integration for Administrators</title><abstract><shortdesc outputclass="hdphidden">Connect Redis instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_redis.dita">create and bind custom Redis services</xref>.</abstract>
+  <body>
+   <section><title>Prerequisites</title>
+     <ul>
+        <li>A basic understanding of Redis.</li>
+        <li>You can run the <codeph>redis-cli</codeph> client shell command to connect and manage
+          your Redis database. </li>
+        <li>You can download the <codeph>redis-cli</codeph> client here, and install on the machine
+          you will run client commands to manage the Redis database. </li>
+        <li>This machine should have access to the Redis database IP address.</li>
+        <li>Verify that you can run <codeph>redis-cli</codeph> shell commands.</li>
+      </ul>
+      </section>
+    <section>
+      <title>Limitations</title>
+     <ul id="redislimit"><li>For Redis clusters or single instances, there is no username/password authentication, and no
+          specific database needs to be specified to connect. </li>
+        <li>
+          <p>The redis-cli shell has a <codeph>-c</codeph> option to indicate the connection is to
+            be made to a redis cluster; however, it does not provide a way to specify multiple IP
+            addresses for that cluster. Even though the floating IPs are created and accessible from
+            redis-cli to connect to (one of them), redis redirects to “internal private IP addresses
+            that are configured during redis cluster creation”, and this redirect fails if the node
+            IPs are not reachable from client environment. </p>   </li></ul>
+          <p>Example of this limitation:</p>
+          <codeblock>## Redis cluster floating IP addresses (10.x.x.x), and redis cluster internal IP addresses in Trove network (172.x.x.x):
+10.241.22.69, 172.18.0.149
+10.241.22.63, 172.18.0.150
+10.241.22.78, 172.18.0.150
+
+<!-- [TODO: VERIFY if following is valid for using tenant network addresses (such as 192.x.x.x]-->
+$ redis-cli -h 10.241.22.69
+10.241.22.69:6379> set mykey myvalue
+(error) MOVED 14687 172.18.0.150:6379
+10.241.22.69:6379> exit
+
+<!--[TODO: VERIFY if following is valid for using tenant network addresses (such as 192.x.x.x] -->
+$ redis-cli -h 10.241.22.69 -c
+10.241.22.69:6379> set mykey myvalue
+-> Redirected to slot [14687] located at 172.18.0.150:6379
+Could not connect to Redis at 172.18.0.150:6379: Operation timed out
+Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
+     
+       </section>
+    
+    <section><title>Known Bugs</title>
+    <p>None.</p></section>
+    
+    <section>
+      <title outputclass="headerH">Administrator procedure for a single instance</title>
+      <ol id="ol_xxb_kyz_w5">
+        <li>Create a Redis single instance using the HDP Database Service. <note>For production
+            deployments, clusters are recommended to ensure high availability. </note><sl>
+            <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+                single instance on Horizon</xref></sli>
+            <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+                single instance using CLI</xref></sli>
+          </sl>
+        </li>
+        <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
+            the ALS cluster</xref> to open access to the IP address of the Redis instance and port
+          6379.</li>
+        <li>For the specific Redis database that will be used by an application, provide the
+          following connection parameters to the developers.<ul id="ul_zdv_fr1_t5">
+            <li>The IP address of the Redis database instance</li>
+            <li>That Redis communicates on port 6379</li>
+          </ul></li>
+      </ol>
+    </section>
+    <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv
+        outputclass="insideSection">
+        <ol id="ol_s1g_zxz_w5">
+          <li> Create a Redis cluster using the HDP Database Service.<sl>
+              <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+                  cluster on Horizon</xref></sli>
+              <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+                  cluster using CLI</xref></sli>
+            </sl></li>
+          <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
+              the ALS cluster</xref> to open access to all IP addresses of the Redis cluster VMs in
+            the <codeph>admin</codeph> tenant and port 6379.</li>
+          <li> For the specific Redis database that will be used by an application, provide the
+            following connection parameters to the developers.<ul>
+              <li>IP address(es) of Redis clustered instance VM(s).</li>
+              <li>That Redis communicates on port 6379</li>
+            </ul></li>
+        </ol>
+      </sectiondiv></section>
+  </body>
+</topic>

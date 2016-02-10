@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="upservicesdevvertica">
+  <title>
+    HPE Helion 2.0 Development Platform: Vertica Integration for Developers</title><abstract><shortdesc outputclass="hdphidden">Create a Vertica database service and bind it to an application.</shortdesc>These steps are intended for developers who intend to create a custom Vertica service and bind it
+      to an application. The <xref href="up_services_admin_vertica.dita">administrator
+        procedure</xref> must be completed prior to this point.</abstract>
+  <body>
+<section><title>Prerequisites</title>
+      <ul id="ul_db3_tnf_55">
+        <li>You already have an ALS cluster created.</li>
+        <li>You can access it to deploy applications. </li>
+        <li>You have allowed access to the Vertica instance or clustered IP addresses and Vertica
+          port 5433 using <xref href="../admin/server/configuration.dita#topic31232/container_allowed">the process available here</xref>.</li>
+      </ul>
+
+
+</section>
+    <section><title outputclass="headerH">Developer procedure for a single instance or
+        cluster</title><sectiondiv outputclass="insideSection">
+        <ol id="ol_tnq_d4f_55">
+          <li> Create a user-provided service in the ALS cluster<ol id="ol_ql5_24f_55">
+              <li>Log in to the ALS cluster
+                <codeblock>helion target &lt;ALS cluster end point&gt;</codeblock><codeblock>helion login</codeblock>Example:<codeblock>$ helion target api.15.124.133.173.xip.io
+Successfully targeted to [https://api.15.124.133.173.xip.io]
+Target: https://api.15.124.133.173.xip.io
+Organization: &lt;none&gt;
+Space: &lt;none&gt;</codeblock><codeblock>$ helion login
+Attempting login to [https://api.15.124.133.173.xip.io]
+Username: myuser@mycompany.com
+Password:
+Successfully logged into [https://api.15.124.133.173.xip.io]
+demo@hpe.com Choosing the one available organization: "default"
+Choosing the one available space: "default"
+Target:       https://api.15.124.133.173.xip.io
+Organization: default
+Space:        default</codeblock></li>
+              <li>Get a list of all services in the ALS cluster.
+                  <codeblock>$ helion services</codeblock><p>On a new ALS cluster with no services
+                  created, you should see output similar to
+                following:</p><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
+
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============</codeblock></li>
+              <li> Create a new service for binding Vertica from applications in the ALS cluster <codeblock>$ helion create-service user-provided <i>&lt;name of your Vertica service&gt;</i></codeblock><p>
+                  <ol id="ol_ulx_2tn_55">
+                    <li>When prompted, enter the field names to be used for Vertica connection
+                      credentials: hostname, port, username, password, db (Hostname refers to the
+                      master node of the Vertica cluster.)</li>
+                    <li>Then you will be prompted to enter values for these connection credential
+                      fields.</li>
+                  </ol>
+                </p>Example:
+                <codeblock>$ helion create-service user-provided my-vertica-db-service
+Which credentials to use for connections [hostname, port, password]:
+hostname,port,username,password,db
+hostname: 15.124.133.182
+port: 5433
+username: demo
+password: demo
+db: db_srvr
+  Creating new service … OK</codeblock></li>
+              <li>Validate that the new service is available.
+                  <codeblock>$ helion services</codeblock><p>Example:</p><codeblock>$ helion services
+============== Service Plans ================
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+| Vendor | Plan | Description | Details | Free | Public | Provider | Version | Broker | Orgs |
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
++--------+------+-------------+---------+------+--------+----------+---------+--------+------+
+=========== Provisioned Services ============
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| Space            | Name                        |    Service    | Provider | Version | Plan | Applications | State   |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+
+| default::default |    my-vertica-db-service    | user-provided |   n/a    |   n/a   | n/a  |              | no data |
++------------------+-----------------------------+---------------+----------+---------+------+--------------+---------+</codeblock></li>
+              <li>Check that the credentials are set
+                correctly.<codeblock>$ helion service &lt;name of your Vertica service></codeblock>Example:<codeblock>$ helion service my-vertica-db-service
+https://api.15.124.133.173.xip.io -> default -> default -> my-vertica-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | db_srvr          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 5433             |
+|  - username  | demo             |
+| Applications |                  |
++--------------+------------------+</codeblock>
+                Now that you have validated the service has been created with correct credentials,
+                you can deploy your application and bind to the service using the manifest
+                file.</li>
+            </ol></li>
+          <li>To bind to Vertica user-provided service from an app during deployment, include the
+            service in the <codeph>services:</codeph> block of the application's manifest
+              file.<p>Example manifest file including a reference to a user-provided Vertica service
+                (<codeph>my-vertica-db-service</codeph>):<codeblock>applications:
+  .:
+   name: my-app
+   mem: 128M
+   services:
+     my-vertica-db-service:
+   helion:
+    env:
+      ENV_VAR: ${name}</codeblock></p><note>When
+              an application is deployed in the ALS cluster, the service connection credentials are
+              set as defined in the MySQL service gateway. The credentials become available in the
+              VCAP_SERVICES environment variables, which can be consumed by your application. You do
+              not need to hardcode connection credentials in your application code, instead parse
+              and use the VCAP_SERVICES environment variables. More information on how to use
+              VCAP_SERVICES can be found <xref
+                href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
+                >here</xref>.</note></li>
+          <li>Deploy your application using the helion CLI
+            <codeblock>helion push -n</codeblock></li>
+          <li>Validate the service is bound to your application after the application has been
+            deployed successfully using the <codeph>helion service</codeph> helion client command.
+              <p><codeblock>helion service &lt;your Vertica service&gt;</codeblock>Example:
+              <codeblock>$ helion service my-vertica-db-service
+
+https://api.15.124.133.173.xip.io -> default -> default -> my-vertica-db-service
++--------------+------------------+
+| What         | Value            |
++--------------+------------------+
+| State        | no data          |
+| Type         | user-provided    |
+| Space        | default::default |
+| Credentials  |                  |
+|  - db        | db_srvr          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 5433             |
+|  - username  | demo             |
+| Applications |                  |
+| - my-app     |                  |
+|  - db        | db_srvr          |
+|  - hostname  | 15.124.133.182   |
+|  - password  | demo             |
+|  - port      | 5433             |
+|  - username  | demo             |
++--------------+------------------+</codeblock></p></li>
+        </ol>
+      </sectiondiv></section>
+    <section><title outputclass="headerH">Sample Python Code Snippet</title><sectiondiv
+        outputclass="insideSection"> How to interact with either a Vertica single instance or
+        clustered
+        database.<codeblock>import vertica_python
+
+…
+def testConnection(self,credentials):
+# IP address of Vertica single instance VM, or IP address of the master node of Vertica cluster
+       hostname = credentials['hostname']
+       port = credentials['port'] 
+       username = credentials['username'] 
+       password = credentials['password'] 
+       db = credentials['db'] 
+
+       verticaDB = None
+
+       connInfo = {'host': hostname, 'port':int(port), 'user':username, 'password':password, 'database':db}
+        
+       try: # Connect to Vertica
+            verticaDB = vertica_python.connect(**connInfo) 
+       except Exception as ex:
+            return ex
+        
+       try: # Create a schema
+            cur = verticaDB.cursor()
+            cur.execute(“CREATE SCHEMA MySchema;”) 
+            cur.execute(“commit;”)
+       except Exception as ex:
+            return ex
+        
+       try: # Create a table
+            cur.execute(“CREATE TABLE IF NOT EXISTS MyTable (myField VARCHAR);”)
+            cur.execute(“commit;”)
+       except Exception as ex:
+            return ex</codeblock></sectiondiv></section>
+    
+ 
+
+  </body>
+
+</topic>
