@@ -43,7 +43,7 @@
   <section><title outputclass="headerH">Deployed View</title>
     <sectiondiv outputclass="insideSection">
   
-    <image placement="break" href="../../../media/database_architecture_services.png" />
+      <image placement="break" href="../../../media/devplat.docs/database_architecture_services.png" />
     <p>The Database Service is deployed as an In-Cloud service and is composed of the following components:</p>
     <ul>
       <li>A control plane, which is a set of services deployed on fifteen virtual machines (VMs) that manage and run the Database Service in a three availability zone (AZ) configuration. 
@@ -146,7 +146,7 @@
           Service, Management, and External networks. It also shows the networks that are created
           when the Database Service is installed. For simplicity, the entire control plane across
           Availability Zones is shown as a single set of control plane components.<image
-            placement="break" href="../../../media/archref_db_network.png" id="image_lhk_rrh_y5"
+            placement="break" href="../../../media/devplat.docs/archref_db_network.png" id="image_lhk_rrh_y5"
           /></p>
     <p>The following networks are created when the Database Service is installed: </p>
     <ul>

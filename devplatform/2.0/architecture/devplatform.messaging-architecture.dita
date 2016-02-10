@@ -34,7 +34,7 @@
       <sectiondiv outputclass="insideSection">
         <p>The control plane of the Messaging Service is deployed across 3 nodes. Those nodes are
           not guaranteed to be in different availability zones.</p>
-        <image href="../../../media/messaging_architecture.png" placement="break"/>
+        <image href="../../../media/devplat.docs/messaging_architecture.png" placement="break"/>
       </sectiondiv>
     </section>
     <section>

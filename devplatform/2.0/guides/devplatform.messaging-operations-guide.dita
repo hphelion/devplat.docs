@@ -79,8 +79,7 @@
       
         <p>
         <table frame="all" rowsep="1" colsep="1" id="table_qym_35c_w5">
-          <title/>
-          <tgroup cols="5">
+                    <tgroup cols="5">
             <colspec colname="c1" colnum="1" colwidth="1.0*"/>
             <colspec colname="c2" colnum="2" colwidth="1.0*"/>
             <colspec colname="c3" colnum="3" colwidth="1.0*"/>
@@ -199,7 +198,7 @@
     
       <p>
         <table frame="all" rowsep="1" colsep="1" id="table_l1g_zwc_w5">
-          <title/>
+          
           <tgroup cols="3">
             <colspec colname="c1" colnum="1" colwidth="1.0*"/>
             <colspec colname="c2" colnum="2" colwidth="1.0*"/>

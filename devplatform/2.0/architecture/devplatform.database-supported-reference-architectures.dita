@@ -39,7 +39,7 @@
         and slaved, so that data is replicated to a slaved instance. </p>
       <p>MySQL instances have volume support, so if they go down, their data is still resident on
         the volume that the database instance attached to.</p>
-      <image align="center" href="../../../media/database_reference_mysql_instance.png" placement="break" />
+        <image href="../../../media/devplat.docs/database_reference_mysql_instance.png" placement="break"/>
       <p><b>Security Groups</b></p>
       <p>The following port is exposed so that users can access the Mysql Instance:</p>
       <table frame="all" rowsep="1" colsep="1" id="table_fbs_4xy_w5">
@@ -89,7 +89,7 @@
         options as documented in <xref
           href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
           format="html" scope="external">Creating a database cluster from command line</xref>. </p>
-      <image href="../../../media/database_reference_mysql_replication.png" placement="break" align="center" />
+        <image href="../../../media/devplat.docs/database_reference_mysql_replication.png" placement="break"/>
       <p>Note that most users of a MySQL cluster typically write to one instance per transaction,
         and even write to one instance until it fails completely. Either the client code needs to be
         smart enough to detect client failure and retry another host, or there needs to be a load
@@ -147,7 +147,7 @@
           href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
           format="html" scope="external">Creating a database cluster from command line</xref>.</p>
       <p>The diagram below shows that an additional query router has been added after initial MongoDB cluster deployment.</p>
-      <image href="../../../media/database_reference_mongodb_query_router.png" align="center" placement="break" />
+        <image href="../../../media/devplat.docs/database_reference_mongodb_query_router.png" placement="break"/>
       <p><b>Security Groups</b></p>
       <p>The following ports are exposed so that users can access the MongoDB cluster:</p>
       <table frame="all" rowsep="1" colsep="1" id="table_mongodb">
@@ -209,7 +209,7 @@
       <p>Redis clients must be cluster aware: that is, they must be aware of all the nodes in the cluster. Redis clusters can return errors 
         to the client if the data they are looking for is missing. A Redis client must be able to handle a MOVED response from a redis node.
       </p>
-      <image href="../../../media/database_reference_redis_replication.png" align="center" placement="break" />
+        <image href="../../../media/devplat.docs/database_reference_redis_replication.png" placement="break"/>
       <p>Unlike some Trove supported data stores, Redis uses local storage. It’s main use case is as a cache, and because of that it is assumed 
         that the data is both time sensitive and backed up by another data store in a typical architecture.</p>
       <p><b>Security Groups</b></p>
@@ -257,7 +257,7 @@
           href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
           format="html" scope="external">Creating a database cluster from command line</xref>.</p>
       <p>The user primarily interacts with the vertica master node as shown below:</p>
-      <image href="../../../media/database_reference_vertica_replication.png" align="center" placement="break" />
+        <image href="../../../media/devplat.docs/database_reference_vertica_replication.png" placement="break"/>
       <p><b>Security Groups</b></p>
       <p>The following ports are exposed so that users can access the Vertica cluster:</p>
       <table frame="all" rowsep="1" colsep="1" id="table_security">

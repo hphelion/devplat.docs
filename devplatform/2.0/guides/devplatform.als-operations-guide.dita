@@ -55,7 +55,7 @@
           </ul>For more information read the ALS <xref
             href="../helion/admin/server/docker.dita">Docker and Fence
             documentation</xref>.<image placement="break"
-            href="../../../media/refarch_als_docker.png" id="image_p2w_1ch_x5"/></p></sectiondiv></section>
+            href="../../../media/devplat.docs/refarch_als_docker.png" id="image_p2w_1ch_x5"/></p></sectiondiv></section>
     <section><title outputclass="headerH">Microsoft .NET Support Requirements</title><sectiondiv
         outputclass="insideSection">
         <p>Support for applications using Microsoft .NET technologies has been added to Helion
