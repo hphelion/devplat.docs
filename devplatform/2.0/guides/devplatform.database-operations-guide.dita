@@ -66,8 +66,9 @@
                <li>Ensure your data is restored correctly and begin using the new clustered database</li>
              </ol>
            </li>
-           <li><p>For documentation for High Availability (HA) capability for Trove Control Plane VMs, see <xref href="../database/devplatform.database-architecture.dita">
-              Database Service Architecture</xref>.  </p>
+           <li><p>For documentation for High Availability (HA) capability for Trove Control Plane VMs, see the
+                <xref href="../architecture/devplatform.database-architecture.dita"> Database
+                Service Architecture</xref>. </p>
              <p>For HA, the number of AZs and hardware redundancy determines your HA capability. In a single rack, all AZs will share the same power/network. The Trove Control Plane database is a 
                MySQL Galera cluster (active/active multi-master sync config). It can tolerate down to one node staying up (on a 3 AZ config, 2 node failures). In addition, control plane database is 
                automatically backed up to Swift every hour.
