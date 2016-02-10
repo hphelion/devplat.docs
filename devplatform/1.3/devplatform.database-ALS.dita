@@ -23,10 +23,6 @@
     <p>If a more durable or scalable MySQL database service is needed, ensure your ALS cluster is
       configured to use a database instance or master/slave pair provided by the Database Service.
       This is an option at cluster create time.</p>
-    <p><cite>ALS cluster create wizard </cite></p>
-    <p>
-      <image href="../../media/databaseALS.png"/>
-    </p>
     <section id="configure">
       <title>Configuration</title> 
       <p>Alternatively, if the Database Service was not integrated with the cluster at the time of

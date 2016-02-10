@@ -65,10 +65,10 @@
           have.</p>
         <p>For details on supported .NET and Visual Studio versions, application frameworks and
           software requirements, refer to following documentation:<ul id="ul_a5l_wsb_x5">
-            <li><xref href="../../1.3/windows/windows_overview.dita#topic24073_2/apps">Supported
+            <li><xref href="../windows/windows_overview.dita#topic24073_2/apps">Supported
                 .NET Application Types</xref></li>
             <li><xref
-                href="../../1.3/windows/windows_overview.dita#topic24073_2/softwarerequirements"
+                href="../windows/windows_overview.dita#topic24073_2/softwarerequirements"
                 >Software Requirements</xref></li>
           </ul></p>
         <p>For licensing reasons there are some additional steps an administrator needs to take in
