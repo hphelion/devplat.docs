@@ -321,7 +321,6 @@
         navtitle="Increasing Trove Internal Quotas" locktitle="yes"/>
       <topicref href="2.0/installation/install_dbaas_configureAvailabilityZones.dita" toc="no"/>
       <topicref href="2.0/installation/install_dbaas_checkQuotas.dita" toc="no"/>
-      <topicref href="2.0/database/database-backup-controlplane.dita" toc="no"/>
     </topicref>
     <topicref href="2.0/messaging/messaging_service_ref.dita" otherprops="message-service-ref">
       <topicref href="2.0/messaging/devplatform.using-the-messaging-service.dita"
