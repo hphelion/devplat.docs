@@ -3,9 +3,12 @@
 <topic id="upservicesoverview">
   <title>HPE Helion Development Platform 2.0: User-provided Service Integration for ALS Clusters and
     Applications</title>
+  <abstract><shortdesc outputclass="hdphidden">Procedure to connect managed services to an ALS
+      cluster or applications.</shortdesc>This document describes the steps required to connect
+    managed HDP application services instances/clusters to an HDP ALS cluster and to connect to
+    applications in that ALS cluster. </abstract>
   <body>
-<section>   <p>This document describes the steps required to connect managed HDP application services
-        instances/clusters to an HDP ALS cluster and to connect to applications in that ALS cluster. </p>
+<section>   
       <p>The following application services come built-in with HPE Helion Development Platform: <ul
           id="ul_oxm_c3l_p5">
           <li>

@@ -57,10 +57,16 @@
             href="../../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"
             scope="peer">using the messaging broker Service with ALS</xref> for more information.
             <note>The Connection string will be in the format:
-            <codeblock>amqp://&lt;username&gt;:&lt;password&gt;@&lt;hostname&gt;:5672/</codeblock>
-          </note></li>
+            <codeblock>amqp://&lt;username&gt;:&lt;password&gt;@&lt;hostname&gt;:5672/</codeblock></note></li>
       </ol>
 
 </section>
   </body>
+  <related-links>
+    <link href="up_services_dev_message.dita"></link>
+    <link href="up_services_dev_mongo.dita"></link>
+    <link href="up_services_dev_mysql.dita"></link>
+    <link href="up_services_dev_redis.dita"></link>
+    <link href="up_services_dev_vertica.dita"></link>
+    </related-links>
 </topic>

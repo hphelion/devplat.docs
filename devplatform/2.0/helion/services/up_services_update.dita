@@ -2,10 +2,11 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesupdate">
   <title>HPE Helion Development Platform 2.0: Updating User-provided Service Credentials</title>
-  <body>   
-    <p>If you need to make changes to the credentials for a user-provided service, follow the steps below.</p>
-    <ol id="ol_vss_wvk_55">
-  <li>Unbind the service from the application(s) that are bound to it.<ol id="ol_of2_cxl_55">
+  
+  <abstract><shortdesc outputclass="hdphidden">Procedure for changing credentials for a
+      user-provided service.</shortdesc>If you need to make changes to the credentials for a
+    user-provided service, follow the steps below.<ol id="ol_vss_wvk_55">
+      <li>Unbind the service from the application(s) that are bound to it.<ol id="ol_of2_cxl_55">
           <li>Get the list of current credentials and applications that are bound to the service.
             <codeblock>$ helion service &lt;your service name&gt;</codeblock>Example:<codeblock>$ helion service my-mongo-db-service</codeblock><codeblock>SSL warning for "api.15.124.133.173.xip.io": self signed certificate
 https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
@@ -29,12 +30,12 @@ https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
 |  - port      | 27017            |
 |  - username  | demo             |
 +--------------+------------------+</codeblock></li>
-          <li>Unbind the service from the applications.  <note>Best practice is to stop the
+          <li>Unbind the service from the applications. <note>Best practice is to stop the
               applications at this point. Updating a running application may cause service
               connection failures.
             </note><codeblock>$ helion unbind-service &lt;your service name> &lt;your app name></codeblock>Example:<codeblock>$ helion unbind-service my-mongo-db-service my-app</codeblock></li>
         </ol></li>
-        <li>Update the user-provided service credentials. <ol id="ol_jpp_4xl_55">
+      <li>Update the user-provided service credentials. <ol id="ol_jpp_4xl_55">
           <li>Update the credentials
             <codeblock>$ helion update-user-provided-service &lt;your service name></codeblock></li>
           <li>When prompted, enter the field names and their values.<note type="tip"> Best practice
@@ -45,7 +46,7 @@ https://api.15.124.133.173.xip.io -> default -> default -> my-mongo-db-service
                   binding will happen automatically via the manifest file.</li>
                 <li>If any other field names change, enter the new values into the update command.
                   You will need to update the applications so that the new fields are consumed,
-                  usually by parsing the VCAP_SERVICES environment variables.  </li>
+                  usually by parsing the VCAP_SERVICES environment variables. </li>
                 <li>To avoid <i>accidentally</i> changing the application code, be sure you verify
                   you are using the exact same field names when you enter new values.</li>
               </ul></note><p>Example:</p><codeblock>$ helion update-user-provided-service my-mongo-db-service
@@ -92,7 +93,7 @@ Committing ...OK</codeblock></li>
 |   - port             | 27017            |
 +----------------------+------------------+</codeblock></li>
         </ol></li>
-        <li>Unbind and rebind the service to your application(s).<ol id="ol_hdw_4zl_55">
+      <li>Unbind and rebind the service to your application(s).<ol id="ol_hdw_4zl_55">
           <li>If the credential field names were changed, remove and then re-deploy the applications
             that use them. When you redeploy your application(s), the service binding will happen
             automatically via the manifest file. <note type="important">When you delete an
@@ -135,8 +136,7 @@ stackato[dea_ng.0]: Instance is ready
 OK
 http://my-app.15.124.134.240.xip.io/ deployed</codeblock></li>
         </ol></li>
-      </ol>
-  </body>
+    </ol></abstract>
   <related-links>
     <link  href="up_services_overview.dita"><linktext>User-provided Service Integration Overview</linktext></link>
     <link href="up_services_dev_message.dita"><linktext>Messaging Integration for Developers</linktext></link>
