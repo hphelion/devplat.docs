@@ -5,16 +5,20 @@
     <abstract><shortdesc outputclass="hdphidden">Create a custom messaging service and bind it to an application.</shortdesc>These steps are intended for developers who intend to create a custom messaging service and bind it to an application. The <xref
             href="up_services_admin_message.dita">administrator procedure</xref> must be completed
         prior to this point.</abstract>
-    <body>
+    <body><section id="expandCollapse">
+            <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+            <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+          </section>
       
-    <section><title>Prerequisites</title>
+        <section><title outputclass="headerH">Prerequisites</title><sectiondiv outputclass="insideSection">
       <ul>
         <li> You already have an ALS cluster.</li>
         <li>You have sufficient access to the cluster to deploy applications.</li>
         <li>Your administrator has allowed access to your RabbitMQ cluster and RabbitMQ port 5672
           using the <xref href="../admin/server/configuration.dita#topic31232/container_allowed">process documented here</xref>.</li>
-      </ul></section>
-    <section><title>Developer Steps</title>
+      </ul></sectiondiv></section>
+        <section><title outputclass="headerH">Developer Steps</title>
+            <sectiondiv outputclass="insideSection">
       <ol id="ol_k1w_bvk_55">
         <li>Create user-provided service in ALS cluster and provide connection credentials.<ol
             id="ol_z2h_qvk_55">
@@ -115,8 +119,9 @@ https://api.10.241.22.105.xip.io -> default -> default -> my-rabbitmq-service
               >here</xref>.</note></li>
         <li> Deploy the application. Example, using helion CLI.:
           <codeblock>helion push -n</codeblock></li>
-      </ol>
-    </section><section><title>Code snippet for Python usage</title>
+      </ol></sectiondiv></section>
+    
+        <section><title outputclass="headerH">Code snippet for Python usage</title><sectiondiv outputclass="insideSection">
     <codeblock>import pika
        ...
     def testConnection(self,credentials):
@@ -180,7 +185,7 @@ https://api.10.241.22.105.xip.io -> default -> default -> my-rabbitmq-service
             channel.queue_delete(queue=testqueue)
             connection.close()
         except Exception as e:
-            return(e)</codeblock>
+            return(e)</codeblock></sectiondiv>
     </section>
   </body><related-links>
       <linkpool id="upservicesadmin">

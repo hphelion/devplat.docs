@@ -7,14 +7,17 @@
       <note>For single instance connectivity and usage, such as non-clustered MySQL, refer to the
           <xref href="../../../2.0/database/devplatform.database-ALS.dita">using the Database with
           the Application Lifecycle Service</xref> documentation. </note>
-    </p>
+    </p><section id="expandCollapse">
+          <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+          <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+        </section>
     
-    <section><title>Prerequisites</title>
+    <section><title outputclass="headerH">Prerequisites</title><sectiondiv outputclass="insideSection">
       <ul id="ul_b5y_skf_55">
         <li>You have sufficient permissions to run <codeph>mysql</codeph> client shell commands to
           connect and manage the MySQL database. For example, you can add users and databases.</li>
-      </ul></section>
-    <section><title>Limitations</title>
+      </ul></sectiondiv></section>
+    <section><title outputclass="headerH">Limitations</title><sectiondiv outputclass="insideSection">
       <ul id="mysqllimit">
         <li>The HPE Helion Development Platform 2.0 Database as a Service creates MySQL cluster with
           3 nodes by default, and there is no way to change this configuration during or after the
@@ -24,8 +27,8 @@
           Currently you cannot connect to a MySQL cluster on the Horizon UI while creating an ALS
           cluster. To work around service binding after ALS cluster has been created, <xref href="#upservicesadminmysql/alscluster">see the steps
           below</xref>. </li>
-      </ul></section>
-    <section><title>Known Issues</title>
+      </ul></sectiondiv></section>
+    <section><title outputclass="headerH">Known Issues</title><sectiondiv outputclass="insideSection">
       <ul id="ul_ckc_3lf_55">
         <li>The <codeph>trove root-enable</codeph> command is not supported for <codeph>MySQL
             cluster</codeph> using either its ID or name. To reset and obtain the root password for
@@ -35,8 +38,8 @@
         <li>During ALS cluster creation using the Horizon UI, clustered MySQL database names do not
           populate. Only single instances are displayed and can be selected for binding to ALS
           clusters using the Horizon UI. </li>
-      </ul></section>
-    <section><title>Administrator procedure for a cluster</title>      <note>For <b>single instance </b>connectivity and usage, such as non-clustered MySQL, refer to
+      </ul></sectiondiv></section>
+    <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv outputclass="insideSection">      <note>For <b>single instance </b>connectivity and usage, such as non-clustered MySQL, refer to
         the <xref href="../../../2.0/database/devplatform.database-ALS.dita">using the Database with
           the Application Lifecycle Service</xref> documentation. </note>
       <ol id="ol_cjr_plf_55">
@@ -145,7 +148,7 @@
                 previously</xref> using <codeph>root-enable</codeph>.</li>
             <li>That MySQL communicates on port 3306</li>
           </ul></li>      
-      </ol></section>
+      </ol></sectiondiv></section>
     
     
     

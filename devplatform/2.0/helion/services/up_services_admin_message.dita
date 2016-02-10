@@ -10,7 +10,7 @@
         href="../../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita">using the Messaging Service with
         the Application Lifecycle Service</xref> documentation. </note></abstract>
   <body>
-<section><title>Administrator procedure for a cluster</title>
+    <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv outputclass="insideSection">
       <ol id="ol_ld1_q4f_55">
         <li>Create a cluster<p>
             <ul id="ul_p21_bwn_55">
@@ -58,7 +58,7 @@
             scope="peer">using the messaging broker Service with ALS</xref> for more information.
             <note>The Connection string will be in the format:
             <codeblock>amqp://&lt;username&gt;:&lt;password&gt;@&lt;hostname&gt;:5672/</codeblock></note></li>
-      </ol>
+      </ol></sectiondiv>
 
 </section>
   </body>

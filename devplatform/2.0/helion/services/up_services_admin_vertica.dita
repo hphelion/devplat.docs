@@ -10,7 +10,10 @@
       <note type="restriction">Vertica Community Edition supports 3 nodes and has a 1TB limit. There is no way to
         modify these limitations.</note>
     </p>
-    
+    <section id="expandCollapse">
+          <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+          <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+        </section>
     
     <section><title outputclass="headerH">Administrator procedure for a single
         instance</title><sectiondiv outputclass="insideSection">

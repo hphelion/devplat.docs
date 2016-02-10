@@ -8,12 +8,15 @@
     must be completed prior to this point.</abstract>
   
   
-  <body>
-    <section><title>Pre-requisites</title> You have already created an ALS cluster, have access to
+  <body><section id="expandCollapse">
+        <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+        <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+      </section>
+    <section><title outputclass="headerH">Pre-requisites</title> <sectiondiv outputclass="insideSection">You have already created an ALS cluster, have access to
       it to deploy applications, and have allowed access to the MongoDB instance (or, for MongoDB
       cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref
         href="../admin/server/configuration.dita#topic31232/container_allowed"
-        >process here</xref>. </section>
+        >process here</xref>.</sectiondiv> </section>
     
         <section id="instance"><title outputclass="headerH">Developer procedure for a single
         instance </title><sectiondiv outputclass="insideSection">

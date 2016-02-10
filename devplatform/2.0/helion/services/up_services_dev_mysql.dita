@@ -4,7 +4,10 @@
     <title>HPE Helion Development Platform 2.0: MySQL Integration for Developers</title><abstract><shortdesc outputclass="hdphidden">Create a MySQL database service and bind it to an application.</shortdesc>These steps are intended for developers who intend to create a custom MySQL service and bind it
         to an application. The <xref href="up_services_admin_mysql.dita">administrator procedure</xref>
         must be completed prior to this point.</abstract>
-    <body>
+    <body><section id="expandCollapse">
+            <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+            <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+          </section>
   <section><title>Developer procedure to bind a MySQL service to an application.</title>
       <ol id="ol_zs1_ymf_55">
             <li>Log in to the ALS

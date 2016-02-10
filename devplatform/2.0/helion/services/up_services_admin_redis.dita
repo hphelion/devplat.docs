@@ -2,7 +2,10 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminredis">
   <title>HPE Helion Development Platform 2.0: Redis Integration for Administrators</title><abstract><shortdesc outputclass="hdphidden">Connect Redis instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_redis.dita">create and bind custom Redis services</xref>.</abstract>
-  <body>
+  <body><section id="expandCollapse">
+        <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+        <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+      </section>
    <section><title>Prerequisites</title>
      <ul>
         <li>A basic understanding of Redis.</li>
@@ -15,7 +18,7 @@
       </ul>
       </section>
     <section>
-      <title>Limitations</title>
+      <title outputclass="headerH">Limitations</title><sectiondiv outputclass="insideSection">
      <ul id="redislimit"><li>For Redis clusters or single instances, there is no username/password authentication, and no
           specific database needs to be specified to connect. </li>
         <li>
@@ -44,13 +47,12 @@ $ redis-cli -h 10.241.22.69 -c
 Could not connect to Redis at 172.18.0.150:6379: Operation timed out
 Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
      
-       </section>
+      </sectiondiv> </section>
     
-    <section><title>Known Bugs</title>
-    <p>None.</p></section>
+    <section><title outputclass="headerH">Known Bugs</title> <p>None.</p></section>
     
     <section>
-      <title outputclass="headerH">Administrator procedure for a single instance</title>
+      <title outputclass="headerH">Administrator procedure for a single instance</title><sectiondiv outputclass="insideSection">
       <ol id="ol_xxb_kyz_w5">
         <li>Create a Redis single instance using the HDP Database Service. <note>For production
             deployments, clusters are recommended to ensure high availability. </note><sl>
@@ -69,7 +71,7 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
             <li>That Redis communicates on port 6379</li>
           </ul></li>
       </ol>
-    </section>
+   </sectiondiv> </section>
     <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv
         outputclass="insideSection">
         <ol id="ol_s1g_zxz_w5">

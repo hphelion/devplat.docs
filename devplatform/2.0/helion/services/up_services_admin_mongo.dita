@@ -2,8 +2,11 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesadminmongo">
   <title>HPE Helion Development Platform 2.0: MongoDB Integration for Administrators</title><abstract><shortdesc outputclass="hdphidden">Connect Mongo database instances or clusters to ALS clusters to support service creation and application binding.</shortdesc>These steps are intended for administrators who support development by creating and preparing clusters. These administrative procedures must be completed before developers can <xref href="up_services_dev_mongo.dita">create and bind custom Mongo services</xref>.</abstract>
-  <body>
-    <section><title>Prerequisites</title><ul><li>You can run mongo client shell commands to connect and manage the MongoDB database. </li>
+  <body><section id="expandCollapse">
+        <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+        <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+      </section>
+    <section><title outputclass="headerH">Prerequisites</title><sectiondiv outputclass="insideSection"><ul><li>You can run mongo client shell commands to connect and manage the MongoDB database. </li>
         <li>You can install mongo client by following the steps <xref
             href="https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-debian/" format="html"
             scope="external">here</xref> on the machine where you will run mongo commands.</li>
@@ -12,17 +15,17 @@
         <li>Validate you can run mongo shell commands.</li>
         <li>Have a basic understanding of <xref
             href="https://docs.mongodb.org/manual/reference/program/mongo/#bin.mongo" format="html"
-            scope="external">MongoDB</xref>. </li></ul>
+            scope="external">MongoDB</xref>. </li></ul></sectiondiv>
        </section>
     
-    <section><title>Limitations</title><p id="mongolimits">At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
+    <section><title outputclass="headerH">Limitations</title><sectiondiv outputclass="insideSection"><p id="mongolimits">At this time, as of HDP 2.0, only one MongoDB query-router node is created during Trove MongoDB
         cluster creation. On production environments where high-availability is a requirement for a
         MongoDB cluster access, consider creating at least one additional MongoDB query-router VM
-        after you have created that MongoDB cluster. You can do this on CLI or UI by "growing the cluster".<!--[TODO: Add reference to grow cluster, and validate]--></p></section>
+        after you have created that MongoDB cluster. You can do this on CLI or UI by "growing the cluster".<!--[TODO: Add reference to grow cluster, and validate]--></p></sectiondiv></section>
     
     
     
-    <section><title>Known Issues</title>
+    <section><title outputclass="headerH">Known Issues</title><sectiondiv outputclass="insideSection">
         <ul><li>There is a bug with authentication for MongoDB cluster. When connecting to a newly-created
           MongoDB cluster, username/password is not needed. Enable authentication for a MongoDB
           cluster after it has been created and secure it for client access with username/password
@@ -41,7 +44,7 @@
                   >Configure the ALS cluster</xref> to allow access to the floating IP you
                 associated above. Example: For floating IP: 10.21.10.5, MongoDB Port: 27017
                 <codeblock>kato config push fence docker/allowed_subnet_ips 10.21.10.5:27017 </codeblock></li>
-            </ol></p></li></ul>
+            </ol></p></li></ul></sectiondiv>
       </section>
     
     
