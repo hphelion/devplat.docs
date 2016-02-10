@@ -3,6 +3,7 @@
  
 <map xml:lang="en" linking="none" locktitle="no">
 <title>HPE Helion Development Platform</title>
+
   <topichead navtitle="Database Service Reference">
     <topicref href="2.0/database/devplatform.database-instance.dita" locktitle="yes"
       navtitle="Using the Database Service"/>
@@ -27,7 +28,9 @@
       navtitle="Connecting the Database Service with the Application Lifecycle Service"/>
     <topicref href="2.0/database/devplatform.database-increase-quota.dita"
       navtitle="Increasing Trove Internal Quotas" locktitle="yes"/>
+    <topicref href="2.0/database/database-backup-controlplane.dita" toc="no"/>
   </topichead>
   <!-- shim files, remove when publishing-->
+
  </map>
 

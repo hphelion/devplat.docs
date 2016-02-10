@@ -6,6 +6,10 @@
             <serialized version="16.1" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
+                        <String>keys.context</String>
+                        <String>file:/C:/Users/perlmanj/CloudSystems/cs_rc.ditamap</String>
+                    </entry>
+                    <entry>
                         <String>validation.scenarios</String>
                         <validationScenario-array/>
                     </entry>
@@ -13,8 +17,9 @@
             </serialized>
         </options>
     </meta>
-    <projectTree name="Master-Project.xpr">
+    <projectTree name="master-project.xpr">
         <folder path="devplatform/"/>
         <folder path="media/"/>
+
     </projectTree>
 </project>
