@@ -15,7 +15,8 @@
         <li><xref href="install_dbaas_checkQuotas.dita#topic_sjz_wm4_xt">Check your quotas</xref> to
           ensure you have sufficient space, particularly if your installation is configured for high
           availability.</li>
-      </ul>
+      </ul><note type="attention">Control plane backups are currently not available due to
+        an incorrect file path. To fix this issue, <xref href="database-backup-controlplane.dita">perform the workaround</xref>.</note>
     </section>
     <section id="dbaas_installation">
       <title>Install the Database Service </title>
