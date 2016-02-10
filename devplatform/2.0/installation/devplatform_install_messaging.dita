@@ -189,12 +189,11 @@ localhost                  : ok=20   changed=14   <ph outputclass="codehighlight
 
             <li>Configure the Input Model for TLS Support in Cue API (Optional). For complete
               information on configuring TLS, creating new certificates or using existing
-              certificates, see the <xref href="../../../helion/security/tls.dita"
-                format="html" scope="peer">HPE Helion OpenStack TLS documentation</xref>.
+              certificates, see the <xref href="http://docs.hpcloud.com/#helion/security/tls.html"
+                format="html" scope="external">HPE Helion OpenStack TLS documentation</xref>.
                 <note>If using name-based TLS, skip this step. If using IP-based TLS, the deployment
                 model <xref href="#topic_t3w_fnh_ts/TLS">customization</xref> performed previously
                 must have included TLS configuration.</note><ol>
-
                 <li>Navigate to and open the <codeph>network_groups.yml</codeph> file. </li>
                 <li>Capture the IP address value shown in the <codeph>external-ip:</codeph> field. </li>
                 <li>Create and sign an IP-based TLS certificate based on this IP address.</li>
