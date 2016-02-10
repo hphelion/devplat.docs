@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_fwy_jjk_y5">
+  <title>HPE Helion Development Platform 2.0: Control Plane Backup Workaround</title>
+  <body>
+    <p>Control plane backups are currently unavailable due to an incorrect file path.</p>
+    <p>The location of the <codeph>cacert</codeph> in the<codeph> xtrabackup-helper.conf</codeph>
+      file does not match the actual location of the file.</p>
+    <p>To correct the file path: <ol><li>SSH into the control plane instance </li>
+      <li>Open this file for editing:
+        <codeph>/usr/libexec/os-apply-config/templates/etc/xtrabackup-helper.conf </codeph></li>
+      <li>Change this line:
+        <codeblock>export OS_CACERT=/usr/local/share/ca-certificates/from-heat-ca.crt</codeblock>
+        to this: <codeblock>export OS_CACERT=/etc/ssl/from-heat-ca.crt </codeblock></li>
+      <li>Run<codeblock>os-refresh-config</codeblock></li>
+      <li>Verify that this file: <codeph>/etc/xtrabackup-helper.conf</codeph> contains the
+        modified value for the file path.</li>
+      <li>Verify that backups are run and uploaded to Swift hourly.</li></ol></p>
+  </body>
+</topic>

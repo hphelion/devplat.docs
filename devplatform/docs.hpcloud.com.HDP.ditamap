@@ -56,6 +56,7 @@
       <topicref href="2.0/installation/install_listOptions.dita" toc="no"/>
       <topicref href="2.0/installation/install_dbaasNoTLS.dita" toc="no"/>
       <topicref href="2.0/installation/blockstorage.dita" toc="no"/>
+      <topicref href="2.0/installation/database-backup-controlplane.dita" toc="no"/>
   </topicref>
     <topicref href="2.0/uninstallation/devplatform_uninstall.dita">
       <topicref href="2.0/uninstallation/devplatform_uninstall_platform.dita"/>
@@ -131,14 +132,14 @@
         <topicref href="2.0/workbook/messaging/messaging.node.dita" navtitle="Node Messaging Sample"
           locktitle="yes"/>
       </topichead>
+      
       <topichead navtitle="PHP Code Samples">
         <topicref href="2.0/workbook/helloworld/helloworld.php.dita" locktitle="yes"
           navtitle="PHP Hello World Sample "/>
         <topicref href="2.0/workbook/database/database.php.dita" locktitle="yes"
           navtitle="PHP MySQL Database Sample"/>
-        <!--<topicref href="2.0/workbook/messaging/messaging.php.dita" locktitle="yes" navtitle="PHP RabbitMQ Messaging Sample"/>-->
-        <topicref href="2.0/workbook/messaging/messaging.php.dita" navtitle="PHP Messaging Sample"
-          locktitle="yes"/>
+        <topicref href="2.0/workbook/messaging/messaging.php.dita" locktitle="yes"
+          navtitle="PHP RabbitMQ Messaging Sample"/>
       </topichead>
     </topicref>
     <!--windows stuff-->

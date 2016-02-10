@@ -6,6 +6,10 @@
             <serialized version="16.1" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
+                        <String>keys.context</String>
+                        <String>file:/C:/Users/perlmanj/CloudSystems/cs_rc.ditamap</String>
+                    </entry>
+                    <entry>
                         <String>validation.scenarios</String>
                         <validationScenario-array/>
                     </entry>
@@ -18,5 +22,9 @@
         <folder path="devplatform/2.0/architecture/"/>
         <folder path="devplatform/2.0/guides/"/>
         <folder path="media/"/>
+<<<<<<< HEAD
+=======
+        <folder path="publiccloud/"/>
+>>>>>>> 7d567c4... initial commit for 2657
     </projectTree>
 </project>
