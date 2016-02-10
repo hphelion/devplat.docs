@@ -8,7 +8,7 @@
         <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
         <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
       </section>
-    <section><title>Prerequisites</title><sectiondiv outputclass="insideSection">
+    <section><title outputclass="headerH">Prerequisites</title><sectiondiv outputclass="insideSection">
       <ul id="ul_db3_tnf_55">
         <li>You already have an ALS cluster created.</li>
         <li>You can access it to deploy applications. </li>

@@ -6,7 +6,7 @@
         <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
         <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
       </section>
-    <section><title>Prerequisites</title><sectiondiv outputclass="insideSection">
+    <section><title outputclass="headerH">Prerequisites</title><sectiondiv outputclass="insideSection">
      <ul>
         <li>A basic understanding of Redis.</li>
         <li>You can run the <codeph>redis-cli</codeph> client shell command to connect and manage

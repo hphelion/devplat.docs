@@ -8,7 +8,7 @@
         <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
         <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
       </section>
-    <section><title>Prerequisites</title><sectiondiv outputclass="insideSection">
+    <section><title outputclass="headerH">Prerequisites</title><sectiondiv outputclass="insideSection">
         <ul id="ul_o3x_nr1_t5">
           <li>You already have an ALS cluster.</li>
           <li>You have access to the cluster and permission to deploy applications.</li>

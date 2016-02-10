@@ -8,7 +8,7 @@
             <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
             <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
           </section>
-        <section><title>Developer procedure to bind a MySQL service to an application.</title><sectiondiv outputclass="insideSection">
+        <section><title outputclass="headerH">Developer procedure to bind a MySQL service to an application.</title><sectiondiv outputclass="insideSection">
       <ol id="ol_zs1_ymf_55">
             <li>Log in to the ALS
                 cluster<codeblock>helion target &lt;ALS cluster end point>
@@ -48,7 +48,7 @@ Space:        default</codeblock></li>
                             >here</xref>.</note></li>
     <li>Deploy the application using the helion CLI. <codeblock>helion push -n</codeblock></li>
      </ol></sectiondiv></section>
-        <section><title>Sample code Snippet (Python)</title><sectiondiv outputclass="insideSection">
+        <section><title outputclass="headerH">Sample code Snippet (Python)</title><sectiondiv outputclass="insideSection">
     <codeblock>def testConnection(self,credentials):
        hostname = credentials['hostname']
        port = credentials['port']

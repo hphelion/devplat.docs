@@ -12,7 +12,7 @@
         <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
         <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
       </section>
-    <section><title outputclass="headerH">Pre-requisites</title> <sectiondiv outputclass="insideSection">You have already created an ALS cluster, have access to
+    <section><title outputclass="headerH">Prerequisites</title> <sectiondiv outputclass="insideSection">You have already created an ALS cluster, have access to
       it to deploy applications, and have allowed access to the MongoDB instance (or, for MongoDB
       cluster, MongoDB query router floating IP) and MongoDB port 27017 using the <xref
         href="../admin/server/configuration.dita#topic31232/container_allowed"
