@@ -133,7 +133,7 @@
 <codeblock>keystone endpoint-delete $&lt;id&gt;</codeblock>
 </section>
   <section id="dbaas"> <title>DBaaS</title><note type="attention">Control plane backups are currently not available due to
-    an incorrect file path. To fix this issue, <xref href="database-backup-controlplane.dita">perform the workaround</xref>.</note>
+    an incorrect file path. To fix this issue, <xref href="../2.0/database/database-backup-controlplane.dita">perform the workaround</xref>.</note>
 </section>
 <section id="dbaas-configuration-fails"> <title>DbaaS configuration fails</title>
 <p>Resolution: Make sure that you can create a volume and attach it to instances. HPE Helion <tm tmtype="reg">OpenStack</tm> supports VSA and 3PAR, but not LVM. Make sure your installation is configured to use either VSA or 3PAR.</p>

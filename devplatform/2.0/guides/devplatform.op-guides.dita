@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_cdk_rw1_x5">
+  <title>HPE Helion Development Platform 2.0: Operations Guides</title>
+  <body>
+    <p>This section contains additional requirements needed to successfully operate and integrate the services that make up the HPE Helion Development Platform..</p>
+  </body><related-links>
+    <link href="../architecture/devplatform.als-architecture.dita"></link>
+    <link href="../architecture/devplatform.ce-architecture.dita"></link>
+    <link href="../architecture/devplatform.database-architecture.dita"></link>
+    <link href="../architecture/devplatform.messaging-architecture.dita"></link>
+    <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+    <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+    
+  </related-links>
+</topic>

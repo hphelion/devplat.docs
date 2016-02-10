@@ -16,7 +16,7 @@
           ensure you have sufficient space, particularly if your installation is configured for high
           availability.</li>
       </ul><note type="attention">Control plane backups are currently not available due to
-        an incorrect file path. To fix this issue, <xref href="database-backup-controlplane.dita">perform the workaround</xref>.</note>
+        an incorrect file path. To fix this issue, <xref href="../database/database-backup-controlplane.dita">perform the workaround</xref>.</note>
     </section>
     <section id="dbaas_installation">
       <title>Install the Database Service </title>

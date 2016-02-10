@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="database_supported_reference_architectures">
+  <title>Helion Development Platform 2.0: Supported Database Reference Architectures</title>
+  <body>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
+    <p>This document contains the deployed architecture for all supported databases.</p>
+    <section><title outputclass="headerH">Access from Helion Stackato</title>
+      <sectiondiv outputclass="insideSection">
+      <p>The following datastore types come built-in with HPE Helion Development Platform (HDP) (both single instances and clusters):</p>
+      <ul>
+        <li>MySql</li>
+        <li>Redis</li>
+        <li>MongoDB</li>
+        <li>Vertica Preview</li>
+      </ul>
+      <p>With the exception of MySQL instances and clusters, these application services can be bound
+        to an Helion Stackato cluster via the standard Cloud Foundry <xref
+          href="https://docs.hpcloud.com/#devplatform/2.0/helion/user/services/user-provided.html%20http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
+          format="html" scope="external">User Provided Service</xref> mechanism. MySQL instances and
+        clusters can be bound to ALS clusters via the <xref
+          href="https://docs.hpcloud.com/#devplatform/2.0/helion/user/services/user-provided.html%20http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
+          format="html" scope="external">Service Gateway</xref> mechanism. </p>
+      <p>Note that there needs to be a ‘clear line of sight’ (available connectivity) between database instances and ALS applications. 
+        This can be done by using the same tenant supplied network for both ALS cluster and a database instance. In the sections below 
+        we discuss validated connection approaches.</p>
+      <p>The HDP User-provided Services Integration for ALS Clusters and Applications document shows the details of how to connect and use 
+        these managed databases.</p>
+      </sectiondiv>
+    </section>
+    <section><title outputclass="headerH">MySQL Instance</title>
+      <sectiondiv outputclass="insideSection">
+    
+      <p><b>Overview</b></p>
+      <p>MySQL instances are deployed as singletons. However other MySQL instances can be created
+        and slaved, so that data is replicated to a slaved instance. </p>
+      <p>MySQL instances have volume support, so if they go down, their data is still resident on
+        the volume that the database instance attached to.</p>
+      <image align="center" href="../../../media/database_reference_mysql_instance.png" placement="break" />
+      <p><b>Security Groups</b></p>
+      <p>The following port is exposed so that users can access the Mysql Instance:</p>
+      <table frame="all" rowsep="1" colsep="1" id="table_fbs_4xy_w5">
+        <tgroup cols="5">
+          <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+          <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+          <colspec colname="c5" colnum="5" colwidth="1.0*"/>
+          <thead>
+            <row>
+              <entry>Ether Type</entry>
+              <entry>IP Protocol</entry>
+              <entry>Port Range</entry>
+              <entry>Remote IP Prefix</entry>
+              <entry>Remote Security Group</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>ICMP</entry>
+              <entry>IPv4</entry>
+              <entry>3306</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p><b>Access from Stackato Clusters</b></p>
+      <p>See <xref
+          href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-ALS.html"
+          format="html" scope="external">Connecting the Database Service with the Application
+          Lifecycle Service</xref> for binding to DBaaS managed MySQL instances from ALS
+        clusters.</p>
+      <p><b>Database Footprint Growth</b></p>
+      <p>Each additional MySQL database instance requires 1 VM and user-specified amount of Cinder block storage (in GB’s). Floating IP 
+        does not need to be associated for a database instance, but if required, it will consume 1 floating IP from the quota.</p>
+      </sectiondiv>
+    </section>
+    <section><title outputclass="headerH">MySQL Cluster</title>
+      <sectiondiv outputclass="insideSection">
+    <p><b>Overview</b></p>
+      <p>A MySQL cluster is a Percona Galera three node cluster. If 3 Availability zones (AZ) exist,
+        the nodes of the cluster will be deployed across those zones randomly. Nodes might end up
+        deployed on the same AZ. To ensure the nodes are partitioned across AZs, use command line
+        options as documented in <xref
+          href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
+          format="html" scope="external">Creating a database cluster from command line</xref>. </p>
+      <image href="../../../media/database_reference_mysql_replication.png" placement="break" align="center" />
+      <p>Note that most users of a MySQL cluster typically write to one instance per transaction,
+        and even write to one instance until it fails completely. Either the client code needs to be
+        smart enough to detect client failure and retry another host, or there needs to be a load
+        balancer, e.g. HAProxy, that can handle read and write routing to the database nodes. HPE
+        Helion provides Load Balancer as a Service (LBaaS) that can be configured to access to a
+        MySQL cluster as described in <xref
+          href="http://docs.hpcloud.com/#devplatform/2.0/database/devplatform.database-create-loadbalancer.html"
+          format="html" scope="external">Creating a load balancer for a MySQL cluster</xref>.</p>
+      <p><b>Security Groups</b></p>
+      <p>The following port is exposed so that users can access the MySQL cluster:</p>
+      <table frame="all" rowsep="1" colsep="1" id="table_mysql">
+        <tgroup cols="5">
+          <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+          <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+          <colspec colname="c5" colnum="5" colwidth="1.0*"/>
+          <thead>
+            <row>
+              <entry>Ether Type</entry>
+              <entry>IP Protocol</entry>
+              <entry>Port Range</entry>
+              <entry>Remote IP Prefix</entry>
+              <entry>Remote Security Group</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>ICMP</entry>
+              <entry>IPv4</entry>
+              <entry>3306</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p><b>Database Footprint Growth</b></p>
+      <p>In HDP 2.0, growing or shrinking MySQL clusters is not supported; that is, nodes cannot be added or removed.</p>
+      </sectiondiv>
+    </section>
+    <section><title outputclass="headerH">MongoDB Cluster</title>
+      <sectiondiv outputclass="insideSection">
+    
+      <p><b>Overview</b></p>
+      <p>MongoDB Clusters initially deploy with:</p>
+      <ul>
+        <li>A single replica set of 3 nodes</li>
+        <li>One Query Router</li>
+        <li>Two Configuration Servers</li>
+      </ul>
+      <p>If 3 availability zones (AZs) are defined in the underlying HOS installation, MongoDB cluster nodes will be distributed across 
+        AZs randomly. Nodes might end up deployed on the same AZ. To ensure the nodes are partitioned across availability zones,
+        use command line options as documented in <xref
+          href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
+          format="html" scope="external">Creating a database cluster from command line</xref>.</p>
+      <p>The diagram below shows that an additional query router has been added after initial MongoDB cluster deployment.</p>
+      <image href="../../../media/database_reference_mongodb_query_router.png" align="center" placement="break" />
+      <p><b>Security Groups</b></p>
+      <p>The following ports are exposed so that users can access the MongoDB cluster:</p>
+      <table frame="all" rowsep="1" colsep="1" id="table_mongodb">
+        <tgroup cols="5">
+          <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+          <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+          <colspec colname="c5" colnum="5" colwidth="1.0*"/>
+          <thead>
+            <row>
+              <entry>Ether Type</entry>
+              <entry>IP Protocol</entry>
+              <entry>Port Range</entry>
+              <entry>Remote IP Prefix</entry>
+              <entry>Remote Security Group</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>ICMP</entry>
+              <entry>IPv4</entry>
+              <entry><lines>2500
+27017
+27019</lines></entry>
+              <entry>-</entry>
+              <entry>-</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p><b>Database Footprint Growth</b></p>
+      <p>When a MongoDB Cluster is grown, it grows by Replica Sets. When another replica set is created, the MongoDB Cluster is effectively 
+        sharded. Unless you specify otherwise, the shard key will be the default _id key, which is guaranteed to be present in every document.</p>
+      <p>In anticipation of eventual sharding, the Database Service can be configured after initial cluster deployment with has stood up two 
+        query routers and two configuration servers in separate AZs. When the cluster grows (i.e., a new shard is added), an additional replica 
+        set of 3 nodes is added to the system, again provisioned across AZs.
+      </p>
+      <p>For more information, see the following documents:</p>
+      <ul>
+        <li><xref href="https://docs.mongodb.org/v3.0/replication/" format="html" scope="external"
+            >MongoDB Replication</xref></li>
+        <li><xref href="https://docs.mongodb.org/manual/core/sharded-cluster-query-router/"
+            format="html" scope="external">MongoDB Sharded Cluster Query Routing</xref></li>
+        <li><xref href="https://docs.mongodb.org/manual/core/sharded-cluster-config-servers/"
+            format="html" scope="external">MongoDB Config Servers</xref></li>
+      </ul>
+      </sectiondiv>
+    </section>
+    <section><title outputclass="headerH">Redis Clusters</title>
+      <sectiondiv outputclass="insideSection">
+    
+    <p><b>Overview</b></p>
+      <p>A Redis cluster consists of 3 redis nodes. If 3 availability zones (AZs) are defined in the underlying HPE Helion OpenStack 
+        installation, Redis cluster nodes will be distributed across AZs randomly. Nodes might end up deployed on the same AZ. To ensure 
+        the nodes are partitioned across AZs, use command line options as documented in <xref
+          href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
+          format="html" scope="external">Creating a database cluster from command line</xref>.</p>
+      <p>Redis clients must be cluster aware: that is, they must be aware of all the nodes in the cluster. Redis clusters can return errors 
+        to the client if the data they are looking for is missing. A Redis client must be able to handle a MOVED response from a redis node.
+      </p>
+      <image href="../../../media/database_reference_redis_replication.png" align="center" placement="break" />
+      <p>Unlike some Trove supported data stores, Redis uses local storage. It’s main use case is as a cache, and because of that it is assumed 
+        that the data is both time sensitive and backed up by another data store in a typical architecture.</p>
+      <p><b>Security Groups</b></p>
+      <p>The following ports are exposed so that users can access the Redis cluster:</p>
+      <table frame="all" rowsep="1" colsep="1" id="table_redis">
+        <tgroup cols="5">
+          <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+          <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+          <colspec colname="c5" colnum="5" colwidth="1.0*"/>
+          <thead>
+            <row>
+              <entry>Ether Type</entry>
+              <entry>IP Protocol</entry>
+              <entry>Port Range</entry>
+              <entry>Remote IP Prefix</entry>
+              <entry>Remote Security Group</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>ICMP</entry>
+              <entry>IPv4</entry>
+              <entry>6379</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p><b>Database Footprint Growth</b></p>
+      <p>Each additional Redis cluster node requires 1 VM and same amount of Cinder block storage as in other nodes of the cluster (in GB’s). 
+        A floating IP does not need to be associated with a Redis node, but if required, it will consume 1 floating IP from the quota.</p>
+      </sectiondiv>
+    </section>
+    <section><title outputclass="headerH">Vertica Clusters</title>
+      <sectiondiv outputclass="insideSection">
+    <p><b>Overview</b></p>
+      <p>Vertica is available in Preview mode. The Preview release packages Vertica Community Edition 7.1.2, and limits Vertica cluster size 
+        to three nodes and one terabyte of raw data.</p>
+      <p>If 3 availability zones (AZs)  are defined in the underlying HOS installation, Vertica cluster nodes will be distributed across AZs 
+        randomly. Nodes might end up deployed on the same AZ. To ensure the nodes are partitioned across availability zones, use command line
+        options as documented in <xref
+          href="https://docs.hpcloud.com/devplatform/2.0/database/devplatform.database-create-cluster-cli.html"
+          format="html" scope="external">Creating a database cluster from command line</xref>.</p>
+      <p>The user primarily interacts with the vertica master node as shown below:</p>
+      <image href="../../../media/database_reference_vertica_replication.png" align="center" placement="break" />
+      <p><b>Security Groups</b></p>
+      <p>The following ports are exposed so that users can access the Vertica cluster:</p>
+      <table frame="all" rowsep="1" colsep="1" id="table_security">
+        <tgroup cols="5">
+          <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+          <colspec colname="c4" colnum="4" colwidth="1.0*"/>
+          <colspec colname="c5" colnum="5" colwidth="1.0*"/>
+          <thead>
+            <row>
+              <entry>Ether Type</entry>
+              <entry>IP Protocol</entry>
+              <entry>Port Range</entry>
+              <entry>Remote IP Prefix</entry>
+              <entry>Remote Security Group</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>ICMP</entry>
+              <entry>IPv4</entry>
+              <entry><lines>4803
+5433
+5434
+5444
+5450</lines></entry>
+              <entry>-</entry>
+              <entry>-</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p><b>Database Footprint Growth</b></p>
+      <p>In HDP 2.0, growing or shrinking Vertica Preview clusters is not supported; that is, nodes cannot be added or removed.</p>
+      </sectiondiv>
+    </section>
+  </body><related-links>
+    <link href="../guides/devplatform.als-operations-guide.dita"></link>
+    <link href="../guides/devplatform.ce-operations-guide.dita"></link>
+    <link href="../guides/devplatform.database-operations-guide.dita"></link>
+    <link href="../guides/devplatform.messaging-operations-guide.dita"></link>
+    <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+    <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+    
+  </related-links>
+</topic>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="archoverview">
+  <title>HPE Helion Development Platform 2.0: Service Architecture Overview</title>
+  <abstract><shortdesc>Installation prerequisites and architectural overview of the HPE Helion
+      Development Platform.</shortdesc> This Reference Architecture document outlines installation
+    prerequisites and provides an architectural overview of the key components of the HPE Helion
+    Development Platform. This document complements the HPE Helion <tm tmtype="reg">OpenStack</tm>
+    Reference Architecture Document and assumes that the underlying IaaS complies with that
+    reference architecture and that the reader is familiar with the HPE Helion OpenStack-specific
+    concepts covered there. This document and associated service architecture reference documents
+    describe only one supported architecture for HPE Helion Development Platform version 2.0, not
+    all possible architectures and customizations. For any questions, please contact your  HPE
+    Helion Development Platform sales or account representative. </abstract>
+  <body>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections </sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
+    
+    <section><title outputclass="headerH">Platform Overview</title><sectiondiv
+        outputclass="insideSection"><p>This section provides an
+      introduction to the services that comprise the HPE Helion Development Platform. The HPE Helion
+      Development Platform provides the foundation for developers to build great cloud-native
+      applications on HPE Helion OpenStack. Based on Cloud Foundry™ and fully integrated with HPE
+      Helion OpenStack®, the HPE Helion Development Platform is open and interoperable, ensuring
+      that developers can focus on building the right app for any environment. </p><p>HPE Helion Development Platform Application Services are
+          trusted services:<ul id="ul_btw_x1b_x5">
+            <li> The Database Service control plane runs in the Admin tenant.</li>
+            <li> The databases created by the Database Service run in the user tenant. </li>
+            <li> The Messaging Service control plane and message queue instances created for the
+              user run in the Messaging Service Tenant (msgaas). </li>
+            <li> The HPE Helion Application Lifecycle Service (ALS) PaaS runs in the user tenant.
+            </li>
+          </ul></p> The HPE Helion Development Platform (HDP) consists of the following components:
+          <ul id="ul_nbw_z1b_x5">
+          <li> Application Lifecycle Service (ALS, aka Stackato) - Cloud Foundry based Platform as a
+            Service (PaaS) deploys, scales, and ensures availability of application instances.</li>
+          <li> Code Engine - a Continuous Integration service that automates build, test, and deploy
+            steps to streamline the software release and quality assurance processes. </li>
+          <li> Application Services - external application services provide enterprise grade
+            durability and manageability for the services used by applications in the Helion
+            Stackato PaaS.
+       <ul>   <li> Database as a Service - provides lifecycle management for relational and non-relational
+                databases, including MySQL, MongoDB, Redis, and Vertica Preview. </li>
+          <li> Messaging as a Service - provides lifecycle management for RabbitMQ clusters</li></ul>
+        </li></ul></sectiondiv></section>
+    
+    <section><title outputclass="headerH">HPE Helion Development Platform Users</title><sectiondiv
+        outputclass="insideSection">
+        <ul>
+          <li>Developers - the end user of the PaaS is a developer who writes applications for end
+            users.</li>
+          <li> Admins - manage all HPE Helion Development Platform services</li>
+          <li> Operators - install HPE Helion Development Platform services and manage the HPE
+            Helion OpenStack installation. These users are assumed to have root access for HPE
+            Helion OpenStack including full control over the cloud IaaS and hypervisors.</li>
+        </ul>
+      </sectiondiv></section>
+    
+    <section>
+      <title outputclass="headerH">IaaS Requirements </title><sectiondiv outputclass="insideSection">
+      <p>This section focuses on the HPE Helion Development Platform requirements on HPE Helion
+        OpenStack 2.0. All of the HPE Helion Development Platform services run “in-cloud”, which
+        means inside of virtual machine instances provided by HPE Helion OpenStack. Once installed
+        and configured, users interact with the services either from an API, command line (CLI), or
+        by using the HPE Helion OpenStack Horizon Dashboard. The way in which the HPE Helion
+        Development Platform services are configured and deployed on top of a HPE Helion OpenStack
+        environment is described in more detail in the following sections. </p>
+      <p>
+        <b>Availability Zones</b></p>
+      <p>In order to achieve maximum availability for services and applications running in your
+        environment, you will want to be sure to configure availability zones (AZs). Availability
+        zones enable you to arrange OpenStack® compute hosts into logical groups that provide a form
+        of physical isolation and redundancy from other availability zones. For example, servers on
+        independent power sources and networking equipment. Availability zones should be defined
+        such that if equipment fails in one zone that the failure will not affect compute resources
+        in another zone. Defining availability zones and assigning compute resources to those zones
+        is carried out within the HPE Helion OpenStack environment by the operators.</p>
+      <p> When users provision resources, they can specify which availability zone is to be used for
+        those resources. This allows services and developers to ensure that the multiple components
+        of their application resources are spread across separate fault-tolerant compute pools to
+        achieve high availability in the event of hardware failure.</p>
+      <p>
+        <b>Networking Requirements</b></p><p>High-level networking requirements for each HDP service
+        are detailed in the <xref href="#archoverview/relinfo" format="dita">service reference
+          architecture documents</xref>. </p>
+      <p>The HPE Helion Development Platform runs in the HPE Helion OpenStack environment and it is
+        important to ensure the networking is properly configured. Please refer to <xref
+          href="http://docs.hpcloud.com/#helion/example_configurations.html" scope="external"
+          format="html">HPE OpenStack example configurations </xref> to see the different networking
+        configurations that the HPE Helion Development Platform runs on. <note>
+          <ul id="ul_fyy_bdb_x5">
+            <li>At this time, HPE Helion Development Platform version 2.0 has only been validated on
+              KVM-based hypervisors. </li>
+            <li>The ALS and Code Engine services need access to the public internet.</li>
+          </ul>
+        </note></p>
+      <p><b>Global Security Rules</b><table frame="all" rowsep="1" colsep="1" id="table_zfm_ldb_x5">
+          <tgroup cols="4">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <colspec colname="c3" colnum="3"/>
+            <colspec colname="c4" colnum="4"/>
+            <thead>
+              <row>
+                <entry> Source</entry>
+                <entry> Destination </entry>
+                <entry>Ports (TCP) </entry>
+                <entry>Description </entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry> External Network</entry>
+                <entry>Management Network </entry>
+                <entry>443 (https)</entry>
+                <entry>External user access to Horizon and SSH</entry>
+              </row>
+              <row>
+                <entry> Management Network </entry>
+                <entry>Public Internet</entry>
+                <entry>80 (http), 443 (https)</entry>
+                <entry>Cloud Delivery Network (Sherpa) access to the Internet to download HPE Helion
+                  Development Platform content</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table></p><p><b>Service-specific security rules:</b>
+        <ul>
+          <li> Application Lifecycle Service (ALS)</li>
+          <li> Code Engine</li>
+          <li>Database Service</li>
+          <li>Messaging Service</li>
+        </ul></p>
+      
+      <p><b>Product Deployment Assumptions</b></p>
+      <ol id="ol_mqp_22b_x5">
+        <li>Assume that every ALS cluster consumes separately provisioned services. </li>
+        <li>Assume that cluster and services are provisioned in the same network. </li>
+        <li>Take steps from there to ensure that all services are visible to applications running in
+          ALS. <ul id="ul_gd2_h2b_x5">
+            <li>For every service you run, ensure that it is visible to applications that run in
+              ALS. </li>
+            <li>Note the limitations of user provided services (they bind to Org and Space, not the
+              entire cluster) </li>
+            <li>Review <!--[TODO: Add reference to ALS/AppServices usage doc]--> the document for
+              the steps required for any ALS application to bind and access any service from a
+              specified org and space.</li>
+          </ul></li>
+      </ol>
+      <p>In order for applications in ALS to see databases and message queues created by the
+        Database Service and Messaging Service, the applications need to have line of sight
+        visibility to the database/message broker instances. </p>
+      <p>In the default reference architecture, this is provided by having all databases and message
+        brokers on the same tenant supplied network as the ALS cluster housing the applications that
+        need database/message queue access.</p></sectiondiv>
+    </section>
+    
+    <section><title outputclass="headerH">OpenStack Service Requirements</title><sectiondiv
+        outputclass="insideSection">
+        <p>Core OpenStack components such as Nova and Neutron are assumed to be installed.</p>
+        <p>The following optional OpenStack components must also have been installed in HPE Helion
+          OpenStack prior to installation. <ul id="ul_l5q_t2b_x5">
+            <li> Swift</li>
+            <li> Cinder</li>
+            <li> Centralized Logging</li>
+            <li> Monasca</li>
+          </ul></p>
+        <p>
+          <b>Service Installation</b></p>
+        <p>For step by step installation instructions, see the HPE Helion Development Platform <xref
+            href="../installation/installation.dita#topic_qbx_tfq_15">installation
+            documentation</xref>.</p>
+        <p>
+          <b>Service Installation Resource Assumptions</b></p>
+        <p>The installation of HPE Helion OpenStack defines a number of resource <i>flavors</i> that
+          are used to represent specific resource requirements of instances. These flavors can be
+          modified by OpenStack administrators. But, in this document, they represent the default
+          OpenStack RAM/Disk/vCPU requirements below.<note>Throughout the reference architecture
+            documentation, <i>medium</i> represents <codeph>m1.medium</codeph> and so forth.<table
+              frame="all" rowsep="1" colsep="1" id="table_ssr_jfb_x5">
+              <tgroup cols="4">
+                <colspec colname="c1" colnum="1"/>
+                <colspec colname="c2" colnum="2"/>
+                <colspec colname="c3" colnum="3"/>
+                <colspec colname="c4" colnum="4"/>
+                <thead>
+                  <row>
+                    <entry>Flavor </entry>
+                    <entry>Memory (MB) </entry>
+                    <entry>Disk (GB) </entry>
+                    <entry>VCPUs</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>m1.tiny </entry>
+                    <entry>512 </entry>
+                    <entry> 1 </entry>
+                    <entry>1</entry>
+                  </row>
+                  <row>
+                    <entry>m1.small </entry>
+                    <entry>2048 </entry>
+                    <entry>20 </entry>
+                    <entry>1</entry>
+                  </row>
+                  <row>
+                    <entry>m1.medium </entry>
+                    <entry>4096 </entry>
+                    <entry>40 </entry>
+                    <entry>2</entry>
+                  </row>
+                  <row>
+                    <entry>m1.large m1.xlarge</entry>
+                    <entry>8192 </entry>
+                    <entry>80 </entry>
+                    <entry>4</entry>
+                  </row>
+                  <row>
+                    <entry>m1.xlarge</entry>
+                    <entry>16384</entry>
+                    <entry>160</entry>
+                    <entry>8</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table></note></p>
+        <p>
+          <b>Requirements By Service</b></p>
+        <p>The table below shows the resources required when the service is installed and when it is
+          configured. The Database, Messaging, and Code Engine Services require VMs for a control
+          plane, while ALS currently does not. As users request instances or clusters of HDP
+          services , the amount of resources consumed is different for each service.<table
+            frame="all" rowsep="1" colsep="1" id="table_cv1_wfb_x5">
+            <tgroup cols="4">
+              <colspec colname="c1" colnum="1"/>
+              <colspec colname="c2" colnum="2"/>
+              <colspec colname="c3" colnum="3"/>
+              <colspec colname="c4" colnum="4"/>
+              <thead>
+                <row>
+                  <entry> Service </entry>
+                  <entry>Download Size </entry>
+                  <entry>When Service is Installed </entry>
+                  <entry>When Services are In use (additional)</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry> ALS (aka Stackato) </entry>
+                  <entry> 3.5GB </entry>
+                  <entry>0 VMs</entry>
+                  <entry>A typical medium-size ALS cluster requires 9 medium VMs (user defined).
+                    Users may create as many ALS clusters as their HOS quotas allow. <p>Cluster
+                      creation requires an additional temporary small VM (constructor) for
+                      constructing the cluster. Also, when deleting a cluster, a temporary small VM
+                      (destructor) is created to clean up the cluster.</p></entry>
+                </row>
+                <row>
+                  <entry>Database </entry>
+                  <entry>3.5GB </entry>
+                  <entry>In a production environment, a Highly-Available configuration is
+                    recommended. That requires 15 medium VMs in a 3 AZ environment. An additional
+                    400GB OpenStack Cinder Block Storage required for the control plane. <p>A non-HA
+                      configuration requires 5 medium VMs and only one AZ. Requires 100GB of
+                      OpenStack Cinder block storage.</p></entry>
+                  <entry><p>For each database, the user determines the VM flavor size and the amount
+                      of OpenStack block storage for the requested database.</p>Default initial size
+                    for all clustered databases is 3 VMs , except for each MongoDB cluster 5 VMs are
+                    created User requested backup of databases are stored in OpenStack Object Store
+                    (Swift) against the user quota in a compressed format. The amount of compression
+                    is data dependent but will be less than the size of the database volume.<p> In
+                      addition to OpenStack quotas, Database Service has an internal quota for
+                      number of VMs for client databases in each tenant. It can be increased as
+                      needed by tenant admins as <xref
+                        href="../database/devplatform.database-increase-quota.dita"
+                        >documented here</xref>.</p></entry>
+                </row>
+                <row>
+                  <entry>Messaging</entry>
+                  <entry>500MB</entry>
+                  <entry>In a production environment, a Highly-Available configuration is
+                    recommended. This requires 4 medium VMs: 3 for control plane, 1 for
+                    deployer.</entry>
+                  <entry>A typical messaging cluster will require 1-5 instances. 3 VMs for a
+                    production RabbitMQ messaging cluster is recommended.</entry>
+                </row>
+                <row>
+                  <entry> Code Engine </entry>
+                  <entry/>
+                  <entry>4 medium VMs</entry>
+                  <entry>Code Engine does not require additional resources at this time.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></p>
+        <p>
+          <b>Additional Quotas</b></p>
+        <p>Given this footprint, it is especially important to ensure quotas (security groups, RAM,
+          etc.) are configured correctly for the service accounts under which you are doing the
+          install. It is also important to ensure that your compute hosts have enough capacity to
+          (a) support the initial install and (b) support the users and applications that may
+          request additional capacity from the services.</p>
+        <p>Minimum required resources:</p>
+        <table frame="all" rowsep="1" colsep="1" id="table_exh_tgb_x5">
+          <tgroup cols="2">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <thead>
+              <row>
+                <entry> Resource  </entry>
+                <entry>Usage</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Floating IPs</entry>
+                <entry>16 </entry>
+              </row>
+              <row>
+                <entry>Instances </entry>
+                <entry>15 medium flavor </entry>
+              </row>
+              <row>
+                <entry>Networks </entry>
+                <entry>2 </entry>
+              </row>
+              <row>
+                <entry>RAM (GB)</entry>
+                <entry>64 </entry>
+              </row>
+              <row>
+                <entry>Routers </entry>
+                <entry>2 </entry>
+              </row>
+              <row>
+                <entry>Security Groups </entry>
+                <entry>6 </entry>
+              </row>
+              <row>
+                <entry>Volumes </entry>
+                <entry>4  </entry>
+              </row>
+              <row>
+                <entry>Volume Storage (GB) </entry>
+                <entry>160</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </sectiondiv></section>
+    
+    <section>
+      <title outputclass="headerH">HPE Helion Development Platform Support Matrix</title><sectiondiv outputclass="insideSection">
+      <p>The following is the HPE Helion Development Platform support matrix outlining where it can
+        be installed: </p>
+      <p>
+        <table frame="all" rowsep="1" colsep="1" id="table_c35_fbb_x5">
+          <tgroup cols="3">
+            <colspec colname="c1" colnum="1"/>
+            <colspec colname="c2" colnum="2"/>
+            <colspec colname="c3" colnum="3"/>
+            <thead>
+              <row>
+                <entry> HPE Helion Development Platform Version </entry>
+                <entry>HPE Helion OpenStack Version </entry>
+                <entry>CloudSystem Version </entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry> HDP 2.0 </entry>
+                <entry>HOS 2.0, HOS 2.1 </entry>
+                <entry>N/A </entry>
+              </row>
+              <row>
+                <entry> HDP 1.3 </entry>
+                <entry>HOS 1.2 </entry>
+                <entry>CS 9.0, CS 9.0.1 </entry>
+              </row>
+              <row>
+                <entry> HDP 1.2 </entry>
+                <entry>HOS 1.2 </entry>
+                <entry>CS 9.0, CS 9.0.1 </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <note>Only HPE Helion Development Platform distributions on CS 9.0 and above support both
+          the ESX and KVM hypervisors. All other distributions support only KVM.</note>
+      </p>
+   </sectiondiv> </section>
+    <section id="relinfo"><title>Related Service Reference Architecture Documents</title><p>Each service has a separate document to show what the service architecture looks like
+      after installation and provide operational guidance. </p></section>
+    
+  </body><related-links>
+    <link href="../guides/devplatform.als-operations-guide.dita"></link>
+    <link href="../guides/devplatform.ce-operations-guide.dita"></link>
+    <link href="../guides/devplatform.database-operations-guide.dita"></link>
+      <link href="../guides/devplatform.messaging-operations-guide.dita"></link>
+    <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
+    <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+    
+  </related-links>
+</topic>
