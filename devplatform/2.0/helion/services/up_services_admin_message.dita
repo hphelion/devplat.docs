@@ -63,10 +63,10 @@
 </section>
   </body>
   <related-links>
-    <link href="up_services_dev_message.dita"></link>
+ <linkpool id="devproc">   <link href="up_services_dev_message.dita"></link>
     <link href="up_services_dev_mongo.dita"></link>
     <link href="up_services_dev_mysql.dita"></link>
     <link href="up_services_dev_redis.dita"></link>
-    <link href="up_services_dev_vertica.dita"></link>
+    <link href="up_services_dev_vertica.dita"></link></linkpool>
     </related-links>
 </topic>
