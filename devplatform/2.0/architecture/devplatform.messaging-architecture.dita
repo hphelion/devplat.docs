@@ -32,25 +32,9 @@
     </ul>
     <section><title outputclass="headerH">Deployed View</title>
       <sectiondiv outputclass="insideSection">
-      <p>The control plane of the Messaging Service is deployed across 3 nodes. Those nodes are not
-        guaranteed to be in different availability zones.</p>
-      <table frame="all" rowsep="1" colsep="1"
-          id="table_xbd_yvz_w5">
-          <tgroup cols="1">
-            <colspec colname="c1" colnum="1" colwidth="1.0*"/>
-            <tbody>
-              <row>
-                <entry>
-                  <image href="../../../media/messaging_architecture.png" align="center"
-                    placement="break" id="image_rbh_ctz_w5"/>
-                </entry>
-              </row>
-              <row>
-                <entry align="center"><i>HP Helion Development Platform Messaging Service Architecture</i></entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
+        <p>The control plane of the Messaging Service is deployed across 3 nodes. Those nodes are
+          not guaranteed to be in different availability zones.</p>
+        <image href="../../../media/messaging_architecture.png" placement="break"/>
       </sectiondiv>
     </section>
     <section>
@@ -110,7 +94,7 @@
       <sectiondiv outputclass="insideSection">
     <p>The following picture shows how the Messaging Service connects to the networks defined in the networking section above, 
       as well as showing the networks that are created when the Messaging Service is installed.</p>
-    <image href="../../../media/messaging_network.png" placement="break" align="center" />
+    <image href="../../../media/messaging_network.png" placement="break"/>
     <p><b>Networks</b></p>
     <p>The following resources are created when the  Messaging Service is installed.</p>
     <p><i>Cue Broker Network</i></p>
@@ -131,7 +115,7 @@
       
     
     <table frame="all" rowsep="1" colsep="1" id="table_zkz_plf_x5">
-      <title/>
+      
       <tgroup cols="4">
         <colspec colname="c1" colnum="1" colwidth="1.0*"/>
         <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -188,7 +172,7 @@
       <sectiondiv outputclass="insideSection">
     <p>The Security groups listed below enforce the requirements above.  They are created during the installation process. There are no egress restrictions.</p>
     <table frame="all" rowsep="1" colsep="1" id="table_pkj_14f_x5">
-        <title/>
+        
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
