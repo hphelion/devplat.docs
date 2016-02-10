@@ -6,7 +6,7 @@
     <p>This document describes how to back up an existing database instance. This will take a backup
       of the entire database instance. If necessary, the backup can be restored to a new instance at
       a later time. <note type="attention">Control plane backups are currently not available due to
-        an incorrect file path. To fix this issue, <xref href="database-backup-controlplane.dita">perform the workaround</xref>.</note></p>
+        an incorrect file path. To fix this issue, <xref href="../../installation/database-backup-controlplane.dita">perform the workaround</xref>.</note></p>
     <ul>
       <li><xref href="#topic_backup_database/horizon" format="dita">Backing up a database from
           Horizon</xref></li>
