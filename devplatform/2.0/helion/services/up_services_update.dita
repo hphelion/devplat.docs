@@ -5,10 +5,7 @@
   
   <abstract><shortdesc outputclass="hdphidden">Procedure for changing credentials for a user-provided service.</shortdesc>If you need to make changes to the credentials for a user-provided service, follow the steps below.</abstract>
   
-  <body><section id="expandCollapse">
-        <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
-        <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
-      </section>
+  <body>
     <ol>
       <li>Unbind the service from the application(s) that are bound to it.<ol id="ol_of2_cxl_55">
           <li>Get the list of current credentials and applications that are bound to the service.

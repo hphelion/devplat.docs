@@ -8,7 +8,7 @@
         <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
         <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
       </section>
-    <section><title>Prerequisites</title><p>
+    <section><title>Prerequisites</title><sectiondiv outputclass="insideSection">
         <ul id="ul_o3x_nr1_t5">
           <li>You already have an ALS cluster.</li>
           <li>You have access to the cluster and permission to deploy applications.</li>
@@ -17,7 +17,7 @@
               href="../admin/server/configuration.dita#topic31232/container_allowed">located
               here</xref>.</li>
         </ul>
-    </p></section> 
+    </sectiondiv></section> 
     <section><title outputclass="headerH">Developer procedure for a single
         instance</title><sectiondiv outputclass="insideSection">
         <ol id="ol_md4_yr1_t5">

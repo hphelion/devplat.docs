@@ -8,15 +8,14 @@
         <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
         <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
       </section>
-<section><title>Prerequisites</title>
+    <section><title>Prerequisites</title><sectiondiv outputclass="insideSection">
       <ul id="ul_db3_tnf_55">
         <li>You already have an ALS cluster created.</li>
         <li>You can access it to deploy applications. </li>
         <li>You have allowed access to the Vertica instance or clustered IP addresses and Vertica
           port 5433 using <xref href="../admin/server/configuration.dita#topic31232/container_allowed">the process available here</xref>.</li>
       </ul>
-
-
+    </sectiondiv>
 </section>
     <section><title outputclass="headerH">Developer procedure for a single instance or
         cluster</title><sectiondiv outputclass="insideSection">

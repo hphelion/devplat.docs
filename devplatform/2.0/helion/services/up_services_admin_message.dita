@@ -11,7 +11,10 @@
         the Application Lifecycle Service</xref> documentation. </note></abstract>
   <body>
     <section><title outputclass="headerH">Administrator procedure for a cluster</title><sectiondiv outputclass="insideSection">
-      <ol id="ol_ld1_q4f_55">
+      <note>For
+        single instance connectivity and usage, refer to the <xref
+          href="../../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita">using the Messaging Service with
+          the Application Lifecycle Service</xref> documentation. </note><ol id="ol_ld1_q4f_55">
         <li>Create a cluster<p>
             <ul id="ul_p21_bwn_55">
               <li>Create a Message Broker RabbitMQ Cluster <xref
