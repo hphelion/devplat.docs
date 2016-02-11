@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="instanceDefinition">
+  <title><ph keyref="prodname" /> <ph keyref="version" />:Instance (Deployment) Definition Model</title>
+  <abstract>The instance model describes a deployment of a service within a running Stratos cluster. It would be provided by the administrator.</abstract>
+  <body/>
+  
+  <topic id="instanceTop"> <title>Top-level entities</title>
+    <body> 
+      <section><title>CreateInstance</title></section>
+      <section><title>ModifyInstance</title></section>
+      <section><title>DestroyInstance</title></section>
+      <section><title>Cloud</title></section>
+      <section><title>Cloud</title></section>
+      <section><title>Cloud</title></section>
+    
+    
+    </body></topic>
+  
+  
+  
+  <topic id="instanceChildEntity"> <title>Child entities</title>
+    <body> 
+
+      <section><title>Scaling</title></section>
+      <section><title>ScalingThreshold</title></section>
+      <section><title>LabelModification</title></section>
+      <section><title>VolumeInstance</title></section>
+
+      
+    </body></topic>
+  
+  <topic id="instanceExamples"> <title>Examples</title>
+    <body> 
+      
+      <section><title>Create service instance</title></section>
+      <section><title>Modify service instance (upgrade)</title></section>
+      <section><title>Modify service instance</title></section>
+      <section><title>Destroy service instance</title></section>
+
+      
+    </body></topic>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</topic>

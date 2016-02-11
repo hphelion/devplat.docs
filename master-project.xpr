@@ -19,6 +19,6 @@
     </meta>
     <projectTree name="master-project.xpr">
         <folder path="devplatform/"/>
-        <folder path="media/"/>
+        <folder path="media/devplat.docs"/>
     </projectTree>
 </project>

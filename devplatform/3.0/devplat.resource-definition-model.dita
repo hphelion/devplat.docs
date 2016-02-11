@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="resourceDefinition">
+  <title><ph keyref="prodname" /> <ph keyref="version" />: Resource Definition Model</title>
+  <abstract> This model represents resource definitions only. Instance definitions will be separate.</abstract>
+  <body />
+     
+    
+    <topic id="resourceTop"> <title>Top-level entities</title>
+     <body> 
+      <section><title>Cloud Native Service</title>
+      
+     <p> A cloud native service is a 1..n collection of cloud native service components.
+          <codeblock>| Name       | Type                                           | Description                                    |
+|------------|------------------------------------------------|------------------------------------------------|
+| name       | string                                         | Service identifier (ex. helion-cloud-foundry)  |
+| version    | string                                         | Version identifier (ex. 1.0)                   |
+| vendor     | string                                         | Vendor providing service (ex. HPE) id, version and vendor form a composite key and must be unique within a system |
+| components | [][Component](#cloud-native-service-component) | Describes service components within a service  |
+| preflight  | [][Job](#job)                                  | Pre-flight jobs to run prior to an installation / upgrade. Common use-case is to validate configurations prior to an installation / modify scenario. |
+| postflight | [][Job](#job)                                  | Post-flight jobs to run after an installation / upgrade. Common use-case is to report back runtime configuration (ex. HCF returns the cluster API URL) |
+| volumes    | [][Volume](#volume)                            | Required volume declarations                   |
+| labels     | []string                                       | Labels to apply to a given service             |</codeblock></p>
+      </section>
+     </body>
+    </topic>
+      
+<topic id="resourceChildEntity"><title>Child Entities</title>
+<body>
+  <section><title>Volume</title></section>
+  <section><title>Cloud Native Service Component</title></section>
+  <section><title>Platform</title></section>
+  <section><title>WorkloadType</title></section>
+  <section><title>Capabilities</title>
+    <p><b>Supported Capabilities</b></p>
+    <p><b>Unsupported Capabilities</b></p>
+  </section>
+  <section><title>Cloud Native Job</title></section>
+  <section><title>ParameterDefinition</title></section>
+  <section><title>Parameter</title></section>
+  <section><title>Dependency</title></section>
+  <section><title>Affinity</title></section>
+  <section><title>ServicePort</title></section>
+  <section><title>VolumeMount</title></section>
+  
+</body>
+</topic>
+  <topic id="resourceExamples"><title>Examples</title>
+    <body>
+      <section><title>Service</title></section>
+      <p>This defines a service, consisting of multiple service components, with some included components overriding the default values provided in the component definition.</p>
+      <codeblock>
+```json
+{
+  "name": "helion-cloud-foundry",
+  "version": "1.0.0",
+  "vendor": "HPE",
+  "components": [
+    {
+      "name": "cf-db",
+      "version": "1.0.0",
+      "vendor": "HPE",
+      "external_name": "Database",
+      "image": "hpcloud/cf-db",
+      "min_RAM_mb": 1024,
+      "min_disk_gb": 30,
+      "min_VCPU": 2,
+      "platform": "linux-x86_64",
+      "capabilities": ["ALL"],
+      "entrypoint": ["/opt/foodb/bin/foodb", "start"],
+      "parameters": [
+        {
+          "name": "DATABASE_PASSWORD",
+          "description": "Database instance password",
+          "default": "mypassword",
+          "example": "mypassword",
+          "required": true,
+          "secret": true
+        }
+      ],
+      "depends_on": [],
+      "affinity": [],
+      "labels": ["label1", "label2"],
+      "min_instances": 1,
+      "max_instances": 1,
+      "service_ports": [
+        {
+          "name": "cf-db",
+          "protocol": "TCP",
+          "source_port": 5432,
+          "target_port": 5432,
+          "public": false
+        }
+      ],
+      "volume_mounts": [
+        {
+          "volume_name": "database-volume",
+          "mountpoint": "/var/db/foodb"
+        }
+      ]
+    },
+    {
+      "name": "cf-api",
+      "version": "1.0.0",
+      "vendor": "HPE",
+      "external_name": "Cloud Controller",
+      "min_RAM_mb": 1024,
+      "min_disk_gb": 30,
+      "min_VCPU": 2,
+      "platform": "linux-x86_64",
+      "capabilities": ["ALL"],
+      "image": "hpcloud/cf-api",
+      "entrypoint": ["/var/vcap/bin/api/control-script", "start"],
+      "parameters": [
+        {
+          "name": "CONFIG_STORE_URL",
+          "description": "Location of the configuration store",
+          "default": "https://hcf-config-store:8443/config",
+          "example": "http://server-name-here",
+          "required": false,
+          "secret": false
+        }
+      ],
+      "depends_on": [
+        {
+          "name": "hcf-config-store",
+          "version": "1.0.0",
+          "vendor": "HPE"
+        }
+      ],
+      "affinity": [],
+      "labels": ["label1", "label2"],
+      "min_instances": 1,
+      "max_instances": 3,
+      "service_ports": [
+        {
+          "name": "cf-api-http",
+          "protocol": "TCP",
+          "source_port": 80,
+          "target_port": 8080,
+          "public": true
+        }
+      ],
+      "volume_mounts": [
+        {
+          "volume_name": "my-shared-volume",
+          "mountpoint": "/var/vcap/store"
+        }
+      ]
+    }
+  ],
+  "labels": ["hcf-cluster-1", "other-arbitrary-label"],
+  "preflight": [
+    {
+      "name": "cf-schema-migration",
+      "version": "1.0.0",
+      "vendor": "HPE",
+      "image": "hpcloud/cf-schema-migration",
+      "min_RAM_mb": 256,
+      "min_disk_gb": 30,
+      "min_VCPU": 2,
+      "platform": "linux-x86_64",
+      "capabilities": ["ALL"],
+      "entrypoint": ["/opt/foodb/bin/migrate"],
+      "parameters": [],
+      "depends_on": [
+        {
+          "name": "cf-db",
+          "version": "1.0.0",
+          "vendor": "HPE" 
+        }
+      ],
+      "affinity": [],
+      "labels": ["label1", "label2"],
+      "min_instances": 1,
+      "max_instances": 1,
+      "retry_count": 10
+    }
+  ],
+  "postflight": [
+    {
+      "name": "hcf-url-reporter",
+      "version": "1.0.0",
+      "vendor": "HPE",
+      "image": "hpcloud/get-url",
+      "min_RAM_mb": 256,
+      "min_disk_gb": 5,
+      "min_VCPU": 1,
+      "platform": "linux-x86_64",
+      "capabilities": ["ALL"],
+      "entrypoint": ["/opt/hcf/get-url"],
+      "parameters": [],
+      "depends_on": [],
+      "affinity": [],
+      "labels": ["label1", "label2"],
+      "min_instances": 1,
+      "max_instances": 1,
+      "retry_count": 10
+    }
+  ],
+  "volumes": [
+    {
+      "name": "my-shared-volume",
+      "size_gb": 40,
+      "shared": true
+    },
+    {
+      "name": "database-volume",
+      "size_gb": 40,
+      "filesystem": "ext4",
+      "shared": false
+    }
+  ]
+}
+```
+</codeblock>
+    </body>
+    </topic>
+
+
+</topic>

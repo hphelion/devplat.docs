@@ -10,6 +10,9 @@
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="3.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
     <topicref href="3.0/devplatform.troubleshooting.dita" navtitle="Troubleshooting" locktitle="yes"    />
+    <topicref href="3.0/devplat.resource-definition-model.dita" navtitle="Resource Definition Model"/>
+    <topicref href="3.0/devplat.instance-definition-model.dita"
+      navtitle="Instance (Deployment) Definition Model" locktitle="yes"/>
   </topicref>
   
   
