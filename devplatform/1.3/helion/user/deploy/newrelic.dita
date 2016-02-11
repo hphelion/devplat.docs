@@ -19,7 +19,7 @@
 <body>
         <note>These instructions are for use with Application Lifecycle Service. For further
             details, please see the <xref
-                href="http://newrelic.com/docs/python/new-relic-for-python" scope="external"
+                href="https://docs.newrelic.com/docs/agents/python-agent/getting-started/new-relic-python" scope="external"
                 format="html">New Relic site</xref>.</note>
 <p>New Relic can be used to track your application analytics running in
 Application Lifecycle Service as well as for server monitoring. The languages it can
@@ -169,7 +169,7 @@ settings' page on New Relic.</p>
 your application as you would like it to appear in your New Relic
 dashboard.</p>
 
-<p>The above settings are described in detail in the <xref href="http://newrelic.com/docs/php/php-agent-phpini-settings" scope="external" format="html" >New Relic PHP
+    <p>The above settings are described in detail in the <xref href="https://docs.newrelic.com/docs/agents/php-agent" scope="external" format="html" >New Relic PHP
 Agent Settings
 documentation</xref>.</p>
 </li>
