@@ -80,12 +80,12 @@ tables:</p>
 <li>Directly serve static files with uWSGI. See <xref href="python_index.dita">
 <i>Serving static files with uWSGI</i>
 </xref> for details. or:</li>
-<li>Use <codeph>django.contrib.staticfiles</codeph>, which is
-included by default in recent versions of Django. Read the <xref href="https://docs.djangoproject.com/en/1.8/howto/static-files/" scope="external" format="html" >Django
-documentation</xref>
-to understand the steps involved, or take a look at <xref href="https://github.com/hpcloud/stackato-samples/commit/59ec0791" scope="external" format="html" >this
-commit</xref>
-in the django-gtd sample app. or:</li>
+<li>Use <codeph>django.contrib.staticfiles</codeph>, which is included by default in recent versions
+                                        of Django. Read the <xref
+                                                href="https://docs.djangoproject.com/en/1.8/howto/static-files/"
+                                                scope="external" format="html">Django
+                                                documentation</xref> to understand the steps
+                                        involved or</li>
 <li>Set <codeph>DEBUG=True</codeph> in settings.py. This is not
 recommended for production applications.</li>
 </ol>
