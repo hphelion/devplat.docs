@@ -54,9 +54,9 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
       <ol id="ol_xxb_kyz_w5">
         <li>Create a Redis single instance using the HDP Database Service. <note>For production
             deployments, clusters are recommended to ensure high availability. </note><sl>
-            <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+            <sli><xref href="../../database/devplatform.database-create-horizon.dita">Create
                 single instance on Horizon</xref></sli>
-            <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+              <sli><xref href="../../database/devplatform.database-create-cli.dita">Create
                 single instance using CLI</xref></sli>
           </sl>
         </li>
