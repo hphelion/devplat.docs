@@ -74,9 +74,9 @@ Could not connect to Redis at 172.18.0.150:6379: Operation timed out</codeblock>
         outputclass="insideSection">
         <ol id="ol_s1g_zxz_w5">
           <li> Create a Redis cluster using the HDP Database Service.<sl>
-              <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+              <sli><xref href="../../database/devplatform.database-create-horizon.dita">Create
                   cluster on Horizon</xref></sli>
-              <sli><xref href="../../../database/devplatform.database-create-horizon.dita">Create
+              <sli><xref href="../../database/devplatform.database-create-cluster-cli.dita">Create
                   cluster using CLI</xref></sli>
             </sl></li>
           <li><xref href="../admin/server/configuration.dita#topic31232/container_allowed">Configure
