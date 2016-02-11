@@ -137,10 +137,8 @@ local 0.078GB</codeblock></li>
           <li>Create a MongoDB cluster using the HDP Database Service. <note>For production
               deployments, clusters are recommended for high availability. </note>
             <ul>
-              <li><xref href="../../../2.0/database/devplatform.database-create-cluster-horizon.dita"
-                  format="html" scope="external">Create cluster using Horizon</xref></li>
-              <li><xref href="../../../2.0/database/devplatform.database-create-cluster-cli.dita"
-                  format="html" scope="external">Create cluster using CLI</xref></li>
+              <li><xref href="../../database/devplatform.database-create-cluster-horizon.dita">Create cluster using Horizon</xref></li>
+              <li><xref href="../../database/devplatform.database-create-cluster-cli.dita">Create cluster using CLI</xref></li>
             </ul>
           </li>
           <li>Run <codeph>trove root-enable</codeph> to reset and obtain the root password for the
