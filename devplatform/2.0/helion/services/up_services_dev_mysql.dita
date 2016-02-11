@@ -41,7 +41,7 @@ Space:        default</codeblock></li>
                         VCAP_SERVICES environment variables; do not hardcode connection credentials
                         in your application. More information on how to use VCAP_SERVICES can be
                         found <xref
-                            href="../../../2.0/helion/user/services/data-services.data#user_data_services/vcap-services"
+                            href="../user/user/services/data-services.data#user_data_services/vcap-services"
                             >here</xref>.</note></li>
     <li>Deploy the application using the helion CLI. <codeblock>helion push -n</codeblock></li>
      </ol></section>
