@@ -29,8 +29,6 @@
     <topicref href="2.0/database/devplatform.database-increase-quota.dita"
       navtitle="Increasing Trove Internal Quotas" locktitle="yes"/>
     <topicref href="2.0/database/database-backup-controlplane.dita" toc="no"/>
-    <topicref href="2.0/database/devplatform.database-architecture.dita"
-      navtitle="Previous DBaaS Architecture for Review" locktitle="yes"/>
   </topichead>
   <!-- shim files, remove when publishing-->
 
