@@ -94,7 +94,7 @@
       <sectiondiv outputclass="insideSection">
     <p>The following picture shows how the Messaging Service connects to the networks defined in the networking section above, 
       as well as showing the networks that are created when the Messaging Service is installed.</p>
-    <image href="../../../media/messaging_network.png" placement="break"/>
+    <image href="../../../media/devplat.docs/messaging_network.png" placement="break"/>
     <p><b>Networks</b></p>
     <p>The following resources are created when the  Messaging Service is installed.</p>
     <p><i>Cue Broker Network</i></p>
