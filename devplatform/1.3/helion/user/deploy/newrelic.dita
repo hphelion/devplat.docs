@@ -93,7 +93,7 @@ newrelic.agent.initialize()</codeblock></li>
 </ol>
 <p>An alternative to modifying your python is to wrap
 <codeph>$PROCESSES_WEB</codeph> in <i>manifest.yml</i> with
-<xref href="https://newrelic.com/docs/python/python-agent-admin-script" scope="external" format="html" >newrelic-admin</xref>.</p>
+    <xref href="https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-admin-script" scope="external" format="html" >newrelic-admin</xref>.</p>
 </section>
 <section id="bottle-currency-example"> <title>Bottle Currency Example</title> 
 <p>
