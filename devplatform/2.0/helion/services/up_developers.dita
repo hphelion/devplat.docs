@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_sqv_hfy_w5">
-  <title>User-Provided Service Procedures for Developers</title>
-  <body>
-    <p>These procedures describe the steps that developers must take to create a user-defined service and bind it to applications during deployment. 
-    </p><note type="important">The <xref href="up_administrator.dita">administrative procedures</xref> that create and connect the service instance or cluster with the ALS cluster must be completed before the developer procedures will work.</note>
-    <section><title>Developer Procedures</title></section>
+  <title>HPE Helion Development Platform 2.0: Managed Service Connectivity Procedures for
+    Developers</title>
+  <body><section>   <p>These procedures describe the steps that developers must take to create a user-provided
+        service and bind it to applications during deployment. </p><note type="important">The <xref href="up_administrator.dita">administrative procedures</xref> that create and connect the service instance or cluster with the ALS cluster must be completed before the developer procedures will work.</note>
+    <p>The following application services come built-in with HPE Helion Development Platform: <ul
+          id="ul_oxm_c3l_p5">
+          <li>
+            <lines>Database Service (Trove): MySQL, Redis, MongoDB, Vertica Preview (single instances and clusters)</lines>
+          </li>
+          <li>
+            <lines>Message Broker: RabbitMQ clusters </lines>
+          </li>
+        </ul>Typically, application services can be bound to an ALS cluster via the standard Cloud
+        Foundry <xref
+          href="http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
+          format="html" scope="external">User Provided Service</xref> mechanism. </p>
+      <p>
+        <note>MySQL instances and clusters are bound to ALS clusters via the <xref
+            href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref>
+          mechanism. </note>
+      </p></section>
+    
+      <section><title>Developer Procedures</title></section>
   </body>
 </topic>

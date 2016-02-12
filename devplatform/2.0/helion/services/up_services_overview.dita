@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="upservicesoverview">
-  <title>HPE Helion Development Platform 2.0: User-provided Service Integration for ALS Clusters and
+  <title>HPE Helion Development Platform 2.0: Managed Service Connectivity to ALS Clusters and
     Applications</title>
   <abstract><shortdesc outputclass="hdphidden">Procedure to connect managed services to an ALS
       cluster or applications.</shortdesc>This document describes the steps required to connect
     managed HDP application services instances/clusters to an HDP ALS cluster and to connect to
     applications in that ALS cluster. </abstract>
   <body>
-<section>   
+
+<section>
+
       <p>The following application services come built-in with HPE Helion Development Platform: <ul
           id="ul_oxm_c3l_p5">
           <li>
@@ -20,11 +22,10 @@
         </ul>Typically, application services can be bound to an ALS cluster via the standard Cloud
         Foundry <xref
           href="http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
-          format="html" scope="external">User Provided Service</xref> mechanism. MySQL instances and
-        clusters are bound to ALS clusters via the <xref
-          href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref>
-        mechanism. </p>
-      <p><!--Add TOC inside the overview including how to update them--></p></section>
+          format="html" scope="external">User Provided Service</xref> mechanism. <note>MySQL
+          instances and clusters are bound to ALS clusters via the <xref
+            href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref>
+          mechanism. </note></p></section>
     <section>
       <title>Prerequisites</title>
       <p>
@@ -53,11 +54,16 @@
             service instance or cluster.</li>
         </ul>
       </p>
-      <!--TODO: Reference to Network Reference Arch doc. When this architecture document is published, put a link to it here. Max will supply location of diagram when published.-->
-    </section><section><title>Related Processes</title>
-      <ul><li><xref href="up_services_update.dita">Updating User-provided Service Credentials</xref></li></ul>
+    </section>
+    <section><title>Related Information</title><p>Reference Architecture</p>
+      <ul>
+        <li><xref href="../../architecture/devplatform.database-architecture.dita">Database Service
+            Reference Architecture</xref></li>
+        <li><xref href="../../architecture/devplatform.als-architecture.dita">ALS Reference
+            Architecture</xref></li></ul>
       <p>Administrator Steps</p>
       <ul>
+        <li><xref href="up_services_update.dita">Updating User-provided Service Credentials</xref></li>
         <li><xref href="up_services_admin_message.dita">Messaging Integration for Administrators</xref></li>
         <li><xref href="up_services_admin_mongo.dita">MongoDB Integration for Administrators</xref></li>
         <li><xref href="up_services_admin_mysql.dita">MySQL Integration for Administrators</xref></li>
