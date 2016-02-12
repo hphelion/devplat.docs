@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_nbm_13y_w5">
-  <title>
-    User-Provided Service Procedures for Administrators</title>
+  <title> HPE Helion Development Platform 2.0: Managed Service Connectivity Procedures for
+    Administrators</title>
   <body>
-    <p>This document describes the <xref href="#topic_nbm_13y_w5/procedures">administrative procedures</xref> required to connect managed HDP application
+    <section>   <p>This document describes the <xref href="#topic_nbm_13y_w5/procedures">administrative procedures</xref> required to connect managed HDP application
       services instances/clusters to an HDP ALS cluster. These steps must be performed before the
       developers can <xref href="up_developers.dita">bind the service to an
-        application</xref>.</p><section><title>Limitations and Restrictions</title><p><b>Mongo</b></p>
+        application</xref>.</p>
+    <p>The following application services come built-in with HPE Helion Development Platform: <ul
+      id="ul_oxm_c3l_p5">
+      <li>
+        <lines>Database Service (Trove): MySQL, Redis, MongoDB, Vertica Preview (single instances and clusters)</lines>
+      </li>
+      <li>
+        <lines>Message Broker: RabbitMQ clusters </lines>
+      </li>
+    </ul>Typically, application services can be bound to an ALS cluster via the standard Cloud
+      Foundry <xref
+        href="http://www.activestate.com/blog/2014/04/user-provided-service-instances-use-them"
+        format="html" scope="external">User Provided Service</xref> mechanism. MySQL instances and
+      clusters are bound to ALS clusters via the <xref
+        href="../../../2.0/database/devplatform.database-ALS.dita">Service Gateway</xref>
+      mechanism. </p></section>
+      
+      <section><title>Limitations and Restrictions</title><p><b>Mongo</b></p>
           <p conref="up_services_admin_mongo.dita#upservicesadminmongo/mongolimits"/><p><b>MySQL</b><ul conref="up_services_admin_mysql.dita#upservicesadminmysql/mysqllimit"
           id="ul_mvf_2jy_w5">
           <li/>
@@ -19,9 +36,7 @@
         </ul></p>
 <p><b>Vertica</b></p>
       <p conref="up_services_admin_vertica.dita#upservicesadminvertica/verticalimit"/>
-      
-
-        </section>
+              </section>
 <section id="procedures"><title>Administrator Procedures</title></section>
   </body>
 </topic>

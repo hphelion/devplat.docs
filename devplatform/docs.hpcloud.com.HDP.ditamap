@@ -261,11 +261,12 @@
     <topicref href="2.0/helion/user/services/user-provided.dita" locktitle="yes"
       navtitle="no_User-Provided Services" toc="no"/>
     <topicref href="2.0/helion/services/up_services_overview.dita"
-      navtitle="User-provided Service Integration for ALS Clusters and Applications" locktitle="yes"/>
+      navtitle="Managed Service Connectivity to ALS Clusters and Applications" locktitle="yes"/>
     <topicref href="2.0/helion/services/up_services_update.dita"
       navtitle="Updating User-provided Services" locktitle="yes"/>
-    <topicref href="2.0/helion/services/up_administrator.dita" navtitle="Administrator Procedures"
-      locktitle="yes" collection-type="family" linking="normal">
+    <topicref href="2.0/helion/services/up_administrator.dita"
+      navtitle="Managed Service Connectivity Procedures for Administrators" locktitle="yes"
+      collection-type="family" linking="normal">
       <topicref href="2.0/helion/services/up_services_admin_message.dita"
         navtitle="Messaging Integration for Administrators" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_admin_mongo.dita"
@@ -277,8 +278,9 @@
       <topicref href="2.0/helion/services/up_services_admin_vertica.dita"
         navtitle="Vertica Integration for Administrators" locktitle="yes"/>
     </topicref>
-    <topicref href="2.0/helion/services/up_developers.dita" navtitle="Developer Procedures"
-      locktitle="yes" collection-type="family" linking="normal">
+    <topicref href="2.0/helion/services/up_developers.dita"
+      navtitle="Managed Service Connectivity Procedures for Developers" locktitle="yes"
+      collection-type="family" linking="normal">
       <topicref href="2.0/helion/services/up_services_dev_message.dita"
         navtitle="Messaging Integration for Developers" locktitle="yes"/>
       <topicref href="2.0/helion/services/up_services_dev_mongo.dita"
