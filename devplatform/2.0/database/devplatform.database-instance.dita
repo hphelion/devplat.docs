@@ -36,7 +36,7 @@
 <li>
           <xref href="../installation/devplatform_install_database.dita" type="section" >Configure
             the database service</xref>.</li>
-</ol>
+</ol><note>Before you create any instances, make sure you have an updated Trove client. If your client is out of date, the Trove cluster create may not place the instances in the specified availability zone. If necessary, <xref href="https://pypi.python.org/pypi/python-troveclient/2.0.0" scope="external" format="html">download version 2.0.0 of the Trove client</xref>.</note>
 </section>
 
 <section id="more"> <title>More Resources</title>
