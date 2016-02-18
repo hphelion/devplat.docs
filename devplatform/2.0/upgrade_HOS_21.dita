@@ -25,6 +25,16 @@
         <p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
       </section>
       
+      <section>
+        <title>Messaging Service</title>
+        <p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
+      </section>
+      
+      <section>
+        <title>Code Engine</title>
+        <p>No additional steps are required prior to upgrading HPE Helion OpenStack.</p>
+      </section>
+      
       
       <section><title>Database Service</title><p>The database instances and clusters must be gracefully stopped manually prior to upgrading HPE
           Helion OpenStack. <ol id="ol_u4h_54h_45">
@@ -76,38 +86,6 @@
             <li>Safely stop all control plane
               instances.<codeblock> ./control_plane_upgrade/scripts/stop_control_plane_instances.bash</codeblock></li>
           </ol></p></section>
-      <section>
-        <title>HPE Helion Code Engine</title>
-        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the Code Engine control plane:</p>
-        <ol>
-          <li>SSH into the HPE Helion OpenStack lifecycle manager.
-            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
-          <li>Source the environment variables.
-            <codeblock>source service.osrc</codeblock></li>
-          <li>Start the HelionCI deployer.
-            <codeblock>nova list --all-tenants | grep helionce
-nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
-          <li>Start the HelionCI controller.
-            <codeblock>nova list --all-tenants | grep helionci – displays three controllers
-nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
-        </ol>
-      </section>
-      <section>
-        <title>Messaging Service</title>
-        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the messaging control plane:</p>
-        <ol>
-          <li>SSH into the HPE Helion OpenStack lifecycle manager.
-            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
-          <li>Source the environment variables.
-            <codeblock>source service.osrc</codeblock></li>
-          <li>Start the messaging deployer.
-            <codeblock>nova list --all-tenants | grep messaging
-nova start &lt;instance-uuid-of-messaging-deployer&gt; </codeblock></li>
-          <li>Start the messaging controller.
-            <codeblock>nova list --all-tenants | grep msgaas 
-nova start &lt;instance-uuid-of-messaging-controllers&gt;</codeblock></li> 
-        </ol>
-      </section>
     </body>
   </topic>
   
@@ -175,6 +153,20 @@ openstack server list</codeblock></li>
 
   <li>Run the following
             playbooks:<codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts rabbitmq-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts helionci-restart.yml</codeblock></li></ol>
+        
+        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the Code Engine control plane:</p>
+        <ol>
+          <li>SSH into the HPE Helion OpenStack lifecycle manager.
+            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
+          <li>Source the environment variables.
+            <codeblock>source service.osrc</codeblock></li>
+          <li>Start the HelionCI deployer.
+            <codeblock>nova list --all-tenants | grep helionce
+              nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
+          <li>Start the HelionCI controller.
+            <codeblock>nova list --all-tenants | grep helionci – displays three controllers
+              nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
+        </ol>
       </section> 
       
       
@@ -247,7 +239,19 @@ export OS_INTERFACE=internal</codeblock></li>
           </ol></li>
           <li>Disconnect from the Messaging deployer node and HPE Helion OpenStack lifecycle
             manager node.</li></ol>
-        
+        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the messaging control plane:</p>
+        <ol>
+          <li>SSH into the HPE Helion OpenStack lifecycle manager.
+            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
+          <li>Source the environment variables.
+            <codeblock>source service.osrc</codeblock></li>
+          <li>Start the messaging deployer.
+            <codeblock>nova list --all-tenants | grep messaging
+              nova start &lt;instance-uuid-of-messaging-deployer&gt; </codeblock></li>
+          <li>Start the messaging controller.
+            <codeblock>nova list --all-tenants | grep msgaas 
+              nova start &lt;instance-uuid-of-messaging-controllers&gt;</codeblock></li> 
+        </ol>
       </section>
       
       
