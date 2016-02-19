@@ -137,6 +137,19 @@
       
       <section>
         <title>HPE Helion Code Engine</title>
+        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the Code Engine control plane:</p>
+        <ol>
+          <li>SSH into the HPE Helion OpenStack lifecycle manager.
+            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
+          <li>Source the environment variables.
+            <codeblock>source service.osrc</codeblock></li>
+          <li>Start the HelionCI deployer.
+            <codeblock>nova list --all-tenants | grep helionce
+              nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
+          <li>Start the HelionCI controller.
+            <codeblock>nova list --all-tenants | grep helionci – displays three controllers
+              nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
+        </ol>
         <p>All nodes are rebooted during the upgrade. The platform services need to be restarted in a specific order.</p>
         <ol>
           <li>If unknown, determine the IP address of the <codeph>helionce_deployer</codeph>
@@ -154,19 +167,7 @@ openstack server list</codeblock></li>
   <li>Run the following
             playbooks:<codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts rabbitmq-start.yml</codeblock><codeblock>ansible-playbook -i hosts/verb_hosts helionci-restart.yml</codeblock></li></ol>
         
-        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the Code Engine control plane:</p>
-        <ol>
-          <li>SSH into the HPE Helion OpenStack lifecycle manager.
-            <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
-          <li>Source the environment variables.
-            <codeblock>source service.osrc</codeblock></li>
-          <li>Start the HelionCI deployer.
-            <codeblock>nova list --all-tenants | grep helionce
-              nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
-          <li>Start the HelionCI controller.
-            <codeblock>nova list --all-tenants | grep helionci – displays three controllers
-              nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
-        </ol>
+        
       </section> 
       
       
