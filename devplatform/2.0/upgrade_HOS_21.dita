@@ -145,10 +145,10 @@
             <codeblock>source service.osrc</codeblock></li>
           <li>Start the HelionCI deployer.
             <codeblock>nova list --all-tenants | grep helionce
-              nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
+nova start &lt;instance-uuid-of-helionce-deployer&gt;</codeblock></li>
           <li>Start the HelionCI controller.
             <codeblock>nova list --all-tenants | grep helionci – displays three controllers
-              nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
+nova start &lt;instance-uuid-of-helionci-controllers&gt;</codeblock></li>
         </ol>
         <p>All nodes are rebooted during the upgrade. The platform services need to be restarted in a specific order.</p>
         <ol>
