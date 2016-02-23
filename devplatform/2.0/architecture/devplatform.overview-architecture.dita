@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="archoverview">
   <title>HPE Helion Development Platform 2.0: Service Architecture Overview</title>
-  <abstract><shortdesc>Installation prerequisites and architectural overview of the HPE Helion
+  <abstract><shortdesc outputclass="hpdhidden">Installation prerequisites and architectural overview of the HPE Helion
       Development Platform.</shortdesc> This Reference Architecture document outlines installation
     prerequisites and provides an architectural overview of the key components of the HPE Helion
     Development Platform. This document complements the HPE Helion <tm tmtype="reg">OpenStack</tm>
