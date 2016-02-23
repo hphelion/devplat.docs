@@ -174,35 +174,54 @@ openstack server list</codeblock></li>
       <section><title>Messaging Service</title>
         <p> After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the
           messaging control plane.</p>
-        <ol id="ol_srh_xxg_45">
+        <ol id="ol_srh_xxg_45">                
           <li>SSH into the HPE Helion OpenStack lifecycle manager.
             <codeblock>ssh stack@&lt;hos-deployer-ip></codeblock></li>
-          <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
-            This was <xref href="installation/devplatform_install_messaging.dita">created during
-              installation</xref> of the Messaging
-            service.<codeblock>ssh stack@&lt;messaging-deployer-ip></codeblock></li>
-          <li>Navigate to the <codeph>ansible</codeph> scratch directory.
+          <li>Source the environment variables.
+            <codeblock>source service.osrc</codeblock></li>
+          <li>Start the messaging deployer.
+            <codeblock>nova list --all-tenants | grep messaging
+nova start &lt;instance-uuid-of-messaging-deployer&gt;</codeblock></li>
+          <li>Start the messaging controller.
+            <codeblock>nova list --all-tenants | grep msgaas 
+nova start &lt;instance-uuid-of-messaging-controllers&gt;</codeblock></li>
+        </ol>
+        <p>All nodes are rebooted during the upgrade. The platform services need to be restarted in a specific order:</p>
+        <ol>
+          <li>If unknown, determine the IP address of the helionce_deployer instance.
+            <ul><li>From the HPE Helion OpenStack lifecycle manager, list all available machines:
+          <codeblock>source helionce.osrc
+openstack server list</codeblock></li>
+              <li>Find the instance named <codeph>helionce_deployer</codeph> in the list and make a note of its IP address.</li>
+            </ul>
+          <li>SSH into the helionce_deployer instance.
+            <codeblock>ssh -i helionce-shared stack@&lt;IP address of the helionce_deployer instance&gt;</codeblock></li>
+          <li>Navigate to the ansible scratch directory.
             <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
           <li>Run the following playbooks in this order.
-            <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml</codeblock>
-            <codeblock>ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml</codeblock>
-            <note><p>In most cases, you will need to press <b>^C</b> and <b>c</b> and <b>return</b> to continue during
-                the above playbook (The text on the console gives the impression it will time out
-                after 10 minutes and continue; it will not time out, but instead will wait forever.) </p><p>This procedure assumes that the database that exists on <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> is the latest; 
-              the database server (mysqld) on <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> should be the last mysqld in your Percona
-              cluster to shutdown, and therefore the host with the latest sequence number. </p>
-              <p>The sequence number on a host can be found using: <codeph>$ sudo cat /var/lib/mysql/grastate.dat</codeph></p>
-              <p>If the sequence number is -1 in this file, use <codeph>$ sudo /usr/bin/mysqld_safe --wsrep-recover</codeph> when mysqlid is down; this logs the sequence number to <codeph>/var/log/mysql/error.log</codeph>.</p>
-              <p>If <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> does not have the latest sequence number from the list of the
-                above controllers then DO NOT use this procedure to bootstrap.</p></note>
-            <codeblock>ansible-playbook -i hosts/verb_hosts cue-stop.yml</codeblock>
-            <codeblock>ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
-          <li>Disconnect from the Messaging deployer node and HPE Helion OpenStack lifecycle manager
-            node.</li></ol>
+            <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
+ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
+ansible-playbook -i hosts/verb_hosts rabbitmq-start.yml
+ansible-playbook -i hosts/verb_hosts helionci-restart.yml</codeblock>
+            <note><p>In most cases, you will need to press ^C and c and return to continue during the above playbook (The text on the console gives 
+              the impression it will time out after 10 minutes and continue; it will not time out, but instead will wait forever.)</p>
+              <p>This procedure assumes that the database that exists on <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> is the latest; the database server 
+                <b>(mysqld)</b> on <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> should be the last <b>mysqld</b> in your Percona cluster to shutdown, and therefore the 
+                host with the latest sequence number.</p>
+              <p>The sequence number on a host can be found using: </p>
+              <codeblock>$ sudo cat /var/lib/mysql/grastate.dat</codeblock>
+              <p>If the sequence number is -1 in this file, use the following when mysqlid is down; this logs 
+                the sequence number to <codeph>/var/log/mysql/error.log</codeph>:</p>
+              <codeblock>$ sudo /usr/bin/mysqld_safe --wsrep-recover</codeblock>
+              <p>If <codeph>msgaas-msgaas-ccp-c1-m1-mgmt</codeph> does not have the latest sequence number from the list of the above controllers, do not use 
+                this procedure to bootstrap.</p>
+              <codeblock>ansible-playbook -i hosts/verb_hosts cue-stop.yml
+ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></note></li>
+          <li>Disconnect from the Messaging deployer node and HPE Helion OpenStack lifecycle manager node.</li>
+</ol>
         
         
-        <p>After
-          the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the tenant
+        <p>After the HPE Helion OpenStack upgrade is completed, perform these steps to bring up the tenant
           RabbitMQ Clusters. </p><note>If you did not previously deploy any RabbitMQ clusters, the
             following steps do not apply to your environment.</note>
         <note>This section is only necessary if you installed Messaging Service from the <b>msgaas_1.0.0-02-165.csu</b> package. If you installed from <b>msgaas_1.0.1-02-462.csu</b>, these steps do not apply.</note>
