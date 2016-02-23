@@ -4,9 +4,6 @@
 <topic xml:lang="en-us" id="using_messaging_als">
   <title>HPE Helion Development Platform 2.0: Using the Messaging Broker Service with ALS</title>
   <body>
-    <p><!--going to be two pages here - how do i interface cloudfoundry with cue? dev--></p>
-    <p><!--ops - how do i modify cue or CF so that users can interface with cue?
-note from Min  that Arun is looking into this right now. Cue manages the message brokers; it is not itself a message broker. Right now we support RabbitMQ but it' will be completely different than it used to be. Haven't committed to supporting any other broker right out of the gate, but we will later.--></p>
     <p>The Messaging Broker Service provides on-demand RabbitMQ clusters and enables automatic access to
       the RabbitMQ management console. RabbitMQ is also available within ALS as a single-instance,
       unmanaged service. If your application relies on high message throughput or if you want to

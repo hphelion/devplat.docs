@@ -4,7 +4,24 @@
   <topic id="topic_myz_l3q_15">
     <title>Messaging Service Reference</title>
     <body>
-      <p>In this section you will learn how to configure, use, and manage theMessaging Broker Service.</p>
+      <p>The Messaging Broker service for HPE Helion <tm tmtype="reg">OpenStack</tm> simplifies and automates
+        provisioning, management, and administration of message brokers.</p>
+      <p>It provides API, CLI, and UI based management of open source brokers such as RabbitMQ and
+        Kafka. The documentation for IT Ops includes installation, broker level availability, and
+        versioning capacity.</p>
+      <ul id="ul_d1c_1xd_lt">
+        <li><xref href="../../installation/installation.dita">Installation</xref></li>
+        <li><xref href="cue_ops_monitoring.dita">Monitoring</xref></li>
+        <li><xref href="cue_ops_bestPractices.dita">Best Practices</xref></li>
+        <li><xref href="devplatform.using-messaging-service-with-ALS.dita">Integration with
+            ALS</xref> (single instances)</li>
+        <li><xref href="../../services/up_services_admin_message.dita">Messaging Integration for
+            Administrators</xref> (clusters)</li>
+        <li><xref href="../../guides/devplatform.messaging-operations-guide.dita">Operations Guide</xref></li>
+        <li><xref href="cue_ops_loadBalancer.dita">Load Balancing</xref></li><li><xref
+            href="cue_dev_overview.dita">Developer Reference</xref></li>
+        <li><xref href="restAPI.dita">REST API Reference</xref></li>
+      </ul>
     </body>
   </topic>
 </dita>
