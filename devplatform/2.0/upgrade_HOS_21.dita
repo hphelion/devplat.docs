@@ -190,10 +190,10 @@ nova start &lt;instance-uuid-of-messaging-controllers&gt;</codeblock></li>
         <ol>
           <li>If unknown, determine the IP address of the helionce_deployer instance.
             <ul><li>From the HPE Helion OpenStack lifecycle manager, list all available machines:
-          <codeblock>source helionce.osrc
-openstack server list</codeblock></li>
+              <codeblock>source helionce.osrc
+                openstack server list</codeblock></li>
               <li>Find the instance named <codeph>helionce_deployer</codeph> in the list and make a note of its IP address.</li>
-            </ul>
+            </ul></li>
           <li>SSH into the helionce_deployer instance.
             <codeblock>ssh -i helionce-shared stack@&lt;IP address of the helionce_deployer instance&gt;</codeblock></li>
           <li>Navigate to the ansible scratch directory.
