@@ -86,6 +86,185 @@
          </ul>
        </sectiondiv>
          </section>
+     <section id="troubleshooting"><title outputclass="headerH">Troubleshooting</title>
+       <sectiondiv outputclass="insideSection">
+         <p>The following section contains troubleshooting information for Trove instances, such as for when a Trove node reboots unexpectedly and needs to be brought back up.</p>
+         <p><b>How to log in to a trove instance</b></p>
+         <p>To troubleshoot Trove issues from the command line, you must first enable SSH to Trove instances. The following procedure demonstrates how to enable SSH for a Trove instance and log in:</p>
+         <ol>
+           <li>Source <codeph>service.rc</codeph>:
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$  . service.osrc</codeblock></li>
+           <li>Get the <codeph>secid</codeph>:
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ secid=$(nova secgroup-list | awk '/check_mk/ {print $2}')
+stack@eu-em2-cp1-c0-m1-mgmt:~$ echo $secid
+4405b674-24e6-4f73-83bb-a8c499739454</codeblock></li>
+           <li>Add access to the host
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ nova secgroup-add-rule $secid tcp 22 22 0.0.0.0/0 # access one of the hosts
++-------------+-----------+---------+-----------+--------------+
+| IP Protocol | From Port | To Port | IP Range  | Source Group |
++-------------+-----------+---------+-----------+--------------+
+| tcp         | 22        | 22      | 0.0.0.0/0 |              |
++-------------+-----------+---------+-----------+--------------+</codeblock></li>
+           <li>Show the trove nodes:
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ nova list |grep trove-data
+| b598d436-9865-4822-bfe0-ef2dc837e55e | trove-database0-5bcqh2i3khcu        | ACTIVE | -          | Running     | SVC=10.16.86.130; trove_mgmt_network=172.17.0.22                                  |
+| fd73f868-3874-4791-bdce-8e9e737c53dc | trove-database1-wkkpkgc3clc4        | ACTIVE | -          | Running     | SVC=10.16.86.133; trove_mgmt_network=172.17.0.25                                  |
+| 6ac79a88-2bde-4954-ac09-9395d38fce4a | trove-database2-kms5knwquu63        | ACTIVE | -          | Running     | SVC=10.16.86.131; trove_mgmt_network=172.17.0.23</codeblock></li>
+           <li>Log in to the node as <codeph>ec2-user</codeph>:
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ ssh ec2-user@10.16.86.130
+sudo -i</codeblock></li>
+           <li>If the above fails, log in using the <codeph>dbaas-key</codeph> certificate:
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ ssh -i dbaas-key ec2-user@10.16.86.130</codeblock></li>
+         </ol>
+         <p><b>Check Instance Health</b></p>
+         <p>The following procedure checks to see if MySQL is running on an instance, and reboots it if needed:</p>
+         <ol>
+           <li>Check to see if MySQL is running, and that <codeph>/dev/vdb1</codeph> is mounted as Read-Only (RO).
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ ssh ec2-user@10.16.86.130
+Linux trove-database0-5bcqh2i3khcu 3.14.29-4-amd64-hlinux #hlinux1 SMP Mon Feb 9 20:32:22 UTC 2015 x86_64
+The programs included with the hLinux system are free software; the exact
+license terms for each program are described in the individual files in
+/usr/share/doc/*/copyright.
+hLinux comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+$ uptime
+01:44:03 up 35 days, 14:51,  1 user,  load average: 0.00, 0.01, 0.05
+$  ps -ef | grep mysql
+ec2-user  2255  2224  0 01:29 pts/0    00:00:00 grep mysql
+$ grep "\sro[\s,]" /proc/mounts
+/dev/vdb1 /mnt ext4 ro,relatime,data=ordered 0 0</codeblock></li>
+           <li>If conditions are similar to the above output, the instance needs to be soft rebooted. If so, reboot the instance in Horizon:
+           <image placement="break" href="../../../media/dbaas_troubleshooting_reboot_instance.png" /></li>
+           <li>Once the reboot is complete, SSH back into the instance and check for MySQL and RO mounts. 
+             <codeblock>$ uptime                                
+01:28:16 up 18 min,  1 user,  load average: 0.00, 0.01, 0.03
+$  ps -ef | grep mysql
+ec2-user  2255  2224  0 01:29 pts/0    00:00:00 grep mysql
+$ grep "\sro[\s,]" /proc/mounts
+$</codeblock></li>
+           <li>Fortunately, the reboot has allowed the volume to be mounted with RW privileges (as shown above). Now – to address MySQL:
+             <codeblock>$ uptime                                
+01:28:16 up 18 min,  1 user,  load average: 0.00, 0.01, 0.03
+$  ps -ef | grep mysql
+ec2-user  2255  2224  0 01:29 pts/0    00:00:00 grep mysql
+$ sudo service mysql bootstrap-pxc
+[ ok ] Bootstrapping Percona XtraDB Cluster database server: mysqld ..
+$ ps -ef | grep mysql
+root      2335     1  0 01:32 pts/0    00:00:00 /bin/sh /usr/bin/mysqld_safe --wsrep-new-cluster
+mysql     3017  2335  2 01:32 pts/0    00:00:00 /usr/sbin/mysqld --basedir=/usr --datadir=/mnt/state/var/lib/mysql/ --plugin-dir=/usr/lib/mysql/plugin --user=mysql --wsrep-new-cluster --log-error=/mnt/state/var/log/mysql/error.log --open-files-limit=65535 --pid-file=/var/run/mysqld/mysqld.pid --socket=/var/run/mysqld/mysqld.sock --wsrep_start_position=15b77de3-92f2-11e5-8381-0f7631b33740:248798
+ec2-user  3075  2224  0 01:32 pts/0    00:00:00 grep mysql</codeblock></li>
+           <li>Now that MySQL is up and running on the first instance, you will need to perform similar steps on the other two instances (see below) – 
+             however, DO NOT run sudo service mysql bootstrap-pxc again. ONLY run that command on the first instance you soft reboot. 
+             <codeblock>stack@eu-em4-cp1-c0-m1-mgmt:~$ ssh ec2-user@10.16.88.165
+Linux trove-database1-gfnobr4vmfug 3.14.29-4-amd64-hlinux #hlinux1 SMP Mon Feb 9 20:32:22 UTC 2015 x86_64
+The programs included with the hLinux system are free software; the exact
+license terms for each program are described in the individual files in
+/usr/share/doc/*/copyright.
+hLinux comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+Last login: Tue Jan 26 17:13:44 2016 from 10.16.84.10
+$ uptime
+02:07:35 up 0 min,  1 user,  load average: 0.23, 0.05, 0.02
+$ ps -ef|grep mysql
+root      1177     1  0 02:07 ?        00:00:00 /bin/sh /usr/bin/mysqld_safe
+mysql     1932  1177 17 02:07 ?        00:00:00 /usr/sbin/mysqld --basedir=/usr --datadir=/mnt/state/var/lib/mysql/ --plugin-dir=/usr/lib/mysql/plugin --user=mysql --log-error=/mnt/state/var/log/mysql/error.log --open-files-limit=65535 --pid-file=/var/run/mysqld/mysqld.pid --socket=/var/run/mysqld/mysqld.sock --wsrep_start_position=32977d8c-a12a-11e5-8c22-af1254754a07:498
+ec2-user  2008  1776  0 02:07 pts/1    00:00:00 grep mysql</codeblock></li>
+           <li>MySQL will now be running, so there are no other actions to perform aside from rebooting the final database instance, and ensuring <codeph>mysqld_safe</codeph> is running.</li>
+         </ol>
+         <p><b>RabbitMQ Broker Issues</b></p>
+         <p>The following section describes how to resolve issues with the RabbitMQ broker, such as when the following error is encountered:</p>
+         <codeblock>ERROR trove.guestagent.api MessagingTimeout: Timed out waiting for a reply to message ID 
+SecurityGroupCreationError: Connection to neutron failed: __str__ returned non-string
+Error creating security group for instance</codeblock>
+         <p>In this scenario, the Jenkins Console Output shows that instances are continuously added, but can't be deleted, so each consecutive failure lists an additional instance:</p>
+         <image placement="break" href="../../../media/dbaas_troubleshooting_rabbitmq_fail.png" />
+         <p>The solution for this scenario is to log into the Rabbitmq Broker for Trove and restore it to a healthy state. The following procedure accomplishes this:</p>
+         <ol>
+           <li>Log in to each trove-messaging instance from deployer node as user "stack":
+             <codeblock>stack@eu-em3-cp1-c0-m1-mgmt:~$ nova list|grep trove-mess
+| a4f9ad9c-ab2f-4c77-9c3c-e1070094cfd1 | trove-messaging0-rmq-ry6xrb74vtw6   | ACTIVE | -          | Running     | trove_guest_network=172.18.0.15; SVC=10.16.87.127; trove_mgmt_network=172.17.0.22 |
+| 63d41ba7-a262-4a03-a3f4-fe4aef3b4788 | trove-messaging1-rmq-khqp7r5u6tvw   | ACTIVE | -          | Running     | trove_guest_network=172.18.0.14; SVC=10.16.87.130; trove_mgmt_network=172.17.0.23 |
+| 76b7f51b-d63f-42e6-ba17-09c6ca719bdc | trove-messaging2-rmq-zqnrd3daljvc   | ACTIVE | -          | Running     | trove_guest_network=172.18.0.13; SVC=10.16.87.125; trove_mgmt_network=172.17.0.24 |</codeblock></li>
+           <li>The cluster status of each RabbitMQ instance needs to be checked. First, SSH to the SVC address of each of the returned instances (above).
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ ssh ec2-user@10.16.87.127</codeblock>
+           <p>If the above command fails, try using the certificate file:</p>
+             <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ ssh -i dbaas-key ec2-user@10.16.87.127</codeblock></li>
+           <li>Once connected to each instance, run the following commands to check the status:
+             <codeblock>$ sudo -s
+               # rabbitmqctl cluster_status</codeblock></li>
+           <li>Inspect <b>Running Nodes</b> and <b>Cluster Name</b>:  there should be three <b>running_nodes</b> in a healthy cluster. An example of an unhealthy cluster is shown below:
+             <codeblock>Linux trove-messaging0-rmq-ry6xrb74vtw6 3.14.29-4-amd64-hlinux #hlinux1 SMP Mon Feb 9 20:32:22 UTC 2015 x86_64
+The programs included with the hLinux system are free software; the exact
+license terms for each program are described in the individual files in
+/usr/share/doc/*/copyright.
+hLinux comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+$ sudo -s
+# rabbitmqctl cluster_status
+Cluster status of node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' ...
+[{nodes,
+    [{disc,
+        ['rabbit@trove-messaging0-rmq-ry6xrb74vtw6',
+         'rabbit@trove-messaging1-rmq-khqp7r5u6tvw',
+         'rabbit@trove-messaging2-rmq-zqnrd3daljvc']}]},
+         {running_nodes,<codeph outputclass="codehighlight">['rabbit@trove-messaging0-rmq-ry6xrb74vtw6']</codeph>},
+ {cluster_name,&lt;&lt;<codeph outputclass="codehighlight">rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal"</codeph>&gt;&gt;},
+ {partitions,
+[]</codeblock></li>
+           <li>If there is only one running node, check the logs to see if it has been updating. If all three are listed as running, determine which one is the Master and restart the other two. 
+             <note>Logs are stored in /mnt/state/var/log/rabbitmq</note>
+             <codeblock># ls -ltr /mnt/state/var/log/rabbitmq
+total 643112
+-rw-r--r-- 1 rabbitmq rabbitmq      1567 Feb 11 04:37 rabbit@trove-messaging0-rmq-ry6xrb74vtw6-sasl.log
+-rw-r--r-- 1 rabbitmq rabbitmq 658535237 Feb 17 01:24 <codeph outputclass="codehighlight">rabbit@trove-messaging0-rmq-ry6xrb74vtw6.log</codeph> 
+# date 
+<codeph outputclass="codehighlight">Wed Feb 17 01:39:50 UTC 2016</codeph> </codeblock>
+             In the above example, the <codeph>rabbit@trove-messaging0-rmq-ry6xrb74vtw6.log</codeph> log should show the current time (the name of the log will vary), while the date
+           shows that the node is 15 minutes stale.</li>
+           <li>If only one node is running, and the log has not been updated (i.e. it is stale as shown above), the RabbitMQ service needs to be restarted. Using the <codeph>cluster_name</codeph> 
+             from earlier, rejoin and start the app again:
+             <codeblock># rabbitmqctl stop_app
+Stopping node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' ...
+# rabbitmqctl join_cluster rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal
+Clustering node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' with 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal' ...
+Error: unable to connect to nodes ['rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal']: nodedown
+DIAGNOSTICS
+===========
+attempted to contact: ['rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal']
+rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal:
+  * connected to epmd (port 4369) on trove-messaging0-rmq-ry6xrb74vtw6.novalocal
+  * epmd reports node 'rabbit' running on port 5535
+  * TCP connection succeeded but Erlang distribution failed
+  * suggestion: hostname mismatch?
+  * suggestion: is the cookie set correctly?
+current node details:
+- node name: 'rabbitmqctl-1910@trove-messaging0-rmq-ry6xrb74vtw6'
+- home dir: /mnt/state/var/lib/rabbitmq
+- cookie hash: V5kCwGFL0o9stIpWdmHQ1Q==</codeblock>
+             <note>Expect the "Error: unable to connect to nodes..." as depicted in the code output above. Restarting the app will resolve this issue:
+               <codeblock># rabbitmqctl start_app
+Starting node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' ...
+# rabbitmqctl cluster_status
+Cluster status of node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' ...
+[{nodes,
+     [{disc,
+          ['rabbit@trove-messaging0-rmq-ry6xrb74vtw6',
+          'rabbit@trove-messaging1-rmq-khqp7r5u6tvw',
+          'rabbit@trove-messaging2-rmq-zqnrd3daljvc']}]},
+ {running_nodes,
+     ['rabbit@trove-messaging2-rmq-zqnrd3daljvc',
+     'rabbit@trove-messaging1-rmq-khqp7r5u6tvw',
+     'rabbit@trove-messaging0-rmq-ry6xrb74vtw6']},
+ {cluster_name,&lt;&lt;"rabbit@trove-messaging0-rmq-ry6xrb74vtw6.novalocal"&gt;&gt;},
+ {partitions,
+     []
+#</codeblock></note>
+           <note>When the entire cluster is brought down, the last node to go down must be the first node to be brought online.</note>
+           <note>If the cluster looks healthy (in that all 3 nodes are running), the Master node needs to be determined. Check the timestamp on the logs in <codeph>/mnt/state/var/log/rabbitmq</codeph></note>
+           <note>One of the three nodes will have a more up-to-date log. This one can be presumed to be the current Master. Performing a stop -> join cluster -> start on the other two nodes should correct partition issues.</note></li>
+         </ol>
+       </sectiondiv>
+     </section>
 
    </body><related-links>
      <link href="../architecture/devplatform.als-architecture.dita"></link>
