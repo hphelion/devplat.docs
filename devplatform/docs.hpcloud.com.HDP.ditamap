@@ -19,6 +19,8 @@
     <topicref href="2.0/messaging/cue_dev_overview.dita" navtitle="Developer Reference"
       locktitle="yes"/>
     <topicref href="2.0/messaging/cue_ops_monitoring.dita" navtitle="Monitoring" locktitle="yes"/>
+    <topicref href="2.0/messaging/cue_ops_overview.dita" toc="no"/>
+    <topicref href="2.0/messaging/cue_dev_credentials.dita" toc="no"/>
   </topicref>
  </map>
 

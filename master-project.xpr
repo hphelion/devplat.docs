@@ -6,6 +6,10 @@
             <serialized version="16.1" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
+                        <String>keys.context</String>
+                        <String>${pdu}/devplatform/docs.hpcloud.com.HDP.ditamap</String>
+                    </entry>
+                    <entry>
                         <String>validation.scenarios</String>
                         <validationScenario-array/>
                     </entry>
