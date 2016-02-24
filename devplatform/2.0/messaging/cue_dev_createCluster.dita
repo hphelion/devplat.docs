@@ -2,7 +2,8 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="cue_createCluster">
   <title>HPE Helion Development Platform 2.0: Create a Cluster from the Command Line</title>
-  <body>
+  <body>  <p> The
+    <xref href="http://python-cueclient.readthedocs.org/en/latest/command-line.html" format="html" scope="external">python-cueclient</xref> can be used as a command line tool for accessing the Cue API.</p>
     <section>
       <dl>
         <dlentry>

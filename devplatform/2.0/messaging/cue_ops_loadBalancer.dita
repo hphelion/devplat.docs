@@ -5,12 +5,11 @@
 <body>
   <p>Clustering and load balancing connect multiple nodes to form one single logical broker. Virtual hosts, exchanges, users and permissions are mirrored across all nodes in a cluster. 
     A client connecting to any node can see all the queues in a cluster. Clustering enables high availability of queues and increases the throughput.</p>
-  <section id="haproxy"><title>HAProxy</title>
-    <p>There are several options for a load balancer solution, including hardware and software. Any type of load balance can be used for a rabbitmq cluster. This document will demonstrate
-      how to use HAproxy.</p>
-    <p><b>Installation</b></p>
-    <p>To set up a load balancer for the rabbitmq cluster, create a VM on the same network as the cluster, install HAProxy, and configure it.</p>
-    <p><b>Create VM</b></p>
+ <p>There are several options for a load balancer solution, including hardware
+      and software. Any type of load balance can be used for a RabbitMQ cluster; this procedure will demonstrate how to use HAproxy. To set up a load balancer for the rabbitmq cluster, create
+        a VM on the same network as the cluster, install HAProxy, and configure it.</p>
+    
+    <section><title outputclass="headerH">Create the loadbalancer VM</title><sectiondiv outputclass="insideSection">
     <p>To create a VM for the load balancer, follow these steps:</p>
     <ol>
       <li>Create a security group for this VM. The security group will need to open ports 22, 5672, and 15672:
@@ -81,9 +80,9 @@ stack@env-ccp-c0-m1-mgmt:~/msgaas$ nova secgroup-add-rule haproxy tcp 15672 1567
       <codeblock>nova floating-ip-associate steve-cue-haproxy 10.241.234.5</codeblock></li>
       <li>Connect to the VM: 
       <codeblock>ssh ubuntu@10.241.234.5 -i my-key.pem</codeblock></li>
-    </ol>
-    <p><b>Install HAProxy</b></p>
-    <p>Once the VM has been created and you are connected, follow these steps to install and configure HAProxy:</p>
+    </ol></sectiondiv></section>
+  <section id="haproxy"><title outputclass="headerH">Install HAProxy</title><sectiondiv outputclass="insideSection"> 
+        <p>Once the VM has been created and you are connected, follow these steps to install and configure HAProxy:</p>
     <ol>
       <li>Elevate to root: <codeph>sudo -i</codeph></li>
       <li>If your environment uses a proxy, set up your proxy file:
@@ -122,7 +121,7 @@ listen my-cue-cluster-management :15672
     </ol>
     <p><b>Verify the installation</b></p>
     <p>After these steps, your HAProxy should be configured and ready to use. You should now be able to reach the RabbitMQ cluster via the floating IP address. 
-      You can also access the RabbitMQ management console by browsing to http://&lt;floating-ip&gt;:15672</p>
+      You can also access the RabbitMQ management console by browsing to http://&lt;floating-ip&gt;:15672</p></sectiondiv>
   </section>
   
   

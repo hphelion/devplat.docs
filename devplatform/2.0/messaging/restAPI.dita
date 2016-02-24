@@ -2,7 +2,8 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_jkb_q3g_cv">
   <title>HPE Helion Development Platform 2.0: REST API Reference</title><abstract>A Cluster is a representation of a collection of message broker nodes with respective endpoints; for example, a RabbitMQ Cluster.</abstract>
-  <body>
+  <body><p> As with any OpenStack utility, <b>python-cueclient</b> requires certain <xref href="cue_dev_credentials.dita">credentials</xref> to talk
+    with the REST API. </p>
     <section id="expandCollapse">
       <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
       <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>

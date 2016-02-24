@@ -3,16 +3,11 @@
 <topic id="cue_manageCluster">
   <title>HPE Helion Development Platform 2.0: Manage a Cluster from the Command Line</title>
   <body>
-    <ul><li><xref href="#cue_manageCluster/delete" format="dita">Delete a Cluster</xref></li>
-      <li><xref href="#cue_manageCluster/show" format="dita">Show Details About a
-        Cluster</xref></li>
-      <li><xref href="#cue_manageCluster/list" format="dita">List all Clusters on a Node</xref></li>
-     <!--<li>app dev creats an app to talk using cue; how to automatically create message brokers, if
-        you're using it, just use the cue client instead
-          <p>http://python-cueclient.readthedocs.org/en/latest/command-line.html The
-          python-cueclient can be used as a command line tool for accessing Cue API.</p></li>--></ul>
-    <section id="delete">
-      <title>Delete A Cluster</title>
+
+          <p> The
+            <xref href="http://python-cueclient.readthedocs.org/en/latest/command-line.html" format="html" scope="external">python-cueclient</xref> can be used as a command line tool for accessing the Cue API.</p>
+    <section id="delete"><title outputclass="headerH">Delete A Cluster</title><sectiondiv
+      outputclass="insideSection"> 
       
       <p>Deletes the specified cluster.</p>
       <dl>
@@ -51,12 +46,12 @@ delete_response = cue_client.clusters.delete(delete_id)</codeblock></dd>
           <dt>Command Line Sample</dt>
           <dd><codeblock outputclass="language-python">(openstack) message-broker cluster delete 06d3c0e4-4972-4ca9-91c1-373b1c74e8e1</codeblock></dd>
         </dlentry>
-      </dl>
+      </dl></sectiondiv>
     </section>
     
-    
-    <section id="show">
-      <title>Show A Cluster</title>
+    <section id="show"><title outputclass="headerH">Show A Cluster</title><sectiondiv
+      outputclass="insideSection"> 
+
       <p>Displays information about the specified cluster.</p>
       <dl>
         <dlentry>
@@ -108,12 +103,12 @@ show_response = cue_client.clusters.get(cluster_id)</codeblock></dd>
 | volume_size | None                                 |
 +-------------+--------------------------------------+</codeblock></dd>
         </dlentry>
-      </dl>
+      </dl></sectiondiv>
     </section>
    
-    
-    <section id="list">
-      <title>List All Clusters</title>
+    <section id="list"><title outputclass="headerH">List All Clusters</title><sectiondiv
+      outputclass="insideSection"> 
+
       <p>Lists all clusters on the current node.</p>
       <dl>
         <dlentry>
@@ -156,7 +151,7 @@ list_response = cue_client.clusters.list()</codeblock></dd>
 | 2d6a5359-2c45-44bb-baa9-3ccd2a48c217 | cluster_03  | BUILDING | 2      |    2 |
 +--------------------------------------+-------------+----------+--------+------+</codeblock></dd>
         </dlentry>
-      </dl>
+      </dl></sectiondiv>
     </section>
     <p>For more details on working with Cue clusters from the command line, see <xref
       href="http://python-cueclient.readthedocs.org/en/latest/command-line.html#cluster-create"

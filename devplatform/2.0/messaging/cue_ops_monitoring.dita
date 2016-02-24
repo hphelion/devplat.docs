@@ -4,7 +4,7 @@
   <title>HPE Helion Development Platform 2.0: Monitoring Messaging</title>
   <body>
     <p>Each service team has configured alarms for its service. This page documents the recommended
-      troubleshooting steps for each alarm.</p>
+      steps to address each alarm.</p>
    <section><title>Cue</title>
       <table frame="all" rowsep="1" colsep="1" id="table_jsq_hqs_wt">
            <tgroup cols="4">
