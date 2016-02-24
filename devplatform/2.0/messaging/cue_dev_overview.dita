@@ -12,8 +12,9 @@
       <li><xref href="cue_ops_manageCluster.dita#cue_manageCluster">Manage a Cluster from the
           Command Line</xref></li>
         <li><xref href="../../helion/services/up_services_dev_message.dita">Messaging Integration for Developers</xref></li>
-      <li><xref href="restAPI.dita">REST API Docs</xref>
-                <!--<- lift and shifted as they need to be static.--></li>
+      <li><xref href="restAPI.dita">REST API Reference</xref>
+        <!--<- lift and shifted as they need to be static.--></li>
+      <li><xref href="cue_ops_overview.dita">Administrator Reference</xref></li>
     </ul>
     <section>
       <title>Overview Sample</title>
