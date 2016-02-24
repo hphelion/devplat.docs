@@ -15,6 +15,7 @@
       <li><xref href="restAPI.dita">REST API Reference</xref>
         <!--<- lift and shifted as they need to be static.--></li>
       <li><xref href="cue_ops_overview.dita">Administrator Reference</xref></li>
+      <li><xref href="../../architecture/devplatform.messaging-architecture.dita">Reference Architecture</xref></li>
     </ul>
     <section>
       <title>Overview Sample</title>
