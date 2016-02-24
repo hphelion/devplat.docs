@@ -18,8 +18,6 @@
     <topicref href="2.0/messaging/restAPI.dita" navtitle="REST API Reference" locktitle="yes"/>
     <topicref href="2.0/messaging/cue_dev_overview.dita" navtitle="Developer Reference"
       locktitle="yes"/>
-    <topicref href="2.0/messaging/cue_ops_bestPractices.dita" navtitle="Best Practices"
-      locktitle="yes"/>
     <topicref href="2.0/messaging/cue_ops_monitoring.dita" navtitle="Monitoring" locktitle="yes"/>
   </topicref>
  </map>
