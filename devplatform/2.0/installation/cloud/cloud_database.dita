@@ -59,8 +59,10 @@
         <dlentry id="keypair"><dt>keypair</dt><dd> Specify the name of a keypair to use when creating the Database Service. This keypair will be
                         used for debugging purposes when logging into instances of the Database
                         Service. You can use the <codeph>nova keypair-list</codeph> command to
-                        retrieve a list of existing keypairs.<note>This key must already exist in
-                            Nova prior to installation.</note></dd></dlentry>
+                        retrieve a list of existing keypairs.
+            <note>This key must already exist in
+                            Nova prior to installation.</note>
+            <note>For information on adding a keypair, see <xref scope="external" href="http://docs.hpcloud.com/#helion/userguide/create_keypair.html">Creating a Key Pair</xref>.</note></dd></dlentry>
         <dlentry><dt>enable_ha</dt><dd> Options are True or False. If True, the database will be created with high-availability
                         configurations. Ensure you have enough quota to do so. The default value is
                         False.</dd></dlentry>
