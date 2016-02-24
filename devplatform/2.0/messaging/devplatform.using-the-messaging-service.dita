@@ -20,18 +20,11 @@
   <p>For information on managing the Messaging Broker Service via the Python client, see <xref
     href="https://github.com/openstack/python-cueclient/blob/master/doc/source/man/cue.rst" format="html" scope="external"
         >openstack/python-cueclient on GitHub</xref>.</p>
-<p>The following topics explain how to create and manage an instance:</p>
-<ul>
-<li>
-<xref type="section" href="#using_messaging/create">Creating a cluster</xref> </li>
-<li>
-<xref type="section" href="#using_messaging/delete">Deleting a cluster</xref>
-</li>
-<li>
-<xref type="section" href="#using_messaging/manage">Managing a cluster</xref>
-</li>
-</ul>
-<section id="create"> <title>Creating a RabbitMQ Cluster</title>
+  
+  
+  <section id="create"><title outputclass="headerH">Creating a RabbitMQ Cluster</title><sectiondiv outputclass="insideSection"> 
+    
+    
   <p>The following guide will demonstrate how to deploy a multi-node RabbitMQ cluster using the Messaging Broker Service.</p>
 <ol>
         <li>Log into Horizon. </li>
@@ -67,9 +60,11 @@
         <li>After the cluster is built, it will appear in the table of clusters. (Full IP addresses
           have been obscured.)<image placement="break" href="../../../media/devplat.docs/cue_cluster_built.png"
             id="image_xnh_f41_j5"/></li>
-      </ol>
+      </ol></sectiondiv>
 </section>
-<section id="delete"> <title>Deleting a Cluster</title>
+  
+  <section id="delete"><title outputclass="headerH">Deleting a Cluster</title><sectiondiv outputclass="insideSection">  
+ 
 <ol>
         <li>Log into Horizon. </li>
         <li>Under <b>Project</b>, click the <b>Message Broker</b> tab, and then click
@@ -79,9 +74,11 @@
             <li>To delete multiple clusters, check the checkboxes next to the unwanted clusters and
               then click <b>Terminate Clusters</b>.</li>
           </ul></li>
-      </ol>
+      </ol></sectiondiv>
 </section>
-<section id="manage"> <title>Managing a  Cluster</title>
+  
+  
+  <section id="manage"><title outputclass="headerH">Managing a  Cluster</title><sectiondiv outputclass="insideSection"> 
 <p>RabbitMQ clusters have a built-in dashboard for viewing and managing the current state and health
         of the cluster. This management console, however, is not exposed by default.</p>
 <ol>
@@ -92,7 +89,7 @@
         <li>Once completed, the management console can be accessed at
             <codeph>http://&lt;floating-ip&gt;:15672</codeph> using the <b>Username</b> and
             <b>Password</b> specified during cluster creation.</li>
-</ol>
+</ol></sectiondiv>
 </section>
 <section id="more-information"> <title>More Information</title>
 <ul>
