@@ -13,8 +13,8 @@
       <li><xref href="../../installation/installation.dita">Installation</xref></li>
       <li><xref href="cue_ops_monitoring.dita">Monitoring</xref></li>
       <li><xref href="cue_ops_loadBalancer.dita">Load Balancing</xref></li>
-            <li><xref href="devplatform.using-messaging-service-with-ALS.dita">Integration with ALS</xref>(single instances)</li>
-      <li><xref href="../../services/up_services_admin_message.dita">Messaging Integration for Administrators</xref>(clusters)</li>
+            <li><xref href="devplatform.using-messaging-service-with-ALS.dita">Integration with ALS</xref> (single instances)</li>
+      <li><xref href="../../services/up_services_admin_message.dita">Messaging Integration for Administrators</xref> (clusters)</li>
       <li><xref href="../../guides/devplatform.messaging-operations-guide.dita">Operations Guide</xref></li>
       <li><xref href="../../architecture/devplatform.messaging-architecture.dita">Reference Architecture</xref></li>
     </ul>
