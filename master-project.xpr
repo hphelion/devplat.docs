@@ -7,7 +7,8 @@
                 <serializableOrderedMap>
                     <entry>
                         <String>keys.context</String>
-                        <String>file:/C:/Users/perlmanj/CloudSystems/cs_rc.ditamap</String>
+                        <String>${pdu}/devplatform/docs.hpcloud.com.HDP.ditamap</String>
+
                     </entry>
                     <entry>
                         <String>validation.scenarios</String>
@@ -20,6 +21,6 @@
     <projectTree name="master-project.xpr">
         <folder path="devplatform/"/>
         <folder path="media/"/>
-        <folder path="publiccloud/"/>
+    <folder path="publiccloud/"/>
     </projectTree>
 </project>

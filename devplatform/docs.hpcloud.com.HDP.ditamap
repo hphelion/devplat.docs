@@ -10,8 +10,8 @@
     <topicref href="2.0/devplatform.thirdparty.licensing.dita"
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
-    <topicref href="2.0/upgrade_HOS_21.dita" navtitle="Upgrading HPE Helion OpenStack to v2.1"
-      locktitle="yes"/>
+    <topicref href="2.0/upgrade_HOS_21.dita" navtitle="Upgrading HPE Helion OpenStack to v2.1"/>
+
     <topicref href="2.0/installation/installation.dita" navtitle="Installation" otherprops="install">
       <topicref href="2.0/installation/devplatform_install_overview.dita"
         navtitle="Installation Overview: Before You Begin" locktitle="yes"/>
@@ -349,6 +349,9 @@
       <topicref href="2.0/messaging/restAPI.dita" navtitle="REST API Reference" locktitle="yes"/>
       <topicref href="2.0/messaging/cue_dev_overview.dita" navtitle="Developer Reference"
         locktitle="yes"/>
+      <topicref href="2.0/messaging/cue_ops_monitoring.dita" navtitle="Monitoring" locktitle="yes"/>
+      <topicref href="2.0/messaging/cue_ops_overview.dita" toc="no"/>
+      <topicref href="2.0/messaging/cue_dev_credentials.dita" toc="no"/>
     </topicref>
     <topicref href="2.0/devplatform.sysadmin.dita" locktitle="yes" navtitle="Resources for IT Ops"
       otherprops="it-ops">
