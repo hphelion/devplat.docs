@@ -1,8 +1,228 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_jkb_q3g_cv">
-  <title>HPE Helion Development Platform 2.0: REST API Reference</title>
+  <title>HPE Helion Development Platform 2.0: REST API Reference</title><abstract>A Cluster is a representation of a collection of message broker nodes with respective endpoints; for example, a RabbitMQ Cluster.</abstract>
   <body>
-    <p></p>
+    <section id="expandCollapse">
+      <sectiondiv outputclass="expandall">Expand All Sections</sectiondiv>
+      <sectiondiv outputclass="collapseall">Collapse All Sections</sectiondiv>
+    </section>
+    <section><title outputclass="headerH">Create Cluster</title><sectiondiv
+        outputclass="insideSection"> <p>Creates a new
+          cluster.</p><p><codeblock outputclass="language-python">POST /cluster</codeblock>Sample
+          Request:<codeblock outputclass="language-python">POST /clusters HTTP/1.1
+Host: example.com
+Accept: application/json
+Content-Type: application/json
+
+{
+   "name": "Example Cluster",
+   "size": 3,
+   "flavor": "101",
+   "volume_size": "1048576"
+   "network_id": [
+       "ea540512-4d4a-4c46-9ebd-4fafe4a54a2d"
+   ]
+   "auth_credential": {
+       "type": "PLAIN",
+       "token": {
+           "username": "rabbit_user"
+           "password": "super_secret_password"
+       }
+   }
+}</codeblock></p><p>Sample
+          Response:<codeblock outputclass="language-python">HTTP/1.1 201 Created
+Location: http://127.0.0.1:8795/v1/clusters/2c3c66ba-721b-4443-bc81-55d986848c68
+Content-Type: application/json; charset=UTF-8
+
+{
+    "status": "BUILDING",
+    "name": "Example Cluster",
+    "network_id": [
+        "ea540512-4d4a-4c46-9ebd-4fafe4a54a2d"
+    ],
+    "created_at": "2015-06-03T21:49:49+00:00",
+    "volume_size": 1048576,
+    "endpoints": [],
+    "flavor": "101",
+    "id": "2c3c66ba-721b-4443-bc81-55d986848c68",
+    "size": 3
+}</codeblock></p>
+    
+    <dl><dlhead><dthd>Form Parameters</dthd></dlhead>
+      <dlentry>
+        <dt>status</dt>
+        <dd>status of the cluster</dd>
+      </dlentry>
+      <dlentry>
+        <dt>name</dt>
+        <dd>name of the cluster</dd>
+      </dlentry>
+      <dlentry>
+        <dt>network_id</dt>
+        <dd>a list of UUID of network id’s</dd>
+      </dlentry>
+      <dlentry>
+        <dt>created_at</dt>
+        <dd>create cluster request received timestamp
+        </dd>
+      </dlentry>
+      <dlentry>
+        <dt>volume_size</dt>
+        <dd>volume size used for each node</dd>
+      </dlentry>
+      <dlentry>
+        <dt>endpoints</dt>
+        <dd>list of endpoints for each node</dd>
+      </dlentry>
+      <dlentry>
+        <dt>flavor</dt>
+        <dd>node flavor</dd>
+      </dlentry>
+      <dlentry>
+        <dt>id</dt>
+        <dd>the UUID of the cluster
+        </dd>
+      </dlentry>  <dlentry>
+        <dt></dt>
+        <dd></dd>
+      </dlentry>  <dlentry>
+        <dt>size</dt>
+        <dd>size of the cluster</dd>
+      </dlentry>  <dlentry>
+        <dt>auth_credential</dt>
+        <dd>Authentication credentials</dd>
+      </dlentry>
+    </dl>
+      
+      <dl><dlhead><dthd>Status Codes</dthd></dlhead>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2" format="html" scope="external">201 Created</xref></dt><dd>Created</dd></dlentry>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1" format="html" scope="external">400 Bad Request</xref></dt><dd>Bad Request</dd></dlentry>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2" format="html" scope="external">401 Unauthorized</xref></dt><dd>Access Denied</dd></dlentry>
+      
+      </dl>
+    
+      
+    </sectiondiv></section>
+    
+    <section><title outputclass="headerH">Get Cluster</title><sectiondiv
+      outputclass="insideSection">
+      <p>Get a specific Cluster using the Cluster’s UUID id. <codeblock outputclass="language-python">GET /clusters/(uuid: id)</codeblock></p>
+      <p>Sample
+        Request:<codeblock outputclass="language-python">GET /clusters/2c3c66ba-721b-4443-bc81-55d986848c68 HTTP/1.1
+Host: example.com
+Accept: application/json</codeblock></p>
+      <p>Sample
+        Response:<codeblock outputclass="language-python">HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+{
+    "status": "ACTIVE",
+    "name": "Example Cluster",
+    "network_id": [
+        "c6958944-7ef0-4929-9625-7f924bb2610c"
+    ],
+    "created_at": "2015-06-03T22:44:17+00:00",
+    "updated_at": "2015-06-03T22:47:15+00:00",
+    "volume_size": 1048576,
+    "endpoints": [
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.9:5672"
+        },
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.11:5672"
+        },
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.10:5672"
+        }
+    ],
+    "flavor": "8795",
+    "id": "2c3c66ba-721b-4443-bc81-55d986848c68",
+    "size": 3
+}</codeblock></p>
+      <dl><dlhead><dthd>Form Parameters</dthd></dlhead>
+        <dlentry><dt>updated_at </dt><dd>cluster last updated at timestamp</dd></dlentry></dl>
+      <dl><dlhead><dthd>Status Codes</dthd></dlhead>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1" format="html" scope="external">200 OK</xref></dt><dd>OK</dd></dlentry>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1" format="html" scope="external">400 Bad Request</xref></dt><dd>Bad Request</dd></dlentry></dl>
+      
+      
+    </sectiondiv></section>
+    
+    <section><title outputclass="headerH">List Clusters</title><sectiondiv
+      outputclass="insideSection">      <p>Lists all clusters. <codeblock outputclass="language-python">GET /clusters</codeblock></p>
+      <p>Sample. 
+        Request:<codeblock outputclass="language-python">GET /servers HTTP/1.1
+Host: example.com
+Accept: application/json</codeblock></p>
+      <p>Sample
+        Response:<codeblock outputclass="language-python">  HTTP/1.1 200 OK
+  Vary: Accept
+  Content-Type: application/json
+
+  {
+    "status": "ACTIVE",
+    "name": "Example Cluster",
+    "network_id": [
+        "c6958944-7ef0-4929-9625-7f924bb2610c"
+    ],
+    "created_at": "2015-06-03T22:44:17+00:00",
+    "updated_at": "2015-06-04T00:31:16+00:00",
+    "volume_size": 1048576,
+    "endpoints": [
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.9:5672"
+        },
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.11:5672"
+        },
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.10:5672"
+        }
+    ],
+    "flavor": "8795",
+    "id": "2c3c66ba-721b-4443-bc81-55d986848c68",
+    "size": 3
+},
+{
+    "status": "DELETED",
+    "name": "cluster_01",
+    "network_id": [
+        "ba013641-8b54-40a5-801d-a7839690e272"
+    ],
+    "created_at": "2015-05-13T21:23:15+00:00",
+    "updated_at": "2015-05-13T21:30:15+00:00",
+    "endpoints": [
+        {
+            "type": "AMQP",
+            "uri": "10.0.0.7:5672"
+        }
+    ],
+    "flavor": "8795",
+    "id": "85a63cac-9bf7-4ef7-962d-dd51bde0b29b",
+    "size": 1
+},</codeblock></p>     
+      <dl><dlhead><dthd>Status Codes</dthd></dlhead>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1" format="html" scope="external">200 OK</xref></dt><dd>Success</dd></dlentry>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2" format="html" scope="external">401 Unauthorized</xref></dt><dd>Access Denied</dd></dlentry>
+        </dl></sectiondiv></section>
+    
+    <section><title outputclass="headerH">Delete Cluster</title><sectiondiv
+      outputclass="insideSection">      <p>Delete a cluster.<codeblock outputclass="language-python">DELETE /clusters/(uuid: id</codeblock></p>
+      <p>Sample
+        Request:<codeblock outputclass="language-python">DELETE /clusters HTTP/1.1
+Accept: application/json</codeblock></p>
+      <p>Sample
+        Response:<codeblock outputclass="language-python">HTTP/1.1 202 Accepted</codeblock></p>      
+      <dl><dlhead><dthd>Status Codes</dthd></dlhead>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5" format="html" scope="external">204 No Content</xref></dt><dd>Successfully Deleted</dd></dlentry>
+        <dlentry><dt><xref href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1" format="html" scope="external">400 Bad Request</xref></dt><dd>Bad Request</dd></dlentry></dl></sectiondiv></section>
+
   </body>
 </topic>
