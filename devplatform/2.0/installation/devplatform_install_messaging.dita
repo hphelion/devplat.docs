@@ -126,10 +126,10 @@ stack@messaging-deployer:~/helion$ git commit -a -m "Add MSGaaS Default Model"</
 stack@messaging-deployer:~/helion/my_cloud/definition$ ls
 cloudConfig.yml  data
 stack@messaging-deployer:~/helion/my_cloud/definition$ nano cloudConfig.yml    # this is the file where the changes need to be made</codeblock>The
-              file should look somewhat similar to the following
+              file should look similar to the following
               snippet:<codeblock>    hostname-data:
-        host-prefix: hci
-        member-prefix: -m
+        host-prefix: <i>nnn</i>
+        member-prefix: <i>-m</i>
     data-dir: data
     <ph outputclass="codehighlight">ntp-servers:
       - 15.126.25.4
