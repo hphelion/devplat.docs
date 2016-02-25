@@ -131,7 +131,7 @@ stack@messaging-deployer:~/helion/my_cloud/definition$ nano cloudConfig.yml    #
         host-prefix: hci
         member-prefix: -m
     data-dir: data
-    <ph outputclass="codehilight">ntp-servers:
+    <ph outputclass="codehighlight">ntp-servers:
       - 15.126.25.4
     dns-settings:
       nameservers:
