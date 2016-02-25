@@ -104,8 +104,8 @@ openstack --os-cloud mycloud hdpi messaging install <i>&lt;filename></i></codebl
 Scripts complete.
 Completed launching messaging</codeblock></li>
         <li>Log in to and Initialize the Messaging Deployer VM<ol id="ol_nr4_nqr_wt">
-            <li>SSH into the Messaging Deployer VM using the IP address provided (highlighted above) after the launch
-              command completed.</li>
+            <li>SSH into the Messaging Deployer VM using the IP address provided (highlighted above)
+              after the launch command completed.</li>
             <li>Copy the <codeph>msgaas</codeph> deployment model.<note>The <codeph>cp</codeph>
                 command must be used <b>exactly</b> as shown - including the /* on the end of the
                 example model path.
@@ -117,18 +117,25 @@ stack@messaging-deployer:~/helion$ cp ~/platform-pass-through.yml my_cloud/defin
               installation
               process.<codeblock>stack@messaging-deployer:~/helion$ git add -A
 stack@messaging-deployer:~/helion$ git commit -a -m "Add MSGaaS Default Model"</codeblock></li>
-            <li id="customize">Change the default values in order to customize the deployment model.
-                <note type="important">Do not skip this step or the installation playbooks may not
-                execute as expected in your
-                environment.</note><ol><li>Open the cloudConfig.yml file and provide appropriate NTP/DNS server IP addresses.</li>
-                  <li>If you are not sure, use the IP addresses of the HP Helion OpenStack control plane nodes</li>
-                  <li>The NTP and DNS servers must be reachable from your HP Helion OpenStack SVC network</li>
-              </ol>
-              <codeblock>
-stack@messaging-deployer:~/helion$ cd my_cloud/definition/
+            <li id="customize">Open the cloudConfig.yml file and provide appropriate NTP/DNS server
+              IP addresses. If you are not sure, use the IP addresses of the HP Helion OpenStack
+              control plane nodes. <note type="important">Do not skip this step or the installation
+                playbooks may not execute as expected in your environment.</note><note>The NTP and
+                DNS servers must be reachable from your HP Helion OpenStack SVC
+              network</note><codeblock>stack@messaging-deployer:~/helion$ cd my_cloud/definition/
 stack@messaging-deployer:~/helion/my_cloud/definition$ ls
 cloudConfig.yml  data
-stack@messaging-deployer:~/helion/my_cloud/definition$ nano cloudConfig.yml    # this is the file where the changes need to be made</codeblock></li>
+stack@messaging-deployer:~/helion/my_cloud/definition$ nano cloudConfig.yml    # this is the file where the changes need to be made</codeblock>The
+              file should look somewhat similar to the following
+              snippet:<codeblock>    hostname-data:
+        host-prefix: hci
+        member-prefix: -m
+    data-dir: data
+    <ph outputclass="codehilight">ntp-servers:
+      - 15.126.25.4
+    dns-settings:
+      nameservers:
+        - 206.164.176.23</ph></codeblock></li>
             <li id="TLS">Configure TLS <note>For production environments, TLS (Cue API public
                 endpoint URL with SSL support (https)) is recommended. If not using TLS, for
                 example, in a non-production proof-of-concept environment, skip this step.<ol
@@ -146,15 +153,14 @@ stack@messaging-deployer:~/helion/my_cloud/definition/data$ nano network_groups.
                   <li> Provide the TLS certificate file name in the <codeph>cert-file</codeph>:
                     field. This value has to match the name of the cert-file located in
                       <codeph>~/helion/my_cloud/config/tls/certs/</codeph> (for example:
-                    <b>my-public-cert</b>). <note>The certificate file must contain both the
+                      <b>my-public-cert</b>). <note>The certificate file must contain both the
                       certificate and the private key data.</note></li>
                 </ol></note></li>
-          <li> Using Git, persist these changes. This information is required for the Pre-Install
+            <li> Using Git, persist these changes. This information is required for the Pre-Install
               playbook, which is executed later in this installation
               process.<codeblock>stack@messaging-deployer:~/helion/my_cloud/definition/data$ cd ~/helion
 stack@messaging-deployer:~/helion$ git add -A # Required if you copied a new cert file
 stack@messaging-deployer:~/helion$ git commit -a -m "Configured Deployment Model"</codeblock></li>
-
           </ol></li>
         <li>Run the Playbooks <note type="important">After each playbook runs, both
               <codeph>unreachable</codeph> and <codeph>failed</codeph> should be zero (0). This
