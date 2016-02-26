@@ -9,37 +9,13 @@
     <topicref href="2.0/devplatform.thirdparty.licensing.dita"
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
-    <topicref href="planning.dita" navtitle="Planning" locktitle="yes"/>
+    <topicref href="2.0/planning.dita" navtitle="Planning" locktitle="yes"/>
     <topicref href="2.0/installation/installation.dita" navtitle="Installing" otherprops="install"
       locktitle="yes">
-      <topicref href="2.0/installation/install_offline.dita"
-        navtitle="Downloading for Offline Installation" locktitle="yes"/>
       <topicref href="2.0/installation/devplatform_install_prereq.dita"
         navtitle="Installation Prerequisites" locktitle="yes"/>
-      <topicref href="2.0/installation/install_cloudsyaml.dita"
-        navtitle="Create the clouds.yaml Configuration File" locktitle="yes"/>
-      <topicref href="2.0/installation/devplatform_install_platform.dita"
-        navtitle="Install the HPE Helion Development Platform Service Installer" locktitle="yes"/>
-      <topicref href="2.0/installation/devplatform_install_ALS.dita"
-        navtitle="Install the Application Lifecycle Service (ALS)" locktitle="yes"/>
-      <topicref href="2.0/installation/devplatform_install_database.dita"
-        navtitle="Install the Database Service" locktitle="yes"/>
-      <topicref href="2.0/installation/install_engine.dita"
-        navtitle="Install the HPE Helion Code Engine" locktitle="yes"/>
-      <topicref href="2.0/installation/devplatform_install_messaging.dita"
-        navtitle="Install the Messaging Service" locktitle="yes"/>
-      <topicref href="2.0/installation/cloud/fullFile.dita" toc="no"/>
-      <topicref href="2.0/installation/cloud/cloud_codeengine.dita" toc="no"/>
-      <topicref href="2.0/installation/cloud/cloud_database.dita" toc="no"/>
-      <topicref href="2.0/installation/cloud/cloud_messaging.dita" toc="no"/>
-      <topicref href="2.0/installation/cloud/cloud_platform.dita" toc="no"/>
-      <topicref href="2.0/installation/install_listOptions.dita" toc="no"/>
-      <topicref href="2.0/installation/install_dbaasNoTLS.dita" toc="no"/>
-      <topicref href="2.0/installation/devplatform_commercial_install.dita" toc="no"/>
       <topicref href="2.0/devplatform.troubleshooting.dita" navtitle="Troubleshooting"
         locktitle="yes"/>
-      <topicref href="2.0/installation/install_dbaas_configureAvailabilityZones.dita" toc="no"/>
-      <topicref href="2.0/installation/install_dbaas_checkQuotas.dita" toc="no"/>
     </topicref>
     <topicref href="2.0/administration.dita" navtitle="Administration" locktitle="yes"
       otherprops="administration">
@@ -103,10 +79,6 @@
         <topicref href="2.0/helion/user/services/user-provided.dita" locktitle="yes"
           navtitle="User-Provided Services"/>
       </topicref>
-      <topicref href="2.0/messaging/cue_ops_loadBalancer.dita"
-        navtitle="Accessing RabbitMQ via a Load Balancer"/>
-      <topicref href="2.0/messaging/cue_dev_createCluster.dita"
-        navtitle="Create a Cluster from the Command Line"/>
       <topicref href="2.0/helion/admin/server/network_port_configuration.dita"/>
       <topicref href="2.0/helion/user/services/filesystem.dita" locktitle="yes"
         navtitle="Persistent File System"/>
@@ -219,8 +191,6 @@
         <topicref href="2.0/helion/user/deploy/app-logs.dita" locktitle="yes"
           navtitle="Application Logs "/>
       </topicref>
-      <topicref href="2.0/messaging/cue_ops_manageCluster.dita"
-        navtitle="Manage a Cluster from the Command Line"/>
       <topicref href="2.0/database/devplatform.database-replicate.dita"/>
       <topicref href="2.0/database/devplatform.database-backup.dita" navtitle="Back up a database"/>
       <topicref href="2.0/database/devplatform.database-create-horizon.dita"
@@ -391,8 +361,6 @@
         <topicref href="2.0/workbook/messaging/messaging.php.dita" locktitle="yes"
           navtitle="PHP RabbitMQ Messaging Sample"/>
       </topicref>
-      <topicref href="2.0/messaging/devplatform.using-the-messaging-service.dita"
-        navtitle="Using Messaging as a Service"/>
     </topicref>
   </topicref>
  </map>
