@@ -14,10 +14,7 @@
       locktitle="yes"/>
     <topicref href="2.0/codeEngine/engine_users_guide.dita" navtitle="User's Guide" locktitle="yes">
       <topicref href="2.0/codeEngine/engine_create_project.dita"
-        navtitle="Create a New Project using Git or GitHub" locktitle="yes">
-        <topicref href="2.0/codeEngine/engine_hipchat_data.dita"
-          navtitle="Where to Find HipChat Notification Data" locktitle="yes"/>
-      </topicref>
+        navtitle="Create a New Project using Git or GitHub" locktitle="yes"/>
       <topicref href="2.0/codeEngine/engine_create_project%20_docker.dita"
         navtitle="Create a New Project using Docker" locktitle="yes"/>
       <topicref href="2.0/codeEngine/engine_environment_create.dita" navtitle="Create a New Environment"
