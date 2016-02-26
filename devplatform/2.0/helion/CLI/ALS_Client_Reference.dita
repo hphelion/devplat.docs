@@ -349,9 +349,11 @@
       <title>Create a Cluster</title>
       <p>This command creates a cluster. (<i>create-cluster</i>).</p>
       <codeblock>cf-mgmt [global options] <b>create-cluster</b> [command options] [arguments...] </codeblock>
-      <p><note>When creating clusters that support Keystone v3, you will need to <xref
+      <p><note><p>When creating clusters that support Keystone v3, you will need to <xref
             href="cfmgmt_configure_keystonev3.dita#topic_j5v_bsb_rt">modify the configuration
-            file</xref> first.</note>For help with this command within the command-line interface,
+        file</xref> first.</p><p>For more information on DNS suffix requirements, see the full <xref
+              href="helion/admin/server/configuration.dita#topic31232/server-config-dns"
+              >configuration</xref> documentation.</p></note>For help with this command within the command-line interface,
         enter</p>
       <codeblock>cf-mgmt help create-cluster</codeblock>
       <table>

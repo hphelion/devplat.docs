@@ -2,20 +2,7 @@
 <!DOCTYPE topic
   PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd" ><topic xml:lang="en-us" id="topic31232">
 <title>HPE Helion Development Platform 2.0: Detailed Configuration</title>
-<prolog>
-<metadata>
-<othermeta name="layout" content="default"/>
-<othermeta name="product-version" content="HPE Helion Development Platform"/>
-<othermeta name="product-version" content="HPE Helion Development Platform 2.0"/>
-<othermeta name="role" content="Application Developer"/>
-<othermeta name="role" content="ISV Developer"/>
-<othermeta name="role" content="Service Developer"/>
-<othermeta name="role" content="Network Administrator"/>
-<othermeta name="role" content="Systems Administrator"/>
-<othermeta name="role" content="Security Engineer"/>
-<othermeta name="role" content="Jayme P"/>
-</metadata>
-</prolog>
+
 <body>
 <p>After booting the VM, run <i>kato process ready all</i> before starting the following configuration steps. This command returns <b>READY</b> when all configured system processes have started, and is particularly important when using <i>kato</i> commands in automated configuration scripts which run immediately after boot (the
 <xref href="../reference/kato-ref.dita#topic39432/kato-command-ref-process-ready" type="section" >

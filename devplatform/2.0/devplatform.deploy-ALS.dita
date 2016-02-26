@@ -26,8 +26,11 @@
             sub-tab.<image
             href="../../media/ALSConfig1.png" placement="break" id="image_a4v_mzc_ks"/>
         </li>
-<li> Click <b>Create Cluster</b> to bring up the <b>Create Cluster</b> dialog.<image
-            href="../../media/ALSConfig2.png" placement="break" id="image_csq_4zc_ks"/>
+<li> Click <b>Create Cluster</b> to bring up the <b>Create Cluster</b> dialog. <note>For more
+            information on DNS suffix requirements, see the full <xref
+              href="helion/admin/server/configuration.dita#topic31232/server-config-dns"
+              >configuration</xref> documentation.</note><image href="../../media/ALSConfig2.png"
+            placement="break" id="image_csq_4zc_ks"/>
         </li>
 <li> Fill out the required fields in the Details tab of the Create Cluster dialog, including<ul>
             <li>
