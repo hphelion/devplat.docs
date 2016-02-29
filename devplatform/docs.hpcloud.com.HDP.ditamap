@@ -66,6 +66,8 @@
       <topicref href="2.0/uninstallation/devplatform_uninstall_messaging.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_vertica.dita"/>
     </topicref>
+    <topicref
+      href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_database_service.dita"/>
  
     
     <!--uninstallation -->
