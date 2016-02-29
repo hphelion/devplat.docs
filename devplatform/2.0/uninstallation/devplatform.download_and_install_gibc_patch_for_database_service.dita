@@ -28,7 +28,7 @@
       <li>Safely start the trove services:
         <codeblock>ansible-playbook --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock></li>
       <li>Install the package to all guest databases:
-        <codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key> package_file=<location-of-new-package-file&gt; --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/install-package-to-guests.yml</li>
+        <codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key&gt; package_file=&lt;location-of-new-package-file&gt; --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/install-package-to-guests.yml</codeblock></li>
       <li>Verify all guest instances were restarted successfully:
         <codeblock>cat ~/guest-instance-status.log</codeblock></li>
       <li>Restart the Database API service. After this step the database service will be fully functional:
