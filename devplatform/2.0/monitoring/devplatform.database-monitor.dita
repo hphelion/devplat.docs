@@ -76,9 +76,15 @@
             </row>
             <row>
               <entry>Process Check</entry>
-              <entry/>
+              <entry>process.pid_count</entry>
               <entry>4a47bf3e-90f1-43c4-a4cc-93b4ca2a12d4</entry>
               <entry>process.pid_count &lt; 1</entry>
+            </row>
+            <row>
+              <entry>HTTP Status</entry>
+              <entry>http_status</entry>
+              <entry>c3ae8408-65a1-43cc-b2b1-b655f488195d</entry>
+              <entry></entry>
             </row>
           </tbody>
         </tgroup>
