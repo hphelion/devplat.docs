@@ -72,7 +72,7 @@
                MySQL Galera cluster (active/active multi-master sync config). It can tolerate down to one node staying up (on a 3 AZ config, 2 node failures). In addition, control plane database is 
                automatically backed up to Swift every hour.
              </p></li>
-           <li>In a Disaster Recover (DR) scenerio, if the DBaaS control plane goes down, you need
+           <li>In a Disaster Recovery (DR) scenerio, if the DBaaS control plane goes down, you need
             to redeploy DBaaS and restore the control plane database using data from the Swift
             backup. You can find the Swift backup file as follows: <ol>
               <li>Swift container name: <b>backup_container</b></li>
@@ -86,10 +86,17 @@
          </ul>
        </sectiondiv>
          </section>
-     <section id="troubleshooting"><title outputclass="headerH">Troubleshooting</title>
-       <sectiondiv outputclass="insideSection">
+   </body>
+     <topic id="troubleshooting">
+       <title>Troubleshooting</title>
+       <body>
          <p>The following section contains troubleshooting information for Trove instances, such as for when a Trove node reboots unexpectedly and needs to be brought back up.</p>
-         <p><b>How to log in to a trove instance</b></p>
+         
+         <!-- 
+           Logging in to a Trove instance
+           -->
+         <section><title outputclass="headerH">Logging in to a Trove instance</title>
+           <sectiondiv outputclass="insideSection">
          <p>To troubleshoot Trove issues from the command line, you must first enable SSH to Trove instances. The following procedure demonstrates how to enable SSH for a Trove instance and log in:</p>
          <ol>
            <li>Source <codeph>service.rc</codeph>:
@@ -116,7 +123,14 @@ sudo -i</codeblock></li>
            <li>If the above fails, log in using the <codeph>dbaas-key</codeph> certificate:
              <codeblock>stack@eu-em2-cp1-c0-m1-mgmt:~$ ssh -i dbaas-key ec2-user@10.16.86.130</codeblock></li>
          </ol>
-         <p><b>Check Instance Health</b></p>
+           </sectiondiv>
+         </section>
+         <!-- 
+           Check Instance Health
+           -->
+         <section><title outputclass="headerH">Check instance health</title>
+           <sectiondiv outputclass="insideSection">
+         
          <p>The following procedure checks to see if MySQL is running on an instance, and reboots it if needed:</p>
          <ol>
            <li>Check to see if MySQL is running, and that <codeph>/dev/vdb1</codeph> is mounted as Read-Only (RO).
@@ -171,7 +185,13 @@ mysql     1932  1177 17 02:07 ?        00:00:00 /usr/sbin/mysqld --basedir=/usr 
 ec2-user  2008  1776  0 02:07 pts/1    00:00:00 grep mysql</codeblock></li>
            <li>MySQL will now be running, so there are no other actions to perform aside from rebooting the final database instance, and ensuring <codeph>mysqld_safe</codeph> is running.</li>
          </ol>
-         <p><b>RabbitMQ Broker Issues</b></p>
+           </sectiondiv></section>
+         <!-- 
+           RabbitMQ Borker Issues
+           -->
+         
+         <section><title outputclass="headerH">RabbitMQ Broker Issues</title>
+           <sectiondiv outputclass="insideSection">
          <p>The following section describes how to resolve issues with the RabbitMQ broker, such as when the following error is encountered:</p>
          <codeblock>ERROR trove.guestagent.api MessagingTimeout: Timed out waiting for a reply to message ID 
 SecurityGroupCreationError: Connection to neutron failed: __str__ returned non-string
@@ -263,16 +283,456 @@ Cluster status of node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' ...
            <note>If the cluster looks healthy (in that all 3 nodes are running), the Master node needs to be determined. Check the timestamp on the logs in <codeph>/mnt/state/var/log/rabbitmq</codeph></note>
            <note>One of the three nodes will have a more up-to-date log. This one can be presumed to be the current Master. Performing a stop -> join cluster -> start on the other two nodes should correct partition issues.</note></li>
          </ol>
-       </sectiondiv>
-     </section>
+         
+         <!-- 
+           Restoring a Trove Cluster after one node goes down
+           -->
+         
+           </sectiondiv></section>
+         <section><title outputclass="headerH">Restoring a Trove cluster to three nodes when a single node crashes</title>
+           <sectiondiv outputclass="insideSection">
 
-   </body><related-links>
-     <link href="../architecture/devplatform.als-architecture.dita"></link>
-     <link href="../architecture/devplatform.ce-architecture.dita"></link>
-     <link href="../architecture/devplatform.database-architecture.dita"></link>
-     <link href="../architecture/devplatform.messaging-architecture.dita"></link>
-     <link href="../../2.0/database/devplatform.database-ALS.dita"></link>
-     <link href="../../2.0/messaging/devplatform.using-messaging-service-with-ALS.dita"></link>
+         <p>While running a PXC cluster, one of the compute nodes that an instance is running on may go down due to hardware failure or
+           other situations. Then, you may only have 2 working nodes in your cluster and could cause a split-brain because you do not have 
+           quorum or majority vote.</p>
+           
+           <p>This section describes how to bring a new instance up and join the cluster if you are running a Liberty version of Trove that does not 
+             have the <codeph>cluster-grow</codeph> and <codeph>cluster-shrink</codeph> commands for the PXC datastore.</p>
+           
+           <p>Some of the details here are specific to a sample environment and must be adopted for your specific environment. This section will describe 
+             how to get the information needed to make sure that later when you update trove that this does not cause a problem.</p>
+           
+         <note>Make a manual backup of the data via mysqldump before proceeding.</note>
+         <p><b>Setting up the environment</b></p>
+             <p>For the purposes of this tutorial, you'll deliberately terminate one instance of a Trove cluster in order to demonstrate how to create a new
+             instance and add it back to the cluster.</p>
+         <p>The following Trove configuration has 3 instances in a PXC cluster. This information is available from the troveclient CLI and from the novaclient
+           CLI. This output shows that everything is active and running in a good state.</p>
+         
+         <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-list
++--------------------------------------+------+-----------+-------------------+-----------+
+           | ID                                   | Name | Datastore | Datastore Version | Task Name |
++--------------------------------------+------+-----------+-------------------+-----------+
+| f3153ab0-f433-4373-a462-7d7daac21438 | test | pxc       | 5.5               | NONE      |
++--------------------------------------+------+-----------+-------------------+-----------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-show test
++-------------------+--------------------------------------+
+| Property          | Value                                |
++-------------------+--------------------------------------+
+| created           | 2016-02-06T16:08:29                  |
+| datastore         | pxc                                  |
+| datastore_version | 5.5                                  |
+| id                | f3153ab0-f433-4373-a462-7d7daac21438 |
+| ip                | 10.0.0.6, 10.0.0.7, 10.0.0.9         |
+| name              | test                                 |
+| task_description  | No tasks for the cluster.            |
+| task_name         | NONE                                 |
+| updated           | 2016-02-06T16:18:21                  |
++-------------------+--------------------------------------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-instances test
++--------------------------------------+---------------+-----------+------+--------+
+| ID                                   | Name          | Flavor ID | Size | Status |
++--------------------------------------+---------------+-----------+------+--------+
+| 011ec6fd-13c6-4310-9004-f672be3106c9 | test-member-3 | 7         |    1 | ACTIVE |
+| 27df03af-7302-4d12-9dec-5d7c12d66c95 | test-member-2 | 7         |    1 | ACTIVE |
+| 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 | test-member-1 | 7         |    1 | ACTIVE |
++--------------------------------------+---------------+-----------+------+--------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+| ID                                   | Name          | Status | Task State | Power State | Networks         |
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+| dad115c5-bc44-485e-aa60-e080eb2f448e | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.9 |
+| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6 |
+| 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7 |
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove list --include-clustered
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+| ID                                   | Name          | Datastore | Datastore Version | Status | Flavor ID | Size |
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+| 011ec6fd-13c6-4310-9004-f672be3106c9 | test-member-3 | pxc       | 5.5               | ACTIVE | 7         |    1 |
+| 27df03af-7302-4d12-9dec-5d7c12d66c95 | test-member-2 | pxc       | 5.5               | ACTIVE | 7         |    1 |
+| 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 | test-member-1 | pxc       | 5.5               | ACTIVE | 7         |    1 |
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+</codeblock>
+         <p><b>Terminating a cluster instance</b></p>
+         <p>The following code shows how to kill one of the instances in the cluster from the nova command to
+           simulate an instance that is no longer available to the cluster.</p>
+         <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ nova delete dad115c5-bc44-485e-aa60-e080eb2f448e
+Request to delete server dad115c5-bc44-485e-aa60-e080eb2f448e has been accepted.
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+| ID                                   | Name          | Status | Task State | Power State | Networks         |
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6 |
+| 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7 |
+ +--------------------------------------+---------------+--------+------------+-------------+------------------+</codeblock>
+         <p><b>Creating a new instance</b></p>
+         <p>The following procedure demonstrates how to restore the missing instance:</p>
+         <ol>
+           <li>Get the flavor and volume information for the missing node using the Trove CLI. In the following example,
+             you'll get the information for one of the remaining nodes, <b>test-member-1</b>:
+             
+             <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-instances test
++--------------------------------------+---------------+-----------+------+--------+
+| ID                                   | Name          | Flavor ID | Size | Status |
++--------------------------------------+---------------+-----------+------+--------+
+| 011ec6fd-13c6-4310-9004-f672be3106c9 | test-member-3 | 7         |    1 | ACTIVE |
+| 27df03af-7302-4d12-9dec-5d7c12d66c95 | test-member-2 | 7         |    1 | ACTIVE |
+| 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 | test-member-1 | 7         |    1 | ACTIVE |
++--------------------------------------+---------------+-----------+------+--------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55
++-------------------+--------------------------------------+
+| Property          | Value                                |
++-------------------+--------------------------------------+
+| cluster_id        | f3153ab0-f433-4373-a462-7d7daac21438 |
+| created           | 2016-02-06T16:08:29                  |
+| datastore         | pxc                                  |
+| datastore_version | 5.5                                  |
+| flavor            | 7                                    |
+| id                | 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 |
+| ip                | 10.0.0.6                             |
+| name              | test-member-1                        |
+| status            | ACTIVE                               |
+| updated           | 2016-02-06T16:08:52                  |
+| volume            | 1                                    |
+| volume_used       | 0.24                                 |
++-------------------+--------------------------------------+</codeblock>
+           <p>The above output shows that the remaining node has a flavor of <b>7</b> and a volume of <b>1</b>.</p></li>
+           <li>Next, we need the networks that the instances in the cluster were set up on. For this, we will use the debug
+             feature of the CLI to see the raw JSON that has the <codeph>net_id</codeph> field:
+             <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+| ID                                   | Name          | Status | Task State | Power State | Networks         |
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6 |
+| 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7 |
++--------------------------------------+---------------+--------+------------+-------------+------------------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show e491993a-e162-4c41-a15c-80faa4bdd67a
++--------------------------------------+---------------------------------------------------------------------------------+
+| Property                             | Value                                                                           |
++--------------------------------------+---------------------------------------------------------------------------------+
+| OS-DCF:diskConfig                    | MANUAL                                                                          |
+| OS-EXT-AZ:availability_zone          | nova                                                                            |
+| OS-EXT-STS:power_state               | 1                                                                               |
+| OS-EXT-STS:task_state                | -                                                                               |
+| OS-EXT-STS:vm_state                  | active                                                                          |
+| OS-SRV-USG:launched_at               | 2016-02-06T16:08:48.000000                                                      |
+| OS-SRV-USG:terminated_at             | -                                                                               |
+| accessIPv4                           |                                                                                 |
+| accessIPv6                           |                                                                                 |
+| config_drive                         | True                                                                            |
+| created                              | 2016-02-06T16:08:37Z                                                            |
+| flavor                               | m1.rd-tiny (7)                                                                  |
+| hostId                               | 3cb1f16704c8010c86d77ca569304e3d47c274294cdf4c312b29ca27                        |
+| id                                   | e491993a-e162-4c41-a15c-80faa4bdd67a                                            |
+| image                                | ubuntu_pxc (4e3ce66b-829e-4558-8c25-64f512491e3a)                               |
+| key_name                             | -                                                                               |
+| locked                               | False                                                                           |
+| metadata                             | {}                                                                              |
+| name                                 | test-member-1                                                                   |
+| os-extended-volumes:volumes_attached | [{"id": "7fb4ea48-829e-4ab1-84bf-0c8895ea5c7a", "delete_on_termination": true}] |
+| private network                      | 10.0.0.6                                                                        |
+| progress                             | 0                                                                               |
+| security_groups                      | SecGroup_9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55                                   |
+| status                               | ACTIVE                                                                          |
+| tenant_id                            | 3e45bf991dcc4e1c9dad511ddcc622e6                                                |
+| updated                              | 2016-02-06T16:08:49Z                                                            |
+| user_id                              | 59846cd6eaaa4fbe9afbca861492fbff                                                |
++--------------------------------------+---------------------------------------------------------------------------------+
+               
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova --debug virtual-interface-list e491993a-e162-4c41-a15c-80faa4bdd67a
+DEBUG (extension:157) found extension EntryPoint.parse('v2token = keystoneauth1.loading._plugins.identity.v2:Token')
+DEBUG (extension:157) found extension EntryPoint.parse('admin_token = keystoneauth1.loading._plugins.admin_token:AdminToken')
+DEBUG (extension:157) found extension EntryPoint.parse('v3oidcauthcode = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectAuthorizationCode')
+...
+...
+...
+DEBUG (session:254) RESP: [200] Content-Length: 158 X-Compute-Request-Id: req-1f2557ad-2808-4110-8420-558a2e60ba13 Vary: X-OpenStack-Nova-API-Version Connection: keep-alive X-Openstack-Nova-Api-Version: 2.12 Date: Sun, 07 Feb 2016 02:52:36 GMT Content-Type: application/json
+RESP BODY: {"virtual_interfaces": [{"net_id": "<codeph outputclass="codehighlight">76f575e1-0160-4d8d-9666-1c0be6b2211e</codeph>", "id": "23b4afba-d480-4df9-aaa6-e8995d8fbf06", "mac_address": "fa:16:3e:98:55:d2"}]}
+
++--------------------------------------+-------------------+
+| Id                                   | Mac address       |
++--------------------------------------+-------------------+
+| 23b4afba-d480-4df9-aaa6-e8995d8fbf06 | fa:16:3e:98:55:d2 |
++--------------------------------------+-------------------+</codeblock>
+             <p>In the above output, the output from the <codeph>nova show</codeph> command includes a <codeph>RESP BODY</codeph> line that shows that the <codeph>net_id</codeph> is <b>76f575e1-0160-4d8d-9666-1c0be6b2211e</b>. </p>
+             <note>You can choose which availability zone the new instance should go into, and the name of the instance that you will create. This example uses the same availability zone (nova) as the other instance and
+               calls the new instance <b>test-member-3</b>.</note>
+           </li>
+           <li>Next, create the instance using <codeph>trove create</codeph>:
+             <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove create test-member-3 7 --size 1 --datastore pxc --nic net-id=76f575e1-0160-4d8d-9666-1c0be6b2211e --availability_zone nova
++-------------------+--------------------------------------+
+| Property          | Value                                |
++-------------------+--------------------------------------+
+| created           | 2016-02-07T03:06:53                  |
+| datastore         | pxc                                  |
+| datastore_version | 5.5                                  |
+| flavor            | 7                                    |
+| id                | 42d4589f-c254-492b-94e2-a98f111b8249 |
+| name              | test-member-3                        |
+| status            | BUILD                                |
+| updated           | 2016-02-07T03:06:53                  |
+| volume            | 1                                    |
++-------------------+--------------------------------------+</codeblock></li>
+           <li>Next, wait for the instance to go active. Use <codeph>trove show</codeph> to check the instance status:
+             <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show 42d4589f-c254-492b-94e2-a98f111b8249
++-------------------+--------------------------------------+
+| Property          | Value                                |
++-------------------+--------------------------------------+
+| created           | 2016-02-07T03:06:53                  |
+| datastore         | pxc                                  |
+| datastore_version | 5.5                                  |
+| flavor            | 7                                    |
+| id                | 42d4589f-c254-492b-94e2-a98f111b8249 |
+| ip                | 10.0.0.10                            |
+| name              | test-member-3                        |
+| status            | ACTIVE                               |
+| updated           | 2016-02-07T03:07:17                  |
+| volume            | 1                                    |
+| volume_used       | 0.1                                  |
++-------------------+--------------------------------------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+| ID                                   | Name          | Status | Task State | Power State | Networks          |
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6  |
+| 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7  |
+| 87936718-ca69-4850-aed5-99739a06fdf9 | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.10 |
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show 87936718-ca69-4850-aed5-99739a06fdf9
++--------------------------------------+---------------------------------------------------------------------------------+
+| Property                             | Value                                                                           |
++--------------------------------------+---------------------------------------------------------------------------------+
+| OS-DCF:diskConfig                    | MANUAL                                                                          |
+| OS-EXT-AZ:availability_zone          | nova                                                                            |
+| OS-EXT-STS:power_state               | 1                                                                               |
+| OS-EXT-STS:task_state                | -                                                                               |
+| OS-EXT-STS:vm_state                  | active                                                                          |
+| OS-SRV-USG:launched_at               | 2016-02-07T03:07:13.000000                                                      |
+| OS-SRV-USG:terminated_at             | -                                                                               |
+| accessIPv4                           |                                                                                 |
+| accessIPv6                           |                                                                                 |
+| config_drive                         | True                                                                            |
+| created                              | 2016-02-07T03:07:01Z                                                            |
+| flavor                               | m1.rd-tiny (7)                                                                  |
+| hostId                               | 3cb1f16704c8010c86d77ca569304e3d47c274294cdf4c312b29ca27                        |
+| id                                   | 87936718-ca69-4850-aed5-99739a06fdf9                                            |
+| image                                | ubuntu_pxc (4e3ce66b-829e-4558-8c25-64f512491e3a)                               |
+| key_name                             | -                                                                               |
+| locked                               | False                                                                           |
+| metadata                             | {}                                                                              |
+| name                                 | test-member-3                                                                   |
+| os-extended-volumes:volumes_attached | [{"id": "b5fafe00-50a2-4a66-9c1d-e44f2283e234", "delete_on_termination": true}] |
+| private network                      | 10.0.0.10                                                                       |
+| progress                             | 0                                                                               |
+| security_groups                      | SecGroup_42d4589f-c254-492b-94e2-a98f111b8249                                   |
+| status                               | ACTIVE                                                                          |
+| tenant_id                            | 3e45bf991dcc4e1c9dad511ddcc622e6                                                |
+| updated                              | 2016-02-07T03:07:13Z                                                            |
+| user_id                              | 59846cd6eaaa4fbe9afbca861492fbff                                                |
++--------------------------------------+---------------------------------------------------------------------------------+</codeblock></li>
+           <li>Next, hook up the new instance to the cluster. This will involve connecting the PXC service running on the new instance to the
+             existing instances in the cluster, and set up the new associations of the new instance in the infrastructure trove database:
+             <p>Connecting the PXC service on the new instance to the existing instances</p>
+           <ol>
+             <li>Log in to the new instance and stop the MySql service:
+               <codeblock>$ sudo service mysql stop</codeblock></li>
+             <li>Copy the following files from a remaining instance (<b>test-instance-1</b> in this example) to the new instance (<b>test-member-3</b> in this example):
+               <ul><li><b>/etc/mysql/conf.d/50-system-001-common.cnf</b></li>
+                 <li><b>/etc/mysql/conf.d/50-system-002-cluster.cnf</b></li></ul></li>
+             <li>Make the following changes to the <b>50-system-002-cluster.cnf</b> file:
+             <ul>
+               <li>Update the <b>wsrep_node_address</b> to the ip of the current system.</li>
+               <li>The <b>wsrep_node_name</b> should match the name of the new instance (<b>test-member-3</b> in this example.)</li>
+               <li>The <b>wsrep_cluster_address</b> should match the list of ip addresses that are in the
+                 cluster.</li>
+             </ul></li>
+             <li>Start the MySql service on the new instance:
+               <codeblock>$ sudo service mysql start</codeblock></li>
+           </ol>
+             <note>Starting the MySql service may take some time for the new instance to be synchronized with
+               the existing cluster, depending on how large the dataset is.</note></li>
+           <li>Check the MySql database status:
+             <codeblock>$ mysql
+mysql> show status like 'wsrep%';
++----------------------------+--------------------------------------------+
+| Variable_name              | Value                                      |
++----------------------------+--------------------------------------------+
+| wsrep_local_state_uuid     | 43057407-ccec-11e5-919d-4a31a05f51d6       |
+| wsrep_protocol_version     | 4                                          |
+| wsrep_last_committed       | 0                                          |
+| wsrep_replicated           | 0                                          |
+| wsrep_replicated_bytes     | 0                                          |
+| wsrep_received             | 3                                          |
+| wsrep_received_bytes       | 276                                        |
+| wsrep_local_commits        | 0                                          |
+| wsrep_local_cert_failures  | 0                                          |
+| wsrep_local_replays        | 0                                          |
+| wsrep_local_send_queue     | 0                                          |
+| wsrep_local_send_queue_avg | 0.000000                                   |
+| wsrep_local_recv_queue     | 0                                          |
+| wsrep_local_recv_queue_avg | 0.000000                                   |
+| wsrep_flow_control_paused  | 0.000000                                   |
+| wsrep_flow_control_sent    | 0                                          |
+| wsrep_flow_control_recv    | 0                                          |
+| wsrep_cert_deps_distance   | 0.000000                                   |
+| wsrep_apply_oooe           | 0.000000                                   |
+| wsrep_apply_oool           | 0.000000                                   |
+| wsrep_apply_window         | 0.000000                                   |
+| wsrep_commit_oooe          | 0.000000                                   |
+| wsrep_commit_oool          | 0.000000                                   |
+| wsrep_commit_window        | 0.000000                                   |
+| wsrep_local_state          | 4                                          |
+| wsrep_local_state_comment  | Synced                                     |
+| wsrep_cert_index_size      | 0                                          |
+| wsrep_causal_reads         | 0                                          |
+| wsrep_incoming_addresses   | 10.0.0.7:3306,10.0.0.6:3306,10.0.0.10:3306 |
+| wsrep_cluster_conf_id      | 7                                          |
+| wsrep_cluster_size         | 3                                          |
+| wsrep_cluster_state_uuid   | 43057407-ccec-11e5-919d-4a31a05f51d6       |
+| wsrep_cluster_status       | Primary                                    |
+| wsrep_connected            | ON                                         |
+| wsrep_local_bf_aborts      | 0                                          |
+| wsrep_local_index          | 2                                          |
+| wsrep_provider_name        | Galera                                     |
+| wsrep_provider_vendor      | Codership Oy &lt;info@codership.com&gt;          |
+| wsrep_provider_version     | 2.8(r165)                                  |
+| wsrep_ready                | ON                                         |
++----------------------------+--------------------------------------------+</codeblock></li>
+         </ol>
+             
+             <p><b>Associating the instances in the cluster with the new instance</b></p>
+             
+         <p>Now that the new instance has been created and added to the cluster, we need to tell the other instances in the cluster that if their MySql services restart, they need to notify the new instance. To create
+         this association, do the following:</p>
+         <ol>
+           <li>Get the IP address of the new instance (<b>test-member-3</b> in this example):
+             <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+| ID                                   | Name          | Status | Task State | Power State | Networks          |
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6  |
+| 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7  |
+| 87936718-ca69-4850-aed5-99739a06fdf9 | test-member-3 | ACTIVE | -          | Running     | private=<codeph outputclass="codehighlight">10.0.0.10</codeph> |
++--------------------------------------+---------------+--------+------------+-------------+-------------------+</codeblock></li>
+           <li>On the existing instances (<b>test-member-1</b> and <b>test-member-2</b> in this example), edit the <b>/etc/mysql/conf.d/50-system-002-cluster.cnf</b> file with the IP address
+           of the new instance (<b>test-member-3</b> in this example). The <b>wsrep_cluster_address</b> line should look like the following:
+             <codeblock>wsrep_cluster_address = "gcomm://10.0.0.7,10.0.0.6<codeph outputclass="codehighlight">,10.0.0.10</codeph>"</codeblock></li>
+         </ol>
+         <note>The MySql service does not need to be restarted to register this update.</note>
+             <p><b>Remove the old instance from the cluster, and add the new instance</b></p>
+         <p>Lastly, you need to remove the old instance from the Trove infrastructure database, and add the new instance:</p>
+         <ol>
+           <li>Find the ID of the cluster, and the ID for the old and new instances:
+           <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-list
++--------------------------------------+------+-----------+-------------------+-----------+
+| ID                                   | Name | Datastore | Datastore Version | Task Name |
++--------------------------------------+------+-----------+-------------------+-----------+
+| <codeph outputclass="codehighlight">f3153ab0-f433-4373-a462-7d7daac21438</codeph> | test | pxc       | 5.5               | NONE      |
++--------------------------------------+------+-----------+-------------------+-----------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove list
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+| ID                                   | Name          | Datastore | Datastore Version | Status | Flavor ID | Size |
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+| <codeph outputclass="codehighlight">42d4589f-c254-492b-94e2-a98f111b8249</codeph> | test-member-3 | pxc       | 5.5               | ACTIVE | 7         |    1 |
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-instances test
++--------------------------------------+---------------+-----------+------+--------+
+| ID                                   | Name          | Flavor ID | Size | Status |
++--------------------------------------+---------------+-----------+------+--------+
+| <codeph outputclass="codehighlight">011ec6fd-13c6-4310-9004-f672be3106c9</codeph> | test-member-3 | 7         |    1 | ACTIVE |
+| 27df03af-7302-4d12-9dec-5d7c12d66c95 | test-member-2 | 7         |    1 | ACTIVE |
+| 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 | test-member-1 | 7         |    1 | ACTIVE |
++--------------------------------------+---------------+-----------+------+--------+
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+| ID                                   | Name          | Status | Task State | Power State | Networks          |
++--------------------------------------+---------------+--------+------------+-------------+-------------------+
+| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6  |
+| 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7  |
+| 87936718-ca69-4850-aed5-99739a06fdf9 | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.10 |
++--------------------------------------+---------------+--------+------------+-------------+-------------------+</codeblock>
+             In the above output, the cluster ID is <b>f3153ab0-f433-4373-a462-7d7daac21438</b>; the old instance ID is <b>011ec6fd-13c6-4310-9004-f672be3106c9</b>, and 
+             the new instance ID is <b>42d4589f-c254-492b-94e2-a98f111b8249</b>.</li>
+           <li>Launch the MySql Trove CLI:
+             
+<codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ mysql trove
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+             
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1221
+Server version: 5.5.47-0ubuntu0.14.04.1 (Ubuntu)
+             
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+             
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+             
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</codeblock></li>
+           <li>In the MySql Trove utilty, check the <b>cluster_id</b> of the old instance, using the ID listed above (<b>011ec6fd-13c6-4310-9004-f672be3106c9</b>):
+             
+             <codeblock>mysql&gt; select * from instances where id='<codeph outputclass="codehighlight">011ec6fd-13c6-4310-9004-f672be3106c9</codeph>'\G
+*************************** 1. row ***************************
+id: 011ec6fd-13c6-4310-9004-f672be3106c9
+created: 2016-02-06 16:15:45
+updated: 2016-02-06 16:16:08
+...
+...
+slave_of_id: NULL
+cluster_id: <codeph outputclass="codehighlight">f3153ab0-f433-4373-a462-7d7daac21438</codeph>
+shard_id: NULL
+type: member
+1 row in set (0.01 sec)</codeblock></li>
+<li>Set the <b>cluster_id</b> of the old instance to <b>NULL</b>:             
+  <codeblock>mysql&gt; update instances set cluster_id=NULL where id='<codeph outputclass="codehighlight">011ec6fd-13c6-4310-9004-f672be3106c9</codeph>'\G
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0</codeblock></li>
+<li>Verify that the <b>cluster_id</b> for the old instance is now <b>NULL</b>:             
+  <codeblock>mysql&gt; select * from instances where id='<codeph outputclass="codehighlight">011ec6fd-13c6-4310-9004-f672be3106c9</codeph>'\G
+*************************** 1. row ***************************
+id: 011ec6fd-13c6-4310-9004-f672be3106c9
+created: 2016-02-06 16:15:45
+updated: 2016-02-06 16:16:08
+...
+...
+slave_of_id: NULL
+<codeph outputclass="codehighlight">cluster_id: NULL</codeph>
+shard_id: NULL
+type: member
+1 row in set (0.00 sec)</codeblock></li>
+           <li>Set the <b>cluster_id</b> of the new instance to the ID of the cluster you discovered above:
+             <codeblock>mysql&lt; update instances set cluster_id='<codeph outputclass="codehighlight">f3153ab0-f433-4373-a462-7d7daac21438</codeph>', type='member' where id='<codeph outputclass="codehighlight">42d4589f-c254-492b-94e2-a98f111b8249</codeph>'\G
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0</codeblock></li>
+   <li>Exit the MySql Trove CLI:          
+<codeblock>mysql&gt; Bye</codeblock></li>
+<li>Verify that the cluster includes the new instance:             
+<codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-instances test
++--------------------------------------+---------------+-----------+------+--------+
+| ID                                   | Name          | Flavor ID | Size | Status |
++--------------------------------------+---------------+-----------+------+--------+
+| 27df03af-7302-4d12-9dec-5d7c12d66c95 | test-member-2 | 7         |    1 | ACTIVE |
+| <codeph outputclass="codehighlight">42d4589f-c254-492b-94e2-a98f111b8249</codeph> | test-member-3 | 7         |    1 | ACTIVE |
+| 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 | test-member-1 | 7         |    1 | ACTIVE |
++--------------------------------------+---------------+-----------+------+--------+</codeblock></li>
+           <li>Delete the old instance from the cluster:
+             <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove list
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+| ID                                   | Name          | Datastore | Datastore Version | Status | Flavor ID | Size |
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+| <codeph outputclass="codehighlight">011ec6fd-13c6-4310-9004-f672be3106c9</codeph> | test-member-1 | pxc       | 5.5               | ACTIVE | 7         |    1 |
++--------------------------------------+---------------+-----------+-------------------+--------+-----------+------+
+               vagrant@packer-ubuntu-1404-server-vagrant:~$ trove delete 011ec6fd-13c6-4310-9004-f672be3106c9</codeblock></li>
+           <li>Verify that the old instance was deleted:
+               <codeblock>vagrant@packer-ubuntu-1404-server-vagrant:~$ trove list
++----+------+-----------+-------------------+--------+-----------+------+
+| ID | Name | Datastore | Datastore Version | Status | Flavor ID | Size |
++----+------+-----------+-------------------+--------+-----------+------+
++----+------+-----------+-------------------+--------+-----------+------+</codeblock></li>
+         </ol></sectiondiv></section>
+         </body>
+     </topic>
+
      
-   </related-links>
   </topic>
