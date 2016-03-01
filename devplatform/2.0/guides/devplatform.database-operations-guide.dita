@@ -300,18 +300,18 @@ Cluster status of node 'rabbit@trove-messaging0-rmq-ry6xrb74vtw6' ...
              have the <codeph>cluster-grow</codeph> and <codeph>cluster-shrink</codeph> commands for the PXC datastore.</p>
            
            <p>Some of the details here are specific to a sample environment and must be adopted for your specific environment. This section will describe 
-             how to get the information needed to make sure that later when you update trove that this does not cause a problem.</p>
+             how to get the information needed to make sure that when you update trove later that this does not cause a problem.</p>
            
-         <note>Make a manual backup of the data via mysqldump before proceeding.</note>
+             <note>Make a manual backup of the data via <codeph>mysqldump</codeph> before proceeding.</note>
          <p><b>Setting up the environment</b></p>
              <p>For the purposes of this tutorial, you'll deliberately terminate one instance of a Trove cluster in order to demonstrate how to create a new
              instance and add it back to the cluster.</p>
          <p>The following Trove configuration has 3 instances in a PXC cluster. This information is available from the troveclient CLI and from the novaclient
-           CLI. This output shows that everything is active and running in a good state.</p>
+           CLI. This output shows that everything is active and running in a good state. Note the nova ID of the instance you'll delete (test-member-3):</p>
          
          <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ trove cluster-list
 +--------------------------------------+------+-----------+-------------------+-----------+
-           | ID                                   | Name | Datastore | Datastore Version | Task Name |
+| ID                                   | Name | Datastore | Datastore Version | Task Name |
 +--------------------------------------+------+-----------+-------------------+-----------+
 | f3153ab0-f433-4373-a462-7d7daac21438 | test | pxc       | 5.5               | NONE      |
 +--------------------------------------+------+-----------+-------------------+-----------+
@@ -341,7 +341,7 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
 | ID                                   | Name          | Status | Task State | Power State | Networks         |
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
-| dad115c5-bc44-485e-aa60-e080eb2f448e | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.9 |
+| <codeph outputclass="codehighlight">dad115c5-bc44-485e-aa60-e080eb2f448e</codeph> | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.9 |
 | e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6 |
 | 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7 |
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
@@ -356,7 +356,7 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ trove list --include-clustered
          <p><b>Terminating a cluster instance</b></p>
          <p>The following code shows how to kill one of the instances in the cluster from the nova command to
            simulate an instance that is no longer available to the cluster.</p>
-         <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ nova delete dad115c5-bc44-485e-aa60-e080eb2f448e
+             <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ nova delete <codeph outputclass="codehighlight">dad115c5-bc44-485e-aa60-e080eb2f448e</codeph>
 Request to delete server dad115c5-bc44-485e-aa60-e080eb2f448e has been accepted.
 vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
@@ -377,9 +377,9 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
 +--------------------------------------+---------------+-----------+------+--------+
 | 011ec6fd-13c6-4310-9004-f672be3106c9 | test-member-3 | 7         |    1 | ACTIVE |
 | 27df03af-7302-4d12-9dec-5d7c12d66c95 | test-member-2 | 7         |    1 | ACTIVE |
-| 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 | test-member-1 | 7         |    1 | ACTIVE |
+| <codeph outputclass="codehighlight">9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55</codeph> | test-member-1 | 7         |    1 | ACTIVE |
 +--------------------------------------+---------------+-----------+------+--------+
-vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55
+vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show <codeph outputclass="codehighlight">9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55</codeph>
 +-------------------+--------------------------------------+
 | Property          | Value                                |
 +-------------------+--------------------------------------+
@@ -387,13 +387,13 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show 9fb77dd1-d37d-4af1-89f0-
 | created           | 2016-02-06T16:08:29                  |
 | datastore         | pxc                                  |
 | datastore_version | 5.5                                  |
-| flavor            | 7                                    |
+| flavor            | <codeph outputclass="codehighlight">7</codeph>                                    |
 | id                | 9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55 |
 | ip                | 10.0.0.6                             |
 | name              | test-member-1                        |
 | status            | ACTIVE                               |
 | updated           | 2016-02-06T16:08:52                  |
-| volume            | 1                                    |
+| volume            | <codeph outputclass="codehighlight">1</codeph>                                    |
 | volume_used       | 0.24                                 |
 +-------------------+--------------------------------------+</codeblock>
            <p>The above output shows that the remaining node has a flavor of <b>7</b> and a volume of <b>1</b>.</p></li>
@@ -403,46 +403,16 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show 9fb77dd1-d37d-4af1-89f0-
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
 | ID                                   | Name          | Status | Task State | Power State | Networks         |
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
-| e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6 |
+| <codeph outputclass="codehighlight">e491993a-e162-4c41-a15c-80faa4bdd67a</codeph> | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6 |
 | 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7 |
 +--------------------------------------+---------------+--------+------------+-------------+------------------+
-vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show e491993a-e162-4c41-a15c-80faa4bdd67a
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show <codeph outputclass="codehighlight">e491993a-e162-4c41-a15c-80faa4bdd67a</codeph>
 +--------------------------------------+---------------------------------------------------------------------------------+
 | Property                             | Value                                                                           |
 +--------------------------------------+---------------------------------------------------------------------------------+
 | OS-DCF:diskConfig                    | MANUAL                                                                          |
 | OS-EXT-AZ:availability_zone          | nova                                                                            |
 | OS-EXT-STS:power_state               | 1                                                                               |
-| OS-EXT-STS:task_state                | -                                                                               |
-| OS-EXT-STS:vm_state                  | active                                                                          |
-| OS-SRV-USG:launched_at               | 2016-02-06T16:08:48.000000                                                      |
-| OS-SRV-USG:terminated_at             | -                                                                               |
-| accessIPv4                           |                                                                                 |
-| accessIPv6                           |                                                                                 |
-| config_drive                         | True                                                                            |
-| created                              | 2016-02-06T16:08:37Z                                                            |
-| flavor                               | m1.rd-tiny (7)                                                                  |
-| hostId                               | 3cb1f16704c8010c86d77ca569304e3d47c274294cdf4c312b29ca27                        |
-| id                                   | e491993a-e162-4c41-a15c-80faa4bdd67a                                            |
-| image                                | ubuntu_pxc (4e3ce66b-829e-4558-8c25-64f512491e3a)                               |
-| key_name                             | -                                                                               |
-| locked                               | False                                                                           |
-| metadata                             | {}                                                                              |
-| name                                 | test-member-1                                                                   |
-| os-extended-volumes:volumes_attached | [{"id": "7fb4ea48-829e-4ab1-84bf-0c8895ea5c7a", "delete_on_termination": true}] |
-| private network                      | 10.0.0.6                                                                        |
-| progress                             | 0                                                                               |
-| security_groups                      | SecGroup_9fb77dd1-d37d-4af1-89f0-bb5c5b1e6f55                                   |
-| status                               | ACTIVE                                                                          |
-| tenant_id                            | 3e45bf991dcc4e1c9dad511ddcc622e6                                                |
-| updated                              | 2016-02-06T16:08:49Z                                                            |
-| user_id                              | 59846cd6eaaa4fbe9afbca861492fbff                                                |
-+--------------------------------------+---------------------------------------------------------------------------------+
-               
-vagrant@packer-ubuntu-1404-server-vagrant:~$ nova --debug virtual-interface-list e491993a-e162-4c41-a15c-80faa4bdd67a
-DEBUG (extension:157) found extension EntryPoint.parse('v2token = keystoneauth1.loading._plugins.identity.v2:Token')
-DEBUG (extension:157) found extension EntryPoint.parse('admin_token = keystoneauth1.loading._plugins.admin_token:AdminToken')
-DEBUG (extension:157) found extension EntryPoint.parse('v3oidcauthcode = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectAuthorizationCode')
 ...
 ...
 ...
@@ -459,7 +429,7 @@ RESP BODY: {"virtual_interfaces": [{"net_id": "<codeph outputclass="codehighligh
                calls the new instance <b>test-member-3</b>.</note>
            </li>
            <li>Next, create the instance using <codeph>trove create</codeph>:
-             <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ trove create test-member-3 7 --size 1 --datastore pxc --nic net-id=76f575e1-0160-4d8d-9666-1c0be6b2211e --availability_zone nova
+             <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ trove create test-member-3 7 --size 1 --datastore pxc --nic net-id=<codeph outputclass="codehighlight">76f575e1-0160-4d8d-9666-1c0be6b2211e</codeph> --availability_zone nova
 +-------------------+--------------------------------------+
 | Property          | Value                                |
 +-------------------+--------------------------------------+
@@ -485,7 +455,7 @@ RESP BODY: {"virtual_interfaces": [{"net_id": "<codeph outputclass="codehighligh
 | id                | 42d4589f-c254-492b-94e2-a98f111b8249 |
 | ip                | 10.0.0.10                            |
 | name              | test-member-3                        |
-| status            | ACTIVE                               |
+| status            | <codeph outputclass="codehighlight">ACTIVE</codeph>                               |
 | updated           | 2016-02-07T03:07:17                  |
 | volume            | 1                                    |
 | volume_used       | 0.1                                  |
@@ -496,9 +466,9 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ nova list
 +--------------------------------------+---------------+--------+------------+-------------+-------------------+
 | e491993a-e162-4c41-a15c-80faa4bdd67a | test-member-1 | ACTIVE | -          | Running     | private=10.0.0.6  |
 | 2a845f18-c4f3-4583-bba1-2b4eed18d872 | test-member-2 | ACTIVE | -          | Running     | private=10.0.0.7  |
-| 87936718-ca69-4850-aed5-99739a06fdf9 | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.10 |
+| <codeph outputclass="codehighlight">87936718-ca69-4850-aed5-99739a06fdf9</codeph> | test-member-3 | ACTIVE | -          | Running     | private=10.0.0.10 |
 +--------------------------------------+---------------+--------+------------+-------------+-------------------+
-vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show 87936718-ca69-4850-aed5-99739a06fdf9
+vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show <codeph outputclass="codehighlight">87936718-ca69-4850-aed5-99739a06fdf9</codeph>
 +--------------------------------------+---------------------------------------------------------------------------------+
 | Property                             | Value                                                                           |
 +--------------------------------------+---------------------------------------------------------------------------------+
@@ -525,7 +495,7 @@ vagrant@packer-ubuntu-1404-server-vagrant:~$ nova show 87936718-ca69-4850-aed5-9
 | private network                      | 10.0.0.10                                                                       |
 | progress                             | 0                                                                               |
 | security_groups                      | SecGroup_42d4589f-c254-492b-94e2-a98f111b8249                                   |
-| status                               | ACTIVE                                                                          |
+| status                               | <codeph outputclass="codehighlight">ACTIVE</codeph>                                                                          |
 | tenant_id                            | 3e45bf991dcc4e1c9dad511ddcc622e6                                                |
 | updated                              | 2016-02-07T03:07:13Z                                                            |
 | user_id                              | 59846cd6eaaa4fbe9afbca861492fbff                                                |
@@ -596,7 +566,7 @@ mysql> show status like 'wsrep%';
 | wsrep_provider_name        | Galera                                     |
 | wsrep_provider_vendor      | Codership Oy &lt;info@codership.com&gt;          |
 | wsrep_provider_version     | 2.8(r165)                                  |
-| wsrep_ready                | ON                                         |
+| wsrep_ready                | <codeph outputclass="codehighlight">ON</codeph>                                         |
 +----------------------------+--------------------------------------------+</codeblock></li>
          </ol>
              
@@ -730,7 +700,9 @@ Rows matched: 1  Changed: 1  Warnings: 0</codeblock></li>
 | ID | Name | Datastore | Datastore Version | Status | Flavor ID | Size |
 +----+------+-----------+-------------------+--------+-----------+------+
 +----+------+-----------+-------------------+--------+-----------+------+</codeblock></li>
-         </ol></sectiondiv></section>
+         </ol>
+           <p><b>Verify the cluster</b></p>
+           <p>To verify the cluster, run the commands at the beginning of this troubleshooting topic, and verify that the output is similar to the output given.</p></sectiondiv></section>
          </body>
      </topic>
 
