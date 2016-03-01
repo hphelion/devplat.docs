@@ -437,14 +437,14 @@ RESP BODY: {"virtual_interfaces": [{"net_id": "<codeph outputclass="codehighligh
 | datastore         | pxc                                  |
 | datastore_version | 5.5                                  |
 | flavor            | 7                                    |
-| id                | 42d4589f-c254-492b-94e2-a98f111b8249 |
+| id                | <codeph outputclass="codehighlight">42d4589f-c254-492b-94e2-a98f111b8249</codeph> |
 | name              | test-member-3                        |
 | status            | BUILD                                |
 | updated           | 2016-02-07T03:06:53                  |
 | volume            | 1                                    |
 +-------------------+--------------------------------------+</codeblock></li>
            <li>Next, wait for the instance to go active. Use <codeph>trove show</codeph> to check the instance status:
-             <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show 42d4589f-c254-492b-94e2-a98f111b8249
+             <codeblock outputclass="noverticalscroll">vagrant@packer-ubuntu-1404-server-vagrant:~$ trove show <codeph outputclass="codehighlight">42d4589f-c254-492b-94e2-a98f111b8249</codeph>
 +-------------------+--------------------------------------+
 | Property          | Value                                |
 +-------------------+--------------------------------------+
