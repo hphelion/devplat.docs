@@ -47,7 +47,7 @@ cf7da921-9a29-4fbc-b3f0-676475921e04 | dbaas-conductor_2.0.0.38
 .....
 .....</codeblock></li>
         <li>In the output above, the left column is the ID of the image, and the right column is the name of the image. Note the ID for the 
-          <ph outputclass="codehighlight">TODO: Get image name</ph> image.</li>
+          <codeph>DevelopmentPlatformUpgrade-2.2.tar.gz</codeph> image.</li>
         <li>Update the image in glance as follows:
           <codeblock>glance image-update &lt;ID&gt; --name dbaas-api_2.0.0.4X --file &lt;path-where-csu-is-unpacked&gt;/dbaas-api_2.0.0.4X.qcow2</codeblock>
         for example:
