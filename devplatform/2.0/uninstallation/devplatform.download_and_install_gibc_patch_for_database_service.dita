@@ -10,8 +10,7 @@
         2.1</xref> for upgrade instructions for 2.1</note>
     <ol>
       <li>Download the following file that contains the upgrade scripts: 
-        <xref href="clapton.ftc.hpelabs.net:/home/ksushil/DevelopmentPlatformUpgrade-2.2.tar.gz" scope="external">Development Platform Upgrade 2.1.2</xref>"
-        <note>The easiest option is to download directly to the physical machine hosting the HPE Helion OpenStack lifecycle manager. If you can not download directly 
+        <xref href="clapton.ftc.hpelabs.net:/home/ksushil/DevelopmentPlatformUpgrade-2.2.tar.gz" scope="external" format="html">Development Platform Upgrade 2.1.2</xref>        <note>The easiest option is to download directly to the physical machine hosting the HPE Helion OpenStack lifecycle manager. If you can not download directly 
           to that location, download the files to portable storage media and then copy the files onto the lifecycle manager. When downloading or copying, make sure 
           there is enough space; the file sizes can be significant.</note></li>
       <li>SSH to the HPE Helion OpenStack lifecycle manager (previously known as the deployer node).</li>
