@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="devplatform.upgrade_hce_service">
+  <title>Upgrade the Helion Code Engine Service</title>
+  <body>
+    <p>Follow these steps to upgrade the Helion Code Engine service.</p>
+    <ol>
+      <li>Login to the Helionce-deployer instance.</li>
+      <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph> directory.</li>
+      <li>Run this command to backup your Helion CE instance.
+        <codeblock>ansible-playbook -i hosts/verb_hosts helionci-backup.yml</codeblock></li>
+      <li>When the backup process succeeds, you should see a message that looks like this:
+        <codeblock>Backup successful! Please find the backup archive at ~/helioncibackup_v1.0.2.tar</codeblock></li>
+      <li>Run this command to copy this file off of the deployer onto the hos instance:
+        <codeblock>scp /helioncibackup_v1.0.2.tar stack@&lt;HOS Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
+      <li>Once this file is safely off the helionce-deployer, you can delete the <b>helionce</b> instances and the <b>helionce-deployer</b>.</li>
+    </ol>
+    <p>Follow these steps too restore an instance of Helion CE from the backup:</p>
+    <ol>
+      <li> Run through the steps of installing Helion CE as described here: 
+        <xref href="https://docs.hpcloud.com/#devplatform/2.0/installation/install_engine.html" scope="external">Install the HPE Helion Code Engine</xref></li>
+      <li>Once the installation steps are complete, copy the backup that was previously created onto the Helion CE deployer.</li>
+      <li> From the HOS deployer, run the following command:
+        <codeblock>scp /helioncibackup_v1.0.2.tar stack@&lt;HelionCE Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
+      <li>Login to the <b>helionce-deployer</b> instance.</li>
+      <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph> directory.</li>
+      <li>Run the following command to restore the contents of the database from your previous instance of Helion CE:
+        <codeblock>ansible-playbook -i hosts/verb_hosts helionci-restore.yml --extra-vars="archive_path=~/helioncibackup_v1.0.2.tar"</codeblock></li>
+      <li>Once the backup completes, the required services will be automatically restarted and you should see your backed up
+        data when you login via the Web Console.</li>
+    </ol>
+  </body>
+</topic>
