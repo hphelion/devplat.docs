@@ -69,6 +69,7 @@
     <topicref
       href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_database_service.dita"/>
     <topicref href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_hce.dita"/>
+    <topicref href="2.0/uninstallation/devplatform.upgrade_messaging_2_1_2.dita"/>
  
     
     <!--uninstallation -->
