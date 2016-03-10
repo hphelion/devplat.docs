@@ -7,7 +7,7 @@
     locktitle="yes">
     <!--root level installation-->
     <topicref href="2.0/devplatform.release-notes.dita" locktitle="yes" navtitle="Release Notes"/>
-    <topicref href="2.0/patch_2_1_2.dita">
+    <topicref href="2.0/patch_2_1_2.dita" navtitle="HDP 2.1.2 Patch Instructions" locktitle="no">
       <topicref href="2.0/uninstallation/devplatform.upgrade_messaging_2_1_2.dita"/>
       <topicref
         href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_database_service.dita"/>
