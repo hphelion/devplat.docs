@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="devplatform.upgrade_hce_service">
-  <title>Upgrade the Helion Code Engine Service</title>
+  <title>Upgrade Code Engine Service to version 2.1.2</title>
   <body>
     <p>Follow these steps to upgrade the Helion Code Engine service.</p>
     <ol>

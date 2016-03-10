@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="devplatform.upgrade_messaging_service">
-  <title>Upgrade the Messaging Service</title>
+<topic id="devplatform.upgrade_messaging_service_2_1_2">
+  <title>Download and install gibc patch for Messaging Service</title>
   <body>
     <p>Follow these steps to upgrade the Messaging Service.</p>
     <ol>
