@@ -7,6 +7,12 @@
     locktitle="yes">
     <!--root level installation-->
     <topicref href="2.0/devplatform.release-notes.dita" locktitle="yes" navtitle="Release Notes"/>
+    <topicref href="2.0/patch_2_1_2.dita">
+      <topicref href="2.0/uninstallation/devplatform.upgrade_messaging_2_1_2.dita"/>
+      <topicref
+        href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_database_service.dita"/>
+      <topicref href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_hce.dita"/>
+    </topicref>
     <topicref href="2.0/devplatform.thirdparty.licensing.dita" navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
 
@@ -66,10 +72,6 @@
       <topicref href="2.0/uninstallation/devplatform_uninstall_messaging.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_vertica.dita"/>
     </topicref>
-    <topicref
-      href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_database_service.dita"/>
-    <topicref href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_hce.dita"/>
-    <topicref href="2.0/uninstallation/devplatform.upgrade_messaging_2_1_2.dita"/>
  
     
     <!--uninstallation -->
