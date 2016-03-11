@@ -112,7 +112,7 @@ web server, application dependencies, databases, and other services.</p>
             </li>
             <li><xref href="languages/python/python_index.dita">Python</xref></li>
             <li><xref href="languages/ruby.dita">Ruby</xref></li>
-           <li><xref href="../../../2.0/windows/windows_overview.dita">.NET</xref></li>
+           <li><xref href="../../../windows/windows_overview.dita">.NET</xref></li>
           </ul>
 </section>
 <section id="services"> <title>Services</title>
