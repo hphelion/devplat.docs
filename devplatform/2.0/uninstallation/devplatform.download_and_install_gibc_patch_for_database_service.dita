@@ -9,11 +9,13 @@
         href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion OpenStack to Version
         2.1</xref> for upgrade instructions for 2.1</note>
     <ol>
-      <li>Download the following file that contains the upgrade scripts: 
-        <ph outputclass="codehighlight">TODO: Insert download link here</ph>        
-        <note>The easiest option is to download directly to the physical machine hosting the HPE Helion OpenStack lifecycle manager. If you can not download directly 
-          to that location, download the files to portable storage media and then copy the files onto the lifecycle manager. When downloading or copying, make sure 
-          there is enough space; the file sizes can be significant.</note></li>
+      <li>Download the 2.1.2 upgrade patch from the <xref
+          href="https://helion.hpwsportal.com/catalog.html#/Home/Show" format="html"
+          scope="external">HPE Helion Download Network (HDN)</xref>. <note>The easiest option is to
+          download directly to the physical machine hosting the HPE Helion OpenStack lifecycle
+          manager. If you can not download directly to that location, download the files to portable
+          storage media and then copy the files onto the lifecycle manager. When downloading or
+          copying, make sure there is enough space; the file sizes can be significant.</note></li>
       <li>SSH to the HPE Helion OpenStack lifecycle manager (previously known as the deployer node).</li>
       <li>Untar the DevelopmentPlatformUpgrade-2.2.tar.gz file to a local temp directory:
         <codeblock>tar -xzf DevelopmentPlatformUpgrade-2.2.tar.gz</codeblock></li>
