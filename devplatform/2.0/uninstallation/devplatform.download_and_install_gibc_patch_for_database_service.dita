@@ -33,7 +33,7 @@
       <li>Safely start the trove services:
         <codeblock>ansible-playbook --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock></li>
       <li>Install the package to all guest databases:
-        <codeblock>ansible-playbook --extra-vars guest_private_key_file=&lt;path to SSH private key&gt; package_file=&lt;directory-where-you-extracted-content/packages/libc6_2.19-18+deb8u3_amd64.deb&gt; --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/install-package-to-guests.yml</codeblock></li>
+        <codeblock>ansible-playbook --extra-vars "guest_private_key_file=&lt;path to SSH private key&gt; package_file=&lt;directory-where-you-extracted-content/packages/libc6_2.19-18+deb8u3_amd64.deb&gt;" --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/install-package-to-guests.yml</codeblock></li>
       <li>Verify all guest instances were restarted successfully:
         <codeblock>cat ~/guest-instance-status.log</codeblock></li>
       <li>Update the glance images as follows:
