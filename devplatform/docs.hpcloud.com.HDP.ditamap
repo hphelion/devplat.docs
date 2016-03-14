@@ -11,6 +11,13 @@
       navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
     <topicref href="2.0/upgrade_HOS_21.dita" navtitle="Upgrading HPE Helion OpenStack to v2.1"/>
+    <topicref href="2.0/gibcpatch/patch_2_1_2.dita" navtitle="Upgrading to the 2.1.2 (gibc) patch"
+      locktitle="yes">
+      <topicref
+        href="2.0/gibcpatch/devplatform.download_and_install_gibc_patch_for_database_service.dita"/>
+      <topicref href="2.0/gibcpatch/devplatform.upgrade_messaging_2_1_2.dita"/>
+      <topicref href="2.0/gibcpatch/devplatform.download_and_install_gibc_patch_for_hce.dita"/>
+    </topicref>
 
     <topicref href="2.0/installation/installation.dita" navtitle="Installation" otherprops="install">
       <topicref href="2.0/installation/devplatform_install_overview.dita"
