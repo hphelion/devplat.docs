@@ -10,7 +10,7 @@
         2.1</xref> for upgrade instructions for 2.1</note>
     <ol>
       <li>Download the 2.1.2 upgrade patch from the <xref
-        href="https://mp.hpwsportal.com/#/Catalog%20Items/items/y9.1a25a55b-ba64-4de6-a559-77bac2d6d4ba/2.0.0.38/details" format="html"
+        href="https://helion.hpwsportal.com/catalog.html#/Product/%7B%22productId%22%3A%223059%22%7D/Show" format="html"
           scope="external">HPE Helion Download Network (HDN)</xref>. <note>The easiest option is to
           download directly to the physical machine hosting the HPE Helion OpenStack lifecycle
           manager. If you can not download directly to that location, download the files to portable
