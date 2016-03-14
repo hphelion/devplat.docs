@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="devplatform.upgrade_messaging_service_2_1_2">
+  <title>Download and install gibc patch for Messaging Service</title>
+  <body>
+    <p>Follow these steps to upgrade the Messaging Service.</p>
+    <ol>
+      <li>SSH into the HPE Helion OpenStack lifecycle manager:
+        <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
+      <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
+        This was <xref
+          href="http://docs.hpcloud.com/#devplatform/2.0/installation/devplatform_install_messaging.html"
+          format="html" scope="external">created during installation</xref> of the Messaging
+        service.
+        <codeblock>ssh stack@&lt;messaging-deployer-ip&gt;</codeblock></li>
+      <li>Source <codeph>user.osrc</codeph>
+        <codeblock>source ~/user.osrc</codeblock></li>
+      <li>Navigate to the <codeph>ansible</codeph> scratch directory.
+        <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
+      <li>Run the <codeph>cue-update-packages.sh</codeph> script:
+      <ol>
+        <li>Copy the <codeph>cue-update-package.sh</codeph> script file into this directory on the messaging deployer:
+          <codeblock>/home/stack/scratch/ansible/next/hos/ansible</codeblock></li>
+        <li>Make the script executable.
+          <codeblock>chmod +x cue-update-packages.sh</codeblock></li>
+        <li>Execute the script for each package to update the provided packages in all hosts. The packages is provided as a file path.
+        <codeblock>./cue-update-packages.sh '{"packages": ["~/libc6_2.19-18+deb8u3_amd64.deb"]}'
+./cue-update-packages.sh '{"packages": ["~/libc-bin_2.19-18+deb8u3_amd64.deb"]}'</codeblock></li>
+      </ol></li>
+      <li>Start all services:
+        <codeblock>ansible-playbook -i hosts/verb_hosts FND-CLU-start.yml
+ansible-playbook -i hosts/verb_hosts percona-bootstrap.yml
+ansible-playbook -i hosts/verb_hosts cue-start.yml</codeblock></li>
+      <li>Upgrade the package on the Messaging deployer
+        <codeblock>sudo dpkg -i ~/libc6_2.19-18+deb8u3_amd64.deb ~/libc-bin_2.19-18+deb8u3_amd64.deb</codeblock></li>
+      <li>Restart the Messaging deployer
+        <codeblock>sudo reboot</codeblock></li>
+    </ol>
+  </body>
+</topic>

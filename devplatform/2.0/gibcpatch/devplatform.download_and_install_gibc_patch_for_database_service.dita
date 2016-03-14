@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="devplatform.download_and_install_gibc_patch_for_database_service">
+  <title>Download and install gibc patch for Database Service</title>
+  <body>
+    <p>Follow these steps to download and install the gibc patch for the Database Service, and to
+      reboot the database and control plane instances.</p>
+    <note>This procedure will upgrade your installation to version 2.1.2. See <xref
+        href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion OpenStack to Version
+        2.1</xref> for upgrade instructions for 2.1</note>
+    <ol>
+      <li>Download the 2.1.2 upgrade patch from the <xref
+        href="https://helion.hpwsportal.com/catalog.html#/Product/%7B%22productId%22%3A%223059%22%7D/Show" format="html"
+          scope="external">HPE Helion Download Network (HDN)</xref>. <note>The easiest option is to
+          download directly to the physical machine hosting the HPE Helion OpenStack lifecycle
+          manager. If you can not download directly to that location, download the files to portable
+          storage media and then copy the files onto the lifecycle manager. When downloading or
+          copying, make sure there is enough space; the file sizes can be significant.</note></li>
+      <li>SSH to the HPE Helion OpenStack lifecycle manager (previously known as the deployer node).</li>
+      <li>Untar the DevelopmentPlatformUpgrade-2.2.tar.gz file to a local temp directory:
+        <codeblock>tar -xzf DevelopmentPlatformUpgrade-2.2.tar.gz</codeblock></li>
+      <li>Source a virtual environment containing the Openstack clients. We recommend using the built in virtual environment on the HPE Helion OpenStack lifecycle manager:
+        <codeblock>source /opt/stack/venv/openstackclient-&lt;timestamp&gt;/bin/activate</codeblock></li>
+      <li>Execute the following command to source credentials with access to the service:
+        <codeblock>source service.osrc</codeblock></li>
+      <li>Disable Access to the Trove API to stop all activity:
+        <codeblock>ansible-playbook --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/stop-api.yml</codeblock>
+         <note>The SSH private key file is the one specified during creation of the database service. In most installation the same key will be used for all commands in this guide.</note></li>
+      <li>Install the package to the trove control plane:
+        <codeblock>ansible-playbook --extra-vars package_file=&lt;directory-where-you-extracted-content/packages/libc6_2.19-18+deb8u3_amd64.deb&gt; --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/install-package-to-control-plane.yml</codeblock></li>
+      <li>Stop all control plane instances:
+        <codeblock>./control_plane_upgrade/scripts/stop_control_plane_instances.bash</codeblock></li>
+      <li>Restart all control plane instances:
+        <codeblock>./control_plane_upgrade/scripts/start_control_plane_instances.bash</codeblock></li>
+      <li>Safely start the trove services:
+        <codeblock>ansible-playbook --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/control_plane_start.yml</codeblock></li>
+      <li>Install the package to all guest databases:
+        <codeblock>ansible-playbook --extra-vars "guest_private_key_file=&lt;path to SSH private key&gt; package_file=&lt;directory-where-you-extracted-content/packages/libc6_2.19-18+deb8u3_amd64.deb&gt;" --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./guest-upgrade/playbooks/install-package-to-guests.yml</codeblock></li>
+      <li>Verify all guest instances were restarted successfully:
+        <codeblock>cat ~/guest-instance-status.log</codeblock></li>
+      <li>Update the glance images as follows:
+        <codeblock>ansible-playbook  --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/update-images.yml</codeblock></li>
+      <li>Restart the Database API service. After this step the database service will be fully functional:
+        <codeblock>ansible-playbook --private-key &lt;path to SSH private key&gt; -i ./common_upgrade/inventory/inventory.py ./control_plane_upgrade/playbooks/start-api.yml</codeblock></li>
+    </ol>
+  </body>
+</topic>
