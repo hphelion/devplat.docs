@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="devplatform.upgrade_hce_service">
-  <title>Upgrade Code Engine Service to version 2.0.1</title>
+<topic id="devplatform.upgrade_hce_glibc">
+  <title>Download and install Gnu C Library (glibc) patch for Code Engine Service</title>
   <body>
     <p>Follow these steps to upgrade the Helion Code Engine service.</p>
     <ol>
