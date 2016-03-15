@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="devplatform.patch212">
-  <title>Helion Development Platform: 2.1.2 (gibc) Patch</title>
+<topic id="devplatform.patch201">
+  <title>Helion Development Platform: 2.0.1 (gibc) Patch</title>
   <body>
-    <p>This section contains procedures for adding the gibc patch (2.1.2) to Helion Development Platform.</p>
+    <p>This section contains procedures for adding the gibc patch (2.0.1) to Helion Development
+      Platform.</p>
     <p>In addition to the updates in this section, it is recommended to apply the following updates as well:</p>
     <ul>
       <li>Apply the latest security patches for the operating system (e.g. <xref
