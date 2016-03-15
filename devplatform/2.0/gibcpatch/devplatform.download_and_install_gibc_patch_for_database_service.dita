@@ -3,7 +3,7 @@
 <topic id="devplatform.download_and_install_gibc_patch_for_database_service">
   <title>Download and install Gnu C Library (glibc) patch for Database Service</title>
   <body>
-    <p>Follow these steps to download and install the Gnu C Library (glibc) patch for the Database Service, and to
+    <p>Follow these steps to download and install the Gnu C Library (glibc) patch (CVE-2015-7547) for the Database Service, and to
       reboot the database and control plane instances.</p>
     <note>This procedure will upgrade your installation with the glibc patch. See <xref
         href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion OpenStack to Version

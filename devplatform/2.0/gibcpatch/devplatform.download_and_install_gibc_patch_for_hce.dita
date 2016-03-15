@@ -3,7 +3,7 @@
 <topic id="devplatform.download_and_install_gibc_patch_for_hce_service">
   <title>Download and install Gnu C Library (glibc) patch for Code Engine Service</title>
   <body>
-    <p>Follow these steps to upgrade the Helion Code Engine service with the Gnu C Library (glibc) patch.</p>
+    <p>Follow these steps to upgrade the Helion Code Engine service with the Gnu C Library (glibc) patch (CVE-2015-7547).</p>
     <ol>
       <li>Login to the Helionce-deployer instance.</li>
       <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph> directory.</li>
