@@ -5,7 +5,7 @@
   <body>
     <p>Follow these steps to download and install the gibc patch for the Database Service, and to
       reboot the database and control plane instances.</p>
-    <note>This procedure will upgrade your installation to version 2.1.2. See <xref
+    <note>This procedure will upgrade your installation to version 2.0.1. See <xref
         href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion OpenStack to Version
         2.1</xref> for upgrade instructions for 2.1</note>
     <ol>
