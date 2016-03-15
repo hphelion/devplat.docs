@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="devplatform.download_and_install_gibc_patch_for_database_service">
-  <title>Download and install gibc patch for Database Service</title>
+  <title>Download and install Gnu C Library (glibc) patch for Database Service</title>
   <body>
-    <p>Follow these steps to download and install the gibc patch for the Database Service, and to
+    <p>Follow these steps to download and install the Gnu C Library (glibc) patch for the Database Service, and to
       reboot the database and control plane instances.</p>
-    <note>This procedure will upgrade your installation to version 2.0.1. See <xref
+    <note>This procedure will upgrade your installation with the glibc patch. See <xref
         href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion OpenStack to Version
         2.1</xref> for upgrade instructions for 2.1</note>
     <ol>
-      <li>Download the 2.0.1 upgrade patch from the <xref
+      <li>Download the upgrade patch from the <xref
         href="https://helion.hpwsportal.com/catalog.html#/Product/%7B%22productId%22%3A%223059%22%7D/Show" format="html"
           scope="external">HPE Helion Download Network (HDN)</xref>. <note>The easiest option is to
           download directly to the physical machine hosting the HPE Helion OpenStack lifecycle
