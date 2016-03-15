@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="devplatform.glibc_patch">
+  <title>Helion Development Platform: Gnu C Library (glibc) Patch</title>
+  <body>
+    <p>This section contains procedures for adding the Gnu C Library (glibc) patch to Helion
+      Development Platform.</p>
+    <p>In addition to the updates in this section, it is recommended to apply the following updates as well:</p>
+    <ul>
+      <li>Apply the latest security patches for the operating system (e.g. <xref
+          href="http://www.ubuntu.com/usn/usn-2485-1/" format="html" scope="external">Ubuntu</xref>)
+        of the Lifecycle Manager node.</li>
+      <li><xref
+          href="http://docs.stackato.com/admin/best-practices/index.html#upgrading-the-helion-stackato-vm"
+          format="html" scope="external">Upgrade the Helion Stackato VM</xref></li>
+      <li><xref
+          href="http://docs.stackato.com/admin/best-practices/index.html#to-upgrade-the-docker-image"
+          format="html" scope="external">Upgrade the base Docker image</xref></li>
+    </ul>
+  </body>
+</topic>
