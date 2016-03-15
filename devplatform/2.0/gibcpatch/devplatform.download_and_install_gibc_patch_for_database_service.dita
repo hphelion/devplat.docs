@@ -9,7 +9,7 @@
         href="../upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion OpenStack to Version
         2.1</xref> for upgrade instructions for 2.1</note>
     <ol>
-      <li>Download the 2.1.2 upgrade patch from the <xref
+      <li>Download the 2.0.1 upgrade patch from the <xref
         href="https://helion.hpwsportal.com/catalog.html#/Product/%7B%22productId%22%3A%223059%22%7D/Show" format="html"
           scope="external">HPE Helion Download Network (HDN)</xref>. <note>The easiest option is to
           download directly to the physical machine hosting the HPE Helion OpenStack lifecycle
