@@ -3,7 +3,7 @@
 <topic id="devplatform.glibc_patch">
   <title>Helion Development Platform: Gnu C Library (glibc) Patch</title>
   <body>
-    <p>This section contains procedures for adding the Gnu C Library (glibc) patch to Helion
+    <p>This section contains procedures for adding the Gnu C Library (glibc) patch (CVE-2015-7547) to Helion
       Development Platform.</p>
     <p>In addition to the updates in this section, it is recommended to apply the following updates as well:</p>
     <ul>
