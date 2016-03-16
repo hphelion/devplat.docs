@@ -4,17 +4,21 @@
 <topic xml:lang="en-us" id="topic2502">
   <title>HPE Helion Development Platform 2.0: Release Notes </title>
   <body>
-    <note>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may prevent core HPE Helion Development Platform services from restarting. If your environment relies on HPE Helion Development Platform, please refrain from upgrading HPE Helion OpenStack until the complete HPE Helion Development Platform upgrade process is made available.</note>
+    <note>The process for upgrading HPE Helion OpenStack to version 2.1 requires a reboot which may
+      prevent core HPE Helion Development Platform services from restarting. If your environment
+      relies on HPE Helion Development Platform, please see <xref
+        href="upgrade_HOS_21.dita#topic_f2m_l1q_h5">Upgrading HPE Helion Open Stack to v2.1</xref>
+      for information on how to restart Helion Development Platform services.</note>
     <p>The following release notes are for the HPE Helion Development Platform 2.0 released in
       November, 2015. We hope you enjoy the release!</p>
     <section>
       <title>In This Release:</title>
       <p>HPE Helion Development Platform is comprised of the following services:</p>
       <ul>
-        <li>Application Lifecycle Service version 2.0.0.548 </li>
-        <li>Database Service version 2.0.0.38 </li>
-        <li>Messaging Broker Service version 1.0.0.165 </li>
-        <li>Helion Code Engine version 1.0.0.42 </li>
+        <li>Application Lifecycle Service version 2.0.0.577 </li>
+        <li>Database Service version 2.0.0.43 </li>
+        <li>Messaging Broker Service version 1.0.2.906 </li>
+        <li>Helion Code Engine version 1.0.1.853 </li>
       </ul>
     </section>
     <section>
@@ -129,11 +133,12 @@
             <codeblock>trove root-enable &lt;instance&gt; </codeblock></dd>  
         </dlentry>  
         <dlentry><dt>Searching for log entries returns API KEY ERROR: Missing</dt>  
-          <dd>The current Vertica Management Console release has a known issue where ng to search  
-            for Vertica log entries may result in an API key being requested. As a workaround, it is  
-            suggested to access Vertica event data directly through the database's ACTIVE_EVENTS,  
-            QUERY_EVENTS and QUERY_REQUESTS tables, as described in<xref  
-              href="database/devplatform.database-vertica.dita"> Managing a Vertica Cluster from the Management Console</xref>.</dd>  
+          <dd>The current Vertica Management Console release has a known issue where searching for
+            Vertica log entries may result in an API key being requested. As a workaround, it is
+            suggested to access Vertica event data directly through the database's ACTIVE_EVENTS,
+            QUERY_EVENTS and QUERY_REQUESTS tables, as described in<xref
+              href="database/devplatform.database-vertica.dita"> Managing a Vertica Cluster from the
+              Management Console</xref>.</dd>  
         </dlentry>  
         <dlentry><dt>"Stack trove in status ROLLBACK_COMPLETE" message when Database as a Server installation
             fails</dt>  
