@@ -7,18 +7,17 @@
     locktitle="yes">
     <!--root level installation-->
     <topicref href="2.0/devplatform.release-notes.dita" locktitle="yes" navtitle="Release Notes"/>
-    <topicref href="2.0/patch_glibc.dita"
-      navtitle="Updating Helion Development Platform: Gnu C Library Patch" locktitle="yes"
+    <topicref href="2.0/glibcpatch/devplatform.glibc_patch.dita"
+      navtitle="Upgrading Helion Development Platform with the glibc patch" locktitle="yes"
       otherprops="prop1">
       <topicref
-        href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_database_service.dita"
+        href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_database_service.dita"
         navtitle="Download and install glibc patch for Database Service" otherprops="prop1"
         locktitle="yes"/>
-      <topicref
-        href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_messaging.dita"
-        navtitle="Download and install glibc patch for Messaging Service" otherprops="prop1"
-        locktitle="yes"/>
-      <topicref href="2.0/uninstallation/devplatform.download_and_install_gibc_patch_for_hce.dita"
+      <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_messaging.dita"
+        navtitle="Download and install glibc patch for Messaging Service" locktitle="yes"
+        otherprops="prop1"/>
+      <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_hce.dita"
         navtitle="Download and install glibc patch for Code Engine Service" otherprops="prop1"
         locktitle="yes"/>
     </topicref>

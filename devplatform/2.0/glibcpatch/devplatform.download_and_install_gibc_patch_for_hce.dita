@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="devplatform.upgrade_hce_glibc">
+<topic id="devplatform.download_and_install_gibc_patch_for_hce_service">
   <title>Download and install Gnu C Library (glibc) patch for Code Engine Service</title>
   <body>
-    <p>Follow these steps to upgrade the Helion Code Engine service.</p>
+    <p>Follow these steps to upgrade the Helion Code Engine service with the Gnu C Library (glibc) patch (CVE-2015-7547).</p>
     <ol>
       <li>Login to the Helionce-deployer instance.</li>
       <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph> directory.</li>
@@ -18,7 +18,7 @@
     <p>Follow these steps too restore an instance of Helion CE from the backup:</p>
     <ol>
       <li> Run through the steps of installing Helion CE as described here: 
-        <xref href="https://docs.hpcloud.com/#devplatform/2.0/installation/install_engine.html" scope="external">Install the HPE Helion Code Engine</xref></li>
+        <xref format="html" href="https://docs.hpcloud.com/#devplatform/2.0/installation/install_engine.html" scope="external">Install the HPE Helion Code Engine</xref></li>
       <li>Once the installation steps are complete, copy the backup that was previously created onto the Helion CE deployer.</li>
       <li> From the HOS deployer, run the following command:
         <codeblock>scp /helioncibackup_v1.0.2.tar stack@&lt;HelionCE Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
