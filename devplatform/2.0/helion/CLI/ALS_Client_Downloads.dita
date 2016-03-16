@@ -25,13 +25,13 @@
         both Keystone v2 and v3.</p>
 <ul>
 <li>
-  <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.0-windows-x86_64.zip" scope="external" format="html">Windows</xref>
+  <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.2-windows-x86_64.zip" scope="external" format="html">Windows</xref>
 </li>
 <li>
-  <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.0-linux-x86_64.zip" scope="external" format="html">Linux x64</xref>
+  <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.2-linux-x86_64.zip" scope="external" format="html">Linux x64</xref>
 </li>
 <li>
-  <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.0-osx-x86_64.zip" scope="external" format="html">Mac OS X</xref> </li>
+  <xref href="http://clients.als.hpcloud.com/cf-mgmt-2.0.2-osx-x86_64.zip" scope="external" format="html">Mac OS X</xref> </li>
 </ul>
 <p>For more information, see the full ALS Cluster Management Tool <xref href="ALS_Client_Reference.dita" >command reference</xref>.</p>
       <note>When choosing where to install <codeph>cf-mgmt</codeph>, note that it requires a system with access to the OpenStack
