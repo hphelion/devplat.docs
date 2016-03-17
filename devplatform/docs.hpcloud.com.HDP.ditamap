@@ -8,15 +8,13 @@
 
     <topicref href="2.0/devplatform.release-notes.dita" locktitle="yes" navtitle="Release Notes"/>
     <topicref href="2.0/gibcpatch/devplatform.glibc_patch.dita"
-      navtitle="Upgrading Helion Development Platform with the glibc patch" otherprops="prop1"
+      navtitle="Updating Helion Development Platform with the glibc patch" otherprops="glibc"
       locktitle="yes">
       <topicref
         href="2.0/gibcpatch/devplatform.download_and_install_gibc_patch_for_database_service.dita"
-        navtitle="Download and install glibc patch for Database Service" 
-        locktitle="yes"/>
+        navtitle="Download and install glibc patch for Database Service" locktitle="yes"/>
       <topicref href="2.0/gibcpatch/devplatform.download_and_install_gibc_patch_for_messaging.dita"
-        navtitle="Download and install glibc patch for Messaging Service" 
-        locktitle="yes"/>
+        navtitle="Download and install glibc patch for Messaging Service" locktitle="yes"/>
       <topicref href="2.0/gibcpatch/devplatform.download_and_install_gibc_patch_for_hce.dita"
         navtitle="Update Code Engine Service with glibc patch" locktitle="yes"/>
       <topicref href="2.0/gibcpatch/devplatform.download_and_install_gibc_patch_for_als.dita"
