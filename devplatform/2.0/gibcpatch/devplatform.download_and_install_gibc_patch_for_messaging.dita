@@ -3,7 +3,8 @@
 <topic id="devplatform.download_and_install_gibc_patch_for_messaging">
   <title>Download and install Gnu C Library (glibc) patch for Messaging Service</title>
   <body>
-    <p>Follow these steps to upgrade the Messaging Service with the Gnu C Library (glibc) patch (CVE-2015-7547).</p>
+    <p>Follow these steps to update the Messaging Service with the Gnu C Library (glibc) patch
+      (CVE-2015-7547).</p>
     <ol>
       <li>SSH into the HPE Helion OpenStack lifecycle manager:
         <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="devplatform.download_and_install_gibc_patch_for_messaging">
+  <title>Update Application Lifecycle Service with Gnu C Library (glibc) patch</title>
+  <body>
+    <p><b>Updating Images</b></p>
+    <p>Of the ALS images, only the constructor images are affected by the glibc vulnerabillity.
+      However, updating all of the images is important to stay current. In order to update to the
+      images with the glibc patch, please update to 2.0.0.577.</p>
+    <ul>
+      <li>Updating follows the same steps as ALS installation found here: <xref
+          href="http://docs.hpcloud.com/#devplatform/2.0/installation/devplatform_install_ALS.html"
+          format="html" scope="external">Install the Application Lifecycle Service (ALS)</xref></li>
+    </ul>
+    <p><b>Updating Running Environment</b></p>
+    <p>The following two actions need to be taken for running components before update:</p>
+    <ol>
+      <li>Apply the <xref href="http://www.ubuntu.com/usn/usn-2485-1/" format="html"
+          scope="external">latest security patches</xref> for the Ubuntu operating system of your
+        ALS cluster nodes.</li>
+      <li>Apply the docker image update found here: <xref
+          href="http://docs.stackato.com/admin/best-practices/index.html#to-upgrade-the-docker-image"
+          format="html" scope="external"
+          >Best Practices: To Update the Docker Image</xref></li>
+    </ol>
+    
+  </body>
+</topic>
