@@ -16,10 +16,9 @@
       <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_messaging.dita"
         navtitle="Download and install glibc patch for Messaging Service" locktitle="yes"/>
       <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_hce.dita"
-        navtitle="Download and install glibc patch for Code Engine Service" locktitle="yes"/>
+        navtitle="Update Code Engine Service with glibc patch" locktitle="yes"/>
       <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_als.dita"
-        navtitle="Download and install glibc patch for Application Lifecycle Service"
-        locktitle="yes"/>
+        navtitle="Update Application Lifecycle Service with glibc patch" locktitle="yes"/>
     </topicref>
     <topicref href="2.0/devplatform.thirdparty.licensing.dita" navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
     <topicref href="2.0/devplatform.eula.dita" navtitle="Software License Terms" locktitle="yes"/>
