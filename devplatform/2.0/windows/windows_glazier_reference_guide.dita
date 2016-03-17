@@ -20,11 +20,7 @@
 </prolog>
 <body>
 <p>
-<!--PUBLISHED-->
- <!--./devplatform/windows/windows_glazier_reference_guide.md-->
- <!--permalink: /helion/devplatform/windows/glazier/--></p>
-<p>
-  <!--Original: <span @class=>--><ph>
+  <ph>
     <i>Windows, .NET, SQL Server, and IIS are either registered trademarks or trademarks of Microsoft Corporation in the United States and/or other countries.</i>
   </ph>
 </p>
@@ -48,7 +44,7 @@
 </li>
 </ul>
 <section id="downloading"> <title>Downloading the Glazier tool</title>
-    <p>The Glazier tool can be found here: <xref href="http://clients.als.hpcloud.com/glazier-1.3.0-posix_x86_64.zip" scope="external" format="html" >Download</xref>
+    <p>The Glazier tool can be found here: <xref href="http://clients.als.hpcloud.com/glazier-1.3.100-posix_x86_64.zip" scope="external" format="html" >Download</xref>
 </p>
 </section>
 <section id="prerequisites"> <title>Prerequisites</title>
