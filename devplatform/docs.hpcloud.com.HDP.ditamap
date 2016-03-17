@@ -12,13 +12,13 @@
       otherprops="prop1">
       <topicref
         href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_database_service.dita"
-        navtitle="Download and install glibc patch for Database Service" otherprops="prop1"
-        locktitle="yes"/>
+        navtitle="Download and install glibc patch for Database Service" locktitle="yes"/>
       <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_messaging.dita"
-        navtitle="Download and install glibc patch for Messaging Service" locktitle="yes"
-        otherprops="prop1"/>
+        navtitle="Download and install glibc patch for Messaging Service" locktitle="yes"/>
       <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_hce.dita"
-        navtitle="Download and install glibc patch for Code Engine Service" otherprops="prop1"
+        navtitle="Download and install glibc patch for Code Engine Service" locktitle="yes"/>
+      <topicref href="2.0/glibcpatch/devplatform.download_and_install_gibc_patch_for_als.dita"
+        navtitle="Download and install glibc patch for Application Lifecycle Service"
         locktitle="yes"/>
     </topicref>
     <topicref href="2.0/devplatform.thirdparty.licensing.dita" navtitle="Open Source and Third-Party Software License Agreements" locktitle="yes"/>
