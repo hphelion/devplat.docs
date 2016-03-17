@@ -35,10 +35,7 @@
     <li><xref type="section"  href="#windows_tools/als">ALS Cluster Management (cf-mgmt)</xref></li>
     <li><xref type="section"  href="#windows_tools/helion">Helion client
       (helion)</xref></li>
-   </ul><!--
-   <b>Windows Image Tool</b><ul id="ul_nrc_3hw_js">
-    <li><xref type="section"  href="#windows_tools/glazier">Glazier</xref></li>
-   </ul>-->
+   </ul>
  </section>
  <section id="cloudfoundryextensions"><title>Cloud Foundry Extensions</title> <p>This Visual Studio 2013 extension
     is used to deploy and manage .NET applications. The extension can be used in any edition of VS
@@ -261,16 +258,6 @@
 </ul>
 
  </section>
- <!--<section><title>Windows Image Tool</title></section>
-
- <section id="glazier"><title>Glazier</title>
-
-  <p>Glazier is the tool used to create <tm tmtype="reg">Windows</tm> images for deployment to Helion <tm tmtype="reg">OpenStack</tm> (HOS) Application Lifecycle Service (ALS) clusters. </p>
-
-  <p>Glazier can be downloaded from the following location: <xref format="html" scope="external" href="http://clients.als.hpcloud.com/glazier-1.2.0-posix_x86_64.zip">Download</xref>. </p>
-
-For information on Glazier, see <xref  format="dita" href="windows_glazier_reference_guide.dita">Glazier Reference Guide</xref>.
-</section>-->
 </body>
 </topic>
 
