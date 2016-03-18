@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="devplatform.download_and_install_gibc_patch_for_messaging">
+<topic id="devplatform.download_and_install_gibc_patch_for_als">
   <title>Update Application Lifecycle Service with Gnu C Library (glibc) patch</title>
   <body>
     <p><b>Updating Images</b></p>
