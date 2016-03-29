@@ -55,7 +55,7 @@
 <section id="deploy-the-application"> <title>Deploy the Application</title>
 <p>
 <b>Note</b>: Application Lifecycle Service clusters that require an upstream HTTP proxy to access the internet will need to be <xref href="../../../devplatform/helion/admin/server/1.0configuration.dita#staging-cache-app-http-proxy" type="section"  >made aware of the proxy</xref>. The sample applications require access to the Internet in order to download dependent packages.</p>
-<p>Use the Helion client to deploy your app to Helion Development Platform.  If you have Eclipse installed, you have the option to use the <xref href="../../../devplatform/1.0devplatform.eclipse.dita" >plugin</xref>.</p>
+<p>Use the Helion client to deploy your app to Helion Development Platform.</p>
 <ol>
 <li>Open the <xref href="../../../devplatform/helion/user/reference/1.0client-ref.dita" >Helion command-line interface (CLI)</xref>
 </li>
@@ -139,7 +139,7 @@ Note that <b>name</b> is always required while other fields are optional.</p>
 <section id="key-learnings"> <title>Key Learnings</title>
 <ul>
 <li>
-<p>You can deploy your app using either the Helion CLI or the Eclipse <xref href="../../../devplatform/1.0devplatform.eclipse.dita" >plugin</xref>.</p>
+<p>You can deploy your app using either the Helion CLI.</p>
 </li>
 <li>
 <p>ALS requires configuration information to create an environment for your app. Configuration information is contained in the <i>manifest.yml</i> file.</p>

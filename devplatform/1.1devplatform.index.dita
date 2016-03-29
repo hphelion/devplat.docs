@@ -115,9 +115,6 @@
       </p>
 <p>Use the Helion CLI to deploy your app to the development platform through the command line. <xref href="helion/user/client/1.1index.dita#helion-client-setup" type="section">Setup</xref> instructions are available for here both <tm tmtype="reg">Windows</tm> and Unix/Mac operating systems.</p>
 <p>
-        <b>Eclipse Plugin</b>  If your developers work in the Eclipse IDE, <xref
-          href="1.1devplatform.eclipse.dita">install and use</xref> the Eclipse plug-in to quickly
-        configure the Helion Development Platform as a deployment target for your app.</p>
 </section>
 <section id="installation-options"> <title>Installation Options</title>
 <p>Most of the Helion Development Platform documentation assumes that you've already provisioned an environment where you can deploy your apps. There are two ways to deploy Development Platform technology:</p>

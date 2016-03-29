@@ -40,8 +40,6 @@
     <topicref href="devplatform/1.0devplatform.appdev.dita"
       navtitle="Resources for Application Developers" locktitle="yes" otherprops="app-dev">
       <!--permalink: /helion/devplatform/workbook/database/java/-->
-      <topicref href="devplatform/1.0devplatform.eclipse.dita" locktitle="yes"
-        navtitle="Eclipse Deployment Plugin "/>
       <topicref navtitle="JAVA Samples" href="devplatform/workbook/javaintro.dita" otherprops="java">
         <topicref href="devplatform/workbook/helloworld/1.0helloworld.java.dita" locktitle="yes"
           navtitle="Java Hello World Sample "/>
@@ -74,7 +72,6 @@
       <!--permalink: /helion/devplatform/workbook/messaging/java/-->
       <!--permalink: /helion/devplatform/workbook/messaging/node/-->
       <!--permalink: /helion/devplatform/workbook/messaging/php/-->
-      <!--permalink: /helion/devplatform/eclipse/-->
     </topicref>
     <!--permalink: /helion/devplatform/sysadmin/-->
     <topicref href="devplatform/1.0devplatform.sysadmin.dita" navtitle="Resources for IT Ops"

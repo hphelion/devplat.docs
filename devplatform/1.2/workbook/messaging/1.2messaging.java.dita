@@ -87,7 +87,7 @@
                     href="../../helion/admin/server/1.2configuration.dita#topic31232/staging-cache-app-http-proxy"
                     >made aware of the proxy</xref>. The sample applications require access to the
                 Internet in order to download dependent packages.</p>
-<p>Use the Helion client to deploy your app to Helion Development Platform. If you are using Eclipse, you have the option to use the <xref href="../../1.2devplatform.eclipse.dita" >plugin</xref>.</p>
+<p>Use the Helion client to deploy your app to Helion Development Platform.</p>
 <ol>
 <li>Open the <xref href="../../helion/CLI/1.2ALS_Client_Reference.dita" >Helion command-line interface (CLI)</xref>
 </li>
@@ -222,7 +222,7 @@ applications:
 <li>You will need to provide configuration information so that ALS can bind to a RabbitMQ service.</li>
 <li>You need to provide configuration information so that ALS can create an environment for your app. Tools such as Maven generate the <i>pom.xml</i> files for you.</li>
 <li>You need to retrieve connection information for RabbitMQ from the application's environment variables.</li>
-<li>You interact with and deploy your app using the Helion CLI or the <xref href="../../1.2devplatform.eclipse.dita" >Eclipse deployment plugin</xref>.</li>
+<li>You interact with and deploy your app using the Helion CLI.</li>
 </ol>
 <xref href="../database/1.2database.java.dita" >Previous Sample</xref> | <xref href="../helloworld/1.2helloworld.java.dita" >Next Sample</xref>
 </section>

@@ -56,7 +56,7 @@ instructions further down. But before you push the button, ensure that you have 
           href="../../helion/admin/server/1.2configuration.dita#topic31232/staging-cache-app-http-proxy"
           >made aware of the proxy</xref>. The sample applications require access to the Internet in
         order to download dependent packages.</p>
-<p>The Helion client to deploy your app to Helion Development Platform.  If you are using Eclipse, you can optionally <xref href="../../../../devplatform/1.2/1.2devplatform.eclipse.dita" >use the plugin</xref> to deploy.</p>
+<p>The Helion client to deploy your app to Helion Development Platform.</p>
 <ol>
 <li>Open the <xref href="../../../../devplatform/1.2/helion/user/reference/1.2client-ref.dita" >Helion command-line interface (CLI)</xref>
 </li>

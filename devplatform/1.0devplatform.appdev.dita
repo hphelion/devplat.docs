@@ -41,7 +41,6 @@
 <li>Logon and password credentials for the cluster.</li>
 <li>Access to the <xref href="../devplatform/helion/user/client/1.0index.dita" >Helion command-line interface (CLI)</xref>
 </li>
-<li>(Optional) Access to the <xref href="../devplatform/1.0devplatform.eclipse.dita" >Eclipse</xref> deployment plugin.</li>
 </ul>
 </section>
 <section id="sample"> <title>Sample code</title>

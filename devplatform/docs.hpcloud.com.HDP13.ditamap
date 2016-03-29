@@ -168,9 +168,6 @@
       <topicref href="1.3/helion/user/reference/environment.dita" locktitle="yes"
         navtitle="Environment Variables "/>
       <!--permalink: /helion/devplatform/deploy/-->
-      <!--permalink: /helion/devplatform/eclipse/-->
-      <topicref href="1.3/devplatform.eclipse.dita" locktitle="yes"
-        navtitle="Eclipse Deployment Plugin"/>
       <!--permalink: /helion/devplatform/workbook/database/java/-->
       <topicref href="1.3/devplatform.javacodesamples.dita" navtitle="JAVA Code Samples"
         otherprops="javacodesamples">
