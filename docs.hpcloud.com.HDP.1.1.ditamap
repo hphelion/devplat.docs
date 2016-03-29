@@ -37,9 +37,6 @@
     <!--permalink: /helion/devplatform/1.1/appdev/-->
     <topicref href="devplatform/1.1devplatform.appdev.dita" locktitle="yes"
       navtitle="Resources for Application Developers" otherprops="app-dev">
-      <!--permalink: /helion/devplatform/1.1/eclipse/-->
-      <topicref href="devplatform/1.1devplatform.eclipse.dita" locktitle="yes"
-        navtitle="Eclipse Deployment Plugin "/>
       <!--permalink: /helion/devplatform/1.1/workbook/database/java/-->
       <topicref href="devplatform/1.1devplatform.javacodesamples.dita" navtitle="Java Code Samples"
         locktitle="yes" otherprops="java">
