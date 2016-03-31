@@ -69,11 +69,8 @@
         navtitle="Windows:  .NET Applications Tools Guide"/>
       <topicref href="devplatform/1.2/windows/windows_adding_services.dita" locktitle="yes"
         navtitle="Windows: Adding Services to Applications"/>
-      <!--permalink: /helion/devplatform/1.2/eclipse/-->
       <topicref href="devplatform/1.2/windows/windows_custom_buildpacks.dita" locktitle="yes"
         navtitle="Windows: Deploying .NET Applications with the IIS Buildpack"/>
-      <topicref href="devplatform/1.2/1.2devplatform.eclipse.dita" locktitle="yes"
-        navtitle="Eclipse Deployment Plugin"/>
       <!--permalink: /helion/devplatform/1.2/workbook/database/java/-->
       <topicref href="devplatform/1.2/1.2devplatform.javacodesamples.dita"
         navtitle="Java Code Samples" locktitle="yes" otherprops="java">

@@ -52,7 +52,7 @@ This very simple PHP web app displays the text "Executed query "SELECT "Hello Wo
 <section id="deploy-the-application"> <title>Deploy the Application</title>
 <p>
 <b>Note</b>: Application Lifecycle Service clusters that require an upstream HTTP proxy to access the internet will need to be <xref href="../../../devplatform/helion/admin/server/1.0configuration.dita#staging-cache-app-http-proxy" type="section"  >made aware of the proxy</xref>. The sample applications require access to the Internet in order to download dependent packages.</p>
-<p>Use the Helion client to deploy your app to Helion Development Platform.  If you have Eclipse installed, you have the option to use the <xref href="../../../devplatform/1.0devplatform.eclipse.dita" >plugin</xref>.</p>
+<p>Use the Helion client to deploy your app to Helion Development Platform.</p>
 <ol>
 <li>Open the <xref href="../../../devplatform/helion/user/reference/1.0client-ref.dita" >Helion command-line interface (CLI)</xref>
 </li>
@@ -159,7 +159,7 @@ applications:
 <li>ALS requires configuration information so that it can bind to a MySQL service. Configuration information is contained in the <i>manifest.yml</i> file.</li>
 <li>You will need to provide information about which build pack to use for PHP so that ALS can create an environment for your app. Configuration information is contained in the <i>manifest.yml</i> file.</li>
 <li>You will need to retrieve connection information for MySQL from the application's environment variables and then parse that information into a connection string that can be used by PHP.</li>
-<li>You interact with and deploy your app using the Helion CLI or the Eclipse <xref href="../../../devplatform/1.0devplatform.eclipse.dita" >plugin</xref>.</li>
+<li>You interact with and deploy your app using the Helion CLI.</li>
 </ol>
 <p>
 <xref href="../../../devplatform/1.0devplatform.appdev.dita" >Exit Samples</xref> | <xref href="../../../devplatform/workbook/helloworld/1.0helloworld.php.dita" >Previous Sample</xref> | <xref href="../../../devplatform/workbook/messaging/1.0messaging.php.dita" >Next Sample</xref>

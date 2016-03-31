@@ -269,8 +269,6 @@
       </topicref>
       <topicref href="2.0/helion/user/reference/environment.dita" locktitle="yes"
         navtitle="Environment Variables "/>
-      <topicref href="2.0/devplatform.eclipse.dita" locktitle="yes"
-        navtitle="Eclipse Deployment Plugin"/>
       <topicref href="2.0/java_code_samples.dita" otherprops="java-code">
         <topicref href="2.0/workbook/helloworld/helloworld.java.dita" locktitle="yes"
           navtitle="Java Hello World Sample"/>
