@@ -31,7 +31,9 @@
             can be significant.</note></li>
         <li>Create the <codeph>clouds.yaml</codeph> configuration file. <ol id="ol_ox4_khb_h5">
             <li> Create this directory: <codeblock>mkdir -p ~/.config/openstack/</codeblock></li>
-            <li>Create a plaintext file named <codeph>clouds.yaml</codeph> in that directory.</li>
+            <li>Create a plaintext file named <codeph>clouds.yaml</codeph> in that directory.
+            <note>If there is a yaml file in the directory where you run HDPI, the installer will use that file instead. Ensure that there is no yaml file in the installation 
+            directory.</note></li>
           </ol></li>
         <li>Provide the required information for the<xref href="cloud/cloud_platform.dita"> Platform
             Configuration</xref> section of the <codeph>clouds.yaml</codeph> file. If you prefer,
