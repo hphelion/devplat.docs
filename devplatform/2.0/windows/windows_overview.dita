@@ -185,7 +185,7 @@
         <xref type="section" href="#topic24073_2/licensing" format="dita">Windows Instance Licensing</xref> for details.</li>
     <li> Virtual Box version 4.3.26 or later: <xref format="html" scope="external" href="https://www.virtualbox.org/wiki/Downloads">Download</xref></li>
     <li> Virtio drivers version 0.1-81: 
-        <xref format="html" scope="external" href="https://fedorapeople.org/groups/virt/virtio-win/deprecated-isos/stable/virtio-win-0.1-81.iso">Download</xref></li>
+        <xref format="html" scope="external" href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.96/virtio-win-0.1.96.iso">Download</xref></li>
     <li> The Glazier tool: <xref format="html" scope="external" href="http://clients.als.hpcloud.com/glazier-1.3.0-posix_x86_64.zip">Download</xref></li>
     <li> If applications are to be deployed and managed from the development environment, any edition of Visual Studio 2013, including the Community (free) edition.</li>
     <li> The <xref href="windows_tools_guide.dita#windows_tools/cloudfoundryextensions">Cloud Foundry Explorer Visual Studio extension</xref>. This
