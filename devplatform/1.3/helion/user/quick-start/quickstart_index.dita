@@ -38,7 +38,6 @@ been set up for you on the system.</p>
 <p>The interface should be mostly self-explanatory. It exposes most of the
 functionality you have access to as an end user, but to deploy your own
 applications from source code on your local machine you will need to install and use the Helion <xref href="../client/client_index.dita" >Application Lifestyle Service client</xref>.</p>
-<p>There is also an <xref href="../../../devplatform.eclipse.dita" >Eclipse plugin</xref> available for the Management Console to facilitate pushing applications.</p>
 </section>
 <section id="helion-client"> <title>Application Lifecycle Service Client</title> 
 <p>The Helion client pushes applications and provides access to the system from the command line.</p>
