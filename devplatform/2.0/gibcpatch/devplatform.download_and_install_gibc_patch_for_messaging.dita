@@ -7,7 +7,11 @@
       (CVE-2015-7547).</p>
     <ol>
       <li>Download the <xref href="../../../media/devplat.docs/cue-update-packages.sh">update script</xref> (<codeph>cue-update-packages.sh</codeph>).</li>
-      <li>Download the following Debian packages: <xref href="../../../media/devplat.docs/libc6_2.19-18+deb8u3_amd64.deb">libc6_2.19-18+deb8u3_amd64.deb</xref> <xref href="../../../media/devplat.docs/libc6_2.19-18+deb8u3_amd64.deb">libc6_2.19-18+deb8u3_amd64.deb</xref></li>
+      <li>Download the following Debian packages: 
+        <ul>
+          <li><xref href="../../../media/devplat.docs/libc6_2.19-18+deb8u3_amd64.deb">libc6_2.19-18+deb8u3_amd64.deb</xref></li>
+          <li><xref href="../../../media/devplat.docs/libc-bin_2.19-18+deb8u3_amd64.deb">libc-bin_2.19-18+deb8u3_amd64.deb</xref></li>
+        </ul> </li>
       <li>SSH into the HPE Helion OpenStack lifecycle manager:
         <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
       <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
