@@ -6,7 +6,8 @@
     <p>Follow these steps to update the Messaging Service with the Gnu C Library (glibc) patch
       (CVE-2015-7547).</p>
     <ol>
-      <li><xref href="../../../media/devplat.docs/cue-update-packages.sh" scope="local" format="sh">Download</xref> the update script (<codeph>cue-update-packages.sh</codeph>).</li>
+      <li>Download the <xref href="../../../media/devplat.docs/cue-update-packages.sh">update script</xref> (<codeph>cue-update-packages.sh</codeph>).</li>
+      <li>Download the following Debian packages: <xref href="../../../media/devplat.docs/libc6_2.19-18+deb8u3_amd64.deb">libc6_2.19-18+deb8u3_amd64.deb</xref> <xref href="../../../media/devplat.docs/libc6_2.19-18+deb8u3_amd64.deb">libc6_2.19-18+deb8u3_amd64.deb</xref></li>
       <li>SSH into the HPE Helion OpenStack lifecycle manager:
         <codeblock>ssh stack@&lt;hos-deployer-ip&gt;</codeblock></li>
       <li>From the HPE Helion OpenStack lifecycle manager, SSH into the Messaging deployer node.
