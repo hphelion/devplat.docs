@@ -203,6 +203,18 @@ wget http://www.cnn.com/</codeblock></li>
                 format="html" scope="external"
                 >http://docs.openstack.org/user-guide-admin/content/cli_set_quotas.html</xref></li>
           </ul></p>
+      <p><b>Volumes</b></p>
+      <p>Both ALS core and the services require volumes. The following information applies to volumes used by ALS:</p>
+      <ul>
+        <li>The default behavior if no volume information is provided is that all volumes are managed by Nova and are tied to the instance. This is not recommended.</li>
+        <li>The recommended configuration is to use a persistent volume for reliability clusters. These volumes require <xref
+          href="http://docs.hpcloud.com/#helion/blockstorage/singleton_service_cinder.html"
+          format="html" scope="external">Cinder</xref>.</li>
+        <li>In <xref
+              href="http://docs.hpcloud.com/#devplatform/2.0/helion/CLI/ALS_Client_Reference.html"
+              format="html" scope="external">cf-mgmt</xref>, if you specify the volume size for the
+            core and/or the service, you will be creating a Cinder volume.</li>
+      </ul>
       </sectiondiv></section>
     <section><title outputclass="headerH">Firewall Rules</title><sectiondiv
         outputclass="insideSection">
