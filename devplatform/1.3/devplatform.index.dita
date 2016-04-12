@@ -86,7 +86,7 @@
   href="helion/user/client/client_index.dita#topic3165/helion-client-setup"
           >Setup</xref> instructions are available for here both <tm tmtype="reg">Windows</tm> and
         Unix/Mac operating systems.</p>
-<p>
+ 
 </section>
 <section id="installation-options"> <title>Installation Options</title> 
 <p>Most of the Helion Development Platform documentation assumes that you've already provisioned an environment where you can deploy your apps. There are two ways to deploy Development Platform technology:</p>
