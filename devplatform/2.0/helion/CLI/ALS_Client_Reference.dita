@@ -37,6 +37,11 @@
           <li><xref type="section" href="#topic13234/removeservice">Remove a Service from an
               Existing Cluster</xref>
           </li>
+          <li>
+            <xref type="section" href="#topic13234/configurecluster">Configure a Cluster</xref></li>
+          <li>
+            <xref type="section" href="#topic13234/stampcluster">Stamp a Cluster with a Guid</xref></li>
+          
         </ul></li>
     </ul>
     <section id="configuration-values">
@@ -336,6 +341,14 @@
             <row>
               <entry>update, up</entry>
               <entry>Update to the most recent version of <i>cf-mgmt</i></entry>
+            </row>
+            <row>
+              <entry>configure-cluster, cfc</entry>
+              <entry>Configure cluster</entry>
+            </row>
+            <row>
+              <entry>stamp-cluster, stc</entry>
+              <entry>Stamp a cluster with a GUID</entry>
             </row>
             <row>
               <entry>help, h</entry>
@@ -1569,6 +1582,12 @@
         </tbody>
       </tgroup>
     </table>
+  </section>
+  <section id="configurecluster">
+    <title>Configure Cluster</title>
+  </section>
+  <section id="stampcluster">
+    <title>Stamp a Cluster with a GUID</title>
   </section>
    </body>
 </topic>
