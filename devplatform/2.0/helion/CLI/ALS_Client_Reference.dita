@@ -37,6 +37,10 @@
           <li><xref type="section" href="#topic13234/removeservice">Remove a Service from an
               Existing Cluster</xref>
           </li>
+          <li>
+            <xref type="section" href="#topic13234/configurecluster">Configure a Cluster</xref></li>
+          
+          
         </ul></li>
     </ul>
     <section id="configuration-values">
@@ -338,6 +342,10 @@
               <entry>Update to the most recent version of <i>cf-mgmt</i></entry>
             </row>
             <row>
+              <entry>configure-cluster, cfc</entry>
+              <entry>Configure cluster</entry>
+            </row>
+            <row>
               <entry>help, h</entry>
               <entry>Displays a list of available commands or help for a command.</entry>
             </row>
@@ -349,9 +357,11 @@
       <title>Create a Cluster</title>
       <p>This command creates a cluster. (<i>create-cluster</i>).</p>
       <codeblock>cf-mgmt [global options] <b>create-cluster</b> [command options] [arguments...] </codeblock>
-      <p><note>When creating clusters that support Keystone v3, you will need to <xref
+      <p><note><p>When creating clusters that support Keystone v3, you will need to <xref
             href="cfmgmt_configure_keystonev3.dita#topic_j5v_bsb_rt">modify the configuration
-            file</xref> first.</note>For help with this command within the command-line interface,
+        file</xref> first.</p><p>For more information on DNS suffix requirements, see the full <xref
+              href="helion/admin/server/configuration.dita#topic31232/server-config-dns"
+              >configuration</xref> documentation.</p></note>For help with this command within the command-line interface,
         enter</p>
       <codeblock>cf-mgmt help create-cluster</codeblock>
       <table>
@@ -1562,6 +1572,163 @@
             <entry>--stack 'lucid64'</entry>
             <entry>Stack indicates the platform to use when adding DEAs. Valid values are lucid64
               or win2012r2. Default is lucid64</entry>
+            <entry>No</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
+  <section id="configurecluster">
+    <title>Configure Cluster</title>
+  </section>
+  <section id="configure-cluster-use-syntax">
+    <title>Use Syntax</title>
+    <codeblock>cf-mgmt configure-cluster [command options] [arguments...]</codeblock>
+    <p>For help with this command within the command-line interface, enter</p>
+    <codeblock>cf-mgmt configure-cluster --help</codeblock>
+  </section>
+  <section id="configure-cluster-sub-command-options">
+    <title>Sub-Command Options</title>
+    <codeblock>cf-mgmt [global options] configure-cluster [subcommand] <b>[subcommand options]</b> [arguments...]</codeblock>
+    <table>
+      <tgroup cols="3">
+        <colspec colname="col1" colwidth="1*"/>
+        <colspec colname="col2" colwidth="2.13*"/>
+        <colspec colname="newCol3" colwidth="1.56*"/>
+        <thead>
+          <row>
+            <entry>Options (with default input)</entry>
+            <entry>Description</entry>
+            <entry>Required</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>--load</entry>
+            <entry>Load flags from the specified file</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--save</entry>
+            <entry>Save flag values to the specified file</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--private-key</entry>
+            <entry>The private key file needed to connect to cluster nodes</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--cluster-prefix</entry>
+            <entry>Prefix to affix to cluster instance names.</entry>
+            <entry>Yes</entry>
+          </row>
+          <row>
+            <entry>--cluster-id</entry>
+            <entry>Cluster ID</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--cluster-host-name</entry>
+            <entry>The cluster host name for the router.</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--ssl-public-cert</entry>
+            <entry>The SSL public certificate file</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--ssl-private-key</entry>
+            <entry>The SSL private key file</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--allow-ssl-spoofing</entry>
+            <entry>The cluster is configured by default configured to not allow spoofing. If ssl is terminated at the load balancer set to true</entry>
+            <entry>No</entry>
+          </row> 
+          <row>
+            <entry>--keypair-name</entry>
+            <entry>The name of the key pair on instances</entry>
+            <entry>Yes</entry>
+          </row>
+          <row>
+            <entry>--constructor-image-name</entry>
+            <entry>Name of the image of the constructor server.</entry>
+            <entry>Required only if <codeph>constructor-node-image-id</codeph> is undefined.
+              Optional if <codeph>constructor-node-image-id</codeph> is defined.</entry>
+          </row>
+          <row>
+            <entry>--constructor-image-id</entry>
+            <entry>ID of the image of the constructor server.</entry>
+            <entry>Required only if <codeph>constructor-node-image-name</codeph> is undefined.
+              Optional if <codeph>constructor-node-image-name</codeph> is defined.</entry>
+          </row>
+          <row>
+            <entry>--constructor-flavor</entry>
+            <entry>Flavor for the constructor server</entry>
+            <entry>Yes</entry>
+          </row>
+          <row>
+            <entry>--max-cluster-wait-duration "4m"'</entry>
+            <entry>Duration to wait for the cluster deletion to occur, defaults to 4 minutes</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--subnet-name</entry>
+            <entry>Deprecated in favor of network-name</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--subnet-id</entry>
+            <entry>Deprecated in favor of network-id</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--network-id</entry>
+            <entry>ID of the network for the created nodes</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--network-name </entry>
+            <entry>Name of the network for the created nodes</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--external-network-id</entry>
+            <entry>ID of the external network for the public created nodes.</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--external-network-name </entry>
+            <entry>Name of the external network for the public created nodes.</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--max-constructor-wait-duration "10m"</entry>
+            <entry>Duration to wait for the constructor machine to come up. Default is 10
+              minutes.</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--no-prompt</entry>
+            <entry>On deleting the cluster do not prompt</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--delete-database</entry>
+            <entry>On deleting the cluster also include deleting the cluster databases</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--delete-volume</entry>
+            <entry>On deleting the cluster also include deleting the cluster volumes</entry>
+            <entry>No</entry>
+          </row>
+          <row>
+            <entry>--keep-constructor </entry>
+            <entry>Keep the constructor VM running after command completion.</entry>
             <entry>No</entry>
           </row>
         </tbody>
