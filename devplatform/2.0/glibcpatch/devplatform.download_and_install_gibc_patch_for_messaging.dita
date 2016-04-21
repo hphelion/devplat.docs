@@ -22,7 +22,7 @@
         <codeblock>ssh stack@&lt;messaging-deployer-ip&gt;</codeblock></li>
       <li>Source <codeph>user.osrc</codeph>
         <codeblock>source ~/user.osrc</codeblock></li>
-      <li>Copy the Debian pacakges from the location where you downloaded them to the <codeph>stack</codeph> user's home directory.</li>
+      <li>Copy the Debian package files to the <codeph>stack</codeph> user's home directory on the messaging deployer.</li>
       <li>Navigate to the <codeph>ansible</codeph> scratch directory.
         <codeblock>cd scratch/ansible/next/hos/ansible/</codeblock></li>
       <li>Run the <codeph>cue-update-packages.sh</codeph> script:
