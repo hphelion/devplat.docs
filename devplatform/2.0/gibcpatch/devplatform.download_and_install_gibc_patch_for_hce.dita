@@ -12,7 +12,7 @@
       <li>When the backup process succeeds, you should see a message that looks like this:
         <codeblock>Backup successful! Please find the backup archive at ~/helioncibackup_v1.0.2.tar</codeblock></li>
       <li>Run this command to copy this file off of the deployer onto the hos instance:
-        <codeblock>scp /helioncibackup_v1.0.2.tar stack@&lt;HOS Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
+        <codeblock>scp ~/helioncibackup_v1.0.2.tar stack@&lt;HOS Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
       <li>Once this file is safely off the helionce-deployer, you can delete the <b>helionce</b> instances and the <b>helionce-deployer</b>.</li>
     </ol>
     <p>Follow these steps too restore an instance of Helion CE from the backup:</p>
@@ -21,7 +21,7 @@
         <xref format="html" href="https://docs.hpcloud.com/#devplatform/2.0/installation/install_engine.html" scope="external">Install the HPE Helion Code Engine</xref></li>
       <li>Once the installation steps are complete, copy the backup that was previously created onto the Helion CE deployer.</li>
       <li> From the HOS deployer, run the following command:
-        <codeblock>scp /helioncibackup_v1.0.2.tar stack@&lt;HelionCE Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
+        <codeblock>scp ~/helioncibackup_v1.0.2.tar stack@&lt;HelionCE Deployer IP&gt;:/helioncibackup_v1.0.2.tar</codeblock></li>
       <li>Login to the <b>helionce-deployer</b> instance.</li>
       <li>Navigate to the <codeph>/home/stack/scratch/ansible/next/hos/ansible</codeph> directory.</li>
       <li>Run the following command to restore the contents of the database from your previous instance of Helion CE:
