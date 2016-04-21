@@ -12,19 +12,19 @@
         installation procedure for that service. All fields are required unless otherwise
         indicated.</p><p>
         <note type="important">This section begins at the left margin. All other sections begin
-          indented four spaces; look at the <xref href="fullFile.dita">complete file</xref> to see
+          indented two spaces; look at the <xref href="fullFile.dita">complete file</xref> to see
           how all the sections fit together.</note>
       </p><codeblock id="cloudplatform">clouds:
   mycloud:
-    codn_username: 
-    codn_password: 
+    codn_username: <i>&lt;username for the Helion Download Network account></i>
+    codn_password: <i>&lt;password for the Helion Download Network account></i>
     region_name: region1
-    cacert: 
+    cacert: <i>&lt;SSL Certificate Location></i>
     auth:
-      auth_url: https://##.##.###.#:#####/v3 (or v2, depending on the version of Keystone authentication in use)
-      project_name: &lt;admin project name&gt;
-      username: &lt;admin user name&gt;
-      password: &lt;admin password&gt;</codeblock><dl>
+    auth_url: <i>&lt;https://##.##.###.#:#####/v3&gt; (or /v2.0, depending on the version of Keystone authentication in use)</i>
+      project_name: <i>&lt;admin project name&gt;</i>
+      username: <i>&lt;admin user name&gt;</i>
+      password: <i>&lt;admin password&gt;</i></codeblock><dl>
         <dlentry>
           <dt>codn_username</dt>
           <dd>The username for the HDN (Helion Download Network) account. (The name of the download
@@ -37,11 +37,13 @@
         </dlentry>
         <dlentry>
           <dt>region_name</dt>
-          <dd>Default value is <codeph>region1 </codeph></dd>
+          <dd>Default value is <codeph>region1</codeph></dd>
         </dlentry>
         <dlentry>
           <dt>cacert</dt>
-          <dd>The location where the SSL certificates can be accessed.</dd>
+          <dd>The location where the SSL certificates can be accessed. Unless you have a specific
+            SSL certificate you would prefer to use, use this one:
+              <codeph>~/usr/local/share/ca-certificates/hpes_cacert.crt</codeph></dd>
         </dlentry>
         <dlentry>
           <dt>auth_url</dt>
@@ -50,9 +52,8 @@
                 <codeph>~/service.osrc</codeph> It may be either <codeph>https</codeph> or
                 <codeph>http</codeph> depending on how HPE Helion <tm tmtype="reg">OpenStack</tm>
               was installed.</p>
-            <p>The end of this URL will be <codeph>/v3</codeph> or <codeph>/v2</codeph> depending on
+            <p>The end of this URL will be <codeph>/v3</codeph> or <codeph>/v2.0</codeph> depending on
               which version of Keystone authentication is in use in your environment.</p>
-
             <p>Example:</p>
             <p>
               <pre>user@host:~$ grep OS_AUTH_URL ~/service.osrc</pre>
