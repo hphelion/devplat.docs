@@ -1625,7 +1625,7 @@
           </row>
           <row>
             <entry>--cluster-id</entry>
-            <entry>The cluster to configure.</entry>
+            <entry>Cluster ID</entry>
             <entry>No</entry>
           </row>
           <row>
@@ -1667,12 +1667,12 @@
           </row>
           <row>
             <entry>--constructor-flavor</entry>
-            <entry>Flavor name reference to use when creating a constructor server</entry>
+            <entry>Flavor for the constructor server</entry>
             <entry>Yes</entry>
           </row>
           <row>
-            <entry>--max-cluster-wait-duration '-1'</entry>
-            <entry>Maximum time to wait for addition of node or service to cluster; defaults to 4 minutes.</entry>
+            <entry>--max-cluster-wait-duration "4m"'</entry>
+            <entry>Duration to wait for the cluster deletion to occur, defaults to 4 minutes</entry>
             <entry>No</entry>
           </row>
           <row>
@@ -1706,7 +1706,7 @@
             <entry>No</entry>
           </row>
           <row>
-            <entry>--max-cluster-wait-duration '10m'</entry>
+            <entry>--max-constructor-wait-duration "10m"</entry>
             <entry>Duration to wait for the constructor machine to come up. Default is 10
               minutes.</entry>
             <entry>No</entry>
