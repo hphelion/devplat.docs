@@ -154,7 +154,7 @@
 <ol>
 
     <li> Obtain a Windows 2012 R2 server license and ISO image.</li>
-    <li> Download the <xref format="html" scope="external" href="http://clients.als.hpcloud.com/glazier-1.3.0-posix_x86_64.zip">Glazier</xref> tool.</li>
+    <li> Download the <xref format="html" scope="external" href="http://clients.als.hpcloud.com/glazier-1.3.106-posix_x86_64.zip">Glazier</xref> tool.</li>
     <li> Use the Glazier tool to create and upload your Windows images.</li>
     <li> Add Windows DEAs to your cluster</li>
     <li> Add SQL Server services to your cluster.</li>
@@ -186,7 +186,7 @@
     <li> Virtual Box version 4.3.26 or later: <xref format="html" scope="external" href="https://www.virtualbox.org/wiki/Downloads">Download</xref></li>
     <li> Virtio drivers version 0.1-81: 
         <xref format="html" scope="external" href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.96/virtio-win-0.1.96.iso">Download</xref></li>
-    <li> The Glazier tool: <xref format="html" scope="external" href="http://clients.als.hpcloud.com/glazier-1.3.0-posix_x86_64.zip">Download</xref></li>
+    <li> The Glazier tool: <xref format="html" scope="external" href="http://clients.als.hpcloud.com/glazier-1.3.106-posix_x86_64.zip">Download</xref></li>
     <li> If applications are to be deployed and managed from the development environment, any edition of Visual Studio 2013, including the Community (free) edition.</li>
     <li> The <xref href="windows_tools_guide.dita#windows_tools/cloudfoundryextensions">Cloud Foundry Explorer Visual Studio extension</xref>. This
                     extension can be found by searching for <b>Cloud Foundry Explorer</b> in the
