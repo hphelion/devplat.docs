@@ -75,9 +75,7 @@
       <topicref href="2.0/uninstallation/devplatform_uninstall_platform.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_ALS.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_database.dita"/>
-      <topicref href="2.0/uninstallation/devplatform_uninstall_marketplace.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_messaging.dita"/>
-      <topicref href="2.0/uninstallation/devplatform_uninstall_vertica.dita"/>
     </topicref>
  
     
