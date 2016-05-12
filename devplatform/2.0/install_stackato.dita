@@ -35,7 +35,7 @@
        <li>Update Stackato to the latest patch release with <codeph>kato patch install</codeph> </li>
        <li>On the HDP core node, run the following:
               <codeblock>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config 
-           --stackato-rest-db &lt;filename&gt;.tar.gz</codeblock>
+--stackato-rest-db &lt;filename&gt;.tar.gz</codeblock>
               to <xref
                 href="https://docs.stackato.com/admin/best-practices/index.html#backing-up-and-migrating-data"
                 format="html" scope="external">backup the user and system configuration</xref>
