@@ -29,6 +29,7 @@
       navtitle="Upgrading HPE Helion OpenStack to Version 2.1" locktitle="yes">
       <topicref href="2.0/installation/cue_rabbit_fix_script.dita" toc="no"/>
     </topicref>
+    <topicref href="2.0/install_stackato.dita"/>
  
       <!--<topicref href="2.0/installation/devplatform_commercial_install.dita" navtitle="Full Platform Installation - All Services" locktitle="yes"/>-->
     <topicref href="2.0/installation/installation.dita" navtitle="Installation" otherprops="install">

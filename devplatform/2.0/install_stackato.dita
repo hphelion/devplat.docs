@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="install_stackato">
+  <title>Installing Stackato 3.6.2 on Helion OpenStack (HOS) 2.0 and 3.0</title>
+  <body>
+    <p>Helion Development Platform (HDP) 2.0 or earlier versions are not supported 
+      on Helion OpenStack 3.0. If you have existing HDP 2.0 deployment on HOS 2.X platform, 
+      consider the following before upgrading to HOS 3.0. </p>
+    <ul>
+      <li>Helion Stackato 3.6.2 is the recommended and supported PaaS product on HOS 3.0. </li>
+      <li>Helion Database Service and Messaging Service are not included and not supported on HOS 3.0. </li>
+    </ul>
+    <p>To get to the supported configuration of Stackato 3.6.2 on HOS 3.0, you have two options. </p>
+    <ul>
+      <li>Upgrade: Install Stackato on HOS 2.1, migrate applications, and upgrade to HOS 3.0 in place</li>
+      <li>Fresh install: Install a new HOS 3.0 environment, install Stackato 3.6.2 while keeping your HDP 2.0 environment, and migrate applications from the old HOS 2.1 environment
+      to the new HOS 3.0 environment.</li>
+    </ul>
+   <section id="upgrade"><title>Upgrade</title>
+   <p>This section describes how to install Stackato 3.6.2 on HOS 2.1, migrate applications, and upgrade HOS to 3.0 in place.</p>
+   <ol>
+     <li><xref href="https://docs.stackato.com/admin/server/openstack.html" format="html"
+            scope="external">Install Stackato 3.6.2 on HOS 2.1.</xref>
+          <ol>
+            <li>Download the Stackato OpenStack VM image </li>
+            <li>Import the image into OpenStack </li>
+          </ol></li>
+     <li>Create a Stackato cluster on HOS 2.1 to replace your existing HDP 2.0 ALS cluster. 
+     <ol>
+       <li><xref href="http://docs.stackato.com/admin/cluster/index.html" format="html"
+                scope="external">Set up a new Stackato cluster</xref> with a new basename / API
+              endpoint </li>
+       <li>Update Stackato to the latest patch release with <codeph>kato patch install</codeph> </li>
+       <li>On the HDP core node, run the following:
+              <codeblock>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config 
+           --stackato-rest-db &lt;filename&gt;.tar.gz</codeblock>
+              to <xref
+                href="https://docs.stackato.com/admin/best-practices/index.html#backing-up-and-migrating-data"
+                format="html" scope="external">backup the user and system configuration</xref>
+            </li>
+       <li><xref
+                href="https://docs.stackato.com/admin/best-practices/index.html#importing-server-data"
+                format="html" scope="external">Import the HDP cluster config backup</xref> into the
+              new Stackato cluster using <codeph>kato data import ...</codeph></li>
+       <li>Test the new Stackato cluster to ensure Users, Orgs, Spaces, Quotas and system settings have been imported correctly. </li>
+     </ol></li>
+     <li>Give Developers the new API endpoint and instruct them to redeploy their applications 
+       <ol><li>Developers should <xref href="http://downloads.stackato.com/client/" format="html"
+                scope="external">download the latest version of the stackato client</xref>
+              (Optional: The helion client is identical in functionality, but the current stackato
+              client is more up-to-date) </li>
+         <li>Developers can use <codeph>stackato dbshell</codeph> or <codeph>stackato ssh/scp</codeph> to retrieve data from bound services and filesystems.  </li>
+       </ol></li>
+     <li>Add domains and routes (for production apps): After testing applications with the default (new) basename:  
+       <ol><li><xref href="https://docs.stackato.com/user/deploy/domains-routes.html" format="html"
+                scope="external">Add the necessary domains</xref> and map production URLs to the
+              applications </li>
+         <li>Switch DNS A and CNAME records to point those domains to the new system </li>
+         <li>(optional) Rename the Stackato API endpoint to match the original HDP API endpoint or
+              create <xref
+                href="http://docs.stackato.com/admin/server/configuration.html#alternative-log-and-api-endpoints"
+                format="html" scope="external">an endpoint alias</xref> (and switch existing DNS
+              records) </li></ol></li>
+     <li>After migration is complete, you may stop or terminate HDP 2.0 cluster instances.</li>
+     <!--<li>Uninstall HDP 2.0.</li>-->
+     <li><xref href="http://docs.hpcloud.com/#3.x/helion/upgrade/upgrade_overview.html"
+            format="html" scope="external">Upgrade HOS 2.1 to HOS 3.0.</xref></li>
+     <li>Start all Stackato nodes in HOS 3.0 if they do not boot automatically 
+       <ol><li>Run <codeph>kato status</codeph> on the core node. If any roles or nodes are in a stopped state, start them manually using 
+         <codeph>kato start &lt;role&gt;</codeph> or <codeph>kato start –node &lt;node-IP&gt;</codeph> </li></ol></li>
+     <li>Ensure the new Stackato cluster is functioning correctly and apps are responding.  </li>
+   </ol></section>
+  <section id="freshinstall"><title>Fresh Install of HOS 3.0</title>
+    <p>This section describes how to install a new HOS 3.0 environment, install Stackato 3.6.2 while keeping your HDP 2.0 environment, and migrate applications from the old HOS 2.1 environment
+      to the new HOS 3.0 environment.</p></section>
+    <ol>
+      <li><xref href="http://docs.hpcloud.com/#3.x/helion/installation/installation_overview.html"
+          format="html" scope="external">Install HOS 3.0</xref></li>
+      <li>Make a backup of Users, Orgs, Spaces, Quotas and system settings from the HDP 2.0 cluster
+        <ol><li>On the HDP core node, run <codeph>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config --stackato-rest-db &lt;filename&gt;.tar.gz</codeph> </li>
+          <li>Save the generated file, this will be used later to import the settings into your new cluster</li></ol></li>
+      <li><xref href="https://docs.stackato.com/admin/server/openstack.html" format="html"
+          scope="external">Install Stackato 3.6.2</xref> on HOS 3.0. 
+        <ol>
+          <li>Download the Stackato OpenStack VM image </li>
+          <li>Import the image into OpenStack </li>
+        </ol></li>
+      <li>Create a Stackato cluster to replace your existing HDP 2.0 ALS cluster. 
+        <ol>
+          <li><xref href="http://docs.stackato.com/admin/cluster/index.html" format="html"
+            scope="external">Set up a new Stackato cluster</xref> with a new basename / API
+            endpoint </li>
+          <li>Update Stackato to the latest patch release with <codeph>kato patch install</codeph> </li>
+          <li>On the HDP core node, run the following:
+            <codeblock>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config 
+              --stackato-rest-db &lt;filename&gt;.tar.gz</codeblock>
+            to <xref
+              href="https://docs.stackato.com/admin/best-practices/index.html#backing-up-and-migrating-data"
+              format="html" scope="external">backup the user and system configuration</xref>
+          </li>
+          <li><xref
+            href="https://docs.stackato.com/admin/best-practices/index.html#importing-server-data"
+            format="html" scope="external">Import the HDP cluster config backup</xref> into the
+            new Stackato cluster using <codeph>kato data import ...</codeph></li>
+          <li>Test the new Stackato cluster to ensure Users, Orgs, Spaces, Quotas and system settings have been imported correctly. </li>
+        </ol></li>
+      <li>Give Developers the new API endpoint and instruct them to redeploy their applications 
+        <ol><li>Developers should <xref href="http://downloads.stackato.com/client/" format="html"
+          scope="external">download the latest version of the stackato client</xref>
+          (Optional: The helion client is identical in functionality, but the current stackato
+          client is more up-to-date) </li>
+          <li>Developers can use <codeph>stackato dbshell</codeph> or <codeph>stackato ssh/scp</codeph> to retrieve data from bound services and filesystems.  </li>
+        </ol></li>
+      <li>Add domains and routes (for production apps): After testing applications with the default (new) basename:  
+        <ol><li><xref href="https://docs.stackato.com/user/deploy/domains-routes.html" format="html"
+          scope="external">Add the necessary domains</xref> and map production URLs to the
+          applications </li>
+          <li>Switch DNS A and CNAME records to point those domains to the new system </li>
+          <li>(optional) Rename the Stackato API endpoint to match the original HDP API endpoint or
+            create <xref
+              href="http://docs.stackato.com/admin/server/configuration.html#alternative-log-and-api-endpoints"
+              format="html" scope="external">an endpoint alias</xref> (and switch existing DNS
+            records) </li></ol></li>
+      <li>Start all Stackato nodes in HOS 3.0 if they do not boot automatically 
+        <ol><li>Run <codeph>kato status</codeph> on the core node. If any roles or nodes are in a stopped state, start them manually using 
+          <codeph>kato start &lt;role&gt;</codeph> or <codeph>kato start –node &lt;node-IP&gt;</codeph> </li></ol></li>
+      <li>Ensure the new Stackato cluster is functioning correctly and apps are responding. </li>
+      <li>(optional) Dispose of your previous HOS 2.0 environment. </li>
+    </ol>
+    <p><b>Important Note</b></p>
+    <p>HDP Database Service (Trove) and HDP Messaging Service (Cue) are not included and not supported on HOS 3.0. 
+      For fresh installs that require these services, or if you have existing deployments of these 
+      services on your HOS 2.X environment, before upgrading to HOS 3.0, consider the following. </p>
+    <ul>
+      <li>The Stackato platform provides a deployment independent database access by supporting an ODBC/JDBC connection to external databases. 
+        This method simply requires a database endpoint and credentials.  Existing database systems could be used for Stackato access.  </li>
+      <li>For applications that integrate with external data services, or that use HDP Database
+        Service (OpenStack Trove), we recommend using the new Universal Service Broker (USB) for
+        this connectivity. <xref href="http://docs.stackato.com/admin/server/system-services.html"
+          format="html" scope="external">See instructions</xref> for installing USB and adding
+        external services. The USB command line client can be used to administer the USB (<xref
+          href="http://docs.stackato.com/admin/reference/usbc-ref.html" format="html"
+          scope="external">see list of commands here</xref>). </li>
+      <li>We recommend that you perform a full backup of your client databases before upgrading to HOS 3.0, and plan for downtime for the upgrade. </li>
+      <li>As a replacement for Helion Messaging Service, we are recommending that if you want to deploy a messaging queue service, you choose the service 
+        that best meets your development needs and install the target service as a VM-based workload in Helion OpenStack via the product specific installer 
+        functions. Stackato also provides RabbitMQ service for messaging service needs of your applications. </li>
+      <li>If you use HDP Database Service (Trove), Tesora provides a full featured, high quality,
+        and supported Database as a Service solution based on OpenStack Trove. The Tesora Database
+        as a Service (DBaaS) Platform is certified with 13 different SQL and NoSQL (open source and
+        commercial) databases and with Helion OpenStack. The Tesora product is purchased and
+        supported directly from <xref href="http://www.tesora.com" format="html" scope="external"
+          >Tesora</xref>. </li>
+    </ul>
+  </body>
+</topic>
