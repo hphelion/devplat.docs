@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="install_stackato">
-  <title>Installing Stackato 3.6.2 on Helion OpenStack (HOS) 2.0 and 3.0</title>
+  <title>Upgrading HPE Helion OpenStack to Version 3.0</title>
   <body>
     <p>Helion Development Platform (HDP) 2.0 or earlier versions are not supported 
       on Helion OpenStack 3.0. If you have existing HDP 2.0 deployment on HOS 2.X platform, 
@@ -10,15 +10,17 @@
       <li>Helion Stackato 3.6.2 is the recommended and supported PaaS product on HOS 3.0. </li>
       <li>Helion Database Service and Messaging Service are not included and not supported on HOS 3.0. </li>
     </ul>
-    <p>To get to the supported configuration of Stackato 3.6.2 on HOS 3.0, you have two options. </p>
+    <p>If you have an existing installation of HDP 2.0 and HOS 2.1, to get to the supported configuration of Stackato 3.6.2 on HOS 3.0, you have two options. </p>
     <ul>
-      <li><xref href="#install_stackato/upgrade" format="dita">Upgrade</xref>: Install Stackato on
-        HOS 2.1, migrate applications, and upgrade to HOS 3.0 in place</li>
-      <li><xref href="#install_stackato/freshinstall" format="dita">Fresh install</xref>: Install a
-        new HOS 3.0 environment, install Stackato 3.6.2 while keeping your HDP 2.0 environment, and
-        migrate applications from the old HOS 2.1 environment to the new HOS 3.0 environment.</li>
+      <li><xref href="#install_stackato/upgrade" format="dita">Upgrade</xref>: Installing Stackato on
+        HOS 2.1, migrating applications, and upgrading to HOS 3.0 in place</li>
+      <li><xref href="#install_stackato/sidebyside" format="dita">Side-by-side install of HOS 2.1 and 3.0</xref>: Installing a
+        new HOS 3.0 environment, installing Stackato 3.6.2 while keeping your HDP 2.0 environment, and
+        migrating applications from the old HOS 2.1 environment to the new HOS 3.0 environment.</li>
     </ul>
-   <section id="upgrade"><title>Upgrade</title>
+    <p>For fresh HOS 3.0 installations, you can install Stackato 3.6.2 after you deploye your HOS 3.0 environment,</p>
+   
+    <section id="upgrade"><title>Upgrade</title>
    <p>This section describes how to install Stackato 3.6.2 on HOS 2.1, migrate applications, and upgrade HOS to 3.0 in place.</p>
    <ol>
      <li><xref href="https://docs.stackato.com/admin/server/openstack.html" format="html"
@@ -72,7 +74,7 @@
          <codeph>kato start &lt;role&gt;</codeph> or <codeph>kato start –node &lt;node-IP&gt;</codeph> </li></ol></li>
      <li>Ensure the new Stackato cluster is functioning correctly and apps are responding.  </li>
    </ol></section>
-  <section id="freshinstall"><title>Fresh Install of HOS 3.0</title>
+  <section id="sidebyside"><title>Side-by-side install of HOS 2.1 and 3.0</title>
     <p>This section describes how to install a new HOS 3.0 environment, install Stackato 3.6.2 while keeping your HDP 2.0 environment, and migrate applications from the old HOS 2.1 environment
       to the new HOS 3.0 environment.</p></section>
     <ol>
