@@ -23,7 +23,7 @@ export OS_INTERFACE=internal</codeblock></li>
      <codeblock>PRODUCT="msgaas|cue"</codeblock></li>
     <li>Capture MSGaaS port IDs (required by floating IP deletion below)
      <codeblock>PORT_IDS="$(neutron port-list | grep -iE '('"$PRODUCT"')' | cut -d'|' -f2 | tr -d ' ')"
-stack@messaging-deployer:~$ PORT_IDS_GREP_STRING=${PORT_IDS//$'\n'/|}</codeblock></li>
+PORT_IDS_GREP_STRING=${PORT_IDS//$'\n'/|}</codeblock></li>
     <li>Delete MSGaaS Ports
      <codeblock>neutron port-list -F name | grep -iE '('"$PRODUCT"')' | cut -d'|' -f2 | tr -d ' ' | xargs -n1 -I{} neutron port-delete {}</codeblock></li>
     <li>Delete MSGaaS floating IPs
