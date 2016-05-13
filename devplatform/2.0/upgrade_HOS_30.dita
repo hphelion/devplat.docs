@@ -18,10 +18,11 @@
         new HOS 3.0 environment, installing Stackato 3.6.2 while keeping your HDP 2.0 environment, and
         migrating applications from the old HOS 2.1 environment to the new HOS 3.0 environment.</li>
     </ul>
-    <p>For fresh HOS 3.0 installations, you can install Stackato 3.6.2 after you deploye your HOS 3.0 environment,</p>
+    <p>For fresh HOS 3.0 installations, you can install Stackato 3.6.2 after you deployed your HOS 3.0 environment.</p>
    
     <section id="upgrade"><title>Upgrade</title>
    <p>This section describes how to install Stackato 3.6.2 on HOS 2.1, migrate applications, and upgrade HOS to 3.0 in place.</p>
+      <note>You must uninstall HDP 2.0 before upgrading to HOS 3.0.</note>
    <ol>
      <li><xref href="https://docs.stackato.com/admin/server/openstack.html" format="html"
             scope="external">Install Stackato 3.6.2 on HOS 2.1.</xref>
@@ -66,7 +67,8 @@
                 format="html" scope="external">an endpoint alias</xref> (and switch existing DNS
               records) </li></ol></li>
      <li>After migration is complete, you may stop or terminate HDP 2.0 cluster instances.</li>
-     <!--<li>Uninstall HDP 2.0.</li>-->
+     <li><xref href="uninstallation/devplatform_uninstall.dita#topic6253">Uninstall HDP 2.0</xref>
+          before upgrading to HOS 3.0.</li>
      <li><xref href="http://docs.hpcloud.com/#3.x/helion/upgrade/upgrade_overview.html"
             format="html" scope="external">Upgrade HOS 2.1 to HOS 3.0.</xref></li>
      <li>Start all Stackato nodes in HOS 3.0 if they do not boot automatically 
