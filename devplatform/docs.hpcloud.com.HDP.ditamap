@@ -72,7 +72,8 @@
       <topicref href="2.0/installation/blockstorage.dita" toc="no"/>
       <topicref href="2.0/installation/database-backup-controlplane.dita" toc="no"/>
   </topicref>
-    <topicref href="2.0/uninstallation/devplatform_uninstall.dita">
+    <topicref href="2.0/uninstallation/devplatform_uninstall.dita" navtitle="Uninstallation"
+      locktitle="yes">
       <topicref href="2.0/uninstallation/devplatform_uninstall_ALS.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_database.dita"/>
       <topicref href="2.0/uninstallation/devplatform_uninstall_messaging.dita"/>
