@@ -27,6 +27,7 @@
   <li><xref href="#id_pjb_4zw_ft" format="dita">Uninstall the Application Lifecycle Service</xref></li>
   <li><xref href="#id_aqx_4zw_ft" format="dita">Uninstall the Database Service</xref></li>
   <li><xref href="#id_szv_vzw_ft" format="dita">Uninstall the Messaging Broker Service</xref></li>
+  <li><xref href="#id_suv_ftw_ft" format="dita">Uninstall the Code Engine Service</xref></li>
 </ul>
 
 
@@ -39,5 +40,8 @@
   </topic>
   <topic id="id_szv_vzw_ft" conref="devplatform_uninstall_messaging.dita#concept_iqy_2gj_rs">
     <title>Uninstall the Messaging Broker Service</title>
+  </topic>
+  <topic id="id_suv_ftw_ft" conref="devplatform_uninstall_codeengine.dita#topic_yx2_fyi_ts">
+    <title>Uninstall the Code Engine Service</title>
   </topic>
 </topic>  

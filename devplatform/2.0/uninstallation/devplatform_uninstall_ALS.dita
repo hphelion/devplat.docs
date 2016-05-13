@@ -2,6 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_yx2_fkh_ts">
   <title>Uninstall the Application Lifecycle Service</title>
+  <shortdesc>Process for uninstalling the Application Lifecycle Service (ALS) from the HPE Helion Development Platform.</shortdesc>
   <body>
 <section id="uninstall-als">
 <ol>
