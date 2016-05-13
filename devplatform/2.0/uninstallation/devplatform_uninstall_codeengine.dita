@@ -71,8 +71,11 @@ nova keypair-delete helionce-shared</codeblock></li>
         <li>Delete Helion Code Engine objects from Swift
           <codeblock>swift list | grep -iE '('"$PRODUCT"')' | xargs -I {} -n1 swift delete {}
 swift list sherpa-cache | grep -iE '('"$PRODUCT"')' | xargs -I {} -n1 swift delete sherpa-cache {}</codeblock></li> 
+        
         <li>Delete the <codeph>helionce-shared</codeph> keypair.
-        <codeblock>source keystone.osrc</codeblock></li>
+          <codeblock>nova keypair-delete helionce-shared</codeblock></li>
+        <li>Source the keystone credentials.
+          <codeblock>source keystone.osrc</codeblock></li>
         <li>Delete the Helion Code Engine project and user
           <codeblock>openstack project delete helionce
 openstack user delete helionce</codeblock></li>
