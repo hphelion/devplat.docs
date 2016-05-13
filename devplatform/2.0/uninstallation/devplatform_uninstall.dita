@@ -20,7 +20,7 @@
 </prolog>
 <body>
 <!--DOCS1299 and HPES197-->
-<p>HPE Helion Development Platform contains the Application Lifecycle Service, Database, and Messaging Broker Services.</p>
+<p>HPE Helion Development Platform contains the Application Lifecycle Service, Database, Messaging Broker, and Code Engine Services.</p>
 <p>Each of these services can be uninstalled using the appropriate process.</p>
   
 <ul>
