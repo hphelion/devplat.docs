@@ -13,7 +13,7 @@
     <p>If you have an existing installation of HDP 2.0 and HOS 2.1, to get to the supported configuration of Stackato 3.6.2 on HOS 3.0, you have two options. </p>
     <ul>
       <li><xref href="#install_stackato/upgrade" format="dita">Upgrade</xref>: Installing Stackato on
-        HOS 2.1, migrating applications, uinstalling HDP 2.0, and upgrading to HOS 3.0 in place</li>
+        HOS 2.1, migrating applications, uninstalling HDP 2.0, and upgrading to HOS 3.0 in place</li>
       <li><xref href="#install_stackato/sidebyside" format="dita">Side-by-side install of HOS 2.1 and 3.0</xref>: Installing a
         new HOS 3.0 environment, installing Stackato 3.6.2 while keeping your HDP 2.0 environment, and
         migrating applications from the old HOS 2.1 environment to the new HOS 3.0 environment.</li>
