@@ -4,32 +4,72 @@
 <topic id="concept_iqy_2gj_rs">
  <title>Uninstall the Messaging Broker Service</title>
  <shortdesc>Process for uninstalling the Messaging Broker Service from the HPE Helion Development Platform.</shortdesc>
- <body>  <note type="restriction">These services cannot be uninstalled from the Horizon console.</note><note type="notice">The uninstall instructions listed here do not delete existing database
-  instances. Perform all backups as necessary and then delete your existing database instances
-  as applicable. </note>
-  <section id="uninstall-messaging"> 
+ <body>  
+  <section id="uninstall-messaging-resources">
+   <title>Uninstall MSGaaS Resources</title>
    <ol>
-    <li>Log in to the Helion seed node.</li>
-    <li> Set environment
-     variables.<codeblock>export TE_DATAFILE=/root/tripleo/ce_env.json
-export TRIPLEO_ROOT=/root/tripleo
-PATH=$PATH:$TRIPLEO_ROOT/tripleo-incubator/scripts/</codeblock></li>
-    <li> Source the overcloud administrator
-     credentials.<codeblock>source $TRIPLEO_ROOT/tripleo-incubator/overcloudrc</codeblock></li>
-    <li> Remove the service from
-     Keystone.<codeblock>SERVICE_SHORT_NAME="messaging"
-SERVICE_ID=$(keystone service-list | grep $SERVICE_SHORT_NAME | cut -d" " -f2)
-keystone service-delete $SERVICE_ID</codeblock></li>
-    <li> Find the Messaging images in
-     Glance.<codeblock>msgaas-rabbit-cluster_x.x.x.x
-glance image-list</codeblock></li>
-    <li> Delete the images from Glance.<codeblock>glance image-delete &lt;IMAGE_ID&gt;</codeblock></li>
-    <li> Find the Messaging CSU images in the Sherpa cache. These images will be named
-     <codeph>msgaas_.x.x.x.x.csu</codeph>
-     <codeblock>swift list sherpa-cache</codeblock></li>
-    <li> Delete the Messaging images from the
-     cache.<codeblock>swift delete sherpa-cache &lt;ITEM&gt;</codeblock></li>
+    <li>Log in to the MSGaaS deployer.</li>
+    <li>Ensure that all Cue clusters are deleted before performing uninstall.</li>
+    <li>Source the user credentials.
+     <codeblock>source ~/user.osrc</codeblock></li>
+    <li>Export User/Project domain names (this example uses 'Default')
+     <codeblock>export OS_PROJECT_DOMAIN_NAME=Default
+export OS_USER_DOMAIN_NAME=Default
+export OS_ENDPOINT_TYPE=internalURL
+export OS_INTERFACE=internal</codeblock></li>
+    <li>Source the openstack client
+     <codeblock>source /opt/stack/venv/openstackclient-&lt;date/time stamp&gt;/bin/activate</codeblock></li>
+    <li>Set product to delete
+     <codeblock>PRODUCT="msgaas|cue"</codeblock></li>
+    <li>Capture MSGaaS port IDs (required by floating IP deletion below)
+     <codeblock>PORT_IDS="$(neutron port-list | grep -iE '('"$PRODUCT"')' | cut -d'|' -f2 | tr -d ' ')"
+stack@messaging-deployer:~$ PORT_IDS_GREP_STRING=${PORT_IDS//$'\n'/|}</codeblock></li>
+    <li>Delete MSGaaS Ports
+     <codeblock>neutron port-list -F name | grep -iE '('"$PRODUCT"')' | cut -d'|' -f2 | tr -d ' ' | xargs -n1 -I{} neutron port-delete {}</codeblock></li>
+    <li>Delete MSGaaS floating IPs
+     <codeblock>neutron floatingip-list | grep -E '('"$PORT_IDS_GREP_STRING"')' | cut -d'|' -f2 | tr -d ' ' | xargs -n1 -I{} neutron floatingip-delete {}</codeblock></li>
+    <li>Delete MSGaaS Control-plane VMs
+     <codeblock>nova list | grep -iE '('"$PRODUCT"')' | cut -d'|' -f2 | tr -d ' '  | xargs -n1 -I{} nova delete {}</codeblock></li>
+    <li>Delete MSGaaS Routers and Networks
+     <codeblock>neutron router-interface-delete MSGAAS_NET_MGMT_router MSGAAS_NET_MGMT_SUBNET
+neutron net-delete MSGAAS_NET_MGMT
+neutron net-delete MSGAAS_NET_BROKER
+neutron router-delete MSGAAS_NET_MGMT_router</codeblock></li>
+    <li>Delete Security Groups
+     <codeblock>neutron security-group-list | grep -iE '('"$PRODUCT"')' | cut -d '|' -f2 | tr -d ' ' | xargs -n1 -I{} neutron security-group-delete {}</codeblock></li>
+    <li>Delete MSGaaS keypair
+     <codeblock>nova keypair-delete msgaas-key</codeblock></li>    
+    <li>Log in to the Helion OpenStack deployer</li>
+    <li>Source the keystone credentials.
+     <codeblock>source ~/keystone.osrc</codeblock></li>
+    <li>Delete Cue user and Cue service from Keystone
+     <codeblock>openstack user delete cue; openstack service delete cue</codeblock></li>
+    
+    
+    
+    
+
    </ol>
   </section>
+  <section id="unisntall_messaging_artifacts"><title>Uninstall MSGaaS Artifacts</title>
+   <ol>
+    <li>Source the keystone admin credentials.
+     <codeblock>source ~/keystone.osrc</codeblock></li>
+    <li>Delete MSGaaS user and MSGaaS project from Keystone
+     <codeblock>openstack user delete msgaas; openstack project delete msgaas</codeblock></li>
+    <li>Source the service credentials.
+     <codeblock>source ~/service.osrc</codeblock></li>
+    <li>Delete messaging deployer VM
+     <codeblock>nova delete messaging_deployer</codeblock></li>
+    <li>Set product to delete
+     <codeblock>PRODUCT="msgaas|cue"</codeblock></li>
+    <li>Delete MSGaaS images from Glance
+     <codeblock>glance image-list | grep -iE '('"$PRODUCT"')' | cut -d '|' -f2 | tr -d ' ' | xargs -I {} -n1 glance image-delete {}</codeblock></li>
+    <li>Delete MSGaaS objects from Swift
+     <codeblock>swift list | grep -iE '('"$PRODUCT"')' | xargs -I {} -n1 swift delete {}
+swift list sherpa-cache | grep -iE '('"$PRODUCT"')' | xargs -I {} -n1 swift delete sherpa-cache {}</codeblock></li>
+   </ol>
+  </section>
+ 
  </body>
 </topic>
