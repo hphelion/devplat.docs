@@ -43,8 +43,9 @@ neutron net-delete HELIONCE_NET_BROKER
 neutron router-delete HelionCE_NET_MGMT_router</codeblock>--></li>
         <li>Delete Security Groups
           <codeblock>neutron security-group-list | grep -iE '('"$PRODUCT"')' | cut -d '|' -f2 | tr -d ' ' | xargs -n1 -I{} neutron security-group-delete {}</codeblock></li>
-        <li>Delete HelionCE keypair
-          <codeblock>nova keypair-delete helionce-key</codeblock></li>    
+        <li>Delete HelionCE keypairs
+          <codeblock>nova keypair-delete helionce-key
+nova keypair-delete helionce-shared</codeblock></li>    
         <li>Log in to the Helion OpenStack deployer</li>
         <li>Source the keystone credentials.
           <codeblock>source ~/keystone.osrc</codeblock></li>
@@ -64,12 +65,17 @@ neutron router-delete HelionCE_NET_MGMT_router</codeblock>--></li>
         <li>Delete Helion Code Engine deployer VM
           <codeblock>nova delete helionce_deployer</codeblock></li>
         <li>Set product to delete
-          <codeblock>PRODUCT="helionce"</codeblock></li>
+          <codeblock>PRODUCT="helionci"</codeblock></li>
         <li>Delete Helion Code Engine images from Glance
           <codeblock>glance image-list | grep -iE '('"$PRODUCT"')' | cut -d '|' -f2 | tr -d ' ' | xargs -I {} -n1 glance image-delete {}</codeblock></li>
         <li>Delete Helion Code Engine objects from Swift
           <codeblock>swift list | grep -iE '('"$PRODUCT"')' | xargs -I {} -n1 swift delete {}
 swift list sherpa-cache | grep -iE '('"$PRODUCT"')' | xargs -I {} -n1 swift delete sherpa-cache {}</codeblock></li> 
+        <li>Delete the <codeph>helionce-shared</codeph> keypair.
+        <codeblock>source keystone.osrc</codeblock></li>
+        <li>Delete the Helion Code Engine project and user
+          <codeblock>openstack project delete helionce
+openstack user delete helionce</codeblock></li>
       </ol>
     </section>
   </body>
