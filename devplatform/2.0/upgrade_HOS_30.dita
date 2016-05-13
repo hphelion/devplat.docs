@@ -35,10 +35,7 @@
        <li><xref href="http://docs.stackato.com/admin/cluster/index.html" format="html"
                 scope="external">Set up a new Stackato cluster</xref> with a new basename / API
               endpoint </li>
-       <li>Update Stackato to the latest patch release: 
-         <codeblock>kato config set patch base_url http://static.als.hpcloud.com/kato-patch
-kato config set patch disable_ssl true           
-kato patch install</codeblock> </li>
+       
        <li>On the HDP core node, run the following:
               <codeblock>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config 
 --stackato-rest-db &lt;filename&gt;.tar.gz</codeblock>
