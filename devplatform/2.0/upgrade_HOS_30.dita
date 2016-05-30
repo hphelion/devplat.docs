@@ -39,8 +39,7 @@
               endpoint </li>
        
        <li>On the HDP core node, run the following:
-              <codeblock>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config 
---stackato-rest-db &lt;filename&gt;.tar.gz</codeblock>
+         <codeblock>kato data export --cluster --only-users-orgs &lt;filename&gt;.tar.gz</codeblock>
               to <xref
                 href="https://docs.stackato.com/admin/best-practices/index.html#backing-up-and-migrating-data"
                 format="html" scope="external">backup the user and system configuration</xref>
@@ -85,7 +84,7 @@
       <li><xref href="http://docs.hpcloud.com/#3.x/helion/installation/installation_overview.html"
           format="html" scope="external">Install HOS 3.0</xref></li>
       <li>Make a backup of Users, Orgs, Spaces, Quotas and system settings from the HDP 2.0 cluster
-        <ol><li>On the HDP core node, run <codeph>kato data export --manual --cluster --db-encryption-key --main-db --aok-db --aok-config --stackato-rest-db &lt;filename&gt;.tar.gz</codeph> </li>
+        <ol><li>On the HDP core node, run <codeph>kato data export --cluster --only-users-orgs &lt;filename&gt;.tar.gz</codeph> </li>
           <li>Save the generated file, this will be used later to import the settings into your new cluster</li></ol></li>
       <li><xref href="https://docs.stackato.com/admin/server/openstack.html" format="html"
           scope="external">Install Stackato 3.6.2</xref> on HOS 3.0. 
