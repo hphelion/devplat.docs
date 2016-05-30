@@ -59,7 +59,7 @@
  <p>The explorer window shows endpoints that you have successfully connected to.</p>
  <p>The Cloud Foundry Explorer Window displays the following types of nodes: </p>
  <table>
-    <tgroup cols="1">
+    <tgroup cols="3">
      <tbody>
       <row>
        <entry>
