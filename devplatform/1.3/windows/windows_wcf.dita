@@ -25,8 +25,8 @@
       </ul>
     </section>
     <section id="service"><title>Creating the web service application</title> 
-    <p>In this section, you'll create a Web application and add a WCF service.</p>
-      <note>The Cloud Foundry MSBuild tasks only support deploying a Web Application or a Web Site; other application types, such as WCF, are not supported.</note>
+    <p>In this section, you'll create a Web application and add a WCF service.
+      <note>The Cloud Foundry MSBuild tasks only support deploying a Web Application or a Web Site; other application types, such as WCF, are not supported.</note></p>
       <ol>
         <li>Open Visual Studio 2013. Select <b>File</b>, <b>New...</b></li>
         <li>In the <b>Templates</b> pane, select the <b>Visual C#</b> node, and select <b>Web</b>. Select <b>ASP.NET Web Application</b>, name the project <b>HelionWCF</b>, and click <b>OK</b>.

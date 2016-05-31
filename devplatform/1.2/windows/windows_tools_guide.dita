@@ -60,7 +60,7 @@
  <p><image placement="break" href="../../../media/windows_cf_explorer.PNG" id="image_fnz_g3w_js" align="left"/></p>
  <p>The Cloud Foundry Explorer Window displays the following types of nodes: </p>
  <table>
-    <tgroup cols="1">
+    <tgroup cols="3">
      <tbody>
       <row>
        <entry>
